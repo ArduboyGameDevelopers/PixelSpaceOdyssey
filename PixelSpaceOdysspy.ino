@@ -9,6 +9,7 @@ Arduboy display;
 extern void DrawFrame(FrameData data, uint8_t x, uint8_t y);
 
 int frame = 0;
+int animation = 0;
 
 void setup() {
   SPI.begin();
@@ -19,10 +20,10 @@ void setup() {
 void loop() {
   if (!display.nextFrame()) return;
 
-  frame = (frame + 1) % animation_walk.frameCount;
+  frame = (frame + 1) % animations[animation].frameCount;
   
   display.clearDisplay();
-  DrawFrame(animation_walk.frames[frame], 0, 0);
+  DrawFrame(animations[animation].frames[frame], 0, 0);
 }
 
 void DrawFrame(FrameData data, uint8_t x, uint8_t y)
