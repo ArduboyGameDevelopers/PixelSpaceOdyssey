@@ -37,6 +37,8 @@
 
 #define ANIMATION_STAT_3 16
 
+#define ANIMATIONS_COUNT 17
+
 extern const Animation animations[];
 
 #endif // IMAGES_H

@@ -20,10 +20,20 @@ void setup() {
 void loop() {
   if (!display.nextFrame()) return;
 
-  frame = (frame + 1) % animations[animation].frameCount;
-  
   display.clearDisplay();
-  DrawFrame(animations[animation].frames[frame], 0, 0);
+  display.fillRect(0, 0, 128, 48, WHITE);
+  
+  int x = (128-16) / 2;
+  int y = (64-12) / 2;
+
+  DrawFrame(animations[animation].frames[frame], x, y);
+
+  ++frame;
+  if (frame >= animations[animation].frameCount)
+  {
+    frame = 0;
+    animation = (animation + 1) % ANIMATIONS_COUNT;
+  }
 }
 
 void DrawFrame(FrameData data, uint8_t x, uint8_t y)
@@ -34,6 +44,6 @@ void DrawFrame(FrameData data, uint8_t x, uint8_t y)
   uint8_t height  = pgm_read_byte(data + 3);
 
   FrameData ptr = data + 4;
-  display.drawBitmap(x + offsetX, y + offsetY, ptr, width, height, WHITE);
+  display.drawBitmap(x + offsetX, y + offsetY, ptr, width, height, BLACK);
   display.display();
 }
