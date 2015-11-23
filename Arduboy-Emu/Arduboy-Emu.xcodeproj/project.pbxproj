@@ -61,6 +61,7 @@
 		8481A1F11C02BE8700CEDB85 /* images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = images.h; path = ../PixelSpaceOdysspy/images.h; sourceTree = "<group>"; };
 		8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PixelSpaceOdysspy.ino; path = ../PixelSpaceOdysspy/PixelSpaceOdysspy.ino; sourceTree = "<group>"; };
 		8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arduino.cpp; sourceTree = "<group>"; };
+		8481A4A81C02EF1500CEDB85 /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		84D4E4F41C02793F00919D0F /* Arduboy-Emu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arduboy-Emu.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D4E4F71C02793F00919D0F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84D4E4F81C02793F00919D0F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -114,6 +115,7 @@
 				8481A1D71C02BB5D00CEDB85 /* core.cpp */,
 				8481A1D81C02BB5D00CEDB85 /* core.h */,
 				8481A1D91C02BB5D00CEDB85 /* glcdfont.c */,
+				8481A4A81C02EF1500CEDB85 /* platform.h */,
 			);
 			path = Platform;
 			sourceTree = "<group>";

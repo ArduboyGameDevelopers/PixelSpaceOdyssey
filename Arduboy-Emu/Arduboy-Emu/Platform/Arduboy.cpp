@@ -1,5 +1,6 @@
 #include "Arduboy.h"
 #include "glcdfont.c"
+#include "platform.h"
 #include <assert.h>
 
 Arduboy::Arduboy() {

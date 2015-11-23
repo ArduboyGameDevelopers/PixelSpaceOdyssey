@@ -6,12 +6,10 @@
 //  Copyright © 2015 Space Madness. All rights reserved.
 //
 
-#include <time.h>
-
+#include "platform.h"
 #include "Arduino.h"
 
 unsigned long millis(void)
 {
-    time_t time = clock();
-    return time * CLOCKS_PER_SEC / 1000;
+    return platformMillis();
 }

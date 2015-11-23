@@ -6,10 +6,13 @@
 //  Copyright © 2015 Space Madness. All rights reserved.
 //
 
+#import "Platform/platform.h"
 #import "ViewController.h"
 #import "DisplayView.h"
 
 #import "game.h"
+
+static ViewController * _instance;
 
 @interface ViewController ()
 
@@ -22,6 +25,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _instance = self;
 
     NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(runGame) object:nil];
     [thread start];
@@ -40,13 +45,6 @@
         // loop
         loopGame();
         
-        // render screen
-        int bufferLength;
-        unsigned char* buffer = getDisplayBuffer(&bufferLength);
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [self renderBuffer:buffer length:bufferLength];
-        });
-        
         NSTimeInterval frameTime = CFAbsoluteTimeGetCurrent() - time;
         NSTimeInterval sleepTime = frameDelay - frameTime;
         if (sleepTime > 0)
@@ -56,24 +54,37 @@
     }
 }
 
-- (void)renderBuffer:(const unsigned char *)buffer length:(int)length
+- (void)renderScreenBuffer:(const unsigned char *)screenBuffer width:(int)width height:(int)height
 {
-    int WIDTH = getDisplayWidth();
-    int HEIGHT = getDisplayHeight();
-    
-    for (int y = 0; y < HEIGHT; y++)
+    for (int y = 0; y < height; y++)
     {
-        for (int x = 0; x < WIDTH; x++)
+        for (int x = 0; x < width; x++)
         {
             uint8_t row = (uint8_t)y / 8;
-            int index = row * WIDTH + (uint8_t)x;
-            int bit = buffer[index] & (1 << ((uint8_t)y % 8));
+            int index = row * width + (uint8_t)x;
+            int bit = screenBuffer[index] & (1 << ((uint8_t)y % 8));
             PixelColor color = bit ? WHITE : BLACK;
             [_displayView setPixelColor:color X:x Y:y];
         }
     }
     
     [_displayView setNeedsDisplay:YES];
+}
+
+#pragma mark -
+#pragma mark Platform
+
+void platformRenderScreen(unsigned const char* screenBuffer, int width, int height)
+{
+    // render is sync to avoid nasty surprises
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        [_instance renderScreenBuffer:screenBuffer width:width height:height];
+    });
+}
+
+unsigned long platformMillis(void)
+{
+    return (unsigned long) (CFAbsoluteTimeGetCurrent() * 1000);
 }
 
 @end

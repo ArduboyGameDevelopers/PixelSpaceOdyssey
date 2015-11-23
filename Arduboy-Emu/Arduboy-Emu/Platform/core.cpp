@@ -1,4 +1,5 @@
 #include "core.h"
+#include "platform.h"
 
 ArduboyCore::ArduboyCore() {}
 
@@ -61,6 +62,7 @@ void ArduboyCore::paintScreen(const unsigned char *image)
 // will be used by any buffer based subclass
 void ArduboyCore::paintScreen(unsigned char image[])
 {
+    platformRenderScreen(image, WIDTH, HEIGHT);
 }
 
 void ArduboyCore::blank()
