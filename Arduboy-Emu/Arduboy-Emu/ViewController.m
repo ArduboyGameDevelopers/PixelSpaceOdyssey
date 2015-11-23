@@ -135,6 +135,11 @@ unsigned long platformMillis(void)
     return (unsigned long) (CFAbsoluteTimeGetCurrent() * 1000);
 }
 
+void platformDelay(unsigned long millis)
+{
+    [NSThread sleepForTimeInterval:0.001 * millis];
+}
+
 uint8_t platformInput()
 {
     return [_instance inputMask];

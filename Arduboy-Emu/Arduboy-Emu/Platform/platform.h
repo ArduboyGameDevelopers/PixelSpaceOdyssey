@@ -17,6 +17,7 @@ extern "C" {
 
 extern void platformRenderScreen(unsigned const char* screenBuffer, int width, int height);
 extern unsigned long platformMillis(void);
+extern void platformDelay(unsigned long millis);
 extern uint8_t platformInput();
     
 #ifdef __cplusplus

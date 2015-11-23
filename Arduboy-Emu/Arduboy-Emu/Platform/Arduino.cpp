@@ -13,3 +13,8 @@ unsigned long millis(void)
 {
     return platformMillis();
 }
+
+void delay(unsigned long millis)
+{
+    platformDelay(millis);
+}

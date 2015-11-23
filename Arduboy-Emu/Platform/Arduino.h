@@ -8,5 +8,6 @@
 #define max(a,b) ((a)>(b)?(a):(b))
 
 unsigned long millis(void);
+void delay(unsigned long);
 
 #endif // ARDUINO_H__
