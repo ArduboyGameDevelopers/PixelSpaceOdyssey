@@ -9,6 +9,14 @@
 #ifndef pgmspace_h
 #define pgmspace_h
 
+#include <assert.h>
+
 #define PROGMEM
+
+inline unsigned char pgm_read_byte(const unsigned char *ptr)
+{
+    assert(ptr);
+    return *ptr;
+}
 
 #endif /* pgmspace_h */

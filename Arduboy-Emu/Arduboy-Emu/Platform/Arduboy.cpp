@@ -1,6 +1,6 @@
 #include "Arduboy.h"
 #include "glcdfont.c"
-
+#include <assert.h>
 
 Arduboy::Arduboy() {
   frameRate = 60;
@@ -18,12 +18,6 @@ Arduboy::Arduboy() {
 
 void Arduboy::start()
 {
-  boot(); // required
-
-  // Audio
-  tunes.initChannel(PIN_SPEAKER_1);
-  tunes.initChannel(PIN_SPEAKER_2);
-  audio.setup();
 }
 
 /* Frame management */
@@ -89,56 +83,23 @@ int Arduboy::cpuLoad()
 // events
 void Arduboy::initRandomSeed()
 {
-  power_adc_enable(); // ADC on
-  randomSeed(~rawADC(ADC_TEMP) * ~rawADC(ADC_VOLTAGE) * ~micros() + micros());
-  power_adc_disable(); // ADC off
+//  power_adc_enable(); // ADC on
+//  randomSeed(~rawADC(ADC_TEMP) * ~rawADC(ADC_VOLTAGE) * ~micros() + micros());
+//  power_adc_disable(); // ADC off
 }
 
 uint16_t Arduboy::rawADC(byte adc_bits)
 {
-  ADMUX = adc_bits;
-  // we also need MUX5 for temperature check
-  if (adc_bits == ADC_TEMP) {
-    ADCSRB = _BV(MUX5);
-  }
-
-  delay(2); // Wait for ADMUX setting to settle
-  ADCSRA |= _BV(ADSC); // Start conversion
-  while (bit_is_set(ADCSRA,ADSC)); // measuring
-
-  return ADC;
+    assert(false);
+    return 0;
 }
-
 
 /* Graphics */
 
 void Arduboy::clearDisplay()
 {
   // C version:
-  // for (int a = 0; a < (HEIGHT*WIDTH)/8; a++) sBuffer[a] = 0x00;
-
-  // This implimentation should be close to an order of magnitude faster
-  asm volatile(
-    // load sBuffer pointer into Z
-    "movw  r30, %0\n\t"
-    // counter = 0
-    "eor __tmp_reg__, __tmp_reg__ \n\t"
-    "loop:   \n\t"
-    // (4x) push zero into screen buffer,
-    // then increment buffer position
-    "st Z+, __zero_reg__ \n\t"
-    "st Z+, __zero_reg__ \n\t"
-    "st Z+, __zero_reg__ \n\t"
-    "st Z+, __zero_reg__ \n\t"
-    // increase counter
-    "inc __tmp_reg__ \n\t"
-    // repeat for 256 loops
-    // (until counter rolls over back to 0)
-    "brne loop \n\t"
-    // input: sBuffer
-    // modified: Z (r30, r31)
-    : : "r" (sBuffer) : "r30","r31"
-  );
+  for (int a = 0; a < (HEIGHT*WIDTH)/8; a++) sBuffer[a] = 0x00;
 }
 
 void Arduboy::drawPixel(int x, int y, uint8_t color)
@@ -683,6 +644,8 @@ size_t Arduboy::write(uint8_t c)
       cursor_x = 0;
     }
   }
+  
+  return 0;
 }
 
 void Arduboy::display()

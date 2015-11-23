@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8481A1AE1C027AE400CEDB85 /* DisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1AD1C027AE400CEDB85 /* DisplayView.m */; };
-		8481A1B81C02AC9800CEDB85 /* PixelSpaceOdysspy in Resources */ = {isa = PBXBuildFile; fileRef = 8481A1B71C02AC9800CEDB85 /* PixelSpaceOdysspy */; };
 		8481A1DA1C02BB5D00CEDB85 /* Arduboy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D11C02BB5D00CEDB85 /* Arduboy.cpp */; };
 		8481A1DB1C02BB5D00CEDB85 /* audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D31C02BB5D00CEDB85 /* audio.cpp */; };
 		8481A1DC1C02BB5D00CEDB85 /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D71C02BB5D00CEDB85 /* core.cpp */; };
@@ -17,6 +16,7 @@
 		8481A1ED1C02BE7700CEDB85 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1EB1C02BE7700CEDB85 /* game.cpp */; };
 		8481A1EE1C02BE7700CEDB85 /* images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1EC1C02BE7700CEDB85 /* images.cpp */; };
 		8481A1F31C02BE8700CEDB85 /* PixelSpaceOdysspy.ino in Resources */ = {isa = PBXBuildFile; fileRef = 8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */; };
+		8481A4A71C02D6AB00CEDB85 /* Arduino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */; };
 		84D4E4F91C02793F00919D0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4F81C02793F00919D0F /* AppDelegate.m */; };
 		84D4E4FC1C02793F00919D0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FB1C02793F00919D0F /* main.m */; };
 		84D4E4FF1C02793F00919D0F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FE1C02793F00919D0F /* ViewController.m */; };
@@ -46,8 +46,7 @@
 /* Begin PBXFileReference section */
 		8481A1AC1C027AE400CEDB85 /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		8481A1AD1C027AE400CEDB85 /* DisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayView.m; sourceTree = "<group>"; };
-		8481A1B71C02AC9800CEDB85 /* PixelSpaceOdysspy */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PixelSpaceOdysspy; path = ../../../games/PixelSpaceOdysspy; sourceTree = "<group>"; };
-		8481A1D11C02BB5D00CEDB85 /* Arduboy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arduboy.cpp; sourceTree = "<group>"; };
+		8481A1D11C02BB5D00CEDB85 /* Arduboy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = Arduboy.cpp; sourceTree = "<group>"; tabWidth = 2; };
 		8481A1D21C02BB5D00CEDB85 /* Arduboy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduboy.h; sourceTree = "<group>"; };
 		8481A1D31C02BB5D00CEDB85 /* audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audio.cpp; sourceTree = "<group>"; };
 		8481A1D41C02BB5D00CEDB85 /* audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio.h; sourceTree = "<group>"; };
@@ -61,6 +60,7 @@
 		8481A1F01C02BE8700CEDB85 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../PixelSpaceOdysspy/game.h; sourceTree = "<group>"; };
 		8481A1F11C02BE8700CEDB85 /* images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = images.h; path = ../PixelSpaceOdysspy/images.h; sourceTree = "<group>"; };
 		8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PixelSpaceOdysspy.ino; path = ../PixelSpaceOdysspy/PixelSpaceOdysspy.ino; sourceTree = "<group>"; };
+		8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arduino.cpp; sourceTree = "<group>"; };
 		84D4E4F41C02793F00919D0F /* Arduboy-Emu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arduboy-Emu.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D4E4F71C02793F00919D0F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84D4E4F81C02793F00919D0F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -108,6 +108,7 @@
 			children = (
 				8481A1D11C02BB5D00CEDB85 /* Arduboy.cpp */,
 				8481A1D21C02BB5D00CEDB85 /* Arduboy.h */,
+				8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */,
 				8481A1D31C02BB5D00CEDB85 /* audio.cpp */,
 				8481A1D41C02BB5D00CEDB85 /* audio.h */,
 				8481A1D71C02BB5D00CEDB85 /* core.cpp */,
@@ -156,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				8481A1D01C02BB5D00CEDB85 /* Platform */,
-				8481A1B71C02AC9800CEDB85 /* PixelSpaceOdysspy */,
 				84D4E4F71C02793F00919D0F /* AppDelegate.h */,
 				84D4E4F81C02793F00919D0F /* AppDelegate.m */,
 				84D4E5001C02793F00919D0F /* Assets.xcassets */,
@@ -303,7 +303,6 @@
 				84D4E5011C02793F00919D0F /* Assets.xcassets in Resources */,
 				8481A1DF1C02BCBC00CEDB85 /* Platform in Resources */,
 				8481A1F31C02BE8700CEDB85 /* PixelSpaceOdysspy.ino in Resources */,
-				8481A1B81C02AC9800CEDB85 /* PixelSpaceOdysspy in Resources */,
 				84D4E5041C02793F00919D0F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,6 +332,7 @@
 				8481A1EE1C02BE7700CEDB85 /* images.cpp in Sources */,
 				8481A1DC1C02BB5D00CEDB85 /* core.cpp in Sources */,
 				84D4E4FF1C02793F00919D0F /* ViewController.m in Sources */,
+				8481A4A71C02D6AB00CEDB85 /* Arduino.cpp in Sources */,
 				8481A1AE1C027AE400CEDB85 /* DisplayView.m in Sources */,
 				8481A1DB1C02BB5D00CEDB85 /* audio.cpp in Sources */,
 				84D4E4FC1C02793F00919D0F /* main.m in Sources */,
