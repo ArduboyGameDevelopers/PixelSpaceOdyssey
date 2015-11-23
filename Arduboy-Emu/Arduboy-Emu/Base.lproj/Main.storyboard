@@ -683,6 +683,9 @@
                             <constraint firstAttribute="trailing" secondItem="4aH-Cg-Nuv" secondAttribute="trailing" constant="4" id="Ugw-MZ-35L"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="displayView" destination="4aH-Cg-Nuv" id="aHp-ND-naV"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

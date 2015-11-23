@@ -48,3 +48,23 @@ void DrawFrame(FrameData data, uint8_t x, uint8_t y)
     display.drawBitmap(x + offsetX, y + offsetY, ptr, width, height, BLACK);
     display.display();
 }
+
+#ifdef EMULATOR
+
+unsigned char* getDisplayBuffer(int* buffer_size)
+{
+    *buffer_size = WIDTH * HEIGHT / 8;
+    return display.getBuffer();
+}
+
+int getDisplayWidth()
+{
+    return WIDTH;
+}
+
+int getDisplayHeight()
+{
+    return HEIGHT;
+}
+
+#endif
