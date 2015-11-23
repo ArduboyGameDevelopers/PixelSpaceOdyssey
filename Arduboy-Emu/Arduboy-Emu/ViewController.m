@@ -61,23 +61,15 @@
     int WIDTH = getDisplayWidth();
     int HEIGHT = getDisplayHeight();
     
-    // counting the rows of image[] by 8 steps each iteration
-    for (int j = 0; j < HEIGHT; j+=8)
+    for (int y = 0; y < HEIGHT; y++)
     {
-        // walk the columns
-        for (int i = 0; i < WIDTH; i++)
+        for (int x = 0; x < WIDTH; x++)
         {
-            // find the relevant cell in image[]
-            unsigned char c = buffer[(j/8)*WIDTH+i];
-            // step through those 8-bits
-            for (int k = 0; k < 8; k++)
-            {
-                // if the bit is set to 1, draw a pixel
-                if ((c>>k)%2 > 0)
-                {
-                    [_displayView setPixelColor:WHITE X:i Y:j];
-                }
-            }
+            uint8_t row = (uint8_t)y / 8;
+            int index = row * WIDTH + (uint8_t)x;
+            int bit = buffer[index] & (1 << ((uint8_t)y % 8));
+            PixelColor color = bit ? WHITE : BLACK;
+            [_displayView setPixelColor:color X:x Y:y];
         }
     }
     
