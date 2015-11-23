@@ -53,6 +53,9 @@ static inline int getPixelIndex(int x, int y)
     return self;
 }
 
+#pragma mark -
+#pragma mark Drawing
+
 - (void)drawRect:(NSRect)dirtyRect
 {
     CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
@@ -79,6 +82,35 @@ static inline int getPixelIndex(int x, int y)
             CGContextFillRect(context, rect);
         }
     }
+}
+
+#pragma mark -
+#pragma mark Event handling
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+    if ([_keyResponder respondsToSelector:@selector(displayView:keyDown:)])
+    {
+        [_keyResponder displayView:self keyDown:theEvent];
+    }
+}
+
+- (void)keyUp:(NSEvent *)theEvent
+{
+    if ([_keyResponder respondsToSelector:@selector(displayView:keyUp:)])
+    {
+        [_keyResponder displayView:self keyUp:theEvent];
+    }
+}
+
+- (BOOL)canBecomeKeyView
+{
+    return YES;
+}
+
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
 }
 
 #pragma mark -

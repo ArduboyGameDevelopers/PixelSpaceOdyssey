@@ -9,12 +9,15 @@
 #ifndef platform_h__
 #define platform_h__
 
+#include <types.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 extern void platformRenderScreen(unsigned const char* screenBuffer, int width, int height);
 extern unsigned long platformMillis(void);
+extern uint8_t platformInput();
     
 #ifdef __cplusplus
 }

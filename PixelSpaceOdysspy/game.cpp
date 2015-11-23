@@ -27,6 +27,11 @@ void loopGame()
     int x = (128-16) / 2;
     int y = (64-12) / 2;
     
+    if (display.pressed(LEFT_BUTTON)) x -= 32;
+    else if (display.pressed(RIGHT_BUTTON)) x += 32;
+    else if (display.pressed(UP_BUTTON)) y -= 16;
+    else if (display.pressed(DOWN_BUTTON)) y += 8;
+    
     DrawFrame(animations[animation].frames[frame], x, y);
     
     ++frame;

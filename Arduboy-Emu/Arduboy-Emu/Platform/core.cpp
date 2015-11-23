@@ -73,5 +73,5 @@ void ArduboyCore::blank()
 
 uint8_t ArduboyCore::getInput()
 {
-  return 0;
+  return platformInput();
 }

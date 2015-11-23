@@ -9,14 +9,23 @@
 #import "Platform/platform.h"
 #import "ViewController.h"
 #import "DisplayView.h"
+#import "NSEvent+Keyboard.h"
 
 #import "game.h"
 
+static const uint8_t LEFT_BUTTON  = 1 << 5;
+static const uint8_t RIGHT_BUTTON = 1 << 2;
+static const uint8_t UP_BUTTON    = 1 << 4;
+static const uint8_t DOWN_BUTTON  = 1 << 6;
+static const uint8_t A_BUTTON     = 1 << 1;
+static const uint8_t B_BUTTON     = 1 << 0;
+
 static ViewController * _instance;
 
-@interface ViewController ()
+@interface ViewController () <DisplayViewKeyResponder>
 
 @property (nonatomic, assign) IBOutlet DisplayView *displayView;
+@property (atomic, assign) uint8_t inputMask;
 
 @end
 
@@ -27,6 +36,9 @@ static ViewController * _instance;
     [super viewDidLoad];
     
     _instance = self;
+    
+    [self.view.window makeFirstResponder:_displayView];
+    _displayView.keyResponder = self;
 
     NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(runGame) object:nil];
     [thread start];
@@ -72,6 +84,42 @@ static ViewController * _instance;
 }
 
 #pragma mark -
+#pragma mark DisplayViewKeyResponder
+
+- (void)displayView:(DisplayView *)displayView keyDown:(NSEvent *)event
+{
+    uint8_t mask = [self buttonMaskForKey:event.keyChar];
+    if (mask != 0)
+    {
+        self.inputMask |= mask;
+    }
+}
+
+- (void)displayView:(DisplayView *)displayView keyUp:(NSEvent *)event
+{
+    uint8_t mask = [self buttonMaskForKey:event.keyChar];
+    if (mask != 0)
+    {
+        self.inputMask &= ~mask;
+    }
+}
+
+- (uint8_t)buttonMaskForKey:(unichar)key
+{
+    switch (key)
+    {
+        case 'w': return UP_BUTTON;
+        case 's': return DOWN_BUTTON;
+        case 'a': return LEFT_BUTTON;
+        case 'd': return RIGHT_BUTTON;
+        case 'n': return B_BUTTON;
+        case 'm': return A_BUTTON;
+    }
+    
+    return 0;
+}
+
+#pragma mark -
 #pragma mark Platform
 
 void platformRenderScreen(unsigned const char* screenBuffer, int width, int height)
@@ -85,6 +133,11 @@ void platformRenderScreen(unsigned const char* screenBuffer, int width, int heig
 unsigned long platformMillis(void)
 {
     return (unsigned long) (CFAbsoluteTimeGetCurrent() * 1000);
+}
+
+uint8_t platformInput()
+{
+    return [_instance inputMask];
 }
 
 @end

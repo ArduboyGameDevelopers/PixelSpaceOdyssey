@@ -17,6 +17,7 @@
 		8481A1EE1C02BE7700CEDB85 /* images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1EC1C02BE7700CEDB85 /* images.cpp */; };
 		8481A1F31C02BE8700CEDB85 /* PixelSpaceOdysspy.ino in Resources */ = {isa = PBXBuildFile; fileRef = 8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */; };
 		8481A4A71C02D6AB00CEDB85 /* Arduino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */; };
+		8481A4AC1C02FA9600CEDB85 /* NSEvent+Keyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */; };
 		84D4E4F91C02793F00919D0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4F81C02793F00919D0F /* AppDelegate.m */; };
 		84D4E4FC1C02793F00919D0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FB1C02793F00919D0F /* main.m */; };
 		84D4E4FF1C02793F00919D0F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FE1C02793F00919D0F /* ViewController.m */; };
@@ -62,6 +63,8 @@
 		8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PixelSpaceOdysspy.ino; path = ../PixelSpaceOdysspy/PixelSpaceOdysspy.ino; sourceTree = "<group>"; };
 		8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arduino.cpp; sourceTree = "<group>"; };
 		8481A4A81C02EF1500CEDB85 /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		8481A4AA1C02FA9600CEDB85 /* NSEvent+Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEvent+Keyboard.h"; sourceTree = "<group>"; };
+		8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+Keyboard.m"; sourceTree = "<group>"; };
 		84D4E4F41C02793F00919D0F /* Arduboy-Emu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arduboy-Emu.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D4E4F71C02793F00919D0F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84D4E4F81C02793F00919D0F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -133,6 +136,15 @@
 			name = PixelSpaceOdysspy;
 			sourceTree = "<group>";
 		};
+		8481A4A91C02FA1C00CEDB85 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				8481A4AA1C02FA9600CEDB85 /* NSEvent+Keyboard.h */,
+				8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		84D4E4EB1C02793F00919D0F = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +170,7 @@
 		84D4E4F61C02793F00919D0F /* Arduboy-Emu */ = {
 			isa = PBXGroup;
 			children = (
+				8481A4A91C02FA1C00CEDB85 /* Categories */,
 				8481A1D01C02BB5D00CEDB85 /* Platform */,
 				84D4E4F71C02793F00919D0F /* AppDelegate.h */,
 				84D4E4F81C02793F00919D0F /* AppDelegate.m */,
@@ -334,6 +347,7 @@
 				8481A1EE1C02BE7700CEDB85 /* images.cpp in Sources */,
 				8481A1DC1C02BB5D00CEDB85 /* core.cpp in Sources */,
 				84D4E4FF1C02793F00919D0F /* ViewController.m in Sources */,
+				8481A4AC1C02FA9600CEDB85 /* NSEvent+Keyboard.m in Sources */,
 				8481A4A71C02D6AB00CEDB85 /* Arduino.cpp in Sources */,
 				8481A1AE1C027AE400CEDB85 /* DisplayView.m in Sources */,
 				8481A1DB1C02BB5D00CEDB85 /* audio.cpp in Sources */,

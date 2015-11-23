@@ -14,7 +14,19 @@ typedef uint8 PixelCord;
 extern const PixelColor BLACK;
 extern const PixelColor WHITE;
 
+@class DisplayView;
+
+@protocol DisplayViewKeyResponder <NSObject>
+
+@optional
+- (void)displayView:(DisplayView *)displayView keyDown:(NSEvent *)event;
+- (void)displayView:(DisplayView *)displayView keyUp:(NSEvent *)event;
+
+@end
+
 @interface DisplayView : NSView
+
+@property (nonatomic, assign) id<DisplayViewKeyResponder> keyResponder;
 
 - (void)clear;
 
