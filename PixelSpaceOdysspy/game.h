@@ -8,14 +8,6 @@ extern "C" {
 void startGame();
 void loopGame();
   
-#ifdef EMULATOR
-  
-unsigned char* getDisplayBuffer(int* size);
-int getDisplayWidth(void);
-int getDisplayHeight(void);
-  
-#endif
-
 #ifdef __cplusplus
 }
 #endif
