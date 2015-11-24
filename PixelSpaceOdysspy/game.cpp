@@ -44,10 +44,11 @@ void set_animation(uint8_t anim)
     }
 }
 
-void update_input();
-void update_player();
-void update_animation();
-void draw_player();
+void updateInput();
+void updatePlayer();
+void updateAnimation();
+void drawPlayer();
+void drawBitmapFlipped(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint8_t color, int8_t flip);
 
 void startGame()
 {
@@ -67,17 +68,17 @@ void loopGame()
 {
     if (!display.nextFrame()) return;
     
-    update_input();
-    update_player();
-    update_animation();
+    updateInput();
+    updatePlayer();
+    updateAnimation();
     
     display.clearDisplay();
     display.fillRect(0, 0, 128, 48, WHITE);
     
-    draw_player();
+    drawPlayer();
 }
 
-void update_input()
+void updateInput()
 {
     crouching = button_pressed(DOWN_BUTTON);
     
@@ -104,7 +105,7 @@ void update_input()
     }
 }
 
-void update_player()
+void updatePlayer()
 {
     x += move_dir * WALK_SPEED;
     if (x < MIN_X) x = MIN_X;
@@ -124,7 +125,7 @@ void update_player()
     }
 }
 
-void update_animation()
+void updateAnimation()
 {
     if (jumping)
     {
@@ -156,11 +157,11 @@ void draw_animation(FrameData data, uint8_t x, uint8_t y)
     uint8_t height  = pgm_read_byte(data + 3);
     
     FrameData ptr = data + 4;
-    display.drawBitmap(x + offsetX, y + offsetY, ptr, width, height, BLACK);
+    drawBitmapFlipped(x + offsetX, y + offsetY, ptr, width, height, BLACK, move_dir < 0 ? 1 : 0);
     display.display();
 }
 
-void draw_player()
+void drawPlayer()
 {
     uint8_t draw_x = WORLD_TO_SCREEN(x);
     uint8_t draw_y = WORLD_TO_SCREEN(y);
@@ -171,5 +172,55 @@ void draw_player()
     if (frame >= animations[animation].frameCount)
     {
         frame = 0;
+    }
+}
+
+void drawBitmapFlipped(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint8_t color, int8_t flip)
+{
+    // no need to dar at all of we're offscreen
+    if (x+w < 0 || x > WIDTH-1 || y+h < 0 || y > HEIGHT-1)
+        return;
+    
+    unsigned char* sBuffer = display.getBuffer();
+    
+    int yOffset = abs(y) % 8;
+    int sRow = y / 8;
+    if (y < 0)
+    {
+        sRow--;
+        yOffset = 8 - yOffset;
+    }
+    int rows = h/8;
+    if (h%8!=0) rows++;
+    
+    int8_t k1 = flip;
+    int8_t k2 = flip > 0 ? -1 : 1;
+    
+    for (int a = 0; a < rows; a++)
+    {
+        int bRow = sRow + a;
+        if (bRow > (HEIGHT/8)-1) break;
+        if (bRow > -2)
+        {
+            for (int iCol = 0; iCol<w; iCol++)
+            {
+                if (iCol + x > (WIDTH-1)) break;
+                if (iCol + x >= 0)
+                {
+                    if (bRow >= 0)
+                    {
+                        if      (color == WHITE) sBuffer[ (bRow*WIDTH) + k1 * (w - 1) + x + k2 * iCol ] |= pgm_read_byte(bitmap+(a*w)+iCol) << yOffset;
+                        else if (color == BLACK) sBuffer[ (bRow*WIDTH) + k1 * (w - 1) + x + k2 * iCol ] &= ~(pgm_read_byte(bitmap+(a*w)+iCol) << yOffset);
+                        else                     sBuffer[ (bRow*WIDTH) + k1 * (w - 1) + x + k2 * iCol ] ^= pgm_read_byte(bitmap+(a*w)+iCol) << yOffset;
+                    }
+                    if (yOffset && bRow<(HEIGHT/8)-1 && bRow > -2)
+                    {
+                        if      (color == WHITE) sBuffer[ ((bRow+1)*WIDTH) + k1 * (w - 1) + x + k2 * iCol ] |= pgm_read_byte(bitmap+(a*w)+iCol) >> (8-yOffset);
+                        else if (color == BLACK) sBuffer[ ((bRow+1)*WIDTH) + k1 * (w - 1) + x + k2 * iCol ] &= ~(pgm_read_byte(bitmap+(a*w)+iCol) >> (8-yOffset));
+                        else                     sBuffer[ ((bRow+1)*WIDTH) + k1 * (w - 1) + x + k2 * iCol ] ^= pgm_read_byte(bitmap+(a*w)+iCol) >> (8-yOffset);
+                    }
+                }
+            }
+        }
     }
 }
