@@ -112,8 +112,8 @@ static ViewController * _instance;
         case 's': return DOWN_BUTTON;
         case 'a': return LEFT_BUTTON;
         case 'd': return RIGHT_BUTTON;
-        case 'n': return B_BUTTON;
-        case 'm': return A_BUTTON;
+        case 'n': return A_BUTTON;
+        case 'm': return B_BUTTON;
     }
     
     return 0;

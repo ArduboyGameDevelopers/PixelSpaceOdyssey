@@ -6,8 +6,8 @@
 
 Arduboy display;
 
-#define RUN_BUTTON B_BUTTON
-#define JUMP_BUTTON A_BUTTON
+#define RUN_BUTTON A_BUTTON
+#define JUMP_BUTTON B_BUTTON
 
 #define WORLD_TO_SCREEN(X) ((X) >> 4)
 #define SCREEN_TO_WORLD(X) ((X) << 4)
