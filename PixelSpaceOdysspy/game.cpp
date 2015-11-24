@@ -18,6 +18,9 @@ Arduboy display;
 #define JUMP_SPEED -200
 #define WALK_SPEED 32
 
+#define MIN_X 0
+#define MAX_X 1824
+
 int frame = 0;
 int animation = 0;
 
@@ -25,6 +28,7 @@ short x, y;
 short jump_speed;
 signed char move_dir;
 bool jumping;
+bool crouching;
 
 inline bool button_pressed(uint8_t button)
 {
@@ -55,6 +59,7 @@ void startGame()
 
     jump_speed = 0;
     jumping = false;
+    crouching = false;
     move_dir = 0;
 }
 
@@ -74,6 +79,8 @@ void loopGame()
 
 void update_input()
 {
+    crouching = button_pressed(DOWN_BUTTON);
+    
     if (!jumping && button_pressed(JUMP_BUTTON))
     {
         jumping = true;
@@ -84,11 +91,15 @@ void update_input()
     if (!jumping)
     {
         move_dir = 0;
-        if (button_pressed(LEFT_BUTTON)) move_dir = -1;
-        else if (button_pressed(RIGHT_BUTTON)) move_dir = 1;
-        if (button_pressed(RUN_BUTTON))
+        
+        if (!crouching)
         {
-            move_dir = move_dir + move_dir; // avoid multiplication - save a tree
+            if (button_pressed(LEFT_BUTTON)) move_dir = -1;
+            else if (button_pressed(RIGHT_BUTTON)) move_dir = 1;
+            if (button_pressed(RUN_BUTTON))
+            {
+                move_dir = move_dir + move_dir; // avoid multiplication - save a tree
+            }
         }
     }
 }
@@ -96,6 +107,8 @@ void update_input()
 void update_player()
 {
     x += move_dir * WALK_SPEED;
+    if (x < MIN_X) x = MIN_X;
+    else if (x > MAX_X) x = MAX_X;
     
     if (jumping)
     {
@@ -116,6 +129,10 @@ void update_animation()
     if (jumping)
     {
         set_animation(ANIMATION_JUMP);
+    }
+    else if (crouching)
+    {
+        set_animation(ANIMATION_CROUCH);
     }
     else if (move_dir == 0)
     {
