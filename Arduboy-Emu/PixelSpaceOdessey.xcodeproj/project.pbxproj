@@ -65,7 +65,7 @@
 		8481A4A81C02EF1500CEDB85 /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		8481A4AA1C02FA9600CEDB85 /* NSEvent+Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEvent+Keyboard.h"; sourceTree = "<group>"; };
 		8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+Keyboard.m"; sourceTree = "<group>"; };
-		84D4E4F41C02793F00919D0F /* Arduboy-Emu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arduboy-Emu.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D4E4F41C02793F00919D0F /* PixelSpaceOdessey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelSpaceOdessey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D4E4F71C02793F00919D0F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84D4E4F81C02793F00919D0F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		84D4E4FB1C02793F00919D0F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -74,10 +74,10 @@
 		84D4E5001C02793F00919D0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84D4E5031C02793F00919D0F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84D4E5051C02793F00919D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84D4E50A1C02793F00919D0F /* Arduboy-EmuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Arduboy-EmuTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D4E50A1C02793F00919D0F /* PixelSpaceOdessey.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixelSpaceOdessey.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D4E50E1C02793F00919D0F /* Arduboy_EmuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Arduboy_EmuTests.m; sourceTree = "<group>"; };
 		84D4E5101C02793F00919D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84D4E5151C02793F00919D0F /* Arduboy-EmuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Arduboy-EmuUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D4E5151C02793F00919D0F /* PixelSpaceOdessey.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixelSpaceOdessey.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D4E5191C02793F00919D0F /* Arduboy_EmuUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Arduboy_EmuUITests.m; sourceTree = "<group>"; };
 		84D4E51B1C02793F00919D0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,9 +160,9 @@
 		84D4E4F51C02793F00919D0F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84D4E4F41C02793F00919D0F /* Arduboy-Emu.app */,
-				84D4E50A1C02793F00919D0F /* Arduboy-EmuTests.xctest */,
-				84D4E5151C02793F00919D0F /* Arduboy-EmuUITests.xctest */,
+				84D4E4F41C02793F00919D0F /* PixelSpaceOdessey.app */,
+				84D4E50A1C02793F00919D0F /* PixelSpaceOdessey.xctest */,
+				84D4E5151C02793F00919D0F /* PixelSpaceOdessey.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,9 +215,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		84D4E4F31C02793F00919D0F /* Arduboy-Emu */ = {
+		84D4E4F31C02793F00919D0F /* PixelSpaceOdessey */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84D4E51E1C02793F00919D0F /* Build configuration list for PBXNativeTarget "Arduboy-Emu" */;
+			buildConfigurationList = 84D4E51E1C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdessey" */;
 			buildPhases = (
 				84D4E4F01C02793F00919D0F /* Sources */,
 				84D4E4F11C02793F00919D0F /* Frameworks */,
@@ -227,14 +227,14 @@
 			);
 			dependencies = (
 			);
-			name = "Arduboy-Emu";
+			name = PixelSpaceOdessey;
 			productName = "Arduboy-Emu";
-			productReference = 84D4E4F41C02793F00919D0F /* Arduboy-Emu.app */;
+			productReference = 84D4E4F41C02793F00919D0F /* PixelSpaceOdessey.app */;
 			productType = "com.apple.product-type.application";
 		};
-		84D4E5091C02793F00919D0F /* Arduboy-EmuTests */ = {
+		84D4E5091C02793F00919D0F /* PixelSpaceOdesseyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84D4E5211C02793F00919D0F /* Build configuration list for PBXNativeTarget "Arduboy-EmuTests" */;
+			buildConfigurationList = 84D4E5211C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdesseyTests" */;
 			buildPhases = (
 				84D4E5061C02793F00919D0F /* Sources */,
 				84D4E5071C02793F00919D0F /* Frameworks */,
@@ -245,14 +245,14 @@
 			dependencies = (
 				84D4E50C1C02793F00919D0F /* PBXTargetDependency */,
 			);
-			name = "Arduboy-EmuTests";
+			name = PixelSpaceOdesseyTests;
 			productName = "Arduboy-EmuTests";
-			productReference = 84D4E50A1C02793F00919D0F /* Arduboy-EmuTests.xctest */;
+			productReference = 84D4E50A1C02793F00919D0F /* PixelSpaceOdessey.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		84D4E5141C02793F00919D0F /* Arduboy-EmuUITests */ = {
+		84D4E5141C02793F00919D0F /* PixelSpaceOdesseyUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84D4E5241C02793F00919D0F /* Build configuration list for PBXNativeTarget "Arduboy-EmuUITests" */;
+			buildConfigurationList = 84D4E5241C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdesseyUITests" */;
 			buildPhases = (
 				84D4E5111C02793F00919D0F /* Sources */,
 				84D4E5121C02793F00919D0F /* Frameworks */,
@@ -263,9 +263,9 @@
 			dependencies = (
 				84D4E5171C02793F00919D0F /* PBXTargetDependency */,
 			);
-			name = "Arduboy-EmuUITests";
+			name = PixelSpaceOdesseyUITests;
 			productName = "Arduboy-EmuUITests";
-			productReference = 84D4E5151C02793F00919D0F /* Arduboy-EmuUITests.xctest */;
+			productReference = 84D4E5151C02793F00919D0F /* PixelSpaceOdessey.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -290,7 +290,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 84D4E4EF1C02793F00919D0F /* Build configuration list for PBXProject "Arduboy-Emu" */;
+			buildConfigurationList = 84D4E4EF1C02793F00919D0F /* Build configuration list for PBXProject "PixelSpaceOdessey" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -303,9 +303,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				84D4E4F31C02793F00919D0F /* Arduboy-Emu */,
-				84D4E5091C02793F00919D0F /* Arduboy-EmuTests */,
-				84D4E5141C02793F00919D0F /* Arduboy-EmuUITests */,
+				84D4E4F31C02793F00919D0F /* PixelSpaceOdessey */,
+				84D4E5091C02793F00919D0F /* PixelSpaceOdesseyTests */,
+				84D4E5141C02793F00919D0F /* PixelSpaceOdesseyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -379,12 +379,12 @@
 /* Begin PBXTargetDependency section */
 		84D4E50C1C02793F00919D0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 84D4E4F31C02793F00919D0F /* Arduboy-Emu */;
+			target = 84D4E4F31C02793F00919D0F /* PixelSpaceOdessey */;
 			targetProxy = 84D4E50B1C02793F00919D0F /* PBXContainerItemProxy */;
 		};
 		84D4E5171C02793F00919D0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 84D4E4F31C02793F00919D0F /* Arduboy-Emu */;
+			target = 84D4E4F31C02793F00919D0F /* PixelSpaceOdessey */;
 			targetProxy = 84D4E5161C02793F00919D0F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -442,7 +442,7 @@
 					"\"$(SRCROOT)/Platform\"/**",
 					"\"$(SRCROOT)/../PixelSpaceOdysspy\"/**",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -484,7 +484,7 @@
 					"\"$(SRCROOT)/Platform\"/**",
 					"\"$(SRCROOT)/../PixelSpaceOdysspy\"/**",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -498,7 +498,7 @@
 				INFOPLIST_FILE = "Arduboy-Emu/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.spacemadness.Arduboy-Emu";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PixelSpaceOdessey;
 			};
 			name = Debug;
 		};
@@ -510,7 +510,7 @@
 				INFOPLIST_FILE = "Arduboy-Emu/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.spacemadness.Arduboy-Emu";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PixelSpaceOdessey;
 			};
 			name = Release;
 		};
@@ -522,8 +522,8 @@
 				INFOPLIST_FILE = "Arduboy-EmuTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.spacemadness.Arduboy-EmuTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Arduboy-Emu.app/Contents/MacOS/Arduboy-Emu";
+				PRODUCT_NAME = PixelSpaceOdessey;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PixelSpaceOdessey.app/Contents/MacOS/PixelSpaceOdessey";
 			};
 			name = Debug;
 		};
@@ -535,8 +535,8 @@
 				INFOPLIST_FILE = "Arduboy-EmuTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.spacemadness.Arduboy-EmuTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Arduboy-Emu.app/Contents/MacOS/Arduboy-Emu";
+				PRODUCT_NAME = PixelSpaceOdessey;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PixelSpaceOdessey.app/Contents/MacOS/PixelSpaceOdessey";
 			};
 			name = Release;
 		};
@@ -547,7 +547,7 @@
 				INFOPLIST_FILE = "Arduboy-EmuUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.spacemadness.Arduboy-EmuUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PixelSpaceOdessey;
 				TEST_TARGET_NAME = "Arduboy-Emu";
 				USES_XCTRUNNER = YES;
 			};
@@ -560,7 +560,7 @@
 				INFOPLIST_FILE = "Arduboy-EmuUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.spacemadness.Arduboy-EmuUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PixelSpaceOdessey;
 				TEST_TARGET_NAME = "Arduboy-Emu";
 				USES_XCTRUNNER = YES;
 			};
@@ -569,7 +569,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		84D4E4EF1C02793F00919D0F /* Build configuration list for PBXProject "Arduboy-Emu" */ = {
+		84D4E4EF1C02793F00919D0F /* Build configuration list for PBXProject "PixelSpaceOdessey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84D4E51C1C02793F00919D0F /* Debug */,
@@ -578,7 +578,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84D4E51E1C02793F00919D0F /* Build configuration list for PBXNativeTarget "Arduboy-Emu" */ = {
+		84D4E51E1C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdessey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84D4E51F1C02793F00919D0F /* Debug */,
@@ -587,7 +587,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84D4E5211C02793F00919D0F /* Build configuration list for PBXNativeTarget "Arduboy-EmuTests" */ = {
+		84D4E5211C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdesseyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84D4E5221C02793F00919D0F /* Debug */,
@@ -596,7 +596,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84D4E5241C02793F00919D0F /* Build configuration list for PBXNativeTarget "Arduboy-EmuUITests" */ = {
+		84D4E5241C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdesseyUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84D4E5251C02793F00919D0F /* Debug */,
