@@ -4,6 +4,7 @@
 #include "Arduboy.h"
 #include "animation.h"
 #include "images.h"
+#include "spider.h"
 #include "tiles.h"
 
 Arduboy display;
@@ -12,6 +13,7 @@ int frame = 0;
 int animation = 0;
 
 short x, y;
+short spiderX, spiderY;
 bool jumping;
 bool crouching;
 short camX, camY;
@@ -39,6 +41,7 @@ void updatePlayer();
 void updateAnimation();
 void drawTileMap();
 void drawPlayer();
+void drawSpider();
 void drawBitmapFlipped(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint8_t color, int8_t flip);
 
 void startGame()
@@ -58,6 +61,9 @@ void startGame()
     jumping = false;
     crouching = false;
     move_dir = 0;
+    
+    spiderX = 86;
+    spiderY = 80;
 }
 
 void loopGame()
@@ -72,6 +78,9 @@ void loopGame()
 
     drawTileMap();
     drawPlayer();
+    drawSpider();
+    
+    display.display();
 }
 
 void updateInput()
@@ -178,7 +187,6 @@ void drawAnimation(FrameData data, int16_t x, int16_t y)
     
     FrameData ptr = data + 4;
     drawBitmapFlipped(x + offsetX, y + offsetY, ptr, width, height, BLACK, move_dir < 0 ? 1 : 0);
-    display.display();
 }
 
 void drawTileMap()
@@ -211,6 +219,14 @@ void drawPlayer()
     {
         frame = 0;
     }
+}
+
+void drawSpider()
+{
+    int16_t drawX = spiderX - camX - 12;
+    int16_t drawY = spiderY - camY - 16;
+    
+    drawAnimation(spider_animations[SPIDER_ANIMATION_AWAKEN].frames[0], drawX, drawY);
 }
 
 void drawBitmapFlipped(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint8_t color, int8_t flip)
