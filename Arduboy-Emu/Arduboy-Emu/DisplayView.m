@@ -16,7 +16,7 @@ static const int DISPLAY_HEIGHT = 64.0;
 const PixelColor BLACK = 0;
 const PixelColor WHITE = 1;
 
-#define BLOCK_COLOR_WHITE 1, 1, 1, 1
+#define BLOCK_COLOR_WHITE 0.97, 0.99, 1.0, 1.0
 #define BLOCK_COLOR_BLACK 0, 0, 0, 1
 #define BLOCK_COLOR_MAGENTA 1, 0, 1, 1
 
