@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+gem 'rake'
+gem 'plist'
+gem 'rubyzip', '>= 1.0.0'

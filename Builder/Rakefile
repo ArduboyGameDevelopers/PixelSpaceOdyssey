@@ -1,0 +1,56 @@
+require 'rake'
+require 'plist'
+
+require_relative 'common'
+
+include Common
+
+task :init do
+
+  $project_name   = 'PixelSpaceOdessey'
+  $project_config = 'Debug'
+
+  $dir_builder    = File.expand_path '.'
+  $dir_out        = "#{$dir_builder}/out"
+  $dir_project    = resolve_path File.expand_path('../Arduboy-Emu')
+  $file_project   = resolve_path "#{$dir_project}/#{$project_name}.xcodeproj"
+
+  def extract_project_version(dir_project)
+    file_plist = resolve_path "#{dir_project}/Arduboy-Emu/Info.plist"
+    plist = Plist::parse_xml file_plist
+
+    not_nil plist['CFBundleShortVersionString']
+  end
+
+  $project_version = extract_project_version $dir_project
+  puts "Project version: #{$project_version}"
+end
+
+task :clean => :init do
+  FileUtils.rm_rf $dir_out
+  FileUtils.mkpath $dir_out
+end
+
+desc 'Build the app'
+task :build => :clean do
+  cmd = 'xcodebuild'
+  cmd << %( -project "#{$file_project}")
+  cmd << ' -configuration Debug'
+  cmd << %( -target "#{$project_name}")
+  exec_shell cmd, 'Unable to build the project'
+
+  dir_project = File.dirname $file_project
+  dir_build = File.resolve_path "#{dir_project}/build/#{$project_config}"
+
+  file_output = "#{$dir_out}/#{$project_name}-#{$project_version}.zip"
+  zip_dir dir_build, file_output
+
+end
+
+desc 'Deploys the app'
+task :deploy => :build do
+
+  file_build = resolve_path "#{$dir_out}/#{$project_name}-#{$project_version}.zip"
+  FileUtils.cp file_build, File.expand_path('~/Dropbox/PSO')
+
+end
