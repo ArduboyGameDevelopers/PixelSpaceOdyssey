@@ -126,6 +126,7 @@ void setSpiderState(SpiderState state)
             break;
         case SPIDER_WALK:
             spiderAnimationLoop = true;
+            spiderMovement = -1;
             setSpiderAnimation(SPIDER_ANIMATION_WALK);
             break;
     }
@@ -234,15 +235,15 @@ void updateAnimation()
     }
 }
 
-void drawAnimation(FrameData data, int16_t x, int16_t y)
+void drawAnimation(FrameData data, int16_t x, int16_t y, bool flip)
 {
-    uint8_t offsetX = pgm_read_byte(data);
-    uint8_t offsetY = pgm_read_byte(data + 1);
+    int8_t offsetX = pgm_read_byte(data);
+    int8_t offsetY = pgm_read_byte(data + 1);
     uint8_t width   = pgm_read_byte(data + 2);
     uint8_t height  = pgm_read_byte(data + 3);
     
     FrameData ptr = data + 4;
-    drawBitmapFlipped(x + offsetX, y + offsetY, ptr, width, height, BLACK, move_dir < 0 ? 1 : 0);
+    drawBitmapFlipped(x + offsetX, y + offsetY, ptr, width, height, BLACK, flip ? 1 : 0);
 }
 
 void drawTileMap()
@@ -268,7 +269,7 @@ void drawPlayer()
     int16_t draw_x = WORLD_TO_SCREEN(x) - 8 - camX;
     int16_t draw_y = WORLD_TO_SCREEN(y) - 16 - camY;
     
-    drawAnimation(animations[animation].frames[frame], draw_x, draw_y);
+    drawAnimation(animations[animation].frames[frame], draw_x, draw_y, move_dir < 0);
     
     ++frame;
     if (frame >= animations[animation].frameCount)
@@ -282,7 +283,7 @@ void drawSpider()
     int16_t drawX = spiderX - camX - 12;
     int16_t drawY = spiderY - camY - 16;
     
-    drawAnimation(spider_animations[spiderAnimation].frames[spiderFrame], drawX, drawY);
+    drawAnimation(spider_animations[spiderAnimation].frames[spiderFrame], drawX, drawY, spiderMovement > 0);
 }
 
 void updateSpider()
@@ -298,6 +299,12 @@ void updateSpider()
         {
             setSpiderState(spiderState + 1);
         }
+    }
+    
+    spiderX += spiderMovement * 2;
+    if ((spiderMovement < 0 && spiderX < 16) || (spiderMovement > 0 && spiderX > 95))
+    {
+        spiderMovement = -spiderMovement;
     }
 }
 
