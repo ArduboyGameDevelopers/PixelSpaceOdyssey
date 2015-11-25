@@ -27,6 +27,6 @@
 extern short x, y;
 extern bool jumping;
 extern bool crouching;
-extern unsigned short camX, camY;
+extern short camX, camY;
 
 #endif /* game_h */

@@ -14,7 +14,8 @@ int animation = 0;
 short x, y;
 bool jumping;
 bool crouching;
-unsigned short camX, camY;
+short camX, camY;
+short camXMax, camYMax;
 
 short jump_speed;
 signed char move_dir;
@@ -47,6 +48,11 @@ void startGame()
     
     x = SCREEN_TO_WORLD(8);
     y = SCREEN_TO_WORLD(40);
+    
+    camX = 0;
+    camY = 0;
+    camXMax = MAP_WIDTH * 8 - 128;
+    camYMax = MAP_HEIGHT * 8 - 64;
 
     jump_speed = 0;
     jumping = false;
@@ -70,6 +76,29 @@ void loopGame()
 
 void updateInput()
 {
+    if (button_pressed(LEFT_BUTTON))
+    {
+        camX -= 2;
+        if (camX < 0) camX = 0;
+    }
+    else if (button_pressed(RIGHT_BUTTON))
+    {
+        camX += 2;
+        if (camX > camXMax) camX = camXMax;
+    }
+    
+    if (button_pressed(UP_BUTTON))
+    {
+        camY -= 2;
+        if (camY < 0) camY = 0;
+    }
+    else if (button_pressed(DOWN_BUTTON))
+    {
+        camY += 2;
+        if (camY > camYMax) camY = camYMax;
+    }
+    
+    /*
     crouching = button_pressed(DOWN_BUTTON);
     
     if (!jumping && button_pressed(JUMP_BUTTON))
@@ -93,6 +122,7 @@ void updateInput()
             }
         }
     }
+    */
 }
 
 void updatePlayer()
@@ -139,7 +169,7 @@ void updateAnimation()
     }
 }
 
-void draw_animation(FrameData data, uint8_t x, uint8_t y)
+void drawAnimation(FrameData data, int16_t x, int16_t y)
 {
     uint8_t offsetX = pgm_read_byte(data);
     uint8_t offsetY = pgm_read_byte(data + 1);
@@ -153,7 +183,7 @@ void draw_animation(FrameData data, uint8_t x, uint8_t y)
 
 void drawTileMap()
 {
-    uint8_t x = 0, y = 0;
+    int16_t x = -camX, y = -camY;
     uint16_t index = 0;
     for (int ty = 0; ty < MAP_HEIGHT; ++ty)
     {
@@ -164,17 +194,17 @@ void drawTileMap()
             x += 8;
             ++index;
         }
-        x = 0;
+        x = -camX;
         y += 8;
     }
 }
 
 void drawPlayer()
 {
-    uint8_t draw_x = WORLD_TO_SCREEN(x) - 8;
-    uint8_t draw_y = WORLD_TO_SCREEN(y) - 16;
+    int16_t draw_x = WORLD_TO_SCREEN(x) - 8 - camX;
+    int16_t draw_y = WORLD_TO_SCREEN(y) - 16 - camY;
     
-    draw_animation(animations[animation].frames[frame], draw_x, draw_y);
+    drawAnimation(animations[animation].frames[frame], draw_x, draw_y);
     
     ++frame;
     if (frame >= animations[animation].frameCount)
