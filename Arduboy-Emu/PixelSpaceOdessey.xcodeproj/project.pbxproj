@@ -18,6 +18,8 @@
 		8481A1F31C02BE8700CEDB85 /* PixelSpaceOdysspy.ino in Resources */ = {isa = PBXBuildFile; fileRef = 8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */; };
 		8481A4A71C02D6AB00CEDB85 /* Arduino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */; };
 		8481A4AC1C02FA9600CEDB85 /* NSEvent+Keyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */; };
+		84D076791C055A5900B93565 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84D076771C055A5900B93565 /* camera.cpp */; };
+		84D0767F1C05765500B93565 /* tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84D0767D1C05765500B93565 /* tiles.cpp */; };
 		84D4E4F91C02793F00919D0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4F81C02793F00919D0F /* AppDelegate.m */; };
 		84D4E4FC1C02793F00919D0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FB1C02793F00919D0F /* main.m */; };
 		84D4E4FF1C02793F00919D0F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FE1C02793F00919D0F /* ViewController.m */; };
@@ -58,13 +60,18 @@
 		8481A1EB1C02BE7700CEDB85 /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = ../PixelSpaceOdysspy/game.cpp; sourceTree = "<group>"; };
 		8481A1EC1C02BE7700CEDB85 /* images.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = images.cpp; path = ../PixelSpaceOdysspy/images.cpp; sourceTree = "<group>"; };
 		8481A1EF1C02BE8700CEDB85 /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../PixelSpaceOdysspy/animation.h; sourceTree = "<group>"; };
-		8481A1F01C02BE8700CEDB85 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../PixelSpaceOdysspy/game.h; sourceTree = "<group>"; tabWidth = 2; };
 		8481A1F11C02BE8700CEDB85 /* images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = images.h; path = ../PixelSpaceOdysspy/images.h; sourceTree = "<group>"; };
 		8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PixelSpaceOdysspy.ino; path = ../PixelSpaceOdysspy/PixelSpaceOdysspy.ino; sourceTree = "<group>"; };
 		8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arduino.cpp; sourceTree = "<group>"; };
 		8481A4A81C02EF1500CEDB85 /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		8481A4AA1C02FA9600CEDB85 /* NSEvent+Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEvent+Keyboard.h"; sourceTree = "<group>"; };
 		8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+Keyboard.m"; sourceTree = "<group>"; };
+		84D076771C055A5900B93565 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera.cpp; path = ../PixelSpaceOdysspy/camera.cpp; sourceTree = "<group>"; };
+		84D076781C055A5900B93565 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camera.h; path = ../PixelSpaceOdysspy/camera.h; sourceTree = "<group>"; };
+		84D0767A1C055AAE00B93565 /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bridge.h; path = ../PixelSpaceOdysspy/bridge.h; sourceTree = "<group>"; };
+		84D0767B1C055ADB00B93565 /* game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../PixelSpaceOdysspy/game.h; sourceTree = "<group>"; };
+		84D0767D1C05765500B93565 /* tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles.cpp; path = ../PixelSpaceOdysspy/tiles.cpp; sourceTree = "<group>"; };
+		84D0767E1C05765500B93565 /* tiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles.h; path = ../PixelSpaceOdysspy/tiles.h; sourceTree = "<group>"; };
 		84D4E4F41C02793F00919D0F /* PixelSpaceOdessey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelSpaceOdessey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D4E4F71C02793F00919D0F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84D4E4F81C02793F00919D0F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -127,11 +134,16 @@
 			isa = PBXGroup;
 			children = (
 				8481A1EF1C02BE8700CEDB85 /* animation.h */,
+				84D0767A1C055AAE00B93565 /* bridge.h */,
+				84D076771C055A5900B93565 /* camera.cpp */,
+				84D076781C055A5900B93565 /* camera.h */,
 				8481A1EB1C02BE7700CEDB85 /* game.cpp */,
-				8481A1F01C02BE8700CEDB85 /* game.h */,
+				84D0767B1C055ADB00B93565 /* game.h */,
 				8481A1EC1C02BE7700CEDB85 /* images.cpp */,
 				8481A1F11C02BE8700CEDB85 /* images.h */,
 				8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */,
+				84D0767D1C05765500B93565 /* tiles.cpp */,
+				84D0767E1C05765500B93565 /* tiles.h */,
 			);
 			name = PixelSpaceOdysspy;
 			sourceTree = "<group>";
@@ -343,6 +355,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84D0767F1C05765500B93565 /* tiles.cpp in Sources */,
+				84D076791C055A5900B93565 /* camera.cpp in Sources */,
 				8481A1ED1C02BE7700CEDB85 /* game.cpp in Sources */,
 				8481A1EE1C02BE7700CEDB85 /* images.cpp in Sources */,
 				8481A1DC1C02BB5D00CEDB85 /* core.cpp in Sources */,

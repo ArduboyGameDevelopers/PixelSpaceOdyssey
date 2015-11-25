@@ -1,6 +1,6 @@
 #include <SPI.h>
 
-#include "game.h"
+#include "bridge.h"
 
 void setup() {
   SPI.begin();

@@ -1,34 +1,23 @@
 #include "game.h"
+#include "bridge.h"
 
 #include "Arduboy.h"
 #include "animation.h"
 #include "images.h"
+#include "tiles.h"
 
 Arduboy display;
-
-#define RUN_BUTTON A_BUTTON
-#define JUMP_BUTTON B_BUTTON
-
-#define WORLD_TO_SCREEN(X) ((X) >> 4)
-#define SCREEN_TO_WORLD(X) ((X) << 4)
-
-#define GRAVITY 50
-#define FLOOR 416
-
-#define JUMP_SPEED -200
-#define WALK_SPEED 32
-
-#define MIN_X 0
-#define MAX_X 1824
 
 int frame = 0;
 int animation = 0;
 
 short x, y;
-short jump_speed;
-signed char move_dir;
 bool jumping;
 bool crouching;
+unsigned short camX, camY;
+
+short jump_speed;
+signed char move_dir;
 
 inline bool button_pressed(uint8_t button)
 {
@@ -47,6 +36,7 @@ void set_animation(uint8_t anim)
 void updateInput();
 void updatePlayer();
 void updateAnimation();
+void drawTileMap();
 void drawPlayer();
 void drawBitmapFlipped(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint8_t color, int8_t flip);
 
@@ -55,8 +45,8 @@ void startGame()
     display.setFrameRate(10);
     display.start();
     
-    x = SCREEN_TO_WORLD((128-16) / 2);
-    y = FLOOR;
+    x = SCREEN_TO_WORLD(8);
+    y = SCREEN_TO_WORLD(40);
 
     jump_speed = 0;
     jumping = false;
@@ -72,9 +62,9 @@ void loopGame()
     updatePlayer();
     updateAnimation();
     
-    display.clearDisplay();
-    display.fillRect(0, 0, 128, 48, WHITE);
-    
+    display.fillRect(0, 0, 128, 64, WHITE);
+
+    drawTileMap();
     drawPlayer();
 }
 
@@ -161,10 +151,28 @@ void draw_animation(FrameData data, uint8_t x, uint8_t y)
     display.display();
 }
 
+void drawTileMap()
+{
+    uint8_t x = 0, y = 0;
+    uint16_t index = 0;
+    for (int ty = 0; ty < MAP_HEIGHT; ++ty)
+    {
+        for (int tx = 0; tx < MAP_WIDTH; ++tx)
+        {
+            int tileIndex = indices[index];
+            drawBitmapFlipped(x, y, tiles[tileIndex], 8, 8, BLACK, 0);
+            x += 8;
+            ++index;
+        }
+        x = 0;
+        y += 8;
+    }
+}
+
 void drawPlayer()
 {
-    uint8_t draw_x = WORLD_TO_SCREEN(x);
-    uint8_t draw_y = WORLD_TO_SCREEN(y);
+    uint8_t draw_x = WORLD_TO_SCREEN(x) - 8;
+    uint8_t draw_y = WORLD_TO_SCREEN(y) - 16;
     
     draw_animation(animations[animation].frames[frame], draw_x, draw_y);
     

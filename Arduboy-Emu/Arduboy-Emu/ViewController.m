@@ -11,7 +11,7 @@
 #import "DisplayView.h"
 #import "NSEvent+Keyboard.h"
 
-#import "game.h"
+#import "bridge.h"
 
 static const uint8_t LEFT_BUTTON  = 1 << 5;
 static const uint8_t RIGHT_BUTTON = 1 << 2;
