@@ -50,7 +50,7 @@ void startGame()
     y = SCREEN_TO_WORLD(40);
     
     camX = 0;
-    camY = 0;
+    camY = 20;
     camXMax = MAP_WIDTH * 8 - 128;
     camYMax = MAP_HEIGHT * 8 - 64;
 
