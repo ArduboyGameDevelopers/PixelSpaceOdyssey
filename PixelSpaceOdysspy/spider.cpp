@@ -92,6 +92,17 @@ PROGMEM static const unsigned char awaken_0[] =
 static const FrameData awaken_frames[] =
 {
   awaken_0,
+  awaken_0,
+  awaken_0,
+  awaken_0,
+  awaken_0,
+  awaken_0,
+  awaken_0,
+  awaken_0,
+  awaken_0,
+  awaken_0,
+  awaken_0,
+  awaken_0,
 };
 
 PROGMEM static const unsigned char sleep_0[] =
@@ -110,6 +121,6 @@ const Animation spider_animations[] =
   CreateAnimation(attack_frames, 2),
   CreateAnimation(walk_frames, 5),
   CreateAnimation(rise_frames, 3),
-  CreateAnimation(awaken_frames, 1),
+  CreateAnimation(awaken_frames, 12),
   CreateAnimation(sleep_frames, 1),
 };

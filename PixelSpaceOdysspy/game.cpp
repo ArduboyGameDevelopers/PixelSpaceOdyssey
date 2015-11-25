@@ -13,7 +13,6 @@ int frame = 0;
 int animation = 0;
 
 short x, y;
-short spiderX, spiderY;
 bool jumping;
 bool crouching;
 short camX, camY;
@@ -21,6 +20,20 @@ short camXMax, camYMax;
 
 short jump_speed;
 signed char move_dir;
+
+#define SPIDER_SLEEP 0
+#define SPIDER_AWAKEN 1
+#define SPIDER_RISE 2
+#define SPIDER_WALK 3
+
+typedef uint8_t SpiderState;
+
+short spiderX, spiderY;
+int8_t spiderMovement;
+SpiderState spiderState;
+uint8_t spiderAnimation;
+uint8_t spiderFrame;
+bool spiderAnimationLoop;
 
 inline bool button_pressed(uint8_t button)
 {
@@ -36,11 +49,14 @@ void set_animation(uint8_t anim)
     }
 }
 
+void setSpiderState(SpiderState state);
+
 void updateInput();
 void updatePlayer();
 void updateAnimation();
 void drawTileMap();
 void drawPlayer();
+void updateSpider();
 void drawSpider();
 void drawBitmapFlipped(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint8_t color, int8_t flip);
 
@@ -64,6 +80,7 @@ void startGame()
     
     spiderX = 86;
     spiderY = 80;
+    setSpiderState(SPIDER_SLEEP);
 }
 
 void loopGame()
@@ -72,15 +89,46 @@ void loopGame()
     
     updateInput();
     updatePlayer();
+    updateSpider();
     updateAnimation();
     
     display.fillRect(0, 0, 128, 64, WHITE);
-
+    
     drawTileMap();
     drawPlayer();
     drawSpider();
     
     display.display();
+}
+
+void setSpiderAnimation(int animation)
+{
+    spiderAnimation = animation;
+    spiderFrame = 0;
+}
+
+void setSpiderState(SpiderState state)
+{
+    spiderAnimationLoop = false;
+    spiderState = state;
+    
+    switch (state)
+    {
+        case SPIDER_SLEEP:
+            spiderAnimationLoop = true;
+            setSpiderAnimation(SPIDER_ANIMATION_SLEEP);
+            break;
+        case SPIDER_AWAKEN:
+            setSpiderAnimation(SPIDER_ANIMATION_AWAKEN);
+            break;
+        case SPIDER_RISE:
+            setSpiderAnimation(SPIDER_ANIMATION_RISE);
+            break;
+        case SPIDER_WALK:
+            spiderAnimationLoop = true;
+            setSpiderAnimation(SPIDER_ANIMATION_WALK);
+            break;
+    }
 }
 
 void updateInput()
@@ -105,6 +153,14 @@ void updateInput()
     {
         camY += 2;
         if (camY > camYMax) camY = camYMax;
+    }
+    
+    if (button_pressed(A_BUTTON) || button_pressed(B_BUTTON))
+    {
+        if (spiderState == SPIDER_SLEEP)
+        {
+            setSpiderState(SPIDER_AWAKEN);
+        }
     }
     
     /*
@@ -226,7 +282,23 @@ void drawSpider()
     int16_t drawX = spiderX - camX - 12;
     int16_t drawY = spiderY - camY - 16;
     
-    drawAnimation(spider_animations[SPIDER_ANIMATION_AWAKEN].frames[0], drawX, drawY);
+    drawAnimation(spider_animations[spiderAnimation].frames[spiderFrame], drawX, drawY);
+}
+
+void updateSpider()
+{
+    ++spiderFrame;
+    if (spiderFrame >= spider_animations[spiderAnimation].frameCount)
+    {
+        if (spiderAnimationLoop)
+        {
+            spiderFrame = 0;
+        }
+        else
+        {
+            setSpiderState(spiderState + 1);
+        }
+    }
 }
 
 void drawBitmapFlipped(int16_t x, int16_t y, const uint8_t *bitmap, int16_t w, int16_t h, uint8_t color, int8_t flip)
