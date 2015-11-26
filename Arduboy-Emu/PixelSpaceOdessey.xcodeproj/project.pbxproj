@@ -23,6 +23,9 @@
 		84BD4C581C071289006D8E51 /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C561C071289006D8E51 /* drawing.cpp */; };
 		84BD4C5B1C07995C006D8E51 /* tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C591C07995C006D8E51 /* tiles.cpp */; };
 		84BD4C601C07A39E006D8E51 /* tilemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */; };
+		84BD4C641C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BD4C631C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png */; };
+		84BD4C661C07AC61006D8E51 /* ic_pause_black_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BD4C651C07AC61006D8E51 /* ic_pause_black_24dp.png */; };
+		84BD4C681C07ACC4006D8E51 /* ic_skip_next_black_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BD4C671C07ACC4006D8E51 /* ic_skip_next_black_24dp.png */; };
 		84D4E4F91C02793F00919D0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4F81C02793F00919D0F /* AppDelegate.m */; };
 		84D4E4FC1C02793F00919D0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FB1C02793F00919D0F /* main.m */; };
 		84D4E4FF1C02793F00919D0F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FE1C02793F00919D0F /* ViewController.m */; };
@@ -81,6 +84,9 @@
 		84BD4C5A1C07995C006D8E51 /* tiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles.h; path = ../PixelSpaceOdysspy/tiles.h; sourceTree = "<group>"; };
 		84BD4C5D1C07A0E5006D8E51 /* tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tilemap.h; path = ../PixelSpaceOdysspy/tilemap.h; sourceTree = "<group>"; };
 		84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tilemap.cpp; path = ../PixelSpaceOdysspy/tilemap.cpp; sourceTree = "<group>"; };
+		84BD4C631C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_play_arrow_black_24dp.png; sourceTree = "<group>"; };
+		84BD4C651C07AC61006D8E51 /* ic_pause_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_pause_black_24dp.png; sourceTree = "<group>"; };
+		84BD4C671C07ACC4006D8E51 /* ic_skip_next_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_skip_next_black_24dp.png; sourceTree = "<group>"; };
 		84D4E4F41C02793F00919D0F /* PixelSpaceOdessey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelSpaceOdessey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D4E4F71C02793F00919D0F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84D4E4F81C02793F00919D0F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -172,6 +178,16 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		84BD4C621C07AB37006D8E51 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				84BD4C671C07ACC4006D8E51 /* ic_skip_next_black_24dp.png */,
+				84BD4C651C07AC61006D8E51 /* ic_pause_black_24dp.png */,
+				84BD4C631C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		84D4E4EB1C02793F00919D0F = {
 			isa = PBXGroup;
 			children = (
@@ -197,15 +213,16 @@
 		84D4E4F61C02793F00919D0F /* Arduboy-Emu */ = {
 			isa = PBXGroup;
 			children = (
-				8481A4A91C02FA1C00CEDB85 /* Categories */,
-				8481A1D01C02BB5D00CEDB85 /* Platform */,
 				84D4E4F71C02793F00919D0F /* AppDelegate.h */,
 				84D4E4F81C02793F00919D0F /* AppDelegate.m */,
 				84D4E5001C02793F00919D0F /* Assets.xcassets */,
+				8481A4A91C02FA1C00CEDB85 /* Categories */,
 				8481A1AC1C027AE400CEDB85 /* DisplayView.h */,
 				8481A1AD1C027AE400CEDB85 /* DisplayView.m */,
+				84BD4C621C07AB37006D8E51 /* Images */,
 				84D4E5051C02793F00919D0F /* Info.plist */,
 				84D4E5021C02793F00919D0F /* Main.storyboard */,
+				8481A1D01C02BB5D00CEDB85 /* Platform */,
 				84D4E4FA1C02793F00919D0F /* Supporting Files */,
 				84D4E4FD1C02793F00919D0F /* ViewController.h */,
 				84D4E4FE1C02793F00919D0F /* ViewController.m */,
@@ -342,9 +359,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84BD4C661C07AC61006D8E51 /* ic_pause_black_24dp.png in Resources */,
 				84D4E5011C02793F00919D0F /* Assets.xcassets in Resources */,
 				8481A1DF1C02BCBC00CEDB85 /* Platform in Resources */,
+				84BD4C641C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png in Resources */,
 				8481A1F31C02BE8700CEDB85 /* PixelSpaceOdysspy.ino in Resources */,
+				84BD4C681C07ACC4006D8E51 /* ic_skip_next_black_24dp.png in Resources */,
 				84D4E5041C02793F00919D0F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

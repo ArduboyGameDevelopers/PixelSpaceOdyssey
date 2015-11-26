@@ -26,6 +26,8 @@ static ViewController * _instance;
 
 @property (nonatomic, assign) IBOutlet DisplayView *displayView;
 @property (atomic, assign) uint8_t inputMask;
+@property (atomic, assign) BOOL paused;
+@property (atomic, assign) BOOL step;
 
 @end
 
@@ -39,7 +41,7 @@ static ViewController * _instance;
     
     [self.view.window makeFirstResponder:_displayView];
     _displayView.keyResponder = self;
-
+    
     NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(runGame) object:nil];
     [thread start];
 }
@@ -54,8 +56,12 @@ static ViewController * _instance;
     {
         NSTimeInterval time = CFAbsoluteTimeGetCurrent();
         
-        // loop
-        loopGame();
+        if (!self.paused || self.step)
+        {
+            // loop
+            loopGame();
+            self.step = NO;
+        }
         
         NSTimeInterval frameTime = CFAbsoluteTimeGetCurrent() - time;
         NSTimeInterval sleepTime = frameDelay - frameTime;
@@ -117,6 +123,25 @@ static ViewController * _instance;
     }
     
     return 0;
+}
+
+#pragma mark -
+#pragma mark Actions
+
+- (IBAction)onPlayButton:(NSToolbarItem *)item
+{
+    self.paused = NO;
+}
+
+- (IBAction)onPauseButton:(id)sender
+{
+    self.paused = true;
+}
+
+- (IBAction)onStepButton:(id)sender
+{
+    self.paused = YES;
+    self.step = YES;
 }
 
 #pragma mark -

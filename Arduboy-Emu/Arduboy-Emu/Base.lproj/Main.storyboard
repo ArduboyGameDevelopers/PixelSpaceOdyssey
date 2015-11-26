@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9059"/>
     </dependencies>
     <scenes>
@@ -655,6 +656,33 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <toolbar key="toolbar" implicitIdentifier="7F0BD57B-693F-467C-B548-1C2BE321F654" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="LyV-ZT-hSC">
+                            <allowedToolbarItems>
+                                <toolbarItem implicitItemIdentifier="3785D87A-C7F4-4E19-A4A5-D3E896F30EE5" explicitItemIdentifier="button_play" label="Play" paletteLabel="Play" tag="-1" image="ic_play_arrow_black_24dp" selectable="YES" id="81j-0m-2Tg" userLabel="Play Item">
+                                    <connections>
+                                        <action selector="onPlayButton:" target="Oky-zY-oP4" id="vvP-I6-c0c"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="2CC13894-E278-4EE2-9380-31D68CC6A8B3" explicitItemIdentifier="button_pause" label="Pause" paletteLabel="Pause" tag="-1" image="ic_pause_black_24dp" selectable="YES" id="HBl-Hl-vfk" userLabel="Pause Item">
+                                    <connections>
+                                        <action selector="onPauseButton:" target="Oky-zY-oP4" id="vc2-Zc-IqH"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="45528E1B-B3D7-411C-B932-060C92722148" explicitItemIdentifier="button_step" label="Next" paletteLabel="Next" tag="-1" image="ic_skip_next_black_24dp" id="Fpe-8n-3gv" userLabel="Step Item">
+                                    <connections>
+                                        <action selector="onStepButton:" target="Oky-zY-oP4" id="Krb-No-Kkq"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="mfy-DQ-UW1"/>
+                            </allowedToolbarItems>
+                            <defaultToolbarItems>
+                                <toolbarItem reference="mfy-DQ-UW1"/>
+                                <toolbarItem reference="81j-0m-2Tg"/>
+                                <toolbarItem reference="HBl-Hl-vfk"/>
+                                <toolbarItem reference="Fpe-8n-3gv"/>
+                                <toolbarItem reference="mfy-DQ-UW1"/>
+                            </defaultToolbarItems>
+                        </toolbar>
                     </window>
                     <connections>
                         <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
@@ -692,4 +720,9 @@
             <point key="canvasLocation" x="75" y="655"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_pause_black_24dp" width="96" height="96"/>
+        <image name="ic_play_arrow_black_24dp" width="96" height="96"/>
+        <image name="ic_skip_next_black_24dp" width="96" height="96"/>
+    </resources>
 </document>

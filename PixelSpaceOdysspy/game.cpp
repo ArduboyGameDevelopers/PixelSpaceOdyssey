@@ -23,8 +23,8 @@
 #define GRAVITY 50
 #define FLOOR   416
 
-#define JUMP_SPEED -200
-#define WALK_SPEED 32
+#define JUMP_SPEED -66
+#define WALK_SPEED 10
 
 static Arduboy display;
 
@@ -145,7 +145,7 @@ void playerUpdate(TimeInterval dt)
             if (display.pressed(LEFT_BUTTON))
             {
                 player.dir = DIR_LEFT;
-                player.move = -1;
+                player.move = 1;
             }
             else if (display.pressed(RIGHT_BUTTON))
             {
@@ -153,7 +153,7 @@ void playerUpdate(TimeInterval dt)
                 player.move = 1;
             }
             
-            if (display.pressed(RUN_BUTTON))
+            if (player.dir != 0 && display.pressed(RUN_BUTTON))
             {
                 player.move = 2;
             }
