@@ -386,7 +386,7 @@ static PgmPtr stat_3_frames[] =
     stat_3_1,
 };
 
-Animation player_animations[] =
+Animation PLAYER_ANIMATIONS[] =
 {
     AnimationMake(death_frames, 6),
     AnimationMake(impact_bottom_frames, 2),

@@ -133,7 +133,7 @@ void playerUpdate(TimeInterval dt)
     {
         playerJumping = true;
         playerJumpSpeed = JUMP_SPEED;
-        playerSetAnimation(ANIMATION_JUMP);
+        playerSetAnimation(PLAYER_ANIMATION_JUMP);
     }
     
     if (!playerJumping)
@@ -181,23 +181,23 @@ void playerUpdate(TimeInterval dt)
     // update animation
     if (playerJumping)
     {
-        playerSetAnimation(ANIMATION_JUMP);
+        playerSetAnimation(PLAYER_ANIMATION_JUMP);
     }
     else if (playerCrouching)
     {
-        playerSetAnimation(ANIMATION_CROUCH);
+        playerSetAnimation(PLAYER_ANIMATION_CROUCH);
     }
     else if (player.move == 0)
     {
-        playerSetAnimation(ANIMATION_STAT_1);
+        playerSetAnimation(PLAYER_ANIMATION_STAT_1);
     }
     else if (player.move == 1)
     {
-        playerSetAnimation(ANIMATION_WALK);
+        playerSetAnimation(PLAYER_ANIMATION_WALK);
     }
     else
     {
-        playerSetAnimation(ANIMATION_RUN);
+        playerSetAnimation(PLAYER_ANIMATION_RUN);
     }
     
     CharacterUpdateAnimation(&player, dt);
@@ -215,8 +215,8 @@ void playerDraw()
 
 void playerSetAnimation(int index)
 {
-    assert(index >= 0 && index < ANIMATIONS_COUNT);
-    CharacterSetAnimation(&player, &player_animations[index]);
+    assert(index >= 0 && index < PLAYER_ANIMATIONS_COUNT);
+    CharacterSetAnimation(&player, &PLAYER_ANIMATIONS[index]);
 }
 
 ////////////////////////////////////////////////////////////////////

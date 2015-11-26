@@ -17,7 +17,6 @@
 		8481A4A71C02D6AB00CEDB85 /* Arduino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */; };
 		8481A4AC1C02FA9600CEDB85 /* NSEvent+Keyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */; };
 		84BD4C491C070326006D8E51 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C471C070326006D8E51 /* character.cpp */; };
-		84BD4C4C1C0703F5006D8E51 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C4A1C0703F5006D8E51 /* animation.cpp */; };
 		84BD4C521C07066C006D8E51 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C501C07066C006D8E51 /* game.cpp */; };
 		84BD4C551C070EC9006D8E51 /* player_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C531C070EC9006D8E51 /* player_animations.cpp */; };
 		84BD4C581C071289006D8E51 /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C561C071289006D8E51 /* drawing.cpp */; };
@@ -70,7 +69,6 @@
 		8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+Keyboard.m"; sourceTree = "<group>"; };
 		84BD4C471C070326006D8E51 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = ../PixelSpaceOdyssey/character.cpp; sourceTree = "<group>"; };
 		84BD4C481C070326006D8E51 /* character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character.h; path = ../PixelSpaceOdyssey/character.h; sourceTree = "<group>"; };
-		84BD4C4A1C0703F5006D8E51 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation.cpp; path = ../PixelSpaceOdyssey/animation.cpp; sourceTree = "<group>"; };
 		84BD4C4B1C0703F5006D8E51 /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../PixelSpaceOdyssey/animation.h; sourceTree = "<group>"; };
 		84BD4C4D1C070433006D8E51 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../PixelSpaceOdyssey/common.h; sourceTree = "<group>"; };
 		84BD4C4F1C070598006D8E51 /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bridge.h; path = ../PixelSpaceOdyssey/bridge.h; sourceTree = "<group>"; };
@@ -148,7 +146,6 @@
 		8481A1EA1C02BE6000CEDB85 /* PixelSpaceOdyssey */ = {
 			isa = PBXGroup;
 			children = (
-				84BD4C4A1C0703F5006D8E51 /* animation.cpp */,
 				84BD4C4B1C0703F5006D8E51 /* animation.h */,
 				84BD4C4F1C070598006D8E51 /* bridge.h */,
 				84BD4C471C070326006D8E51 /* character.cpp */,
@@ -334,7 +331,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 84D4E4EF1C02793F00919D0F /* Build configuration list for PBXProject "PixelSpaceOdessey" */;
+			buildConfigurationList = 84D4E4EF1C02793F00919D0F /* Build configuration list for PBXProject "PixelSpaceOdyssey" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -403,7 +400,6 @@
 				84BD4C601C07A39E006D8E51 /* tilemap.cpp in Sources */,
 				84D4E4FC1C02793F00919D0F /* main.m in Sources */,
 				84BD4C491C070326006D8E51 /* character.cpp in Sources */,
-				84BD4C4C1C0703F5006D8E51 /* animation.cpp in Sources */,
 				8481A1DA1C02BB5D00CEDB85 /* Arduboy.cpp in Sources */,
 				8481A1DD1C02BB5D00CEDB85 /* glcdfont.c in Sources */,
 				84D4E4F91C02793F00919D0F /* AppDelegate.m in Sources */,
@@ -621,7 +617,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		84D4E4EF1C02793F00919D0F /* Build configuration list for PBXProject "PixelSpaceOdessey" */ = {
+		84D4E4EF1C02793F00919D0F /* Build configuration list for PBXProject "PixelSpaceOdyssey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84D4E51C1C02793F00919D0F /* Debug */,
