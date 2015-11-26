@@ -2,6 +2,7 @@ require 'rake'
 require 'plist'
 
 require_relative 'common'
+require_relative 'animation_builder'
 
 include Common
 
@@ -30,7 +31,6 @@ task :init do
   end
 
   $project_version = extract_project_version $dir_emu
-  puts "Project version: #{$project_version}"
 end
 
 task :clean => :init do
@@ -38,12 +38,19 @@ task :clean => :init do
   FileUtils.mkpath $dir_out
 end
 
-desc 'Updates all animations'
-task :update_animations => :init do
+desc 'Generate animations'
+task :generate_animations => :init do
+
+  Dir["#{$dir_animations}/*.psd"].each { |psd_file|
+    AnimationBuilder.generate psd_file, $dir_project
+  }
+
 end
 
 desc 'Build the app'
 task :build => :clean do
+  puts "Project version: #{$project_version}"
+
   cmd = 'xcodebuild'
   cmd << %( -project "#{$file_emu_project}")
   cmd << ' -configuration Debug'

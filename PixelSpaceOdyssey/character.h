@@ -18,7 +18,7 @@
 
 typedef struct _Character
 {
-    Animation* animation;
+    const Animation* animation;
     
     int16_t x;
     int16_t y;
@@ -37,7 +37,7 @@ inline Character CharacterMake()
     return character;
 }
 
-void CharacterSetAnimation(Character* character, Animation* animation);
+void CharacterSetAnimation(Character* character, const Animation* animation);
 void CharacterUpdateAnimation(Character* character, TimeInterval dt);
 void CharacterDraw(Character* character, DrawMode mode);
 

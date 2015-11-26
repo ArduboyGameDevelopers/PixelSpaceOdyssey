@@ -13,7 +13,7 @@
 
 #define FRAME_DELAY_MS 100
 
-void CharacterSetAnimation(Character* character, Animation* animation)
+void CharacterSetAnimation(Character* character, const Animation* animation)
 {
     assert(character);
     assert(animation);

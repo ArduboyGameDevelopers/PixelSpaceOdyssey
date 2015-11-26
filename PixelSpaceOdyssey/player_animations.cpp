@@ -1,408 +1,299 @@
-//
-//  player_animations.c
-//  PixelSpaceOdessey
-//
-//  Created by Alex Lementuev on 11/26/15.
-//  Copyright © 2015 Space Madness. All rights reserved.
-//
-
 #include <avr/pgmspace.h>
 
 #include "player_animations.h"
 
-PROGMEM static const unsigned char death_0[] =
+PROGMEM static const unsigned char FRAME_DEATH_0[] =
 {
-    4, 7, 8, 9,
-    0x10, 0x90, 0xcb, 0x7f, 0x3e, 0xf8, 0x10, 0x20, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0
+  1, 0, 7, 8,
+  0x8, 0x48, 0x67, 0x3f, 0x1f, 0xfc, 0x8
 };
 
-PROGMEM static const unsigned char death_1[] =
+PROGMEM static const unsigned char FRAME_DEATH_1[] =
 {
-    3, 9, 9, 7,
-    0x30, 0x30, 0x3e, 0x1d, 0x1c, 0x7e, 0xe, 0x39, 0x1
+  0, 1, 8, 7,
+  0x30, 0x30, 0x3e, 0x1d, 0x1c, 0x7e, 0xe, 0x39
 };
 
-PROGMEM static const unsigned char death_2[] =
+PROGMEM static const unsigned char FRAME_DEATH_2[] =
 {
-    3, 9, 9, 7,
-    0x60, 0x60, 0x7e, 0x78, 0x78, 0x3f, 0x1c, 0x2, 0x2
+  0, 1, 8, 7,
+  0x60, 0x60, 0x7e, 0x78, 0x78, 0x3f, 0x1c, 0x2
 };
 
-PROGMEM static const unsigned char death_3[] =
+PROGMEM static const unsigned char FRAME_DEATH_3[] =
 {
-    3, 11, 9, 5,
-    0x7, 0x7, 0xe, 0x1e, 0x1c, 0x1c, 0xe, 0x16, 0x14
+  0, 3, 8, 5,
+  0x7, 0x7, 0xe, 0x1e, 0x1c, 0xe, 0x16, 0x14
 };
 
-PROGMEM static const unsigned char death_4[] =
+PROGMEM static const unsigned char FRAME_DEATH_4[] =
 {
-    2, 12, 11, 4,
-    0xc, 0xc, 0xc, 0xe, 0xf, 0xd, 0xd, 0xc, 0x4, 0x2, 0x2
+  0, 4, 8, 4,
+  0xc, 0xc, 0xe, 0xf, 0xd, 0x4, 0x2, 0x2
 };
 
-PROGMEM static const unsigned char death_5[] =
+PROGMEM static const unsigned char FRAME_DEATH_5[] =
 {
-    2, 13, 11, 3,
-    0x4, 0x4, 0x6, 0x7, 0x7, 0x7, 0x7, 0x7, 0x6, 0x4, 0x4
+  0, 5, 8, 3,
+  0x4, 0x6, 0x7, 0x7, 0x7, 0x7, 0x6, 0x4
 };
 
-static PgmPtr death_frames[] =
+static PgmPtr FRAMES_DEATH[] =
 {
-    death_0,
-    death_1,
-    death_2,
-    death_3,
-    death_4,
-    death_5,
+  FRAME_DEATH_0,
+  FRAME_DEATH_1,
+  FRAME_DEATH_2,
+  FRAME_DEATH_3,
+  FRAME_DEATH_4,
+  FRAME_DEATH_5,
 };
 
-PROGMEM static const unsigned char impact_bottom_0[] =
+PROGMEM static const unsigned char FRAME_IMPACT_BOTTOM_0[] =
 {
-    4, 6, 7, 8,
-    0x18, 0x4, 0x7e, 0x1e, 0x3f, 0xcf, 0x13
+  1, 0, 7, 7,
+  0x1b, 0x7, 0x7f, 0x1f, 0x1f, 0x72, 0x4
 };
 
-PROGMEM static const unsigned char impact_bottom_1[] =
+static PgmPtr FRAMES_IMPACT_BOTTOM[] =
 {
-    4, 7, 7, 9,
-    0x4, 0xc2, 0x3e, 0x3e, 0xfe, 0x17, 0x13, 0x0, 0x1, 0x0, 0x0, 0x0, 0x1, 0x0
+  FRAME_IMPACT_BOTTOM_0,
 };
 
-static PgmPtr impact_bottom_frames[] =
+PROGMEM static const unsigned char FRAME_IMPACT_TOP_0[] =
 {
-    impact_bottom_0,
-    impact_bottom_1,
+  0, 3, 8, 5,
+  0x1, 0x11, 0x11, 0x1f, 0xf, 0xf, 0x1b, 0x13
 };
 
-PROGMEM static const unsigned char impact_top_0[] =
+static PgmPtr FRAMES_IMPACT_TOP[] =
 {
-    3, 11, 8, 5,
-    0x1, 0x11, 0x11, 0x1f, 0xf, 0xf, 0x1b, 0x13
+  FRAME_IMPACT_TOP_0,
 };
 
-PROGMEM static const unsigned char impact_top_1[] =
+PROGMEM static const unsigned char FRAME_IMPACT_BACK_0[] =
 {
-    3, 9, 7, 7,
-    0x4, 0x4, 0x62, 0x3e, 0xe, 0x7f, 0x57
+  2, 0, 6, 8,
+  0xc2, 0xa2, 0x3e, 0xde, 0xbf, 0x7
 };
 
-static PgmPtr impact_top_frames[] =
+static PgmPtr FRAMES_IMPACT_BACK[] =
 {
-    impact_top_0,
-    impact_top_1,
+  FRAME_IMPACT_BACK_0,
 };
 
-PROGMEM static const unsigned char impact_back_0[] =
+PROGMEM static const unsigned char FRAME_IMPACT_FRONT_0[] =
 {
-    5, 8, 8, 8,
-    0xc0, 0xa2, 0x32, 0xde, 0xbe, 0xe, 0x7, 0x7
+  0, 0, 8, 8,
+  0x8, 0x6, 0xff, 0x9f, 0x1f, 0x3c, 0xc4, 0x4
 };
 
-PROGMEM static const unsigned char impact_back_1[] =
+static PgmPtr FRAMES_IMPACT_FRONT[] =
 {
-    5, 8, 7, 8,
-    0xc0, 0xac, 0x3e, 0xfe, 0xbe, 0x27, 0x7
+  FRAME_IMPACT_FRONT_0,
 };
 
-static PgmPtr impact_back_frames[] =
+PROGMEM static const unsigned char FRAME_JUMPKICK_0[] =
 {
-    impact_back_0,
-    impact_back_1,
+  1, 0, 6, 8,
+  0xe0, 0x28, 0x3f, 0x7f, 0x1c, 0x8
 };
 
-PROGMEM static const unsigned char impact_front_0[] =
+PROGMEM static const unsigned char FRAME_JUMPKICK_1[] =
 {
-    3, 7, 7, 9,
-    0x33, 0xf, 0xff, 0x3c, 0x38, 0xc8, 0x88, 0x0, 0x0, 0x1, 0x1, 0x0, 0x0, 0x0
+  0, 0, 10, 9,
+  0x0, 0x0, 0xc, 0xe4, 0x3c, 0x3e, 0x3e, 0x26, 0x21, 0x21, 0x1, 0x1, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
 };
 
-PROGMEM static const unsigned char impact_front_1[] =
+static PgmPtr FRAMES_JUMPKICK[] =
 {
-    2, 7, 9, 9,
-    0x8, 0x8, 0x4, 0xfc, 0x3f, 0x3f, 0x78, 0x88, 0x8, 0x0, 0x0, 0x0, 0x1, 0x1, 0x0, 0x0, 0x1, 0x0
+  FRAME_JUMPKICK_0,
+  FRAME_JUMPKICK_1,
 };
 
-static PgmPtr impact_front_frames[] =
+PROGMEM static const unsigned char FRAME_PUNCH_0[] =
 {
-    impact_front_0,
-    impact_front_1,
+  0, 0, 6, 8,
+  0x4, 0xe, 0xff, 0xbf, 0x28, 0xc0
 };
 
-PROGMEM static const unsigned char kick_0[] =
+PROGMEM static const unsigned char FRAME_PUNCH_1[] =
 {
-    4, 8, 6, 8,
-    0xe0, 0x28, 0x3f, 0x7f, 0x1c, 0x8
+  1, 0, 7, 8,
+  0x8, 0xfe, 0x9e, 0x3f, 0xc7, 0x82, 0x2
 };
 
-PROGMEM static const unsigned char kick_1[] =
+static PgmPtr FRAMES_PUNCH[] =
 {
-    5, 9, 8, 7,
-    0x6, 0x72, 0x1e, 0x1f, 0x1f, 0x13, 0x10, 0x10
+  FRAME_PUNCH_0,
+  FRAME_PUNCH_1,
 };
 
-static PgmPtr kick_frames[] =
+PROGMEM static const unsigned char FRAME_CROUCH_0[] =
 {
-    kick_0,
-    kick_1,
+  1, 1, 7, 7,
+  0x42, 0x42, 0x7e, 0x7e, 0x3f, 0x4f, 0x30
 };
 
-PROGMEM static const unsigned char punch_0[] =
+PROGMEM static const unsigned char FRAME_CROUCH_1[] =
 {
-    3, 8, 7, 8,
-    0x4, 0x2, 0xee, 0xbf, 0x3f, 0xc8, 0x80
+  0, 3, 8, 5,
+  0x12, 0x1a, 0x1e, 0x1e, 0x1e, 0x1f, 0x7, 0x18
 };
 
-PROGMEM static const unsigned char punch_1[] =
+static PgmPtr FRAMES_CROUCH[] =
 {
-    5, 8, 10, 8,
-    0xc0, 0xb0, 0x18, 0xfe, 0x8e, 0xf, 0x7, 0x2, 0x2, 0x2
+  FRAME_CROUCH_0,
+  FRAME_CROUCH_1,
 };
 
-PROGMEM static const unsigned char punch_2[] =
+PROGMEM static const unsigned char FRAME_RECEP_0[] =
 {
-    5, 8, 6, 8,
-    0xc0, 0xbc, 0x3e, 0xfe, 0x9f, 0x17
+  1, 2, 6, 6,
+  0xc, 0x22, 0x3e, 0xe, 0x3f, 0xf
 };
 
-static PgmPtr punch_frames[] =
+static PgmPtr FRAMES_RECEP[] =
 {
-    punch_0,
-    punch_1,
-    punch_2,
+  FRAME_RECEP_0,
 };
 
-PROGMEM static const unsigned char crouch_0[] =
+PROGMEM static const unsigned char FRAME_FALL_0[] =
 {
-    4, 9, 7, 7,
-    0x42, 0x62, 0x7e, 0x1e, 0x7f, 0x57, 0x20
+  0, 0, 8, 8,
+  0x1, 0x1, 0xf, 0xfe, 0x1f, 0x57, 0x22, 0x2
 };
 
-PROGMEM static const unsigned char crouch_1[] =
+PROGMEM static const unsigned char FRAME_FALL_1[] =
 {
-    4, 11, 8, 5,
-    0x12, 0x1a, 0x1e, 0x1e, 0x1e, 0x1f, 0x7, 0x18
+  0, 0, 7, 8,
+  0x2, 0x2, 0xe, 0xfe, 0x1e, 0x57, 0x21
 };
 
-static PgmPtr crouch_frames[] =
+static PgmPtr FRAMES_FALL[] =
 {
-    crouch_0,
-    crouch_1,
+  FRAME_FALL_0,
+  FRAME_FALL_1,
 };
 
-PROGMEM static const unsigned char recep_0[] =
+PROGMEM static const unsigned char FRAME_JUMP_0[] =
 {
-    3, 10, 9, 6,
-    0x4, 0x2, 0x22, 0x3f, 0x7, 0x37, 0x1b, 0x3, 0x4
+  0, 2, 8, 6,
+  0x1, 0x1, 0x39, 0x2f, 0xe, 0x3e, 0x2f, 0x1
 };
 
-PROGMEM static const unsigned char recep_1[] =
+PROGMEM static const unsigned char FRAME_JUMP_1[] =
 {
-    4, 10, 8, 6,
-    0xc, 0x22, 0x3e, 0xe, 0x3e, 0x3f, 0xf, 0x10
+  0, 0, 8, 8,
+  0x8, 0x4, 0x3e, 0xde, 0x1f, 0x33, 0x4, 0x4
 };
 
-PROGMEM static const unsigned char recep_2[] =
+static PgmPtr FRAMES_JUMP[] =
 {
-    4, 9, 7, 7,
-    0x18, 0x66, 0x5e, 0x1e, 0x7e, 0x47, 0x7
+  FRAME_JUMP_0,
+  FRAME_JUMP_1,
 };
 
-static PgmPtr recep_frames[] =
+PROGMEM static const unsigned char FRAME_RUNSTOP_0[] =
 {
-    recep_0,
-    recep_1,
-    recep_2,
+  0, 0, 8, 8,
+  0x4, 0x4, 0x7e, 0x9e, 0x3f, 0x6b, 0xc0, 0x80
 };
 
-PROGMEM static const unsigned char fall_0[] =
+static PgmPtr FRAMES_RUNSTOP[] =
 {
-    4, 7, 8, 9,
-    0x1, 0x1, 0xf, 0xfe, 0x1f, 0xd7, 0x22, 0x2, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x0, 0x0
+  FRAME_RUNSTOP_0,
 };
 
-PROGMEM static const unsigned char fall_1[] =
+PROGMEM static const unsigned char FRAME_RUN_0[] =
 {
-    4, 7, 8, 9,
-    0x2, 0x2, 0xe, 0xfe, 0x1f, 0xd7, 0x21, 0x1, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x0, 0x0
+  1, 1, 7, 7,
+  0x18, 0x4, 0x7c, 0x2e, 0x3e, 0xf, 0x7
 };
 
-static PgmPtr fall_frames[] =
+PROGMEM static const unsigned char FRAME_RUN_1[] =
 {
-    fall_0,
-    fall_1,
+  0, 1, 8, 7,
+  0x4, 0x2, 0x62, 0x3e, 0xf, 0xf, 0x17, 0x63
 };
 
-PROGMEM static const unsigned char jump_0[] =
+PROGMEM static const unsigned char FRAME_RUN_2[] =
 {
-    3, 10, 9, 6,
-    0x1, 0x1, 0x39, 0x2f, 0xe, 0x3e, 0x2e, 0xf, 0x1
+  2, 1, 5, 7,
+  0x28, 0x3e, 0x7e, 0xf, 0x7
 };
 
-PROGMEM static const unsigned char jump_1[] =
+PROGMEM static const unsigned char FRAME_RUN_3[] =
 {
-    4, 8, 7, 8,
-    0x18, 0xc4, 0x3e, 0xe, 0xfe, 0xf, 0x37
+  1, 1, 6, 7,
+  0xc, 0x42, 0x7e, 0x1f, 0x1f, 0x6b
 };
 
-PROGMEM static const unsigned char jump_2[] =
+static PgmPtr FRAMES_RUN[] =
 {
-    3, 9, 9, 7,
-    0x20, 0x72, 0x12, 0x1e, 0x1e, 0x1f, 0x17, 0x72, 0x2
+  FRAME_RUN_0,
+  FRAME_RUN_1,
+  FRAME_RUN_2,
+  FRAME_RUN_3,
 };
 
-PROGMEM static const unsigned char jump_3[] =
+PROGMEM static const unsigned char FRAME_WALK_0[] =
 {
-    4, 7, 8, 9,
-    0x2, 0x2, 0x3e, 0xde, 0x1f, 0x33, 0x2, 0x2, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0, 0x0, 0x0
+  1, 0, 6, 8,
+  0x4, 0xc4, 0x7e, 0xfe, 0x1f, 0x17
 };
 
-static PgmPtr jump_frames[] =
+PROGMEM static const unsigned char FRAME_WALK_1[] =
 {
-    jump_0,
-    jump_1,
-    jump_2,
-    jump_3,
+  1, 1, 6, 7,
+  0x8, 0x6c, 0x5e, 0x1e, 0x6f, 0x47
 };
 
-PROGMEM static const unsigned char run_stop_0[] =
+PROGMEM static const unsigned char FRAME_WALK_2[] =
 {
-    3, 8, 8, 8,
-    0x4, 0x4, 0x7e, 0x9e, 0x3f, 0x6b, 0xc0, 0x80
+  0, 0, 7, 8,
+  0x4, 0x2, 0x22, 0xfe, 0x9e, 0x3f, 0x27
 };
 
-static PgmPtr run_stop_frames[] =
+PROGMEM static const unsigned char FRAME_WALK_3[] =
 {
-    run_stop_0,
+  2, 1, 5, 7,
+  0x74, 0x5e, 0x1e, 0x6f, 0x4f
 };
 
-PROGMEM static const unsigned char run_0[] =
+static PgmPtr FRAMES_WALK[] =
 {
-    4, 8, 7, 8,
-    0x18, 0x4, 0xfc, 0x5e, 0x7e, 0xf, 0x7
+  FRAME_WALK_0,
+  FRAME_WALK_1,
+  FRAME_WALK_2,
+  FRAME_WALK_3,
 };
 
-PROGMEM static const unsigned char run_1[] =
+PROGMEM static const unsigned char FRAME_STAT_0[] =
 {
-    3, 7, 8, 8,
-    0x8, 0x4, 0xc4, 0x7c, 0x1e, 0x1e, 0x2f, 0xc7
+  1, 0, 6, 8,
+  0x4, 0xe2, 0xbe, 0x1e, 0xff, 0xa7
 };
 
-PROGMEM static const unsigned char run_2[] =
+static PgmPtr FRAMES_STAT[] =
 {
-    5, 8, 5, 8,
-    0x58, 0x7e, 0xfe, 0x1f, 0x7
+  FRAME_STAT_0,
 };
 
-PROGMEM static const unsigned char run_3[] =
+const Animation PLAYER_ANIMATIONS[] = 
 {
-    4, 7, 6, 8,
-    0x18, 0x84, 0xfc, 0x7e, 0x7f, 0x97
-};
-
-static PgmPtr run_frames[] =
-{
-    run_0,
-    run_1,
-    run_2,
-    run_3,
-};
-
-PROGMEM static const unsigned char walk_0[] =
-{
-    3, 8, 7, 8,
-    0x4, 0x2, 0x22, 0xfe, 0x9e, 0x3f, 0x27
-};
-
-PROGMEM static const unsigned char walk_1[] =
-{
-    4, 9, 6, 7,
-    0x8, 0x6c, 0x5e, 0x1e, 0x6f, 0x47
-};
-
-PROGMEM static const unsigned char walk_2[] =
-{
-    4, 8, 7, 8,
-    0x4, 0xc4, 0x7e, 0xfe, 0x3f, 0x27, 0x30
-};
-
-PROGMEM static const unsigned char walk_3[] =
-{
-    5, 9, 5, 7,
-    0x74, 0x5e, 0x1e, 0x6f, 0x4f
-};
-
-static PgmPtr walk_frames[] =
-{
-    walk_0,
-    walk_1,
-    walk_2,
-    walk_3,
-};
-
-PROGMEM static const unsigned char stat_1_0[] =
-{
-    4, 8, 6, 8,
-    0x4, 0xe2, 0xbe, 0x1e, 0xff, 0xa7
-};
-
-PROGMEM static const unsigned char stat_1_1[] =
-{
-    4, 8, 6, 8,
-    0x2, 0xe1, 0x9f, 0xf, 0xff, 0x97
-};
-
-static PgmPtr stat_1_frames[] =
-{
-    stat_1_0,
-    stat_1_1,
-};
-
-PROGMEM static const unsigned char stat_2_0[] =
-{
-    3, 7, 7, 9,
-    0x10, 0x8, 0xfc, 0x3c, 0x7f, 0xc7, 0x0, 0x0, 0x0, 0x1, 0x1, 0x0, 0x1, 0x1
-};
-
-static PgmPtr stat_2_frames[] =
-{
-    stat_2_0,
-};
-
-PROGMEM static const unsigned char stat_3_0[] =
-{
-    4, 7, 6, 9,
-    0x10, 0xfc, 0x3f, 0x3f, 0xfc, 0x30, 0x0, 0x1, 0x1, 0x0, 0x1, 0x0
-};
-
-PROGMEM static const unsigned char stat_3_1[] =
-{
-    5, 8, 6, 8,
-    0xc7, 0xbf, 0x1e, 0xfe, 0xc, 0x30
-};
-
-static PgmPtr stat_3_frames[] =
-{
-    stat_3_0,
-    stat_3_1,
-};
-
-Animation PLAYER_ANIMATIONS[] =
-{
-    AnimationMake(death_frames, 6),
-    AnimationMake(impact_bottom_frames, 2),
-    AnimationMake(impact_top_frames, 2),
-    AnimationMake(impact_back_frames, 2),
-    AnimationMake(impact_front_frames, 2),
-    AnimationMake(kick_frames, 2),
-    AnimationMake(punch_frames, 3),
-    AnimationMake(crouch_frames, 2),
-    AnimationMake(recep_frames, 3),
-    AnimationMake(fall_frames, 2),
-    AnimationMake(jump_frames, 4),
-    AnimationMake(run_stop_frames, 1),
-    AnimationMake(run_frames, 4),
-    AnimationMake(walk_frames, 4),
-    AnimationMake(stat_1_frames, 2),
-    AnimationMake(stat_2_frames, 1),
-    AnimationMake(stat_3_frames, 2),
+  AnimationMake(FRAMES_DEATH, 6),
+  AnimationMake(FRAMES_IMPACT_BOTTOM, 1),
+  AnimationMake(FRAMES_IMPACT_TOP, 1),
+  AnimationMake(FRAMES_IMPACT_BACK, 1),
+  AnimationMake(FRAMES_IMPACT_FRONT, 1),
+  AnimationMake(FRAMES_JUMPKICK, 2),
+  AnimationMake(FRAMES_PUNCH, 2),
+  AnimationMake(FRAMES_CROUCH, 2),
+  AnimationMake(FRAMES_RECEP, 1),
+  AnimationMake(FRAMES_FALL, 2),
+  AnimationMake(FRAMES_JUMP, 2),
+  AnimationMake(FRAMES_RUNSTOP, 1),
+  AnimationMake(FRAMES_RUN, 4),
+  AnimationMake(FRAMES_WALK, 4),
+  AnimationMake(FRAMES_STAT, 1),
 };

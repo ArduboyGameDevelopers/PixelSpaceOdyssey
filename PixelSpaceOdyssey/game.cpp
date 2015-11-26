@@ -153,7 +153,7 @@ void playerUpdate(TimeInterval dt)
                 player.move = 1;
             }
             
-            if (player.dir != 0 && display.pressed(RUN_BUTTON))
+            if (player.move != 0 && display.pressed(RUN_BUTTON))
             {
                 player.move = 2;
             }
@@ -189,7 +189,7 @@ void playerUpdate(TimeInterval dt)
     }
     else if (player.move == 0)
     {
-        playerSetAnimation(PLAYER_ANIMATION_STAT_1);
+        playerSetAnimation(PLAYER_ANIMATION_STAT);
     }
     else if (player.move == 1)
     {

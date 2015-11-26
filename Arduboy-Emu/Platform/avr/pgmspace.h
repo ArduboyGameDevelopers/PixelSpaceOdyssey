@@ -13,10 +13,7 @@
 
 #define PROGMEM
 
-inline unsigned char pgm_read_byte(const unsigned char *ptr)
-{
-    assert(ptr);
-    return *ptr;
-}
+#define pgm_read_byte(address_short) (*(address_short))
+#define pgm_read_ptr(address_short)  (address_short)
 
 #endif /* pgmspace_h */

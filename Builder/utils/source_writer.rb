@@ -35,6 +35,10 @@ class SourceWriter
     File.open(path, 'w') { |file| file.write @source }
   end
 
+  def to_s
+    @source
+  end
+
   private
   def inc_tab()
     @tabs << @tab

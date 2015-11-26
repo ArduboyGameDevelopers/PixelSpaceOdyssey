@@ -12,11 +12,11 @@
 #include "common.h"
 
 typedef struct _Animation {
-    PgmPtr* frames;
+    const PgmPtr* frames;
     uint8_t frameCount;
 } Animation;
 
-inline Animation AnimationMake(PgmPtr* frames, uint8_t frameCount)
+inline Animation AnimationMake(const PgmPtr* frames, uint8_t frameCount)
 {
     Animation animation;
     animation.frames = frames;
@@ -24,7 +24,7 @@ inline Animation AnimationMake(PgmPtr* frames, uint8_t frameCount)
     return animation;
 }
 
-inline PgmPtr AnimationGetFrame(Animation* animation, uint8_t index)
+inline PgmPtr AnimationGetFrame(const Animation* animation, uint8_t index)
 {
     assert(animation);
     assert(index >= 0 && index < animation->frameCount);
