@@ -13,7 +13,7 @@
 		8481A1DC1C02BB5D00CEDB85 /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D71C02BB5D00CEDB85 /* core.cpp */; };
 		8481A1DD1C02BB5D00CEDB85 /* glcdfont.c in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D91C02BB5D00CEDB85 /* glcdfont.c */; };
 		8481A1DF1C02BCBC00CEDB85 /* Platform in Resources */ = {isa = PBXBuildFile; fileRef = 8481A1DE1C02BCBC00CEDB85 /* Platform */; };
-		8481A1F31C02BE8700CEDB85 /* PixelSpaceOdysspy.ino in Resources */ = {isa = PBXBuildFile; fileRef = 8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */; };
+		8481A1F31C02BE8700CEDB85 /* PixelSpaceOdyssey.ino in Resources */ = {isa = PBXBuildFile; fileRef = 8481A1F21C02BE8700CEDB85 /* PixelSpaceOdyssey.ino */; };
 		8481A4A71C02D6AB00CEDB85 /* Arduino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */; };
 		8481A4AC1C02FA9600CEDB85 /* NSEvent+Keyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */; };
 		84BD4C491C070326006D8E51 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C471C070326006D8E51 /* character.cpp */; };
@@ -63,27 +63,27 @@
 		8481A1D81C02BB5D00CEDB85 /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		8481A1D91C02BB5D00CEDB85 /* glcdfont.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glcdfont.c; sourceTree = "<group>"; };
 		8481A1DE1C02BCBC00CEDB85 /* Platform */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Platform; sourceTree = "<group>"; };
-		8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PixelSpaceOdysspy.ino; path = ../PixelSpaceOdysspy/PixelSpaceOdysspy.ino; sourceTree = "<group>"; };
+		8481A1F21C02BE8700CEDB85 /* PixelSpaceOdyssey.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PixelSpaceOdyssey.ino; path = ../PixelSpaceOdyssey/PixelSpaceOdyssey.ino; sourceTree = "<group>"; };
 		8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arduino.cpp; sourceTree = "<group>"; };
 		8481A4A81C02EF1500CEDB85 /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		8481A4AA1C02FA9600CEDB85 /* NSEvent+Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEvent+Keyboard.h"; sourceTree = "<group>"; };
 		8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+Keyboard.m"; sourceTree = "<group>"; };
-		84BD4C471C070326006D8E51 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = ../PixelSpaceOdysspy/character.cpp; sourceTree = "<group>"; };
-		84BD4C481C070326006D8E51 /* character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character.h; path = ../PixelSpaceOdysspy/character.h; sourceTree = "<group>"; };
-		84BD4C4A1C0703F5006D8E51 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation.cpp; path = ../PixelSpaceOdysspy/animation.cpp; sourceTree = "<group>"; };
-		84BD4C4B1C0703F5006D8E51 /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../PixelSpaceOdysspy/animation.h; sourceTree = "<group>"; };
-		84BD4C4D1C070433006D8E51 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../PixelSpaceOdysspy/common.h; sourceTree = "<group>"; };
-		84BD4C4F1C070598006D8E51 /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bridge.h; path = ../PixelSpaceOdysspy/bridge.h; sourceTree = "<group>"; };
-		84BD4C501C07066C006D8E51 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = ../PixelSpaceOdysspy/game.cpp; sourceTree = "<group>"; };
-		84BD4C511C07066C006D8E51 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../PixelSpaceOdysspy/game.h; sourceTree = "<group>"; };
-		84BD4C531C070EC9006D8E51 /* player_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = player_animations.cpp; path = ../PixelSpaceOdysspy/player_animations.cpp; sourceTree = "<group>"; };
-		84BD4C541C070EC9006D8E51 /* player_animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player_animations.h; path = ../PixelSpaceOdysspy/player_animations.h; sourceTree = "<group>"; };
-		84BD4C561C071289006D8E51 /* drawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawing.cpp; path = ../PixelSpaceOdysspy/drawing.cpp; sourceTree = "<group>"; };
-		84BD4C571C071289006D8E51 /* drawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drawing.h; path = ../PixelSpaceOdysspy/drawing.h; sourceTree = "<group>"; };
-		84BD4C591C07995C006D8E51 /* tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles.cpp; path = ../PixelSpaceOdysspy/tiles.cpp; sourceTree = "<group>"; };
-		84BD4C5A1C07995C006D8E51 /* tiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles.h; path = ../PixelSpaceOdysspy/tiles.h; sourceTree = "<group>"; };
-		84BD4C5D1C07A0E5006D8E51 /* tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tilemap.h; path = ../PixelSpaceOdysspy/tilemap.h; sourceTree = "<group>"; };
-		84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tilemap.cpp; path = ../PixelSpaceOdysspy/tilemap.cpp; sourceTree = "<group>"; };
+		84BD4C471C070326006D8E51 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = ../PixelSpaceOdyssey/character.cpp; sourceTree = "<group>"; };
+		84BD4C481C070326006D8E51 /* character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character.h; path = ../PixelSpaceOdyssey/character.h; sourceTree = "<group>"; };
+		84BD4C4A1C0703F5006D8E51 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation.cpp; path = ../PixelSpaceOdyssey/animation.cpp; sourceTree = "<group>"; };
+		84BD4C4B1C0703F5006D8E51 /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../PixelSpaceOdyssey/animation.h; sourceTree = "<group>"; };
+		84BD4C4D1C070433006D8E51 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../PixelSpaceOdyssey/common.h; sourceTree = "<group>"; };
+		84BD4C4F1C070598006D8E51 /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bridge.h; path = ../PixelSpaceOdyssey/bridge.h; sourceTree = "<group>"; };
+		84BD4C501C07066C006D8E51 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = ../PixelSpaceOdyssey/game.cpp; sourceTree = "<group>"; };
+		84BD4C511C07066C006D8E51 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../PixelSpaceOdyssey/game.h; sourceTree = "<group>"; };
+		84BD4C531C070EC9006D8E51 /* player_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = player_animations.cpp; path = ../PixelSpaceOdyssey/player_animations.cpp; sourceTree = "<group>"; };
+		84BD4C541C070EC9006D8E51 /* player_animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player_animations.h; path = ../PixelSpaceOdyssey/player_animations.h; sourceTree = "<group>"; };
+		84BD4C561C071289006D8E51 /* drawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawing.cpp; path = ../PixelSpaceOdyssey/drawing.cpp; sourceTree = "<group>"; };
+		84BD4C571C071289006D8E51 /* drawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drawing.h; path = ../PixelSpaceOdyssey/drawing.h; sourceTree = "<group>"; };
+		84BD4C591C07995C006D8E51 /* tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles.cpp; path = ../PixelSpaceOdyssey/tiles.cpp; sourceTree = "<group>"; };
+		84BD4C5A1C07995C006D8E51 /* tiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles.h; path = ../PixelSpaceOdyssey/tiles.h; sourceTree = "<group>"; };
+		84BD4C5D1C07A0E5006D8E51 /* tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tilemap.h; path = ../PixelSpaceOdyssey/tilemap.h; sourceTree = "<group>"; };
+		84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tilemap.cpp; path = ../PixelSpaceOdyssey/tilemap.cpp; sourceTree = "<group>"; };
 		84BD4C631C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_play_arrow_black_24dp.png; sourceTree = "<group>"; };
 		84BD4C651C07AC61006D8E51 /* ic_pause_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_pause_black_24dp.png; sourceTree = "<group>"; };
 		84BD4C671C07ACC4006D8E51 /* ic_skip_next_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_skip_next_black_24dp.png; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 			path = Platform;
 			sourceTree = "<group>";
 		};
-		8481A1EA1C02BE6000CEDB85 /* PixelSpaceOdysspy */ = {
+		8481A1EA1C02BE6000CEDB85 /* PixelSpaceOdyssey */ = {
 			isa = PBXGroup;
 			children = (
 				84BD4C4A1C0703F5006D8E51 /* animation.cpp */,
@@ -158,7 +158,7 @@
 				84BD4C571C071289006D8E51 /* drawing.h */,
 				84BD4C501C07066C006D8E51 /* game.cpp */,
 				84BD4C511C07066C006D8E51 /* game.h */,
-				8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */,
+				8481A1F21C02BE8700CEDB85 /* PixelSpaceOdyssey.ino */,
 				84BD4C531C070EC9006D8E51 /* player_animations.cpp */,
 				84BD4C541C070EC9006D8E51 /* player_animations.h */,
 				84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */,
@@ -166,7 +166,7 @@
 				84BD4C591C07995C006D8E51 /* tiles.cpp */,
 				84BD4C5A1C07995C006D8E51 /* tiles.h */,
 			);
-			name = PixelSpaceOdysspy;
+			name = PixelSpaceOdyssey;
 			sourceTree = "<group>";
 		};
 		8481A4A91C02FA1C00CEDB85 /* Categories */ = {
@@ -191,7 +191,7 @@
 		84D4E4EB1C02793F00919D0F = {
 			isa = PBXGroup;
 			children = (
-				8481A1EA1C02BE6000CEDB85 /* PixelSpaceOdysspy */,
+				8481A1EA1C02BE6000CEDB85 /* PixelSpaceOdyssey */,
 				8481A1DE1C02BCBC00CEDB85 /* Platform */,
 				84D4E4F61C02793F00919D0F /* Arduboy-Emu */,
 				84D4E50D1C02793F00919D0F /* Arduboy-EmuTests */,
@@ -363,7 +363,7 @@
 				84D4E5011C02793F00919D0F /* Assets.xcassets in Resources */,
 				8481A1DF1C02BCBC00CEDB85 /* Platform in Resources */,
 				84BD4C641C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png in Resources */,
-				8481A1F31C02BE8700CEDB85 /* PixelSpaceOdysspy.ino in Resources */,
+				8481A1F31C02BE8700CEDB85 /* PixelSpaceOdyssey.ino in Resources */,
 				84BD4C681C07ACC4006D8E51 /* ic_skip_next_black_24dp.png in Resources */,
 				84D4E5041C02793F00919D0F /* Main.storyboard in Resources */,
 			);
@@ -492,7 +492,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Platform\"/**",
-					"\"$(SRCROOT)/../PixelSpaceOdysspy\"/**",
+					"\"$(SRCROOT)/../PixelSpaceOdyssey\"/**",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -534,7 +534,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Platform\"/**",
-					"\"$(SRCROOT)/../PixelSpaceOdysspy\"/**",
+					"\"$(SRCROOT)/../PixelSpaceOdyssey\"/**",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
