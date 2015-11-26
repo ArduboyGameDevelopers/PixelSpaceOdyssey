@@ -6,17 +6,12 @@
 //  Copyright © 2015 Space Madness. All rights reserved.
 //
 
-#ifndef tilemap_h
-#define tilemap_h
+#ifndef tiles_h
+#define tiles_h
 
-typedef const uint8_t* tile_t;
+#include "common.h"
+#include "tilemap.h"
 
-#define TILES_COUNT 19
-extern tile_t const tiles[];
-
-#define MAP_WIDTH 19
-#define MAP_HEIGHT 13
-#define INDEX_COUNT 247
-extern uint8_t const indices[];
+extern TileMap level1Map();
     
-#endif /* tilemap_h */
+#endif /* tiles_h */

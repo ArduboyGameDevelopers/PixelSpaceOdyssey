@@ -10,6 +10,8 @@
 
 #include "player.h"
 #include "spider.h"
+#include "tiles.h"
+#include "tilemap.h"
 
 static TimeInterval lastFrameTime;
 
@@ -18,6 +20,7 @@ static Graphics graphics = Graphics(display.getBuffer(), WIDTH, HEIGHT);
 
 static Player player;
 static Spider spider;
+static TileMap tileMap = level1Map();
 
 short camX, camY;
 short camXMax, camYMax;
@@ -28,8 +31,6 @@ inline bool button_pressed(uint8_t button)
 }
 
 void updateInput();
-void drawTileMap();
-void updateSpider();
 
 void startGame()
 {
@@ -44,8 +45,8 @@ void startGame()
     
     camX = 0;
     camY = 20;
-    camXMax = MAP_WIDTH * 8 - 128;
-    camYMax = MAP_HEIGHT * 8 - 64;
+    camXMax = tileMap.pixelWidth() - 128;
+    camYMax = tileMap.pixelHeight() - 64;
     
     lastFrameTime = millis();
 }
@@ -63,10 +64,12 @@ void loopGame()
     display.fillRect(0, 0, 128, 64, WHITE);
     
     graphics.translate(-camX, -camY);
+
+    Graphics *g = &graphics;
     
-    drawTileMap();
-    player.draw(&graphics);
-    spider.draw(&graphics);
+    tileMap.draw(g, 0, 0);
+    player.draw(g);
+    spider.draw(g);
     
     graphics.translate(camX, camY);
     
@@ -130,22 +133,4 @@ void updateInput()
         }
     }
     */
-}
-
-void drawTileMap()
-{
-    int16_t x = 0, y = 0;
-    uint16_t index = 0;
-    for (int ty = 0; ty < MAP_HEIGHT; ++ty)
-    {
-        for (int tx = 0; tx < MAP_WIDTH; ++tx)
-        {
-            int tileIndex = indices[index];
-            graphics.drawImage(tiles[tileIndex], x, y, 8, 8, DM_UNLIT);
-            x += 8;
-            ++index;
-        }
-        x = 0;
-        y += 8;
-    }
 }
