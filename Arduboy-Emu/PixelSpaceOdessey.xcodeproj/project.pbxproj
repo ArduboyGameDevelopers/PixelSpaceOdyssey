@@ -21,6 +21,8 @@
 		84BD4C521C07066C006D8E51 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C501C07066C006D8E51 /* game.cpp */; };
 		84BD4C551C070EC9006D8E51 /* player_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C531C070EC9006D8E51 /* player_animations.cpp */; };
 		84BD4C581C071289006D8E51 /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C561C071289006D8E51 /* drawing.cpp */; };
+		84BD4C5B1C07995C006D8E51 /* tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C591C07995C006D8E51 /* tiles.cpp */; };
+		84BD4C601C07A39E006D8E51 /* tilemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */; };
 		84D4E4F91C02793F00919D0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4F81C02793F00919D0F /* AppDelegate.m */; };
 		84D4E4FC1C02793F00919D0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FB1C02793F00919D0F /* main.m */; };
 		84D4E4FF1C02793F00919D0F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D4E4FE1C02793F00919D0F /* ViewController.m */; };
@@ -75,6 +77,10 @@
 		84BD4C541C070EC9006D8E51 /* player_animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player_animations.h; path = ../PixelSpaceOdysspy/player_animations.h; sourceTree = "<group>"; };
 		84BD4C561C071289006D8E51 /* drawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawing.cpp; path = ../PixelSpaceOdysspy/drawing.cpp; sourceTree = "<group>"; };
 		84BD4C571C071289006D8E51 /* drawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drawing.h; path = ../PixelSpaceOdysspy/drawing.h; sourceTree = "<group>"; };
+		84BD4C591C07995C006D8E51 /* tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles.cpp; path = ../PixelSpaceOdysspy/tiles.cpp; sourceTree = "<group>"; };
+		84BD4C5A1C07995C006D8E51 /* tiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles.h; path = ../PixelSpaceOdysspy/tiles.h; sourceTree = "<group>"; };
+		84BD4C5D1C07A0E5006D8E51 /* tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tilemap.h; path = ../PixelSpaceOdysspy/tilemap.h; sourceTree = "<group>"; };
+		84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tilemap.cpp; path = ../PixelSpaceOdysspy/tilemap.cpp; sourceTree = "<group>"; };
 		84D4E4F41C02793F00919D0F /* PixelSpaceOdessey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelSpaceOdessey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D4E4F71C02793F00919D0F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		84D4E4F81C02793F00919D0F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -149,6 +155,10 @@
 				8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */,
 				84BD4C531C070EC9006D8E51 /* player_animations.cpp */,
 				84BD4C541C070EC9006D8E51 /* player_animations.h */,
+				84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */,
+				84BD4C5D1C07A0E5006D8E51 /* tilemap.h */,
+				84BD4C591C07995C006D8E51 /* tiles.cpp */,
+				84BD4C5A1C07995C006D8E51 /* tiles.h */,
 			);
 			name = PixelSpaceOdysspy;
 			sourceTree = "<group>";
@@ -369,6 +379,8 @@
 				8481A1AE1C027AE400CEDB85 /* DisplayView.m in Sources */,
 				8481A1DB1C02BB5D00CEDB85 /* audio.cpp in Sources */,
 				84BD4C551C070EC9006D8E51 /* player_animations.cpp in Sources */,
+				84BD4C5B1C07995C006D8E51 /* tiles.cpp in Sources */,
+				84BD4C601C07A39E006D8E51 /* tilemap.cpp in Sources */,
 				84D4E4FC1C02793F00919D0F /* main.m in Sources */,
 				84BD4C491C070326006D8E51 /* character.cpp in Sources */,
 				84BD4C4C1C0703F5006D8E51 /* animation.cpp in Sources */,

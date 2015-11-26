@@ -14,6 +14,7 @@
 #include "Arduboy.h"
 
 #include "character.h"
+#include "tiles.h"
 #include "player_animations.h"
 
 #define RUN_BUTTON  A_BUTTON
@@ -28,11 +29,12 @@
 static Arduboy display;
 
 static Character player = CharacterMake();
+static Character spider = CharacterMake();
+static TileMap tileMap = tileMap1();
+
 static bool playerCrouching = false;
 static bool playerJumping = false;
 static int16_t playerJumpSpeed = 0;
-
-static Character spider = CharacterMake();
 
 static uint16_t camX, camY;
 
@@ -60,7 +62,7 @@ void startGame()
     spider.y = SCREEN_TO_WORLD(80);
     
     camX = 0;
-    camY = 20;
+    camY = 0;
     
     lastFrameTime = millis();
 }
@@ -235,5 +237,5 @@ void spiderDraw()
 
 void tilemapDraw()
 {
-    
+    TileMapDraw(&tileMap, -camX, -camY);
 }
