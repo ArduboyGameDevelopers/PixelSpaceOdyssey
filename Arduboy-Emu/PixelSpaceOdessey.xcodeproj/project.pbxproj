@@ -14,10 +14,14 @@
 		8481A1DD1C02BB5D00CEDB85 /* glcdfont.c in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D91C02BB5D00CEDB85 /* glcdfont.c */; };
 		8481A1DF1C02BCBC00CEDB85 /* Platform in Resources */ = {isa = PBXBuildFile; fileRef = 8481A1DE1C02BCBC00CEDB85 /* Platform */; };
 		8481A1ED1C02BE7700CEDB85 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1EB1C02BE7700CEDB85 /* game.cpp */; };
-		8481A1EE1C02BE7700CEDB85 /* images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1EC1C02BE7700CEDB85 /* images.cpp */; };
 		8481A1F31C02BE8700CEDB85 /* PixelSpaceOdysspy.ino in Resources */ = {isa = PBXBuildFile; fileRef = 8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */; };
 		8481A4A71C02D6AB00CEDB85 /* Arduino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */; };
 		8481A4AC1C02FA9600CEDB85 /* NSEvent+Keyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */; };
+		84BD4C291C06BD46006D8E51 /* graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C271C06BD46006D8E51 /* graphics.cpp */; };
+		84BD4C321C06C8D2006D8E51 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C301C06C8D2006D8E51 /* player.cpp */; };
+		84BD4C361C06CCB1006D8E51 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C351C06CCB1006D8E51 /* animation.cpp */; };
+		84BD4C3B1C06DA73006D8E51 /* game_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C391C06DA73006D8E51 /* game_object.cpp */; };
+		84BD4C401C06DD49006D8E51 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C3E1C06DD49006D8E51 /* character.cpp */; };
 		84D076791C055A5900B93565 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84D076771C055A5900B93565 /* camera.cpp */; };
 		84D0767F1C05765500B93565 /* tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84D0767D1C05765500B93565 /* tiles.cpp */; };
 		84D076851C058D9700B93565 /* spider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84D076831C058D9700B93565 /* spider.cpp */; };
@@ -59,14 +63,23 @@
 		8481A1D91C02BB5D00CEDB85 /* glcdfont.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glcdfont.c; sourceTree = "<group>"; };
 		8481A1DE1C02BCBC00CEDB85 /* Platform */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Platform; sourceTree = "<group>"; };
 		8481A1EB1C02BE7700CEDB85 /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = ../PixelSpaceOdysspy/game.cpp; sourceTree = "<group>"; };
-		8481A1EC1C02BE7700CEDB85 /* images.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = images.cpp; path = ../PixelSpaceOdysspy/images.cpp; sourceTree = "<group>"; };
-		8481A1EF1C02BE8700CEDB85 /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../PixelSpaceOdysspy/animation.h; sourceTree = "<group>"; };
-		8481A1F11C02BE8700CEDB85 /* images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = images.h; path = ../PixelSpaceOdysspy/images.h; sourceTree = "<group>"; };
 		8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PixelSpaceOdysspy.ino; path = ../PixelSpaceOdysspy/PixelSpaceOdysspy.ino; sourceTree = "<group>"; };
 		8481A4A51C02D6AB00CEDB85 /* Arduino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arduino.cpp; sourceTree = "<group>"; };
 		8481A4A81C02EF1500CEDB85 /* platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		8481A4AA1C02FA9600CEDB85 /* NSEvent+Keyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSEvent+Keyboard.h"; sourceTree = "<group>"; };
 		8481A4AB1C02FA9600CEDB85 /* NSEvent+Keyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSEvent+Keyboard.m"; sourceTree = "<group>"; };
+		84BD4C271C06BD46006D8E51 /* graphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = graphics.cpp; path = ../PixelSpaceOdysspy/graphics.cpp; sourceTree = "<group>"; };
+		84BD4C281C06BD46006D8E51 /* graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = graphics.h; path = ../PixelSpaceOdysspy/graphics.h; sourceTree = "<group>"; };
+		84BD4C2E1C06BD9E006D8E51 /* image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = image.h; path = ../PixelSpaceOdysspy/image.h; sourceTree = "<group>"; };
+		84BD4C301C06C8D2006D8E51 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = player.cpp; path = ../PixelSpaceOdysspy/player.cpp; sourceTree = "<group>"; };
+		84BD4C311C06C8D2006D8E51 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player.h; path = ../PixelSpaceOdysspy/player.h; sourceTree = "<group>"; };
+		84BD4C331C06C94C006D8E51 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../PixelSpaceOdysspy/common.h; sourceTree = "<group>"; };
+		84BD4C341C06CA7A006D8E51 /* animation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../PixelSpaceOdysspy/animation.h; sourceTree = "<group>"; };
+		84BD4C351C06CCB1006D8E51 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation.cpp; path = ../PixelSpaceOdysspy/animation.cpp; sourceTree = "<group>"; };
+		84BD4C391C06DA73006D8E51 /* game_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game_object.cpp; path = ../PixelSpaceOdysspy/game_object.cpp; sourceTree = "<group>"; };
+		84BD4C3A1C06DA73006D8E51 /* game_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game_object.h; path = ../PixelSpaceOdysspy/game_object.h; sourceTree = "<group>"; };
+		84BD4C3E1C06DD49006D8E51 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = ../PixelSpaceOdysspy/character.cpp; sourceTree = "<group>"; };
+		84BD4C3F1C06DD49006D8E51 /* character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character.h; path = ../PixelSpaceOdysspy/character.h; sourceTree = "<group>"; };
 		84D076771C055A5900B93565 /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera.cpp; path = ../PixelSpaceOdysspy/camera.cpp; sourceTree = "<group>"; };
 		84D076781C055A5900B93565 /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camera.h; path = ../PixelSpaceOdysspy/camera.h; sourceTree = "<group>"; };
 		84D0767A1C055AAE00B93565 /* bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bridge.h; path = ../PixelSpaceOdysspy/bridge.h; sourceTree = "<group>"; };
@@ -136,15 +149,24 @@
 		8481A1EA1C02BE6000CEDB85 /* PixelSpaceOdysspy */ = {
 			isa = PBXGroup;
 			children = (
-				8481A1EF1C02BE8700CEDB85 /* animation.h */,
+				84BD4C351C06CCB1006D8E51 /* animation.cpp */,
+				84BD4C341C06CA7A006D8E51 /* animation.h */,
 				84D0767A1C055AAE00B93565 /* bridge.h */,
 				84D076771C055A5900B93565 /* camera.cpp */,
 				84D076781C055A5900B93565 /* camera.h */,
+				84BD4C3E1C06DD49006D8E51 /* character.cpp */,
+				84BD4C3F1C06DD49006D8E51 /* character.h */,
+				84BD4C331C06C94C006D8E51 /* common.h */,
+				84BD4C391C06DA73006D8E51 /* game_object.cpp */,
+				84BD4C3A1C06DA73006D8E51 /* game_object.h */,
 				8481A1EB1C02BE7700CEDB85 /* game.cpp */,
 				84D0767B1C055ADB00B93565 /* game.h */,
-				8481A1EC1C02BE7700CEDB85 /* images.cpp */,
-				8481A1F11C02BE8700CEDB85 /* images.h */,
+				84BD4C271C06BD46006D8E51 /* graphics.cpp */,
+				84BD4C281C06BD46006D8E51 /* graphics.h */,
+				84BD4C2E1C06BD9E006D8E51 /* image.h */,
 				8481A1F21C02BE8700CEDB85 /* PixelSpaceOdysspy.ino */,
+				84BD4C301C06C8D2006D8E51 /* player.cpp */,
+				84BD4C311C06C8D2006D8E51 /* player.h */,
 				84D076831C058D9700B93565 /* spider.cpp */,
 				84D076841C058D9700B93565 /* spider.h */,
 				84D0767D1C05765500B93565 /* tiles.cpp */,
@@ -361,9 +383,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D0767F1C05765500B93565 /* tiles.cpp in Sources */,
+				84BD4C401C06DD49006D8E51 /* character.cpp in Sources */,
 				84D076791C055A5900B93565 /* camera.cpp in Sources */,
 				8481A1ED1C02BE7700CEDB85 /* game.cpp in Sources */,
-				8481A1EE1C02BE7700CEDB85 /* images.cpp in Sources */,
+				84BD4C321C06C8D2006D8E51 /* player.cpp in Sources */,
 				84D076851C058D9700B93565 /* spider.cpp in Sources */,
 				8481A1DC1C02BB5D00CEDB85 /* core.cpp in Sources */,
 				84D4E4FF1C02793F00919D0F /* ViewController.m in Sources */,
@@ -372,7 +395,10 @@
 				8481A1AE1C027AE400CEDB85 /* DisplayView.m in Sources */,
 				8481A1DB1C02BB5D00CEDB85 /* audio.cpp in Sources */,
 				84D4E4FC1C02793F00919D0F /* main.m in Sources */,
+				84BD4C291C06BD46006D8E51 /* graphics.cpp in Sources */,
+				84BD4C361C06CCB1006D8E51 /* animation.cpp in Sources */,
 				8481A1DA1C02BB5D00CEDB85 /* Arduboy.cpp in Sources */,
+				84BD4C3B1C06DA73006D8E51 /* game_object.cpp in Sources */,
 				8481A1DD1C02BB5D00CEDB85 /* glcdfont.c in Sources */,
 				84D4E4F91C02793F00919D0F /* AppDelegate.m in Sources */,
 			);
