@@ -2,7 +2,7 @@
 //  common.h
 //  PixelSpaceOdessey
 //
-//  Created by Alex Lementuev on 11/25/15.
+//  Created by Alex Lementuev on 11/26/15.
 //  Copyright © 2015 Space Madness. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
     #include <types.h>
 #else
     #include <stdint.h>
-#endif // EMULATOR
+#endif
 
 #include <assert.h>
 
@@ -26,14 +26,8 @@
 #define DM_FLIP_X 8
 #define DM_FLIP_Y 16
 
-typedef int16_t         Coord;
-typedef uint8_t         DrawMode;
-typedef const uint8_t*  PgmPtr;
-typedef unsigned long   TimeInterval;
-
-class Animation;
-class AnimationPlayer;
-class Image;
-class Graphics;
+typedef const unsigned char* PgmPtr;
+typedef unsigned long TimeInterval;
+typedef uint8_t DrawMode;
 
 #endif /* common_h */

@@ -2,7 +2,7 @@
 //  bridge.h
 //  PixelSpaceOdessey
 //
-//  Created by Alex Lementuev on 11/24/15.
+//  Created by Alex Lementuev on 11/26/15.
 //  Copyright © 2015 Space Madness. All rights reserved.
 //
 
@@ -13,8 +13,8 @@
 extern "C" {
 #endif
     
-void startGame();
-void loopGame();
+    void startGame();
+    void loopGame();
     
 #ifdef __cplusplus
 }

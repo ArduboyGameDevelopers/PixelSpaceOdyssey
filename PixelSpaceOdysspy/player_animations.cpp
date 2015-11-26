@@ -1,59 +1,14 @@
 //
-//  player.c
+//  player_animations.c
 //  PixelSpaceOdessey
 //
-//  Created by Alex Lementuev on 11/25/15.
+//  Created by Alex Lementuev on 11/26/15.
 //  Copyright © 2015 Space Madness. All rights reserved.
 //
 
 #include <avr/pgmspace.h>
 
-#include "player.h"
-
-#define GRAVITY 50
-#define FLOOR   416
-
-#define JUMP_SPEED -200
-#define WALK_SPEED 32
-
-#define MIN_X 0
-#define MAX_X 1824
-
-#define ANIMATION_DEATH 0
-
-#define ANIMATION_IMPACT_BOTTOM 1
-
-#define ANIMATION_IMPACT_TOP 2
-
-#define ANIMATION_IMPACT_BACK 3
-
-#define ANIMATION_IMPACT_FRONT 4
-
-#define ANIMATION_KICK 5
-
-#define ANIMATION_PUNCH 6
-
-#define ANIMATION_CROUCH 7
-
-#define ANIMATION_RECEP 8
-
-#define ANIMATION_FALL 9
-
-#define ANIMATION_JUMP 10
-
-#define ANIMATION_RUN_STOP 11
-
-#define ANIMATION_RUN 12
-
-#define ANIMATION_WALK 13
-
-#define ANIMATION_STAT_1 14
-
-#define ANIMATION_STAT_2 15
-
-#define ANIMATION_STAT_3 16
-
-#define ANIMATIONS_COUNT 17
+#include "player_animations.h"
 
 PROGMEM static const unsigned char death_0[] =
 {
@@ -431,75 +386,23 @@ static PgmPtr stat_3_frames[] =
     stat_3_1,
 };
 
-static Animation animations[] =
+Animation player_animations[] =
 {
-    Animation(death_frames, 6),
-    Animation(impact_bottom_frames, 2),
-    Animation(impact_top_frames, 2),
-    Animation(impact_back_frames, 2),
-    Animation(impact_front_frames, 2),
-    Animation(kick_frames, 2),
-    Animation(punch_frames, 3),
-    Animation(crouch_frames, 2),
-    Animation(recep_frames, 3),
-    Animation(fall_frames, 2),
-    Animation(jump_frames, 4),
-    Animation(run_stop_frames, 1),
-    Animation(run_frames, 4),
-    Animation(walk_frames, 4),
-    Animation(stat_1_frames, 2),
-    Animation(stat_2_frames, 1),
-    Animation(stat_3_frames, 2),
+    AnimationMake(death_frames, 6),
+    AnimationMake(impact_bottom_frames, 2),
+    AnimationMake(impact_top_frames, 2),
+    AnimationMake(impact_back_frames, 2),
+    AnimationMake(impact_front_frames, 2),
+    AnimationMake(kick_frames, 2),
+    AnimationMake(punch_frames, 3),
+    AnimationMake(crouch_frames, 2),
+    AnimationMake(recep_frames, 3),
+    AnimationMake(fall_frames, 2),
+    AnimationMake(jump_frames, 4),
+    AnimationMake(run_stop_frames, 1),
+    AnimationMake(run_frames, 4),
+    AnimationMake(walk_frames, 4),
+    AnimationMake(stat_1_frames, 2),
+    AnimationMake(stat_2_frames, 1),
+    AnimationMake(stat_3_frames, 2),
 };
-
-void Player::update(TimeInterval dt)
-{
-    // update movement
-    x += _moveDir * WALK_SPEED;
-    if (x < MIN_X) x = MIN_X;
-    else if (x > MAX_X) x = MAX_X;
-    
-    if (_jumping)
-    {
-        _jumpSpeed += GRAVITY;
-        y += _jumpSpeed;
-        
-        if (y > FLOOR)
-        {
-            y = FLOOR;
-            _jumpSpeed = 0;
-            _jumping = false;
-        }
-    }
-    
-    // update animation
-    if (_jumping)
-    {
-        setAnimation(ANIMATION_JUMP);
-    }
-    else if (_crouching)
-    {
-        setAnimation(ANIMATION_CROUCH);
-    }
-    else if (_moveDir == 0)
-    {
-        setAnimation(ANIMATION_STAT_1);
-    }
-    else if (_moveDir == 1 || _moveDir == -1)
-    {
-        setAnimation(ANIMATION_WALK);
-    }
-    else
-    {
-        setAnimation(ANIMATION_RUN);
-    }
-    
-    // base update
-    Character::update(dt);
-}
-
-void Player::setAnimation(int index)
-{
-    assert(index >= 0 && index < ANIMATIONS_COUNT);
-    _animationPlayer.setAnimation(&animations[index]);
-}

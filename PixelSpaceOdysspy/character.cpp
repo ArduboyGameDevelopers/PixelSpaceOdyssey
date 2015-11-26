@@ -2,18 +2,51 @@
 //  character.c
 //  PixelSpaceOdessey
 //
-//  Created by Alex Lementuev on 11/25/15.
+//  Created by Alex Lementuev on 11/26/15.
 //  Copyright © 2015 Space Madness. All rights reserved.
 //
 
-#include "character.h"
+#include <avr/pgmspace.h>
 
-void Character::update(TimeInterval dt)
+#include "character.h"
+#include "drawing.h"
+
+#define FRAME_DELAY_MS 100
+
+void CharacterSetAnimation(Character* character, Animation* animation)
 {
-    _animationPlayer.update(dt);
+    assert(character);
+    assert(animation);
+    
+    if (character->animation != animation)
+    {
+        character->animation = animation;
+        character->frame = 0;
+    }
 }
 
-void Character::draw(Graphics* g)
+void CharacterUpdateAnimation(Character* character, TimeInterval dt)
 {
-    _animationPlayer.draw(g, WORLD_TO_SCREEN(x), WORLD_TO_SCREEN(y));
+    character->frameTime += dt;
+    if (character->frameTime >= FRAME_DELAY_MS)
+    {
+        character->frameTime = 0;
+        character->frame = (character->frame + 1) % character->animation->frameCount;
+    }
+}
+
+void CharacterDraw(Character* character, DrawMode mode)
+{
+    assert(character);
+    PgmPtr framePtr = AnimationGetFrame(character->animation, character->frame);
+    
+    uint8_t offset  = pgm_read_byte(framePtr);
+    uint8_t width   = pgm_read_byte(framePtr + 2);
+    uint8_t height  = pgm_read_byte(framePtr + 3);
+    
+    PgmPtr imagePtr = framePtr + 4;
+    int16_t drawX = WORLD_TO_SCREEN(character->x) + offset - width / 2;
+    int16_t drawY = WORLD_TO_SCREEN(character->y) + offset - height;
+    
+    drawImage(imagePtr, drawX, drawY, width, height, mode);
 }
