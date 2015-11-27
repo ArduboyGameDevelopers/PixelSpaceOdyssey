@@ -38,8 +38,6 @@ static bool playerCrouching = false;
 static bool playerJumping = false;
 static int16_t playerJumpSpeed = 0;
 
-static uint16_t camX, camY;
-
 static TimeInterval lastFrameTime;
 
 void updateInput();
@@ -61,8 +59,8 @@ void startGame()
     player.x = SCREEN_TO_WORLD(8);
     player.y = SCREEN_TO_WORLD(32);
     
-    camX = 0;
-    camY = 0;
+    drawTransX = 0;
+    drawTransY = -20;
     
     lastFrameTime = millis();
 }
@@ -249,5 +247,5 @@ void spiderDraw()
 
 void tilemapDraw()
 {
-    TileMapDraw(&tileMap, -camX, -camY);
+    TileMapDraw(&tileMap, 0, 0);
 }

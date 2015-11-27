@@ -15,6 +15,9 @@
 
 static uint8_t* sBuffer;
 
+int16_t drawTransX = 0;
+int16_t drawTransY = 0;
+
 void drawInit(unsigned char *buffer)
 {
     sBuffer = buffer;
@@ -22,6 +25,9 @@ void drawInit(unsigned char *buffer)
 
 void drawImage(PgmPtr image, int16_t x, int16_t y, uint8_t w, uint8_t h, DrawMode mode)
 {
+    x += drawTransX;
+    y += drawTransY;
+    
     // no need to dar at all of we're offscreen
     if (x + w < 0 || x > BUFFER_WIDTH - 1 || y + h < 0 || y > BUFFER_HEIGHT - 1)
         return;
