@@ -111,7 +111,7 @@ class TileMapBuilder
     source_cpp.block_close ';'
     source_cpp.println
 
-    source_cpp.println "const uint8_t #{indices_var_name}[] ="
+    source_cpp.println "PROGMEM const uint8_t #{indices_var_name}[] ="
     source_cpp.block_open
     (0..tilemap.height-1).each do |r|
       (0..tilemap.width-1).each do |c|

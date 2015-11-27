@@ -115,7 +115,7 @@ PgmPtr const TILES_LAIR_01[] =
   TILES_LAIR_01_18
 };
 
-const uint8_t INDICES_LAIR_01[] =
+PROGMEM const uint8_t INDICES_LAIR_01[] =
 {
   0,0,0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,
   0,1,2,4,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
