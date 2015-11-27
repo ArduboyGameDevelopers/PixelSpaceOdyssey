@@ -259,9 +259,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		84D4E4F31C02793F00919D0F /* PixelSpaceOdessey */ = {
+		84D4E4F31C02793F00919D0F /* PixelSpaceOdyssey */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84D4E51E1C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdessey" */;
+			buildConfigurationList = 84D4E51E1C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdyssey" */;
 			buildPhases = (
 				84D4E4F01C02793F00919D0F /* Sources */,
 				84D4E4F11C02793F00919D0F /* Frameworks */,
@@ -271,14 +271,14 @@
 			);
 			dependencies = (
 			);
-			name = PixelSpaceOdessey;
+			name = PixelSpaceOdyssey;
 			productName = "Arduboy-Emu";
 			productReference = 84D4E4F41C02793F00919D0F /* PixelSpaceOdessey.app */;
 			productType = "com.apple.product-type.application";
 		};
-		84D4E5091C02793F00919D0F /* PixelSpaceOdesseyTests */ = {
+		84D4E5091C02793F00919D0F /* PixelSpaceOdysseyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84D4E5211C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdesseyTests" */;
+			buildConfigurationList = 84D4E5211C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdysseyTests" */;
 			buildPhases = (
 				84D4E5061C02793F00919D0F /* Sources */,
 				84D4E5071C02793F00919D0F /* Frameworks */,
@@ -289,14 +289,14 @@
 			dependencies = (
 				84D4E50C1C02793F00919D0F /* PBXTargetDependency */,
 			);
-			name = PixelSpaceOdesseyTests;
+			name = PixelSpaceOdysseyTests;
 			productName = "Arduboy-EmuTests";
 			productReference = 84D4E50A1C02793F00919D0F /* PixelSpaceOdessey.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		84D4E5141C02793F00919D0F /* PixelSpaceOdesseyUITests */ = {
+		84D4E5141C02793F00919D0F /* PixelSpaceOdysseyUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84D4E5241C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdesseyUITests" */;
+			buildConfigurationList = 84D4E5241C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdysseyUITests" */;
 			buildPhases = (
 				84D4E5111C02793F00919D0F /* Sources */,
 				84D4E5121C02793F00919D0F /* Frameworks */,
@@ -307,7 +307,7 @@
 			dependencies = (
 				84D4E5171C02793F00919D0F /* PBXTargetDependency */,
 			);
-			name = PixelSpaceOdesseyUITests;
+			name = PixelSpaceOdysseyUITests;
 			productName = "Arduboy-EmuUITests";
 			productReference = 84D4E5151C02793F00919D0F /* PixelSpaceOdessey.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -347,9 +347,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				84D4E4F31C02793F00919D0F /* PixelSpaceOdessey */,
-				84D4E5091C02793F00919D0F /* PixelSpaceOdesseyTests */,
-				84D4E5141C02793F00919D0F /* PixelSpaceOdesseyUITests */,
+				84D4E4F31C02793F00919D0F /* PixelSpaceOdyssey */,
+				84D4E5091C02793F00919D0F /* PixelSpaceOdysseyTests */,
+				84D4E5141C02793F00919D0F /* PixelSpaceOdysseyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -431,12 +431,12 @@
 /* Begin PBXTargetDependency section */
 		84D4E50C1C02793F00919D0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 84D4E4F31C02793F00919D0F /* PixelSpaceOdessey */;
+			target = 84D4E4F31C02793F00919D0F /* PixelSpaceOdyssey */;
 			targetProxy = 84D4E50B1C02793F00919D0F /* PBXContainerItemProxy */;
 		};
 		84D4E5171C02793F00919D0F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 84D4E4F31C02793F00919D0F /* PixelSpaceOdessey */;
+			target = 84D4E4F31C02793F00919D0F /* PixelSpaceOdyssey */;
 			targetProxy = 84D4E5161C02793F00919D0F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -630,7 +630,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84D4E51E1C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdessey" */ = {
+		84D4E51E1C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdyssey" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84D4E51F1C02793F00919D0F /* Debug */,
@@ -639,7 +639,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84D4E5211C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdesseyTests" */ = {
+		84D4E5211C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdysseyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84D4E5221C02793F00919D0F /* Debug */,
@@ -648,7 +648,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84D4E5241C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdesseyUITests" */ = {
+		84D4E5241C02793F00919D0F /* Build configuration list for PBXNativeTarget "PixelSpaceOdysseyUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84D4E5251C02793F00919D0F /* Debug */,

@@ -19,20 +19,18 @@
 typedef struct _Character
 {
     const Animation* animation;
-    
+    uint16_t width;
+    uint16_t height;
     int16_t x;
     int16_t y;
     int16_t frameTime;
-    
     int8_t dir;
     int8_t move;
-    uint8_t width;
-    uint8_t height;
     uint8_t frame;
     
 } Character;
 
-inline Character CharacterMake(uint8_t width, uint8_t height)
+inline Character CharacterMake(uint16_t width, uint16_t height)
 {
     Character character;
     memset(&character, 0, sizeof(character));

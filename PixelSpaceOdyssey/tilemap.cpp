@@ -26,28 +26,37 @@ void TileMapDraw(const TileMap* tileMap, int16_t x, int16_t y)
             uint8_t tileIndex = pgm_read_byte(indices + index);
             if (tileIndex > 0)
             {
-                drawImage(tiles[tileIndex - 1], x, y, TILE_WIDTH, TILE_HEIGHT, DM_UNLIT);
+                drawImage(tiles[tileIndex - 1], x, y, TILE_WIDTH_PX, TILE_HEIGHT_PX, DM_UNLIT);
             }
-            x += TILE_WIDTH;
+            x += TILE_WIDTH_PX;
             ++index;
         }
         x = 0;
-        y += TILE_HEIGHT;
+        y += TILE_HEIGHT_PX;
     }
 }
 
-uint8_t TileMapGetIndex(const TileMap* tileMap, int16_t x, int16_t y)
+bool TileMapGetTile(const TileMap* tileMap, int16_t x, int16_t y, Tile* tile)
 {
-    int16_t tx = x / TILE_WIDTH;
-    int16_t ty = y / TILE_HEIGHT;
+    int16_t tx = W2S(x) / TILE_WIDTH_PX;
+    int16_t ty = W2S(y) / TILE_HEIGHT_PX;
     
     uint8_t width = tileMap->width;
     uint8_t height = tileMap->heigth;
     
     if (tx >= 0 && tx < width && ty >= 0 && ty < height)
     {
-        return ty * width + tx;
+        uint8_t index = pgm_read_byte(tileMap->indices + ty * width + tx);
+        if (index == 0)
+        {
+            return false;
+        }
+        
+        tile->index = index;
+        tile->x = tx * TILE_WIDTH + TILE_WIDTH_HALF;
+        tile->y = ty * TILE_HEIGHT + TILE_HEIGHT_HALF;
+        return true;
     }
     
-    return 0;
+    return false;
 }

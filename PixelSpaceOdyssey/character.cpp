@@ -42,13 +42,12 @@ void CharacterDraw(Character* character, DrawMode mode)
     
     uint16_t frameWidth  = pgm_read_byte(framePtr + 2);
     uint16_t frameHeight = pgm_read_byte(framePtr + 3);
-    int16_t drawX = WORLD_TO_SCREEN(character->x) - character->width / 2;
-    int16_t drawY = WORLD_TO_SCREEN(character->y) - character->height;
+    int16_t drawX = W2S(character->x - DIV2(character->width));
+    int16_t drawY = W2S(character->y - DIV2(character->height));
     
     if ((mode & DM_FLIP_X) == 0)
     {
         drawX += pgm_read_byte(framePtr);
-
     }
     if ((mode & DM_FLIP_Y) == 0)
     {

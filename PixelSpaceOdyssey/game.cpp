@@ -23,15 +23,20 @@
 #define RUN_BUTTON  A_BUTTON
 #define JUMP_BUTTON B_BUTTON
 
-#define GRAVITY 50
+#define GRAVITY 75
 #define FLOOR   416
 
-#define JUMP_SPEED -66
+#define JUMP_SPEED -1000
 #define WALK_SPEED 150
+
+#define PLAYER_WIDTH  2048 /* S2W(8) */
+#define PLAYER_HEIGHT 2048 /* S2W(8) */
+#define PLAYER_HALF_WIDTH  1024 /* S2W(4) */
+#define PLAYER_HALF_HEIGHT 1024 /* S2W(4) */
 
 static Arduboy display;
 
-static Character player = CharacterMake(8, 8);
+static Character player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
 static TileMap tileMap = TileMapMake(TILES_LAIR_01, INDICES_LAIR_01, TILEMAP_LAIR_01_WIDTH, TILEMAP_LAIR_01_HEIGHT);
 
 static bool playerCrouching = false;
@@ -56,11 +61,11 @@ void startGame()
     display.start();
     drawInit(display.getBuffer());
     
-    player.x = SCREEN_TO_WORLD(12);
-    player.y = SCREEN_TO_WORLD(40);
+    player.x = S2W(12);
+    player.y = S2W(36);
     
     drawTransX = 0;
-    drawTransY = -20;
+    drawTransY = 0;
     
     lastFrameTime = millis();
 }
@@ -125,10 +130,34 @@ void updateInput()
 ////////////////////////////////////////////////////////////////////
 // Player
 
+#define GET_TILE(X,Y,T) TileMapGetTile(&tileMap, X, Y, &T)
+
+#define PLAYER_TOP           (player.y - PLAYER_HALF_HEIGHT)
+#define PLAYER_BOTTOM        (player.y + PLAYER_HALF_HEIGHT)
+#define PLAYER_LEFT          (player.x - PLAYER_HALF_WIDTH + 1)
+#define PLAYER_RIGHT         (player.x + PLAYER_HALF_WIDTH - 1)
+
+inline void PLAYER_SET_TOP(int16_t y)    { player.y = y + PLAYER_HALF_HEIGHT; }
+inline void PLAYER_SET_BOTTOM(int16_t y) { player.y = y - PLAYER_HALF_HEIGHT; }
+inline void PLAYER_SET_LEFT(int16_t x)   { player.x = x + PLAYER_HALF_WIDTH; }
+inline void PLAYER_SET_RIGHT(int16_t x)  { player.x = x - PLAYER_HALF_WIDTH; }
+
+void playerHandleTileHorCollision(const Tile& tile)
+{
+    if (player.x > tile.x) // tile on the left
+    {
+        PLAYER_SET_LEFT(TILE_GET_RIGHT(tile));
+    }
+    else
+    {
+        PLAYER_SET_RIGHT(TILE_GET_LEFT(tile));
+    }
+}
+
 void playerUpdate(TimeInterval dt)
 {
     // input
-    // playerCrouching = display.pressed(DOWN_BUTTON);
+    playerCrouching = !playerJumping && display.pressed(DOWN_BUTTON);
     
     if (!playerJumping && display.pressed(JUMP_BUTTON))
     {
@@ -137,56 +166,82 @@ void playerUpdate(TimeInterval dt)
         playerSetAnimation(PLAYER_ANIMATION_JUMP);
     }
     
-    if (!playerJumping)
+    // update movement
+    player.move = 0;
+    
+    if (!playerCrouching)
     {
-        player.move = 0;
-        
-        if (!playerCrouching)
+        if (display.pressed(LEFT_BUTTON))
         {
-            if (display.pressed(LEFT_BUTTON))
+            player.dir = DIR_LEFT;
+            player.move = 1;
+        }
+        else if (display.pressed(RIGHT_BUTTON))
+        {
+            player.dir = DIR_RIGHT;
+            player.move = 1;
+        }
+        
+        if (player.move != 0 && display.pressed(RUN_BUTTON))
+        {
+            player.move = 2;
+        }
+    }
+    
+    playerJumpSpeed += GRAVITY;
+    
+    int16_t oldY = player.y;
+    
+    player.x += player.dir * player.move * WALK_SPEED;
+    player.y += playerJumpSpeed;
+    
+    int16_t minX = PLAYER_LEFT;
+    int16_t maxX = PLAYER_RIGHT;
+    int16_t maxY = PLAYER_BOTTOM;
+    
+    Tile tile;
+    
+    if (GET_TILE(minX, player.y, tile) ||
+        GET_TILE(maxX, player.y, tile))
+    {
+        playerHandleTileHorCollision(tile);
+        minX = PLAYER_LEFT;
+        maxX = PLAYER_RIGHT;
+    }
+    
+    if (playerJumpSpeed > 0) // moving down
+    {
+        if (GET_TILE(minX, maxY, tile) ||
+            GET_TILE(maxX, maxY, tile))
+        {
+            int16_t tileTop = TILE_GET_TOP(tile);
+            int16_t oldBottom = oldY + PLAYER_HALF_HEIGHT;
+            if (oldBottom <= tileTop) // player jumped on the tile
             {
-                player.dir = DIR_LEFT;
-                player.move = 1;
+                PLAYER_SET_BOTTOM(tileTop);
+                playerJumpSpeed = 0;
+                playerJumping = false;
             }
-            else if (display.pressed(RIGHT_BUTTON))
+        }
+    }
+    else
+    {
+        int16_t minY = PLAYER_TOP;
+        if (GET_TILE(minX, minY, tile) ||
+            GET_TILE(maxX, minY, tile))
+        {
+            int16_t tileBottom = TILE_GET_BOTTOM(tile);
+            int16_t oldTop = oldY - PLAYER_HALF_HEIGHT;
+            if (oldTop >= tileBottom)
             {
-                player.dir = DIR_RIGHT;
-                player.move = 1;
-            }
-            
-            if (player.move != 0 && display.pressed(RUN_BUTTON))
-            {
-                player.move = 2;
+                PLAYER_SET_TOP(tileBottom);
+                playerJumpSpeed = 0;
             }
         }
     }
     
-    if (display.pressed(DOWN_BUTTON))
-    {
-        player.y += WALK_SPEED;
-    }
-    else if (display.pressed(UP_BUTTON))
-    {
-        player.y -= WALK_SPEED;
-    }
-    
-    // update movement
-    player.x += player.dir * player.move * WALK_SPEED;
 //    if (x < MIN_X) x = MIN_X;
 //    else if (x > MAX_X) x = MAX_X;
-    
-    if (playerJumping)
-    {
-        playerJumpSpeed += GRAVITY;
-        player.y += playerJumpSpeed;
-        
-        if (player.y > FLOOR)
-        {
-            player.y = FLOOR;
-            playerJumpSpeed = 0;
-            playerJumping = false;
-        }
-    }
     
     // update animation
     if (playerJumping)
