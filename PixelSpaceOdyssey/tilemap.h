@@ -24,6 +24,9 @@
 #define TILE_GET_TOP(TILE)    ((TILE).y - TILE_HEIGHT_HALF)
 #define TILE_GET_BOTTOM(TILE) ((TILE).y + TILE_HEIGHT_HALF)
 
+#define TILEMAP_GET_WIDTH(TILEMAP) ((TILEMAP).cols * TILE_WIDTH)
+#define TILEMAP_GET_HEIGHT(TILEMAP) ((TILEMAP).rows * TILE_HEIGHT)
+
 typedef struct _Tile {
     int16_t x;
     int16_t y;
@@ -33,17 +36,17 @@ typedef struct _Tile {
 typedef struct _TileMap {
     const PgmPtr* tiles;
     const uint8_t* indices;
-    uint8_t width;
-    uint8_t heigth;
+    uint8_t rows;
+    uint8_t cols;
 } TileMap;
 
-inline TileMap TileMapMake(const PgmPtr* tiles, const uint8_t* indices, uint8_t width, uint8_t height)
+inline TileMap TileMapMake(const PgmPtr* tiles, const uint8_t* indices, uint8_t rows, uint8_t cols)
 {
     TileMap tileMap;
-    tileMap.tiles = tiles;
+    tileMap.tiles   = tiles;
     tileMap.indices = indices;
-    tileMap.width   = width;
-    tileMap.heigth  = height;
+    tileMap.cols    = cols;
+    tileMap.rows    = rows;
     return tileMap;
 }
 

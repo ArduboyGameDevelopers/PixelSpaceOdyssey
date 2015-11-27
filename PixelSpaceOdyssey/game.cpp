@@ -34,14 +34,30 @@
 #define PLAYER_HALF_WIDTH  1024 /* S2W(4) */
 #define PLAYER_HALF_HEIGHT 1024 /* S2W(4) */
 
+#define CAM_WIDTH       32768 /* S2W(128) */
+#define CAM_HEIGHT      16384 /* S2W(64/2) */
+#define CAM_WIDTH_HALF  16384 /* S2W(128/2) */
+#define CAM_HEIGHT_HALF 8192  /* S2W(64/2) */
+#define CAM_RANGE_X     7680  /* S2W(30) */
+#define CAM_RANGE_Y     3840  /* S2W(15) */
+
 static Arduboy display;
 
 static Character player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
-static TileMap tileMap = TileMapMake(TILES_LAIR_01, INDICES_LAIR_01, TILEMAP_LAIR_01_WIDTH, TILEMAP_LAIR_01_HEIGHT);
-
 static bool playerCrouching = false;
 static bool playerJumping = false;
+static bool jumpPressed = false;
 static int16_t playerJumpSpeed = 0;
+
+static TileMap tileMap = TileMapMake(TILES_LAIR_01, INDICES_LAIR_01, TILEMAP_LAIR_01_HEIGHT, TILEMAP_LAIR_01_WIDTH);
+
+/* Tile map size in world space */
+static uint16_t tileMapWidth = TILEMAP_GET_WIDTH(tileMap);
+static uint16_t tileMapHeight = TILEMAP_GET_HEIGHT(tileMap);
+
+/* Camera center pos in world space */
+static int16_t camX;
+static int16_t camY;
 
 static TimeInterval lastFrameTime;
 
@@ -64,9 +80,8 @@ void startGame()
     player.x = S2W(12);
     player.y = S2W(36);
     
-    drawTransX = 0;
-    drawTransY = 0;
-    
+    camX = CAM_WIDTH_HALF;
+    camY = CAM_HEIGHT_HALF;
     lastFrameTime = millis();
 }
 
@@ -83,6 +98,9 @@ void updateGame()
 void drawGame()
 {
     display.fillRect(0, 0, WIDTH, HEIGHT, WHITE);
+    
+    drawTransX = -W2S(camX - CAM_WIDTH_HALF);
+    drawTransY = -W2S(camY - CAM_HEIGHT_HALF);
     
     tilemapDraw();
     playerDraw();
@@ -159,7 +177,9 @@ void playerUpdate(TimeInterval dt)
     // input
     playerCrouching = !playerJumping && display.pressed(DOWN_BUTTON);
     
-    if (!playerJumping && display.pressed(JUMP_BUTTON))
+    bool jumpWasPressed = jumpPressed;
+    jumpPressed = display.pressed(JUMP_BUTTON);
+    if (!playerJumping && jumpPressed && !jumpWasPressed)
     {
         playerJumping = true;
         playerJumpSpeed = JUMP_SPEED;
@@ -240,8 +260,31 @@ void playerUpdate(TimeInterval dt)
         }
     }
     
-//    if (x < MIN_X) x = MIN_X;
-//    else if (x > MAX_X) x = MAX_X;
+    // camera movement
+    int16_t playerOffsetX = player.x - camX;
+    int16_t playerOffsetY = player.y - camY;
+    if (playerOffsetX > CAM_RANGE_X)
+    {
+        camX = player.x - CAM_RANGE_X;
+    }
+    else if (playerOffsetX < -CAM_RANGE_X)
+    {
+        camX = player.x + CAM_RANGE_X;
+    }
+    
+    if (playerOffsetY > CAM_RANGE_Y)
+    {
+        camY = player.y - CAM_RANGE_Y;
+    }
+    else if (playerOffsetY < -CAM_RANGE_Y)
+    {
+        camY = player.y + CAM_RANGE_Y;
+    }
+    
+    int16_t maxCamX = tileMapWidth - CAM_WIDTH_HALF;
+    int16_t maxCamY = tileMapHeight - CAM_HEIGHT_HALF;
+    camX = constrain(camX, CAM_WIDTH_HALF, maxCamX);
+    camY = constrain(camY, CAM_HEIGHT_HALF, maxCamY);
     
     // update animation
     if (playerJumping)
