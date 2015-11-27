@@ -11,15 +11,20 @@
 
 #include "common.h"
 
+#define TILE_WIDTH  8
+#define TILE_HEIGHT 8
+
 typedef struct _TileMap {
+    const PgmPtr* tiles;
     const uint8_t* indices;
-    uint8_t  width;
-    uint8_t  heigth;
+    uint8_t width;
+    uint8_t heigth;
 } TileMap;
 
-inline TileMap TileMapMake(const uint8_t* indices, uint8_t width, uint8_t height)
+inline TileMap TileMapMake(const PgmPtr* tiles, const uint8_t* indices, uint8_t width, uint8_t height)
 {
     TileMap tileMap;
+    tileMap.tiles = tiles;
     tileMap.indices = indices;
     tileMap.width   = width;
     tileMap.heigth  = height;

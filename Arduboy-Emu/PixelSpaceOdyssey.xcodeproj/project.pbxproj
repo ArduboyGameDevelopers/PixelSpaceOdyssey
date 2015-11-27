@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		840C52BD1C07F104001EF80F /* ic_grid_black_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 840C52BC1C07F104001EF80F /* ic_grid_black_24dp.png */; };
+		840C52C01C081821001EF80F /* tiles_lair_01.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840C52BE1C081821001EF80F /* tiles_lair_01.cpp */; };
 		8481A1AE1C027AE400CEDB85 /* DisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1AD1C027AE400CEDB85 /* DisplayView.m */; };
 		8481A1DA1C02BB5D00CEDB85 /* Arduboy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D11C02BB5D00CEDB85 /* Arduboy.cpp */; };
 		8481A1DB1C02BB5D00CEDB85 /* audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D31C02BB5D00CEDB85 /* audio.cpp */; };
@@ -21,7 +22,6 @@
 		84BD4C521C07066C006D8E51 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C501C07066C006D8E51 /* game.cpp */; };
 		84BD4C551C070EC9006D8E51 /* player_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C531C070EC9006D8E51 /* player_animations.cpp */; };
 		84BD4C581C071289006D8E51 /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C561C071289006D8E51 /* drawing.cpp */; };
-		84BD4C5B1C07995C006D8E51 /* tiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C591C07995C006D8E51 /* tiles.cpp */; };
 		84BD4C601C07A39E006D8E51 /* tilemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */; };
 		84BD4C641C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BD4C631C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png */; };
 		84BD4C661C07AC61006D8E51 /* ic_pause_black_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 84BD4C651C07AC61006D8E51 /* ic_pause_black_24dp.png */; };
@@ -54,6 +54,8 @@
 
 /* Begin PBXFileReference section */
 		840C52BC1C07F104001EF80F /* ic_grid_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_grid_black_24dp.png; sourceTree = "<group>"; };
+		840C52BE1C081821001EF80F /* tiles_lair_01.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles_lair_01.cpp; path = ../PixelSpaceOdyssey/tiles_lair_01.cpp; sourceTree = "<group>"; };
+		840C52BF1C081821001EF80F /* tiles_lair_01.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles_lair_01.h; path = ../PixelSpaceOdyssey/tiles_lair_01.h; sourceTree = "<group>"; };
 		8481A1AC1C027AE400CEDB85 /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		8481A1AD1C027AE400CEDB85 /* DisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayView.m; sourceTree = "<group>"; };
 		8481A1D11C02BB5D00CEDB85 /* Arduboy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = Arduboy.cpp; sourceTree = "<group>"; tabWidth = 2; };
@@ -80,8 +82,6 @@
 		84BD4C541C070EC9006D8E51 /* player_animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player_animations.h; path = ../PixelSpaceOdyssey/player_animations.h; sourceTree = "<group>"; };
 		84BD4C561C071289006D8E51 /* drawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawing.cpp; path = ../PixelSpaceOdyssey/drawing.cpp; sourceTree = "<group>"; };
 		84BD4C571C071289006D8E51 /* drawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drawing.h; path = ../PixelSpaceOdyssey/drawing.h; sourceTree = "<group>"; };
-		84BD4C591C07995C006D8E51 /* tiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles.cpp; path = ../PixelSpaceOdyssey/tiles.cpp; sourceTree = "<group>"; };
-		84BD4C5A1C07995C006D8E51 /* tiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles.h; path = ../PixelSpaceOdyssey/tiles.h; sourceTree = "<group>"; };
 		84BD4C5D1C07A0E5006D8E51 /* tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tilemap.h; path = ../PixelSpaceOdyssey/tilemap.h; sourceTree = "<group>"; };
 		84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tilemap.cpp; path = ../PixelSpaceOdyssey/tilemap.cpp; sourceTree = "<group>"; };
 		84BD4C631C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_play_arrow_black_24dp.png; sourceTree = "<group>"; };
@@ -162,8 +162,8 @@
 				84BD4C541C070EC9006D8E51 /* player_animations.h */,
 				84BD4C5F1C07A39E006D8E51 /* tilemap.cpp */,
 				84BD4C5D1C07A0E5006D8E51 /* tilemap.h */,
-				84BD4C591C07995C006D8E51 /* tiles.cpp */,
-				84BD4C5A1C07995C006D8E51 /* tiles.h */,
+				840C52BE1C081821001EF80F /* tiles_lair_01.cpp */,
+				840C52BF1C081821001EF80F /* tiles_lair_01.h */,
 			);
 			name = PixelSpaceOdyssey;
 			sourceTree = "<group>";
@@ -400,9 +400,9 @@
 				8481A1AE1C027AE400CEDB85 /* DisplayView.m in Sources */,
 				8481A1DB1C02BB5D00CEDB85 /* audio.cpp in Sources */,
 				84BD4C551C070EC9006D8E51 /* player_animations.cpp in Sources */,
-				84BD4C5B1C07995C006D8E51 /* tiles.cpp in Sources */,
 				84BD4C601C07A39E006D8E51 /* tilemap.cpp in Sources */,
 				84D4E4FC1C02793F00919D0F /* main.m in Sources */,
+				840C52C01C081821001EF80F /* tiles_lair_01.cpp in Sources */,
 				84BD4C491C070326006D8E51 /* character.cpp in Sources */,
 				8481A1DA1C02BB5D00CEDB85 /* Arduboy.cpp in Sources */,
 				8481A1DD1C02BB5D00CEDB85 /* glcdfont.c in Sources */,

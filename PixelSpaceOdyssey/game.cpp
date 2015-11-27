@@ -14,8 +14,11 @@
 #include "Arduboy.h"
 
 #include "character.h"
-#include "tiles.h"
+#include "tilemap.h"
+
 #include "player_animations.h"
+
+#include "tiles_lair_01.h"
 
 #define RUN_BUTTON  A_BUTTON
 #define JUMP_BUTTON B_BUTTON
@@ -29,7 +32,7 @@
 static Arduboy display;
 
 static Character player = CharacterMake(8, 8);
-static TileMap tileMap = tileMap1();
+static TileMap tileMap = TileMapMake(TILES_LAIR_01, INDICES_LAIR_01, TILEMAP_LAIR_01_WIDTH, TILEMAP_LAIR_01_HEIGHT);
 
 static bool playerCrouching = false;
 static bool playerJumping = false;
@@ -127,7 +130,7 @@ void updateInput()
 void playerUpdate(TimeInterval dt)
 {
     // input
-    playerCrouching = display.pressed(DOWN_BUTTON);
+    // playerCrouching = display.pressed(DOWN_BUTTON);
     
     if (!playerJumping && display.pressed(JUMP_BUTTON))
     {
@@ -158,6 +161,15 @@ void playerUpdate(TimeInterval dt)
                 player.move = 2;
             }
         }
+    }
+    
+    if (display.pressed(DOWN_BUTTON))
+    {
+        player.y += WALK_SPEED;
+    }
+    else if (display.pressed(UP_BUTTON))
+    {
+        player.y -= WALK_SPEED;
     }
     
     // update movement

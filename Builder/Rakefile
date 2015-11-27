@@ -3,6 +3,7 @@ require 'plist'
 
 require_relative 'common'
 require_relative 'animation_builder'
+require_relative 'tile_map_builder'
 
 include Common
 
@@ -22,6 +23,7 @@ task :init do
 
   $dir_art          = resolve_path "#{$dir_repo}/Art"
   $dir_animations   = resolve_path "#{$dir_art}/animations"
+  $dir_tilemaps     = resolve_path "#{$dir_art}/tilemaps"
 
   def extract_project_version(dir_project)
     file_plist = resolve_path "#{dir_project}/Arduboy-Emu/Info.plist"
@@ -43,6 +45,15 @@ task :generate_animations => :init do
 
   Dir["#{$dir_animations}/*.psd"].each { |psd_file|
     AnimationBuilder.generate psd_file, $dir_project
+  }
+
+end
+
+desc 'Generate tile maps'
+task :generate_tilemaps => [:init] do
+
+  Dir["#{$dir_tilemaps}/*.psd"].each { |psd_file|
+    TileMapBuilder.generate psd_file, $dir_project
   }
 
 end

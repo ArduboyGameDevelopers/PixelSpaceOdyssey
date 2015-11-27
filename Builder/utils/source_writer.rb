@@ -46,8 +46,8 @@ class SourceWriter
 
   private
   def dec_tab()
-    raise 'Unballance tabs' if @tabs.length == 0
-    @tabs = @tabs.length > @tab.length ? @tabs[@tab.length, -1] : ''
+    raise 'Unballanced tabs' if @tabs.length < @tab.length
+    @tabs.slice! 0..@tab.length-1
   end
 
 end
