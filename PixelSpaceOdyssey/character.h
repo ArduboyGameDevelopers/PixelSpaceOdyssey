@@ -26,14 +26,18 @@ typedef struct _Character
     
     int8_t dir;
     int8_t move;
+    uint8_t width;
+    uint8_t height;
     uint8_t frame;
     
 } Character;
 
-inline Character CharacterMake()
+inline Character CharacterMake(uint8_t width, uint8_t height)
 {
     Character character;
     memset(&character, 0, sizeof(character));
+    character.width = width;
+    character.height = height;
     return character;
 }
 

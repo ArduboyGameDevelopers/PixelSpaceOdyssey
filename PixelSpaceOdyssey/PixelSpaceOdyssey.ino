@@ -8,5 +8,6 @@ void setup() {
 }
 
 void loop() {
-  loopGame();
+  updateGame();
+  drawGame();
 }

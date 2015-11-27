@@ -10,15 +10,19 @@
 #define common_h
 
 #if EMULATOR
+    #include <stdio.h>
     #include <types.h>
-#else
     #include <stdint.h>
+
+    #define DEBUG_LOG(format, ...) printf(format, __VA_ARGS__)
+#else
+    #define DEBUG_LOG(format, ...)
 #endif
 
 #include <assert.h>
 
-#define WORLD_TO_SCREEN(X) ((X) >> 4)
-#define SCREEN_TO_WORLD(X) ((X) << 4)
+#define WORLD_TO_SCREEN(X) ((X) >> 8)
+#define SCREEN_TO_WORLD(X) ((X) << 8)
 
 #define DM_UNLIT  1  // unlit pixel
 #define DM_LIT    2  // lit pixel

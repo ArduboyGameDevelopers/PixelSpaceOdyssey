@@ -40,14 +40,21 @@ void CharacterDraw(Character* character, DrawMode mode)
     assert(character);
     PgmPtr framePtr = AnimationGetFrame(character->animation, character->frame);
     
-    uint8_t offsetX  = pgm_read_byte(framePtr);
-    uint8_t offsetY  = pgm_read_byte(framePtr + 1);
-    uint8_t width   = pgm_read_byte(framePtr + 2);
-    uint8_t height  = pgm_read_byte(framePtr + 3);
+    uint16_t frameWidth   = pgm_read_byte(framePtr + 2);
+    uint16_t frameHeight  = pgm_read_byte(framePtr + 3);
+    int16_t drawX = WORLD_TO_SCREEN(character->x);
+    int16_t drawY = WORLD_TO_SCREEN(character->y);
+    
+    if ((mode & DM_FLIP_X) == 0)
+    {
+        drawX += pgm_read_byte(framePtr);
+
+    }
+    if ((mode & DM_FLIP_Y) == 0)
+    {
+        drawY += pgm_read_byte(framePtr + 1);
+    }
     
     PgmPtr imagePtr = framePtr + 4;
-    int16_t drawX = WORLD_TO_SCREEN(character->x) + offsetX;
-    int16_t drawY = WORLD_TO_SCREEN(character->y) + offsetY;
-    
-    drawImage(imagePtr, drawX, drawY, width, height, mode);
+    drawImage(imagePtr, drawX, drawY, frameWidth, frameHeight, mode);
 }

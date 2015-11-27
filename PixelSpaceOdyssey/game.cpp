@@ -24,12 +24,11 @@
 #define FLOOR   416
 
 #define JUMP_SPEED -66
-#define WALK_SPEED 10
+#define WALK_SPEED 150
 
 static Arduboy display;
 
-static Character player = CharacterMake();
-static Character spider = CharacterMake();
+static Character player = CharacterMake(8, 8);
 static TileMap tileMap = tileMap1();
 
 static bool playerCrouching = false;
@@ -57,9 +56,7 @@ void startGame()
     drawInit(display.getBuffer());
     
     player.x = SCREEN_TO_WORLD(8);
-    player.y = SCREEN_TO_WORLD(40);
-    spider.x = SCREEN_TO_WORLD(86);
-    spider.y = SCREEN_TO_WORLD(80);
+    player.y = SCREEN_TO_WORLD(32);
     
     camX = 0;
     camY = 0;
@@ -67,7 +64,7 @@ void startGame()
     lastFrameTime = millis();
 }
 
-void loopGame()
+void updateGame()
 {
     TimeInterval dt = millis() - lastFrameTime;
     lastFrameTime = millis();
@@ -75,7 +72,10 @@ void loopGame()
     updateInput();
     playerUpdate(dt);
     spiderUpdate(dt);
-    
+}
+
+void drawGame()
+{
     display.fillRect(0, 0, WIDTH, HEIGHT, WHITE);
     
     tilemapDraw();

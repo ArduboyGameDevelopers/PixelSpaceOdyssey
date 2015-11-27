@@ -14,7 +14,8 @@ extern "C" {
 #endif
     
     void startGame();
-    void loopGame();
+    void updateGame();
+    void drawGame();
     
 #ifdef __cplusplus
 }

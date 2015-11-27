@@ -59,9 +59,11 @@ static ViewController * _instance;
         if (!self.paused || self.step)
         {
             // loop
-            loopGame();
+            updateGame();
             self.step = NO;
         }
+        
+        drawGame();
         
         NSTimeInterval frameTime = CFAbsoluteTimeGetCurrent() - time;
         NSTimeInterval sleepTime = frameDelay - frameTime;
