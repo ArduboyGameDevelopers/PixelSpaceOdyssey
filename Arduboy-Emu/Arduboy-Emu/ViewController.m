@@ -13,6 +13,9 @@
 
 #import "bridge.h"
 
+static NSString * const TOOLBAR_BUTTON_PLAY = @"button_play";
+static NSString * const TOOLBAR_BUTTON_PAUSE = @"button_pause";
+
 static const uint8_t LEFT_BUTTON  = 1 << 5;
 static const uint8_t RIGHT_BUTTON = 1 << 2;
 static const uint8_t UP_BUTTON    = 1 << 4;
@@ -44,6 +47,10 @@ static ViewController * _instance;
     
     NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(runGame) object:nil];
     [thread start];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setSelectedItemIdentifier:TOOLBAR_BUTTON_PLAY];
+    });
 }
 
 - (void)runGame
@@ -130,6 +137,11 @@ static ViewController * _instance;
 #pragma mark -
 #pragma mark Actions
 
+- (IBAction)onGridButton:(NSToolbarItem *)item
+{
+    _displayView.gridVisible = !_displayView.gridVisible;
+}
+
 - (IBAction)onPlayButton:(NSToolbarItem *)item
 {
     self.paused = NO;
@@ -142,6 +154,7 @@ static ViewController * _instance;
 
 - (IBAction)onStepButton:(id)sender
 {
+    [self setSelectedItemIdentifier:TOOLBAR_BUTTON_PAUSE];
     self.paused = YES;
     self.step = YES;
 }
@@ -170,6 +183,14 @@ void platformDelay(unsigned long millis)
 uint8_t platformInput()
 {
     return [_instance inputMask];
+}
+
+#pragma mark -
+#pragma mark Helpers
+
+- (void)setSelectedItemIdentifier:(NSString *)identifier
+{
+    [self.view.window.toolbar setSelectedItemIdentifier:identifier];
 }
 
 @end

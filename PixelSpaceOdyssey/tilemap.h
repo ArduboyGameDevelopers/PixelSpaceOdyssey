@@ -27,5 +27,6 @@ inline TileMap TileMapMake(const uint8_t* indices, uint8_t width, uint8_t height
 }
 
 void TileMapDraw(const TileMap* tileMap, int16_t x, int16_t y);
+uint8_t TileMapGetIndex(const TileMap* tileMap, int16_t x, int16_t y);
 
 #endif /* tilemap_h */

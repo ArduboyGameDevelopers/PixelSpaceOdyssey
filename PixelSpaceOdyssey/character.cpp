@@ -11,7 +11,7 @@
 #include "character.h"
 #include "drawing.h"
 
-#define FRAME_DELAY_MS 100
+#define FRAME_DELAY_MS 120
 
 void CharacterSetAnimation(Character* character, const Animation* animation)
 {

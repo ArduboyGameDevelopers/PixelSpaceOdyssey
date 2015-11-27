@@ -33,3 +33,19 @@ void TileMapDraw(const TileMap* tileMap, int16_t x, int16_t y)
         y += TILE_HEIGHT;
     }
 }
+
+uint8_t TileMapGetIndex(const TileMap* tileMap, int16_t x, int16_t y)
+{
+    int16_t tx = x / TILE_WIDTH;
+    int16_t ty = y / TILE_HEIGHT;
+    
+    uint8_t width = tileMap->width;
+    uint8_t height = tileMap->heigth;
+    
+    if (tx >= 0 && tx < width && ty >= 0 && ty < height)
+    {
+        return ty * width + tx;
+    }
+    
+    return 0;
+}

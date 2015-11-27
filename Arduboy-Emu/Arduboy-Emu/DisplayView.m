@@ -8,8 +8,9 @@
 
 #import "DisplayView.h"
 
-static const int DISPLAY_WIDTH  = 128.0;
-static const int DISPLAY_HEIGHT = 64.0;
+static const int DISPLAY_WIDTH  = 128;
+static const int DISPLAY_HEIGHT = 64;
+static const int GRID_SIZE      = 8;
 
 #define DISPLAY_BUFFER_SIZE (DISPLAY_WIDTH * DISPLAY_HEIGHT * sizeof(PixelColor))
 
@@ -19,6 +20,7 @@ const PixelColor WHITE = 1;
 #define BLOCK_COLOR_WHITE 0.97, 0.99, 1.0, 1.0
 #define BLOCK_COLOR_BLACK 0, 0, 0, 1
 #define BLOCK_COLOR_MAGENTA 1, 0, 1, 1
+#define GRID_COLOR 0, 0, 0, 0.02745
 
 static inline int getPixelIndex(int x, int y)
 {
@@ -80,6 +82,31 @@ static inline int getPixelIndex(int x, int y)
             
             CGRect rect = CGRectMake(x * _blockWidth, (DISPLAY_HEIGHT - 1 - y) * _blockHeight, _blockWidth, _blockHeight);
             CGContextFillRect(context, rect);
+        }
+    }
+    
+    if (_gridVisible)
+    {
+        CGFloat gridRows = DISPLAY_HEIGHT / GRID_SIZE;
+        CGFloat gridCols = DISPLAY_WIDTH / GRID_SIZE;
+        CGFloat cellWidth = GRID_SIZE * _blockWidth;
+        CGFloat cellHeight = GRID_SIZE * _blockHeight;
+        
+        CGContextSetRGBFillColor(context, GRID_COLOR);
+        
+        for (int row = 0; row < gridRows; ++row)
+        {
+            BOOL visible = row % 2 == 0;
+            for (int col = 0; col < gridCols; ++col)
+            {
+                if (visible)
+                {
+                    CGRect rect = CGRectMake(col * cellWidth, row * cellWidth, cellWidth, cellHeight);
+                    CGContextFillRect(context, rect);
+                }
+                
+                visible = !visible;
+            }
         }
     }
 }

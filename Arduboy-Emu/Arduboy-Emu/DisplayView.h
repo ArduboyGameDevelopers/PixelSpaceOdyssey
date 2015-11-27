@@ -27,6 +27,7 @@ extern const PixelColor WHITE;
 @interface DisplayView : NSView
 
 @property (nonatomic, assign) id<DisplayViewKeyResponder> keyResponder;
+@property (nonatomic, assign) BOOL gridVisible;
 
 - (void)clear;
 

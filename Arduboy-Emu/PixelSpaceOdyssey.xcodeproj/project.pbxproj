@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840C52BD1C07F104001EF80F /* ic_grid_black_24dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 840C52BC1C07F104001EF80F /* ic_grid_black_24dp.png */; };
 		8481A1AE1C027AE400CEDB85 /* DisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1AD1C027AE400CEDB85 /* DisplayView.m */; };
 		8481A1DA1C02BB5D00CEDB85 /* Arduboy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D11C02BB5D00CEDB85 /* Arduboy.cpp */; };
 		8481A1DB1C02BB5D00CEDB85 /* audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8481A1D31C02BB5D00CEDB85 /* audio.cpp */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		840C52BC1C07F104001EF80F /* ic_grid_black_24dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_grid_black_24dp.png; sourceTree = "<group>"; };
 		8481A1AC1C027AE400CEDB85 /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		8481A1AD1C027AE400CEDB85 /* DisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayView.m; sourceTree = "<group>"; };
 		8481A1D11C02BB5D00CEDB85 /* Arduboy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = Arduboy.cpp; sourceTree = "<group>"; tabWidth = 2; };
@@ -178,6 +180,7 @@
 		84BD4C621C07AB37006D8E51 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				840C52BC1C07F104001EF80F /* ic_grid_black_24dp.png */,
 				84BD4C671C07ACC4006D8E51 /* ic_skip_next_black_24dp.png */,
 				84BD4C651C07AC61006D8E51 /* ic_pause_black_24dp.png */,
 				84BD4C631C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png */,
@@ -361,6 +364,7 @@
 				8481A1DF1C02BCBC00CEDB85 /* Platform in Resources */,
 				84BD4C641C07AB4B006D8E51 /* ic_play_arrow_black_24dp.png in Resources */,
 				8481A1F31C02BE8700CEDB85 /* PixelSpaceOdyssey.ino in Resources */,
+				840C52BD1C07F104001EF80F /* ic_grid_black_24dp.png in Resources */,
 				84BD4C681C07ACC4006D8E51 /* ic_skip_next_black_24dp.png in Resources */,
 				84D4E5041C02793F00919D0F /* Main.storyboard in Resources */,
 			);

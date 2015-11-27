@@ -135,16 +135,6 @@ class AnimationBuilder
 
     source_h.write_to_file file_h
     source_cpp.write_to_file file_cpp
-
-    # puts file_h
-    # puts "\n\n"
-    # puts source_h
-    #
-    # puts "\n\n"
-    #
-    # puts file_cpp
-    # puts "\n\n"
-    # puts source_cpp
   end
 
 end
