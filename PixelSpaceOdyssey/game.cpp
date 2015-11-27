@@ -56,8 +56,8 @@ void startGame()
     display.start();
     drawInit(display.getBuffer());
     
-    player.x = SCREEN_TO_WORLD(8);
-    player.y = SCREEN_TO_WORLD(32);
+    player.x = SCREEN_TO_WORLD(12);
+    player.y = SCREEN_TO_WORLD(40);
     
     drawTransX = 0;
     drawTransY = -20;
