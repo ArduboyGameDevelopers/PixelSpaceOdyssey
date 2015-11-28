@@ -1,6 +1,39 @@
+require 'chunky_png'
+
 class ProgMem
 
   attr_reader :height, :width, :bytes
+
+  def self.from_png(png)
+    from_pixels png.pixels, png.width, png.height
+  end
+
+  def self.from_pixels(pixels, width, height)
+    bits_last_page = height % 8
+    bytes_high = height / 8
+    bytes_high += 1 if bits_last_page > 0
+
+    bytes = []
+
+    (0..bytes_high - 1).each do |y_page|
+      (0..width - 1).each do |x|
+        # how many bits does this line hold
+        bits = 8
+
+        # if we've reached the bottom there are fewer bits to load
+        bits = bits_last_page if bytes_high - 1 == y_page and bits_last_page > 0
+        byte = 0
+        (0..bits-1).each do |bit_height|
+          pixel_index = (y_page * 8 + bit_height) * width + x
+          pixel = pixels[pixel_index]
+          byte |= (1 << (bit_height)) if ChunkyPNG::Color.a(pixel) > 128
+        end
+        bytes << byte
+      end
+    end
+
+    ProgMem.new bytes, width, height
+  end
 
   def initialize(bytes, width, height)
     @bytes  = bytes
@@ -31,5 +64,13 @@ class ProgMem
   end
 
   alias :== :eql?
+
+end
+
+class Tile
+
+  def to_prog_mem
+    ProgMem.from_pixels pixels, width, height
+  end
 
 end

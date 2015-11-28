@@ -3,6 +3,7 @@ require 'plist'
 
 require_relative 'common'
 require_relative 'animation_builder'
+require_relative 'tile_builder'
 require_relative 'tile_map_builder'
 
 include Common
@@ -23,6 +24,7 @@ task :init do
 
   $dir_art          = resolve_path "#{$dir_repo}/Art"
   $dir_animations   = resolve_path "#{$dir_art}/animations"
+  $dir_tiles        = resolve_path "#{$dir_art}/tiles"
   $dir_tilemaps     = resolve_path "#{$dir_art}/tilemaps"
 
   def extract_project_version(dir_project)
@@ -49,11 +51,22 @@ task :generate_animations => :init do
 
 end
 
+desc 'Generate tiles'
+task :generate_tiles => [:init] do
+
+  Dir["#{$dir_tiles}/*.psd"].each { |psd_file|
+    TileBuilder.generate psd_file, $dir_project
+  }
+
+end
+
 desc 'Generate tile maps'
 task :generate_tilemaps => [:init] do
 
+  tile_set = TileSet.from_psd Dir["#{$dir_tiles}/*.psd"].first
+
   Dir["#{$dir_tilemaps}/*.psd"].each { |psd_file|
-    TileMapBuilder.generate psd_file, $dir_project
+    TileMapBuilder.generate psd_file, tile_set, $dir_project
   }
 
 end

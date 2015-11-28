@@ -11,13 +11,12 @@
 
 #include "common.h"
 
-#define TILE_WIDTH  2048 /* S2W(8) */
-#define TILE_HEIGHT 2048 /* S2W(8) */
-#define TILE_WIDTH_HALF  1024 /* S2W(4) */
-#define TILE_HEIGHT_HALF 1024 /* S2W(4) */
-
-#define TILE_WIDTH_PX  8
-#define TILE_HEIGHT_PX 8
+const uint8_t TILE_WIDTH_PX     = 8;
+const uint8_t TILE_HEIGHT_PX    = 8;
+const uint8_t TILE_WIDTH        = S2W(TILE_WIDTH_PX);
+const uint8_t TILE_HEIGHT       = S2W(TILE_HEIGHT_PX);
+const uint8_t TILE_WIDTH_HALF   = TILE_WIDTH / 2;
+const uint8_t TILE_HEIGHT_HALF  = TILE_HEIGHT / 2;
 
 #define TILE_GET_LEFT(TILE)   ((TILE).x - TILE_WIDTH_HALF)
 #define TILE_GET_RIGHT(TILE)  ((TILE).x + TILE_WIDTH_HALF)

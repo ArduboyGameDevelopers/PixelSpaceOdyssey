@@ -11,6 +11,8 @@
 #include "tilemap.h"
 #include "drawing.h"
 
+#define THIN_TILES_COUNT 13
+
 void TileMapDraw(const TileMap* tileMap, int16_t x, int16_t y)
 {
     const PgmPtr* tiles = tileMap->tiles;
@@ -47,7 +49,7 @@ bool TileMapGetTile(const TileMap* tileMap, int16_t x, int16_t y, Tile* tile)
     if (j >= 0 && j < cols && i >= 0 && i < rows)
     {
         uint8_t index = pgm_read_byte(tileMap->indices + i * cols + j);
-        if (index == 0)
+        if (index <= THIN_TILES_COUNT)
         {
             return false;
         }

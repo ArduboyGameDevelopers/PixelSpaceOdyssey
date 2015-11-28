@@ -24,8 +24,8 @@
 #define DIV2(X) ((X) >> 1)
 #define MUL2(X) ((X) << 1)
 
-#define W2S(X) ((X) >> 8)
-#define S2W(X) ((X) << 8)
+#define W2S(X) ((X) >> 4)
+#define S2W(X) ((X) << 4)
 
 #define DM_UNLIT  1  // unlit pixel
 #define DM_LIT    2  // lit pixel

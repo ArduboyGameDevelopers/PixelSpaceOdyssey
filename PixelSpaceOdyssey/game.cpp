@@ -18,28 +18,28 @@
 
 #include "player_animations.h"
 
+#include "tiles_tb_caverns.h"
 #include "tiles_lair_01.h"
 
 #define RUN_BUTTON  A_BUTTON
 #define JUMP_BUTTON B_BUTTON
 
-#define GRAVITY 75
-#define FLOOR   416
+#define GRAVITY 5
 
-#define JUMP_SPEED -1000
-#define WALK_SPEED 150
+#define JUMP_SPEED -65
+#define WALK_SPEED 9
 
-#define PLAYER_WIDTH  2048 /* S2W(8) */
-#define PLAYER_HEIGHT 2048 /* S2W(8) */
-#define PLAYER_HALF_WIDTH  1024 /* S2W(4) */
-#define PLAYER_HALF_HEIGHT 1024 /* S2W(4) */
+static const uint8_t PLAYER_WIDTH       = S2W(8);
+static const uint8_t PLAYER_HEIGHT      = S2W(8);
+static const uint8_t PLAYER_HALF_WIDTH  = PLAYER_WIDTH / 2;
+static const uint8_t PLAYER_HALF_HEIGHT = PLAYER_HEIGHT / 2;
 
-#define CAM_WIDTH       32768 /* S2W(128) */
-#define CAM_HEIGHT      16384 /* S2W(64/2) */
-#define CAM_WIDTH_HALF  16384 /* S2W(128/2) */
-#define CAM_HEIGHT_HALF 8192  /* S2W(64/2) */
-#define CAM_RANGE_X     7680  /* S2W(30) */
-#define CAM_RANGE_Y     3840  /* S2W(15) */
+static const uint16_t CAM_WIDTH         = S2W(128);
+static const uint16_t CAM_HEIGHT        = S2W(64);
+static const uint16_t CAM_WIDTH_HALF    = CAM_WIDTH / 2;
+static const uint16_t CAM_HEIGHT_HALF   = CAM_HEIGHT / 2;
+static const uint16_t CAM_RANGE_X       = S2W(30);
+static const uint16_t CAM_RANGE_Y       = S2W(15);
 
 static Arduboy display;
 
@@ -49,7 +49,7 @@ static bool playerJumping = false;
 static bool jumpPressed = false;
 static int16_t playerJumpSpeed = 0;
 
-static TileMap tileMap = TileMapMake(TILES_LAIR_01, INDICES_LAIR_01, TILEMAP_LAIR_01_HEIGHT, TILEMAP_LAIR_01_WIDTH);
+static TileMap tileMap = TileMapMake(TILES_TB_CAVERNS, INDICES_LAIR_01, TILEMAP_LAIR_01_HEIGHT, TILEMAP_LAIR_01_WIDTH);
 
 /* Tile map size in world space */
 static uint16_t tileMapWidth = TILEMAP_GET_WIDTH(tileMap);

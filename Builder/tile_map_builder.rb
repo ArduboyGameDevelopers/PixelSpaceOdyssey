@@ -10,7 +10,7 @@ class TileMapBuilder
   TILE_WIDTH  = 8
   TILE_HEIGHT = 8
 
-  def self.generate(psd_file, output_dir)
+  def self.generate(psd_file, tile_set, output_dir)
     PSD.open(psd_file) do |psd|
       tilemap_layer = find_tilemap psd
       fail_script_unless tilemap_layer != nil, "Can't find 'Tilemap' layer: #{psd_file}"
@@ -21,22 +21,24 @@ class TileMapBuilder
       layer_png.compose! tilemap_png, tilemap_layer.left, tilemap_layer.top
 
       name = File.basename(psd_file, '.psd').downcase
-      generate_from_png name, layer_png, output_dir
+      generate_from_png name, layer_png, tile_set, output_dir
     end
-
   end
 
   private
-  def self.generate_from_png(name, png, output_dir)
+  def self.generate_from_png(name, png, tile_set, output_dir)
 
     width = png.width
     height = png.height
 
+    raise "Illegal image width: #{width}" if (width % TILE_WIDTH) != 0
+    raise "Illegal image height: #{height}" if (height % TILE_HEIGHT) != 0
+
     rows = height / TILE_HEIGHT
     cols = width / TILE_WIDTH
 
-    tiles = []
     indices = []
+    unknown = []
     (0..rows-1).each do |row|
       y = TILE_HEIGHT * row
       (0..cols-1).each do |col|
@@ -47,22 +49,30 @@ class TileMapBuilder
           next
         end
 
-        index = tiles.index tile
+        index = tile_set.index tile
         if index.nil?
-          indices.push tiles.length + 1
-          tiles.push tile
-        else
-          indices.push index + 1
+          patch = ChunkyPNG::Image.new TILE_WIDTH, TILE_HEIGHT, 0xff00ff7f
+          png.compose! patch, x, y
+          unknown << tile
+          next
         end
+
+        indices.push index + 1
       end
     end
 
-    tilemap = Tilemap.new tiles, indices, cols, rows
-    write_tilemap name, tilemap, output_dir
+    if unknown.length > 0
+      png_file = File.expand_path 'unknown.png'
+      png.save png_file
+      raise "Unknown tile: #{png_file}"
+    end
+
+    tile_map = TileMap.new indices, cols, rows
+    write_tile_map name, tile_map, output_dir
   end
 
   private
-  def self.write_tilemap(name, tilemap, output_dir)
+  def self.write_tile_map(name, tile_map, output_dir)
 
     source_h = SourceWriter.new
     source_cpp = SourceWriter.new
@@ -70,20 +80,16 @@ class TileMapBuilder
     basename = Utils.to_identifier name
     filename = "tiles_#{basename}"
     defines_name = "#{filename}_h"
-    tiles_var_name   = "TILES_#{basename.upcase}"
     indices_var_name = "INDICES_#{basename.upcase}"
-
-    tiles = tilemap.tiles
 
     source_h.println "#ifndef #{defines_name}"
     source_h.println "#define #{defines_name}"
     source_h.println
     source_h.println "#include \"common.h\""
     source_h.println
-    source_h.println "#define TILEMAP_#{basename.upcase}_WIDTH  #{tilemap.width}"
-    source_h.println "#define TILEMAP_#{basename.upcase}_HEIGHT #{tilemap.height}"
+    source_h.println "#define TILEMAP_#{basename.upcase}_WIDTH  #{tile_map.width}"
+    source_h.println "#define TILEMAP_#{basename.upcase}_HEIGHT #{tile_map.height}"
     source_h.println
-    source_h.println "extern PgmPtr const #{tiles_var_name}[];"
     source_h.println "extern const uint8_t #{indices_var_name}[];"
 
     source_cpp.println '#include <avr/pgmspace.h>'
@@ -93,30 +99,12 @@ class TileMapBuilder
     source_cpp.println "#include \"common.h\""
     source_cpp.println
 
-    (0..tiles.length-1).each do |index|
-      prog_mem = tiles[index].to_prog_mem
-      source_cpp.println "PROGMEM static const unsigned char #{tiles_var_name}_#{index + 1}[] = "
-      source_cpp.block_open
-      source_cpp.println prog_mem.to_code
-      source_cpp.block_close ';'
-      source_cpp.println
-    end
-
-    source_cpp.println "PgmPtr const #{tiles_var_name}[] ="
-    source_cpp.block_open
-    (0..tiles.length-1).each do |index|
-      source_cpp.print "#{tiles_var_name}_#{index + 1}"
-      source_cpp.println (index < tiles.length-1 ? ',' : '')
-    end
-    source_cpp.block_close ';'
-    source_cpp.println
-
     source_cpp.println "PROGMEM const uint8_t #{indices_var_name}[] ="
     source_cpp.block_open
-    (0..tilemap.height-1).each do |r|
-      (0..tilemap.width-1).each do |c|
-        index = r * tilemap.width + c
-        source_cpp.print "#{tilemap.indices[index]},"
+    (0..tile_map.height-1).each do |r|
+      (0..tile_map.width-1).each do |c|
+        index = r * tile_map.width + c
+        source_cpp.print "#{tile_map.indices[index]},"
       end
       source_cpp.println
     end

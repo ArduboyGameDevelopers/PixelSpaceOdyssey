@@ -8,6 +8,9 @@ module ChunkyPNG
 
   class Canvas
     def sub_image(x, y, w, h)
+      raise "Region (#{x},#{y},#{w},#{h}) out of range (#{width}x#{height})" if w < 0 || h < 0 ||
+          x < 0 || y < 0 || x + w > width || y + h > height
+
       sub_pixels = []
       (y..y+h-1).each do |y|
         (x..x+w-1).each do |x|
@@ -20,30 +23,7 @@ module ChunkyPNG
     end
 
     def to_prog_mem
-      bits_last_page = height % 8
-      bytes_high = height / 8
-      bytes_high += 1 if bits_last_page > 0
-
-      bytes = []
-
-      (0..bytes_high - 1).each do |y_page|
-        (0..width - 1).each do |x|
-          # how many bits does this line hold
-          bits = 8
-
-          # if we've reached the bottom there are fewer bits to load
-          bits = bits_last_page if bytes_high - 1 == y_page and bits_last_page > 0
-          byte = 0
-          (0..bits-1).each do |bit_height|
-            pixel_index = (y_page * 8 + bit_height) * width + x
-            pixel = pixels[pixel_index]
-            byte |= (1 << (bit_height)) if Color.a(pixel) > 128
-          end
-          bytes << byte
-        end
-      end
-
-      ProgMem.new bytes, width, height
+      ProgMem.from_png self
     end
 
     def is_transparent
