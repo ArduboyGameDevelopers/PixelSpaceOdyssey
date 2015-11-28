@@ -29,10 +29,10 @@
 #define JUMP_SPEED -65
 #define WALK_SPEED 9
 
-static const uint8_t PLAYER_WIDTH       = S2W(8);
-static const uint8_t PLAYER_HEIGHT      = S2W(8);
-static const uint8_t PLAYER_HALF_WIDTH  = PLAYER_WIDTH / 2;
-static const uint8_t PLAYER_HALF_HEIGHT = PLAYER_HEIGHT / 2;
+static const uint8_t PLAYER_WIDTH                = S2W(8);
+static const uint8_t PLAYER_HEIGHT               = S2W(8);
+static const uint8_t PLAYER_COLLIDER_HALF_WIDTH  = S2W(3);
+static const uint8_t PLAYER_COLLIDER_HALF_HEIGHT = S2W(4);
 
 static const uint16_t CAM_WIDTH         = S2W(128);
 static const uint16_t CAM_HEIGHT        = S2W(64);
@@ -150,15 +150,15 @@ void updateInput()
 
 #define GET_TILE(X,Y,T) TileMapGetTile(&tileMap, X, Y, &T)
 
-#define PLAYER_TOP           (player.y - PLAYER_HALF_HEIGHT)
-#define PLAYER_BOTTOM        (player.y + PLAYER_HALF_HEIGHT)
-#define PLAYER_LEFT          (player.x - PLAYER_HALF_WIDTH + 1)
-#define PLAYER_RIGHT         (player.x + PLAYER_HALF_WIDTH - 1)
+#define PLAYER_TOP           (player.y - PLAYER_COLLIDER_HALF_HEIGHT)
+#define PLAYER_BOTTOM        (player.y + PLAYER_COLLIDER_HALF_HEIGHT)
+#define PLAYER_LEFT          (player.x - (PLAYER_COLLIDER_HALF_WIDTH - 1))
+#define PLAYER_RIGHT         (player.x + (PLAYER_COLLIDER_HALF_WIDTH - 1))
 
-inline void PLAYER_SET_TOP(int16_t y)    { player.y = y + PLAYER_HALF_HEIGHT; }
-inline void PLAYER_SET_BOTTOM(int16_t y) { player.y = y - PLAYER_HALF_HEIGHT; }
-inline void PLAYER_SET_LEFT(int16_t x)   { player.x = x + PLAYER_HALF_WIDTH; }
-inline void PLAYER_SET_RIGHT(int16_t x)  { player.x = x - PLAYER_HALF_WIDTH; }
+inline void PLAYER_SET_TOP(int16_t y)    { player.y = y + PLAYER_COLLIDER_HALF_HEIGHT; }
+inline void PLAYER_SET_BOTTOM(int16_t y) { player.y = y - PLAYER_COLLIDER_HALF_HEIGHT; }
+inline void PLAYER_SET_LEFT(int16_t x)   { player.x = x + PLAYER_COLLIDER_HALF_WIDTH; }
+inline void PLAYER_SET_RIGHT(int16_t x)  { player.x = x - PLAYER_COLLIDER_HALF_WIDTH; }
 
 void playerHandleTileHorCollision(const Tile& tile)
 {
@@ -235,7 +235,7 @@ void playerUpdate(TimeInterval dt)
             GET_TILE(maxX, maxY, tile))
         {
             int16_t tileTop = TILE_GET_TOP(tile);
-            int16_t oldBottom = oldY + PLAYER_HALF_HEIGHT;
+            int16_t oldBottom = oldY + PLAYER_COLLIDER_HALF_HEIGHT;
             if (oldBottom <= tileTop) // player jumped on the tile
             {
                 PLAYER_SET_BOTTOM(tileTop);
@@ -251,7 +251,7 @@ void playerUpdate(TimeInterval dt)
             GET_TILE(maxX, minY, tile))
         {
             int16_t tileBottom = TILE_GET_BOTTOM(tile);
-            int16_t oldTop = oldY - PLAYER_HALF_HEIGHT;
+            int16_t oldTop = oldY - PLAYER_COLLIDER_HALF_HEIGHT;
             if (oldTop >= tileBottom)
             {
                 PLAYER_SET_TOP(tileBottom);
