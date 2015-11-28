@@ -11,6 +11,9 @@
 
 #include "common.h"
 
+#define TILE_SLOPE_RIGHT 14
+#define TILE_SLOPE_LEFT  15
+
 const uint8_t TILE_WIDTH_PX     = 8;
 const uint8_t TILE_HEIGHT_PX    = 8;
 const uint8_t TILE_WIDTH        = S2W(TILE_WIDTH_PX);
@@ -22,6 +25,8 @@ const uint8_t TILE_HEIGHT_HALF  = TILE_HEIGHT / 2;
 #define TILE_GET_RIGHT(TILE)  ((TILE).x + TILE_WIDTH_HALF)
 #define TILE_GET_TOP(TILE)    ((TILE).y - TILE_HEIGHT_HALF)
 #define TILE_GET_BOTTOM(TILE) ((TILE).y + TILE_HEIGHT_HALF)
+
+#define TILE_INDEX_IS_SLOPE(INDEX) ((INDEX) == TILE_SLOPE_RIGHT || (INDEX) == TILE_SLOPE_LEFT)
 
 #define TILEMAP_GET_WIDTH(TILEMAP) ((TILEMAP).cols * TILE_WIDTH)
 #define TILEMAP_GET_HEIGHT(TILEMAP) ((TILEMAP).rows * TILE_HEIGHT)
@@ -50,6 +55,6 @@ inline TileMap TileMapMake(const PgmPtr* tiles, const uint8_t* indices, uint8_t 
 }
 
 void TileMapDraw(const TileMap* tileMap, int16_t x, int16_t y);
-bool TileMapGetTile(const TileMap* tileMap, int16_t x, int16_t y, Tile* tile);
+uint8_t TileMapGetTile(const TileMap* tileMap, int16_t x, int16_t y, Tile* tile);
 
 #endif /* tilemap_h */

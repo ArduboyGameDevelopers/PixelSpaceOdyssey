@@ -38,10 +38,10 @@ void TileMapDraw(const TileMap* tileMap, int16_t x, int16_t y)
     }
 }
 
-bool TileMapGetTile(const TileMap* tileMap, int16_t x, int16_t y, Tile* tile)
+uint8_t TileMapGetTile(const TileMap* tileMap, int16_t x, int16_t y, Tile* tile)
 {
-    int16_t i = W2S(y) / TILE_HEIGHT_PX;
-    int16_t j = W2S(x) / TILE_WIDTH_PX;
+    int16_t i = y / TILE_HEIGHT;
+    int16_t j = x / TILE_WIDTH;
     
     uint8_t rows = tileMap->rows;
     uint8_t cols = tileMap->cols;
@@ -51,14 +51,15 @@ bool TileMapGetTile(const TileMap* tileMap, int16_t x, int16_t y, Tile* tile)
         uint8_t index = pgm_read_byte(tileMap->indices + i * cols + j);
         if (index <= THIN_TILES_COUNT)
         {
-            return false;
+            return 0;
         }
         
         tile->index = index;
         tile->x = j * TILE_WIDTH + TILE_WIDTH_HALF;
         tile->y = i * TILE_HEIGHT + TILE_HEIGHT_HALF;
-        return true;
+        
+        return index;
     }
     
-    return false;
+    return 0;
 }

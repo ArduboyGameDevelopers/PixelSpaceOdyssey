@@ -87,8 +87,8 @@ static inline int getPixelIndex(int x, int y)
     
     if (_gridVisible)
     {
-        CGFloat gridRows = DISPLAY_HEIGHT / GRID_SIZE;
-        CGFloat gridCols = DISPLAY_WIDTH / GRID_SIZE;
+        int gridRows = DISPLAY_HEIGHT / GRID_SIZE;
+        int gridCols = DISPLAY_WIDTH / GRID_SIZE;
         CGFloat cellWidth = GRID_SIZE * _blockWidth;
         CGFloat cellHeight = GRID_SIZE * _blockHeight;
         

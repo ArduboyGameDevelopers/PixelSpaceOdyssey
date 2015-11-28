@@ -100,7 +100,7 @@ class TileBuilder
     source_cpp.println "PgmPtr const #{tiles_var_name}[] ="
     source_cpp.block_open
     tiles.each_with_index do |tile, index|
-      source_cpp.print "#{tiles_var_name}_#{Utils.to_identifier(tile.name).upcase}"
+      source_cpp.print "#{tiles_var_name}_#{Utils.to_identifier(tile.name).upcase} /* #{index + 1} */"
       source_cpp.println (index < tiles.length-1 ? ',' : '')
     end
     source_cpp.block_close ';'

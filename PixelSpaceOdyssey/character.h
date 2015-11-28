@@ -16,6 +16,8 @@
 #define DIR_LEFT -1
 #define DIR_RIGHT 1
 
+typedef int8_t Direction;
+
 typedef struct _Character
 {
     const Animation* animation;
@@ -24,7 +26,7 @@ typedef struct _Character
     int16_t x;
     int16_t y;
     int16_t frameTime;
-    int8_t dir;
+    Direction dir;
     int8_t move;
     uint8_t frame;
     
