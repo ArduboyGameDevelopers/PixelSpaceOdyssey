@@ -94,8 +94,8 @@ void updateGame()
 
 void drawGame()
 {
-    if (millis() - lastDrawTime < 33) return;
-    lastDrawTime = millis();
+    // if (millis() - lastDrawTime < 33) return;
+    // lastDrawTime = millis();
     
     display.fillRect(0, 0, WIDTH, HEIGHT, WHITE);
     

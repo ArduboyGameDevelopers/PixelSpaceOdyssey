@@ -61,14 +61,7 @@
 		843C16311C0B80180036794D /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
 		843C16321C0B80180036794D /* glcdfont.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glcdfont.c; sourceTree = "<group>"; };
 		843C16331C0B80180036794D /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
-		843C164E1C0B80580036794D /* Arduino.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
-		843C16501C0B80580036794D /* pgmspace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pgmspace.h; sourceTree = "<group>"; };
-		843C16511C0B80580036794D /* power.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = power.h; sourceTree = "<group>"; };
-		843C16521C0B80580036794D /* sleep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sleep.h; sourceTree = "<group>"; };
-		843C16531C0B80580036794D /* EEPROM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EEPROM.h; sourceTree = "<group>"; };
-		843C16541C0B80580036794D /* Print.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Print.h; sourceTree = "<group>"; };
-		843C16551C0B80580036794D /* SPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPI.h; sourceTree = "<group>"; };
-		843C16561C0B80580036794D /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		843C16571C0B85700036794D /* Platform */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Platform; path = ../Platform; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +82,7 @@
 			children = (
 				843C162A1C0B80180036794D /* Arduboy */,
 				8413A1491C0AEBD100367F3E /* PixelSpaceOdyssey */,
-				843C164D1C0B80580036794D /* Platform */,
+				843C16571C0B85700036794D /* Platform */,
 				843C160B1C0AED150036794D /* Frameworks */,
 				8413A1481C0AEBD100367F3E /* Products */,
 			);
@@ -172,30 +165,6 @@
 			);
 			name = Arduboy;
 			path = ../Arduboy;
-			sourceTree = "<group>";
-		};
-		843C164D1C0B80580036794D /* Platform */ = {
-			isa = PBXGroup;
-			children = (
-				843C164E1C0B80580036794D /* Arduino.h */,
-				843C164F1C0B80580036794D /* avr */,
-				843C16531C0B80580036794D /* EEPROM.h */,
-				843C16541C0B80580036794D /* Print.h */,
-				843C16551C0B80580036794D /* SPI.h */,
-				843C16561C0B80580036794D /* types.h */,
-			);
-			name = Platform;
-			path = ../Platform;
-			sourceTree = "<group>";
-		};
-		843C164F1C0B80580036794D /* avr */ = {
-			isa = PBXGroup;
-			children = (
-				843C16501C0B80580036794D /* pgmspace.h */,
-				843C16511C0B80580036794D /* power.h */,
-				843C16521C0B80580036794D /* sleep.h */,
-			);
-			path = avr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +277,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -322,6 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../Platform\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -351,6 +322,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -359,6 +331,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../Platform\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
@@ -369,10 +342,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LOCAL_LIBRARY_DIR)/Frameworks",
-				);
 				INFOPLIST_FILE = PixelSpaceOdyssey/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacemadness.PixelSpaceOdyssey;
@@ -384,10 +353,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LOCAL_LIBRARY_DIR)/Frameworks",
-				);
 				INFOPLIST_FILE = PixelSpaceOdyssey/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacemadness.PixelSpaceOdyssey;

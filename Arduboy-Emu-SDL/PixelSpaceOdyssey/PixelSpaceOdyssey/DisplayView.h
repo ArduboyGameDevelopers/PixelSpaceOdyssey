@@ -10,10 +10,21 @@
 #define DisplayView_h
 
 #include <stdio.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
 
 class DisplayView
 {
+private:
+    SDL_Renderer * _renderer;
+    SDL_Rect     * _pixelRects;
     
+public:
+    DisplayView(SDL_Renderer* renderer);
+    ~DisplayView();
+    
+public:
+    void renderScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
 };
 
 #endif /* DisplayView_h */
