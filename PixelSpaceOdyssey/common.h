@@ -12,7 +12,6 @@
 #if EMULATOR
     #include <stdio.h>
     #include <types.h>
-    #include <stdint.h>
 
     #define DEBUG_LOG(format, ...) printf(format, __VA_ARGS__)
 #else
@@ -20,6 +19,7 @@
 #endif
 
 #include <assert.h>
+#include <stdint.h>
 
 #define DIV2(X) ((X) >> 1)
 #define MUL2(X) ((X) << 1)

@@ -9,6 +9,9 @@
 #ifndef game_h
 #define game_h
 
-#include <stdio.h>
+#include "common.h"
+
+extern uint16_t tileMapWidth;
+extern uint16_t tileMapHeight;
 
 #endif /* game_h */

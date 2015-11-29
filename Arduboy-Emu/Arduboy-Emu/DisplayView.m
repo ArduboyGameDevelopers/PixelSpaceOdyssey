@@ -7,6 +7,8 @@
 //
 
 #import "DisplayView.h"
+#import "game.h"
+#import "drawing.h"
 
 static const int DISPLAY_WIDTH  = 128;
 static const int DISPLAY_HEIGHT = 64;
@@ -20,7 +22,7 @@ const PixelColor WHITE = 1;
 #define BLOCK_COLOR_WHITE 0.97, 0.99, 1.0, 1.0
 #define BLOCK_COLOR_BLACK 0, 0, 0, 1
 #define BLOCK_COLOR_MAGENTA 1, 0, 1, 1
-#define GRID_COLOR 0, 0, 0, 0.02745
+#define GRID_COLOR 0.945, 0.96, 0.972, 1.0
 
 static inline int getPixelIndex(int x, int y)
 {
@@ -32,9 +34,13 @@ static inline int getPixelIndex(int x, int y)
 
 @interface DisplayView ()
 {
-    CGFloat _blockWidth;
-    CGFloat _blockHeight;
+    CGFloat _pixelWidth;
+    CGFloat _pixelHeight;
     PixelColor * _displayBuffer;
+    
+    BOOL _hasMouse;
+    int _mouseCellX;
+    int _mouseCellY;
 }
 @end
 
@@ -46,8 +52,19 @@ static inline int getPixelIndex(int x, int y)
     if (self)
     {
         NSRect bounds = self.bounds;
-        _blockWidth = bounds.size.width / DISPLAY_WIDTH;
-        _blockHeight = bounds.size.height / DISPLAY_HEIGHT;
+        _pixelWidth = bounds.size.width / DISPLAY_WIDTH;
+        _pixelHeight = bounds.size.height / DISPLAY_HEIGHT;
+
+        NSTrackingAreaOptions trackingOptions =
+            NSTrackingActiveAlways |
+            NSTrackingMouseEnteredAndExited |
+            NSTrackingMouseMoved;
+        
+        NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:bounds
+                                                                    options:trackingOptions
+                                                                      owner:self
+                                                                   userInfo:nil];
+        [self addTrackingArea:trackingArea];
         
         _displayBuffer = (PixelColor *) malloc(DISPLAY_BUFFER_SIZE);
         [self clear];
@@ -56,41 +73,45 @@ static inline int getPixelIndex(int x, int y)
 }
 
 #pragma mark -
+#pragma mark Mouse
+
+- (void)mouseEntered:(NSEvent *)theEvent
+{
+    _hasMouse = YES;
+}
+
+- (void)mouseExited:(NSEvent *)theEvent
+{
+    _hasMouse = NO;
+}
+
+- (void)mouseMoved:(NSEvent *)theEvent
+{
+}
+
+#pragma mark -
 #pragma mark Drawing
 
 - (void)drawRect:(NSRect)dirtyRect
 {
     CGContextRef context = (CGContextRef) [[NSGraphicsContext currentContext] graphicsPort];
+    CGContextSetRGBFillColor(context, BLOCK_COLOR_WHITE);
+    CGContextFillRect(context, self.bounds);
     
-    for (int y = 0; y < DISPLAY_HEIGHT; ++y)
-    {
-        for (int x = 0; x < DISPLAY_WIDTH; ++x)
-        {
-            PixelColor color = [self getPixelColorX:x Y:y];
-            if (color == WHITE)
-            {
-                CGContextSetRGBFillColor(context, BLOCK_COLOR_WHITE);
-            }
-            else if (color == BLACK)
-            {
-                CGContextSetRGBFillColor(context, BLOCK_COLOR_BLACK);
-            }
-            else
-            {
-                CGContextSetRGBFillColor(context, BLOCK_COLOR_MAGENTA);
-            }
-            
-            CGRect rect = CGRectMake(x * _blockWidth, (DISPLAY_HEIGHT - 1 - y) * _blockHeight, _blockWidth, _blockHeight);
-            CGContextFillRect(context, rect);
-        }
-    }
+    CGContextTranslateCTM(context, 0, CGRectGetHeight(self.bounds));
+    CGContextScaleCTM(context, 1, -1);
     
     if (_gridVisible)
     {
-        int gridRows = DISPLAY_HEIGHT / GRID_SIZE;
-        int gridCols = DISPLAY_WIDTH / GRID_SIZE;
-        CGFloat cellWidth = GRID_SIZE * _blockWidth;
-        CGFloat cellHeight = GRID_SIZE * _blockHeight;
+        int gridRows = tileMapHeight / GRID_SIZE;
+        int gridCols = tileMapWidth / GRID_SIZE;
+        CGFloat cellWidth = [self toPixelsHor:GRID_SIZE];
+        CGFloat cellHeight = [self toPixelsVer:GRID_SIZE];;
+        
+        CGFloat transX = [self toPixelsHor:drawTransX];
+        CGFloat transY = [self toPixelsHor:drawTransY];
+        
+        CGContextTranslateCTM(context, transX, transY);
         
         CGContextSetRGBFillColor(context, GRID_COLOR);
         
@@ -107,6 +128,32 @@ static inline int getPixelIndex(int x, int y)
                 
                 visible = !visible;
             }
+        }
+        
+        CGContextTranslateCTM(context, -transX, -transY);
+    }
+    
+    for (int y = 0; y < DISPLAY_HEIGHT; ++y)
+    {
+        for (int x = 0; x < DISPLAY_WIDTH; ++x)
+        {
+            PixelColor color = [self getPixelColorX:x Y:y];
+            if (color == WHITE)
+            {
+                continue;
+            }
+            
+            if (color == BLACK)
+            {
+                CGContextSetRGBFillColor(context, BLOCK_COLOR_BLACK);
+            }
+            else
+            {
+                CGContextSetRGBFillColor(context, BLOCK_COLOR_MAGENTA);
+            }
+            
+            CGRect rect = CGRectMake(x * _pixelWidth, y * _pixelHeight, _pixelWidth, _pixelHeight);
+            CGContextFillRect(context, rect);
         }
     }
 }
@@ -138,6 +185,19 @@ static inline int getPixelIndex(int x, int y)
 - (BOOL)acceptsFirstResponder
 {
     return YES;
+}
+
+#pragma mark -
+#pragma mark Helpers
+
+- (CGFloat)toPixelsHor:(int16_t)value
+{
+    return value * _pixelWidth;
+}
+
+- (CGFloat)toPixelsVer:(int16_t)value
+{
+    return value * _pixelHeight;
 }
 
 #pragma mark -
