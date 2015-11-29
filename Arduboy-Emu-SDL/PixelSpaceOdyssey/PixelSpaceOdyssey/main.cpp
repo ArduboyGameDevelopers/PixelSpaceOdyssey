@@ -9,6 +9,10 @@
 #	include <SDL2/SDL_opengl.h> // otherwise we want to use OpenGL
 #endif
 
+#include "DisplayView.h"
+
+#include "game.h"
+
 int main(int argc, char * argv[])
 {
     // Initialize SDL with video

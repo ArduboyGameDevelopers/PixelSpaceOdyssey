@@ -10,6 +10,20 @@
 		8413A14F1C0AEBD100367F3E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8413A14E1C0AEBD100367F3E /* main.cpp */; };
 		8413A15F1C0AEC6D00367F3E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8413A15E1C0AEC6D00367F3E /* SDL2.framework */; };
 		8413A1611C0AEC7200367F3E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8413A1601C0AEC7200367F3E /* OpenGL.framework */; };
+		843C160E1C0B7E9A0036794D /* DisplayView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C160C1C0B7E9A0036794D /* DisplayView.cpp */; };
+		843C16221C0B7F5D0036794D /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16121C0B7F5D0036794D /* character.cpp */; };
+		843C16231C0B7F5D0036794D /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16151C0B7F5D0036794D /* drawing.cpp */; };
+		843C16241C0B7F5D0036794D /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16171C0B7F5D0036794D /* game.cpp */; };
+		843C16251C0B7F5D0036794D /* player_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16191C0B7F5D0036794D /* player_animations.cpp */; };
+		843C16261C0B7F5D0036794D /* tilemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C161B1C0B7F5D0036794D /* tilemap.cpp */; };
+		843C16271C0B7F5D0036794D /* tiles_lair_01.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C161D1C0B7F5D0036794D /* tiles_lair_01.cpp */; };
+		843C16281C0B7F5D0036794D /* tiles_tb_caverns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C161F1C0B7F5D0036794D /* tiles_tb_caverns.cpp */; };
+		843C16291C0B7F5D0036794D /* PixelSpaceOdyssey.ino in Resources */ = {isa = PBXBuildFile; fileRef = 843C16211C0B7F5D0036794D /* PixelSpaceOdyssey.ino */; };
+		843C16341C0B80180036794D /* Arduboy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C162B1C0B80180036794D /* Arduboy.cpp */; };
+		843C16351C0B80180036794D /* Arduino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C162D1C0B80180036794D /* Arduino.cpp */; };
+		843C16361C0B80180036794D /* audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C162E1C0B80180036794D /* audio.cpp */; };
+		843C16371C0B80180036794D /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16301C0B80180036794D /* core.cpp */; };
+		843C16381C0B80180036794D /* glcdfont.c in Sources */ = {isa = PBXBuildFile; fileRef = 843C16321C0B80180036794D /* glcdfont.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +32,43 @@
 		8413A1581C0AEBD100367F3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8413A15E1C0AEC6D00367F3E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = /Library/Frameworks/SDL2.framework; sourceTree = "<absolute>"; };
 		8413A1601C0AEC7200367F3E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		843C160C1C0B7E9A0036794D /* DisplayView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DisplayView.cpp; sourceTree = "<group>"; };
+		843C160D1C0B7E9A0036794D /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
+		843C16101C0B7F5D0036794D /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../../../PixelSpaceOdyssey/animation.h; sourceTree = "<group>"; };
+		843C16111C0B7F5D0036794D /* bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bridge.h; path = ../../../PixelSpaceOdyssey/bridge.h; sourceTree = "<group>"; };
+		843C16121C0B7F5D0036794D /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = ../../../PixelSpaceOdyssey/character.cpp; sourceTree = "<group>"; };
+		843C16131C0B7F5D0036794D /* character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character.h; path = ../../../PixelSpaceOdyssey/character.h; sourceTree = "<group>"; };
+		843C16141C0B7F5D0036794D /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../../../PixelSpaceOdyssey/common.h; sourceTree = "<group>"; };
+		843C16151C0B7F5D0036794D /* drawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawing.cpp; path = ../../../PixelSpaceOdyssey/drawing.cpp; sourceTree = "<group>"; };
+		843C16161C0B7F5D0036794D /* drawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drawing.h; path = ../../../PixelSpaceOdyssey/drawing.h; sourceTree = "<group>"; };
+		843C16171C0B7F5D0036794D /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = ../../../PixelSpaceOdyssey/game.cpp; sourceTree = "<group>"; };
+		843C16181C0B7F5D0036794D /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../../../PixelSpaceOdyssey/game.h; sourceTree = "<group>"; };
+		843C16191C0B7F5D0036794D /* player_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = player_animations.cpp; path = ../../../PixelSpaceOdyssey/player_animations.cpp; sourceTree = "<group>"; };
+		843C161A1C0B7F5D0036794D /* player_animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player_animations.h; path = ../../../PixelSpaceOdyssey/player_animations.h; sourceTree = "<group>"; };
+		843C161B1C0B7F5D0036794D /* tilemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tilemap.cpp; path = ../../../PixelSpaceOdyssey/tilemap.cpp; sourceTree = "<group>"; };
+		843C161C1C0B7F5D0036794D /* tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tilemap.h; path = ../../../PixelSpaceOdyssey/tilemap.h; sourceTree = "<group>"; };
+		843C161D1C0B7F5D0036794D /* tiles_lair_01.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles_lair_01.cpp; path = ../../../PixelSpaceOdyssey/tiles_lair_01.cpp; sourceTree = "<group>"; };
+		843C161E1C0B7F5D0036794D /* tiles_lair_01.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles_lair_01.h; path = ../../../PixelSpaceOdyssey/tiles_lair_01.h; sourceTree = "<group>"; };
+		843C161F1C0B7F5D0036794D /* tiles_tb_caverns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles_tb_caverns.cpp; path = ../../../PixelSpaceOdyssey/tiles_tb_caverns.cpp; sourceTree = "<group>"; };
+		843C16201C0B7F5D0036794D /* tiles_tb_caverns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles_tb_caverns.h; path = ../../../PixelSpaceOdyssey/tiles_tb_caverns.h; sourceTree = "<group>"; };
+		843C16211C0B7F5D0036794D /* PixelSpaceOdyssey.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PixelSpaceOdyssey.ino; path = ../../../PixelSpaceOdyssey/PixelSpaceOdyssey.ino; sourceTree = "<group>"; };
+		843C162B1C0B80180036794D /* Arduboy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arduboy.cpp; sourceTree = "<group>"; };
+		843C162C1C0B80180036794D /* Arduboy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduboy.h; sourceTree = "<group>"; };
+		843C162D1C0B80180036794D /* Arduino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Arduino.cpp; sourceTree = "<group>"; };
+		843C162E1C0B80180036794D /* audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audio.cpp; sourceTree = "<group>"; };
+		843C162F1C0B80180036794D /* audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio.h; sourceTree = "<group>"; };
+		843C16301C0B80180036794D /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = core.cpp; sourceTree = "<group>"; };
+		843C16311C0B80180036794D /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
+		843C16321C0B80180036794D /* glcdfont.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glcdfont.c; sourceTree = "<group>"; };
+		843C16331C0B80180036794D /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		843C164E1C0B80580036794D /* Arduino.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
+		843C16501C0B80580036794D /* pgmspace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pgmspace.h; sourceTree = "<group>"; };
+		843C16511C0B80580036794D /* power.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = power.h; sourceTree = "<group>"; };
+		843C16521C0B80580036794D /* sleep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sleep.h; sourceTree = "<group>"; };
+		843C16531C0B80580036794D /* EEPROM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EEPROM.h; sourceTree = "<group>"; };
+		843C16541C0B80580036794D /* Print.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Print.h; sourceTree = "<group>"; };
+		843C16551C0B80580036794D /* SPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPI.h; sourceTree = "<group>"; };
+		843C16561C0B80580036794D /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,8 +87,10 @@
 		8413A13E1C0AEBD100367F3E = {
 			isa = PBXGroup;
 			children = (
-				843C160B1C0AED150036794D /* Frameworks */,
+				843C162A1C0B80180036794D /* Arduboy */,
 				8413A1491C0AEBD100367F3E /* PixelSpaceOdyssey */,
+				843C164D1C0B80580036794D /* Platform */,
+				843C160B1C0AED150036794D /* Frameworks */,
 				8413A1481C0AEBD100367F3E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,6 +106,9 @@
 		8413A1491C0AEBD100367F3E /* PixelSpaceOdyssey */ = {
 			isa = PBXGroup;
 			children = (
+				843C160F1C0B7F450036794D /* Project */,
+				843C160C1C0B7E9A0036794D /* DisplayView.cpp */,
+				843C160D1C0B7E9A0036794D /* DisplayView.h */,
 				8413A1581C0AEBD100367F3E /* Info.plist */,
 				8413A14D1C0AEBD100367F3E /* Supporting Files */,
 			);
@@ -74,6 +130,72 @@
 				8413A15E1C0AEC6D00367F3E /* SDL2.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		843C160F1C0B7F450036794D /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				843C16101C0B7F5D0036794D /* animation.h */,
+				843C16111C0B7F5D0036794D /* bridge.h */,
+				843C16121C0B7F5D0036794D /* character.cpp */,
+				843C16131C0B7F5D0036794D /* character.h */,
+				843C16141C0B7F5D0036794D /* common.h */,
+				843C16151C0B7F5D0036794D /* drawing.cpp */,
+				843C16161C0B7F5D0036794D /* drawing.h */,
+				843C16171C0B7F5D0036794D /* game.cpp */,
+				843C16181C0B7F5D0036794D /* game.h */,
+				843C16191C0B7F5D0036794D /* player_animations.cpp */,
+				843C161A1C0B7F5D0036794D /* player_animations.h */,
+				843C161B1C0B7F5D0036794D /* tilemap.cpp */,
+				843C161C1C0B7F5D0036794D /* tilemap.h */,
+				843C161D1C0B7F5D0036794D /* tiles_lair_01.cpp */,
+				843C161E1C0B7F5D0036794D /* tiles_lair_01.h */,
+				843C161F1C0B7F5D0036794D /* tiles_tb_caverns.cpp */,
+				843C16201C0B7F5D0036794D /* tiles_tb_caverns.h */,
+				843C16211C0B7F5D0036794D /* PixelSpaceOdyssey.ino */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		843C162A1C0B80180036794D /* Arduboy */ = {
+			isa = PBXGroup;
+			children = (
+				843C162B1C0B80180036794D /* Arduboy.cpp */,
+				843C162C1C0B80180036794D /* Arduboy.h */,
+				843C162D1C0B80180036794D /* Arduino.cpp */,
+				843C162E1C0B80180036794D /* audio.cpp */,
+				843C162F1C0B80180036794D /* audio.h */,
+				843C16301C0B80180036794D /* core.cpp */,
+				843C16311C0B80180036794D /* core.h */,
+				843C16321C0B80180036794D /* glcdfont.c */,
+				843C16331C0B80180036794D /* platform.h */,
+			);
+			name = Arduboy;
+			path = ../Arduboy;
+			sourceTree = "<group>";
+		};
+		843C164D1C0B80580036794D /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				843C164E1C0B80580036794D /* Arduino.h */,
+				843C164F1C0B80580036794D /* avr */,
+				843C16531C0B80580036794D /* EEPROM.h */,
+				843C16541C0B80580036794D /* Print.h */,
+				843C16551C0B80580036794D /* SPI.h */,
+				843C16561C0B80580036794D /* types.h */,
+			);
+			name = Platform;
+			path = ../Platform;
+			sourceTree = "<group>";
+		};
+		843C164F1C0B80580036794D /* avr */ = {
+			isa = PBXGroup;
+			children = (
+				843C16501C0B80580036794D /* pgmspace.h */,
+				843C16511C0B80580036794D /* power.h */,
+				843C16521C0B80580036794D /* sleep.h */,
+			);
+			path = avr;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,6 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843C16291C0B7F5D0036794D /* PixelSpaceOdyssey.ino in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,7 +266,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843C16231C0B7F5D0036794D /* drawing.cpp in Sources */,
+				843C16281C0B7F5D0036794D /* tiles_tb_caverns.cpp in Sources */,
 				8413A14F1C0AEBD100367F3E /* main.cpp in Sources */,
+				843C16371C0B80180036794D /* core.cpp in Sources */,
+				843C16381C0B80180036794D /* glcdfont.c in Sources */,
+				843C16271C0B7F5D0036794D /* tiles_lair_01.cpp in Sources */,
+				843C16361C0B80180036794D /* audio.cpp in Sources */,
+				843C16351C0B80180036794D /* Arduino.cpp in Sources */,
+				843C16261C0B7F5D0036794D /* tilemap.cpp in Sources */,
+				843C160E1C0B7E9A0036794D /* DisplayView.cpp in Sources */,
+				843C16341C0B80180036794D /* Arduboy.cpp in Sources */,
+				843C16251C0B7F5D0036794D /* player_animations.cpp in Sources */,
+				843C16241C0B7F5D0036794D /* game.cpp in Sources */,
+				843C16221C0B7F5D0036794D /* character.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
