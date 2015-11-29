@@ -152,6 +152,7 @@ void updateInput()
 // Player
 
 #define GET_TILE(X,Y,T) TileMapGetTile(&tileMap, X, Y, &T)
+#define GET_TILE_SOLID(X,Y,T) (TileMapGetTile(&tileMap, X, Y, &T) > 15)
 
 #define PLAYER_TOP           (player.y - PLAYER_COLLIDER_HALF_HEIGHT)
 #define PLAYER_BOTTOM        (player.y + PLAYER_COLLIDER_HALF_HEIGHT)
@@ -292,8 +293,8 @@ void playerUpdate(TimeInterval dt)
         
         if (playerJumpSpeed > 0) // moving down
         {
-            if (GET_TILE(leftX, bottomY, tile) ||
-                GET_TILE(rightX, bottomY, tile))
+            if (GET_TILE_SOLID(leftX, bottomY, tile) ||
+                GET_TILE_SOLID(rightX, bottomY, tile))
             {
                 int16_t tileTop = TILE_GET_TOP(tile);
                 int16_t oldBottom = oldY + PLAYER_COLLIDER_HALF_HEIGHT;
