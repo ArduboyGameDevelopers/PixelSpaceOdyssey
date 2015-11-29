@@ -28,6 +28,8 @@
 
 #define JUMP_SPEED -65
 #define WALK_SPEED 9
+#define SLIDE_SPEED 12
+
 
 static const uint8_t PLAYER_WIDTH                = S2W(8);
 static const uint8_t PLAYER_HEIGHT               = S2W(8);
@@ -237,19 +239,18 @@ void playerUpdate(TimeInterval dt)
         }
         else
         {
-            player.x += playerSlopeDir * WALK_SPEED;
+            player.x += playerSlopeDir * SLIDE_SPEED;
         }
     }
     
-    int16_t minX = PLAYER_LEFT;
-    int16_t maxX = PLAYER_RIGHT;
-    int16_t maxY = PLAYER_BOTTOM;
+    int16_t leftX   = PLAYER_LEFT;
+    int16_t rightX  = PLAYER_RIGHT;
+    int16_t bottomY = PLAYER_BOTTOM;
 
     if (playerJumpSpeed > 0) // moving down
     {
         Tile tile;
-        uint8_t midIndex = GET_TILE(player.x, maxY, tile);
-        
+        uint8_t midIndex = GET_TILE(player.x, bottomY, tile);
         if (midIndex == TILE_SLOPE_LEFT)
         {
             playerSlideSlope(tile, DIR_LEFT);
@@ -260,35 +261,39 @@ void playerUpdate(TimeInterval dt)
         }
         else
         {
-//            Tile leftTile;
-//            Tile rightTile;
-//            
-//            uint8_t rightIndex = GET_TILE(maxX, maxY, rightTile);
-//            uint8_t leftIndex  = GET_TILE(minX, maxY, leftTile);
-            
-            playerSlopeDir = 0;
+            if (playerSlopeDir == DIR_LEFT &&
+                GET_TILE(player.x, bottomY + TILE_HEIGHT, tile) == TILE_SLOPE_LEFT)
+            {
+                playerSlideSlope(tile, DIR_LEFT);
+            }
+            else if (playerSlopeDir == DIR_RIGHT &&
+                GET_TILE(player.x, bottomY + TILE_HEIGHT, tile) == TILE_SLOPE_RIGHT)
+            {
+                playerSlideSlope(tile, DIR_RIGHT);
+            }
+            else
+            {
+                playerSlopeDir = 0;
+            }
         }
-    }
-    else /* if (playerJumpSpeed > 0) */ // moving up or in the middle of jump
-    {
     }
     
     if (playerSlopeDir == 0)
     {
         Tile tile;
 
-        if (GET_TILE(minX, player.y, tile) ||
-            GET_TILE(maxX, player.y, tile))
+        if (GET_TILE(leftX, player.y, tile) ||
+            GET_TILE(rightX, player.y, tile))
         {
             playerHandleTileHorCollision(tile);
-            minX = PLAYER_LEFT;
-            maxX = PLAYER_RIGHT;
+            leftX = PLAYER_LEFT;
+            rightX = PLAYER_RIGHT;
         }
         
         if (playerJumpSpeed > 0) // moving down
         {
-            if (GET_TILE(minX, maxY, tile) ||
-                GET_TILE(maxX, maxY, tile))
+            if (GET_TILE(leftX, bottomY, tile) ||
+                GET_TILE(rightX, bottomY, tile))
             {
                 int16_t tileTop = TILE_GET_TOP(tile);
                 int16_t oldBottom = oldY + PLAYER_COLLIDER_HALF_HEIGHT;
@@ -303,8 +308,8 @@ void playerUpdate(TimeInterval dt)
         else
         {
             int16_t minY = PLAYER_TOP;
-            if (GET_TILE(minX, minY, tile) ||
-                GET_TILE(maxX, minY, tile))
+            if (GET_TILE(leftX, minY, tile) ||
+                GET_TILE(rightX, minY, tile))
             {
                 int16_t tileBottom = TILE_GET_BOTTOM(tile);
                 int16_t oldTop = oldY - PLAYER_COLLIDER_HALF_HEIGHT;
