@@ -61,7 +61,7 @@ task :generate_tiles => [:init] do
 end
 
 desc 'Generate tile maps'
-task :generate_tilemaps => [:init] do
+task :generate_tilemaps => [:generate_tiles] do
 
   tile_set = TileSet.from_psd Dir["#{$dir_tiles}/*.psd"].first
 

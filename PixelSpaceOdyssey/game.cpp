@@ -308,8 +308,7 @@ void playerUpdate(TimeInterval dt)
         else
         {
             int16_t minY = PLAYER_TOP;
-            if (GET_TILE(leftX, minY, tile) ||
-                GET_TILE(rightX, minY, tile))
+            if (GET_TILE(player.x, minY, tile))
             {
                 int16_t tileBottom = TILE_GET_BOTTOM(tile);
                 int16_t oldTop = oldY - PLAYER_COLLIDER_HALF_HEIGHT;
@@ -353,7 +352,7 @@ void playerUpdate(TimeInterval dt)
     {
         playerSetAnimation(PLAYER_ANIMATION_JUMP);
     }
-    else if (playerSlopeDir != 0)
+    else if (playerJumpSpeed != 0 || playerSlopeDir != 0)
     {
         playerSetAnimation(PLAYER_ANIMATION_FALL);
     }

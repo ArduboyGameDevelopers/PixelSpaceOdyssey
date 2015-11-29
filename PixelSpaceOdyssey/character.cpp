@@ -49,6 +49,14 @@ void CharacterDraw(Character* character, DrawMode mode)
     {
         drawX += pgm_read_byte(framePtr);
     }
+    else
+    {
+        int16_t extra = frameWidth & 7;
+        if (extra != 0)
+        {
+            drawX += 8 - extra;
+        }
+    }
     if ((mode & DM_FLIP_Y) == 0)
     {
         drawY += pgm_read_byte(framePtr + 1);
