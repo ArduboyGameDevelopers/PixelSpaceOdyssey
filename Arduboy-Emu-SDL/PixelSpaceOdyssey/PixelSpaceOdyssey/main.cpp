@@ -112,12 +112,29 @@ int keyButtonMask(SDL_Keycode code)
 {
     switch (code)
     {
-        case SDLK_w: return UP_BUTTON;
-        case SDLK_a: return LEFT_BUTTON;
-        case SDLK_s: return DOWN_BUTTON;
-        case SDLK_d: return RIGHT_BUTTON;
-        case SDLK_n: return A_BUTTON;
-        case SDLK_m: return B_BUTTON;
+        case SDLK_w:
+        case SDLK_UP:
+            return UP_BUTTON;
+            
+        case SDLK_a:
+        case SDLK_LEFT:
+            return LEFT_BUTTON;
+            
+        case SDLK_s:
+        case SDLK_DOWN:
+            return DOWN_BUTTON;
+            
+        case SDLK_d:
+        case SDLK_RIGHT:
+            return RIGHT_BUTTON;
+            
+        case SDLK_n:
+        case SDLK_LALT:
+            return A_BUTTON;
+            
+        case SDLK_m:
+        case SDLK_SPACE:
+            return B_BUTTON;
     }
     
     return 0;
