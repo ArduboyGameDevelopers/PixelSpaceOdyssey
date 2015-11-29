@@ -1,17 +1,140 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Arduboy">
+      <UniqueIdentifier>{1c7ad838-146a-4fc7-a123-3e2ea034d30d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="PixelSpaceOdyssey">
+      <UniqueIdentifier>{657c821f-709c-42e9-b78b-046ad3f397d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{61402c22-e6b9-4a25-bb02-ef358cf8fd25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform\avr">
+      <UniqueIdentifier>{d164aa46-ad63-47c3-b237-ed23c4789b88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PixelSpaceOdyssey\Project">
+      <UniqueIdentifier>{c41c67ff-1fbc-429d-a1d9-6bd5d2ac0346}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Arduboy\Arduboy.cpp">
+      <Filter>Arduboy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Arduboy\Arduino.cpp">
+      <Filter>Arduboy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Arduboy\audio.cpp">
+      <Filter>Arduboy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Arduboy\core.cpp">
+      <Filter>Arduboy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Arduboy\glcdfont.c">
+      <Filter>Arduboy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\PixelSpaceOdyssey\PixelSpaceOdyssey\DisplayView.cpp">
+      <Filter>PixelSpaceOdyssey</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\PixelSpaceOdyssey\PixelSpaceOdyssey\main.cpp">
+      <Filter>PixelSpaceOdyssey</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\character.cpp">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\drawing.cpp">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\game.cpp">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\player_animations.cpp">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\tilemap.cpp">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\tiles_lair_01.cpp">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\tiles_tb_caverns.cpp">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Arduboy\Arduboy.h">
+      <Filter>Arduboy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Arduboy\audio.h">
+      <Filter>Arduboy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Arduboy\core.h">
+      <Filter>Arduboy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Arduboy\platform.h">
+      <Filter>Arduboy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\PixelSpaceOdyssey\PixelSpaceOdyssey\DisplayView.h">
+      <Filter>PixelSpaceOdyssey</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Platform\Arduino.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Platform\EEPROM.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Platform\Print.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Platform\SPI.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Platform\types.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Platform\avr\pgmspace.h">
+      <Filter>Platform\avr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Platform\avr\power.h">
+      <Filter>Platform\avr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Platform\avr\sleep.h">
+      <Filter>Platform\avr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\animation.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\bridge.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\character.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\common.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\drawing.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\game.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\player_animations.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\tilemap.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\tiles_lair_01.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\tiles_tb_caverns.h">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\PixelSpaceOdyssey\PixelSpaceOdyssey.ino">
+      <Filter>PixelSpaceOdyssey\Project</Filter>
+    </None>
   </ItemGroup>
 </Project>

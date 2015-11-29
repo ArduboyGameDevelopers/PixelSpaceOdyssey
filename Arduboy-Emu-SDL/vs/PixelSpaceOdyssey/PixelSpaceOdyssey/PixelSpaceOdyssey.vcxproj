@@ -36,7 +36,13 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir)..\..\SDL2-2.0.3\include;$(ProjectDir)..\..\..\Platform;$(ProjectDir)..\..\..\Arduboy;$(ProjectDir)..\..\..\..\PixelSpaceOdyssey;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>$(ProjectDir)..\..\SDL2-2.0.3\lib\$(PlatformShortName);$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)..\..\..\Arduboy;$(ProjectDir)..\..\..\..\PixelSpaceOdyssey;$(SourcePath)</SourcePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -44,7 +50,12 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
     </Link>
+    <PostBuildEvent>
+      <Command>cp "$(ProjectDir)..\..\SDL2-2.0.3\lib\$(PlatformShortName)\SDL2.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -60,6 +71,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\character.cpp" />
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\drawing.cpp" />
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\game.cpp" />
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\player_animations.cpp" />
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\tilemap.cpp" />
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\tiles_lair_01.cpp" />
+    <ClCompile Include="..\..\..\..\PixelSpaceOdyssey\tiles_tb_caverns.cpp" />
+    <ClCompile Include="..\..\..\Arduboy\Arduboy.cpp" />
+    <ClCompile Include="..\..\..\Arduboy\Arduino.cpp" />
+    <ClCompile Include="..\..\..\Arduboy\audio.cpp" />
+    <ClCompile Include="..\..\..\Arduboy\core.cpp" />
+    <ClCompile Include="..\..\..\Arduboy\glcdfont.c" />
+    <ClCompile Include="..\..\..\PixelSpaceOdyssey\PixelSpaceOdyssey\DisplayView.cpp" />
+    <ClCompile Include="..\..\..\PixelSpaceOdyssey\PixelSpaceOdyssey\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\animation.h" />
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\bridge.h" />
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\character.h" />
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\common.h" />
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\drawing.h" />
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\game.h" />
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\player_animations.h" />
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\tilemap.h" />
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\tiles_lair_01.h" />
+    <ClInclude Include="..\..\..\..\PixelSpaceOdyssey\tiles_tb_caverns.h" />
+    <ClInclude Include="..\..\..\Arduboy\Arduboy.h" />
+    <ClInclude Include="..\..\..\Arduboy\audio.h" />
+    <ClInclude Include="..\..\..\Arduboy\core.h" />
+    <ClInclude Include="..\..\..\Arduboy\platform.h" />
+    <ClInclude Include="..\..\..\PixelSpaceOdyssey\PixelSpaceOdyssey\DisplayView.h" />
+    <ClInclude Include="..\..\..\Platform\Arduino.h" />
+    <ClInclude Include="..\..\..\Platform\avr\pgmspace.h" />
+    <ClInclude Include="..\..\..\Platform\avr\power.h" />
+    <ClInclude Include="..\..\..\Platform\avr\sleep.h" />
+    <ClInclude Include="..\..\..\Platform\EEPROM.h" />
+    <ClInclude Include="..\..\..\Platform\Print.h" />
+    <ClInclude Include="..\..\..\Platform\SPI.h" />
+    <ClInclude Include="..\..\..\Platform\types.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\PixelSpaceOdyssey\PixelSpaceOdyssey.ino" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

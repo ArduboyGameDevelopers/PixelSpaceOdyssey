@@ -180,13 +180,13 @@ protected:
      * This is most useful on Devkits because they lack a built-in reset
      * button.
      */
-    void safeMode() __attribute__((always_inline));
+    void safeMode();
 
     // internals
-    void bootLCD() __attribute__((always_inline));
-    void bootPins() __attribute__((always_inline));
-    void slowCPU() __attribute__((always_inline));
-    void saveMuchPower(); __attribute__((always_inline));
+    void bootLCD();
+    void bootPins();
+    void slowCPU();
+    void saveMuchPower();
 
 
 private:

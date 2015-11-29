@@ -12,7 +12,6 @@
 #define TUNE_OP_RESTART	0xe0	/* restart the score from the beginning */
 #define TUNE_OP_STOP	0xf0	/* stop playing */
 
-
 class ArduboyAudio
 {
 public:

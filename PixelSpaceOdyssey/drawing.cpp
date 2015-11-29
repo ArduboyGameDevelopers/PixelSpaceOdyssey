@@ -9,6 +9,7 @@
 #include <avr/pgmspace.h>
 
 #include "drawing.h"
+#include "Arduino.h"
 
 #define BUFFER_WIDTH 128
 #define BUFFER_HEIGHT 64

@@ -186,7 +186,7 @@ void playerUpdate(TimeInterval dt)
     int16_t oldY = player.y;
     
     playerJumpSpeed += GRAVITY;
-    playerJumpSpeed = constrain(playerJumpSpeed, JUMP_SPEED, -JUMP_SPEED);
+    playerJumpSpeed = constrain(playerJumpSpeed, JUMP_SPEED, -(JUMP_SPEED));
     
     if (playerSlopeDir == 0)
     {
