@@ -65,14 +65,9 @@ static int16_t camY;
 static TimeInterval lastFrameTime;
 static TimeInterval lastDrawTime;
 
-void updateInput();
-
 void playerUpdate(TimeInterval dt);
 void playerDraw();
 void playerSetAnimation(int index);
-
-void spiderUpdate(TimeInterval dt);
-void spiderDraw();
 
 void tilemapDraw();
 
@@ -94,9 +89,7 @@ void updateGame()
     TimeInterval dt = millis() - lastFrameTime;
     lastFrameTime = millis();
     
-    updateInput();
     playerUpdate(dt);
-    spiderUpdate(dt);
 }
 
 void drawGame()
@@ -111,45 +104,8 @@ void drawGame()
     
     tilemapDraw();
     playerDraw();
-    spiderDraw();
     
     display.display();
-}
-
-////////////////////////////////////////////////////////////////////
-// Input
-
-void updateInput()
-{
-//    if (arduboy.pressed(LEFT_BUTTON))
-//    {
-//        camX -= 2;
-//        if (camX < 0) camX = 0;
-//    }
-//    else if (arduboy.pressed(RIGHT_BUTTON))
-//    {
-//        camX += 2;
-//        if (camX > camXMax) camX = camXMax;
-//    }
-//    
-//    if (arduboy.pressed(UP_BUTTON))
-//    {
-//        camY -= 2;
-//        if (camY < 0) camY = 0;
-//    }
-//    else if (arduboy.pressed(DOWN_BUTTON))
-//    {
-//        camY += 2;
-//        if (camY > camYMax) camY = camYMax;
-//    }
-//    
-//    if (arduboy.pressed(A_BUTTON) || arduboy.pressed(B_BUTTON))
-//    {
-//        if (spider.state() == SPIDER_SLEEP)
-//        {
-//            spider.setState(SPIDER_AWAKEN);
-//        }
-//    }
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -397,19 +353,6 @@ void playerSetAnimation(int index)
 {
     assert(index >= 0 && index < PLAYER_ANIMATIONS_COUNT);
     CharacterSetAnimation(&player, &PLAYER_ANIMATIONS[index]);
-}
-
-////////////////////////////////////////////////////////////////////
-// Spider
-
-void spiderUpdate(TimeInterval dt)
-{
-    
-}
-
-void spiderDraw()
-{
-    
 }
 
 ////////////////////////////////////////////////////////////////////
