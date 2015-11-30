@@ -10,6 +10,9 @@
 		8413A14F1C0AEBD100367F3E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8413A14E1C0AEBD100367F3E /* main.cpp */; };
 		8413A15F1C0AEC6D00367F3E /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8413A15E1C0AEC6D00367F3E /* SDL2.framework */; };
 		8413A1611C0AEC7200367F3E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8413A1601C0AEC7200367F3E /* OpenGL.framework */; };
+		843911B71C0BE6C000134AB6 /* PixelSpaceOdysseyTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 843911B61C0BE6C000134AB6 /* PixelSpaceOdysseyTests.mm */; };
+		843911BF1C0BF00F00134AB6 /* tiles.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 843911BE1C0BF00F00134AB6 /* tiles.bmp */; };
+		843911C21C0BF30900134AB6 /* TileView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843911C01C0BF30900134AB6 /* TileView.cpp */; };
 		843C160E1C0B7E9A0036794D /* DisplayView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C160C1C0B7E9A0036794D /* DisplayView.cpp */; };
 		843C16221C0B7F5D0036794D /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16121C0B7F5D0036794D /* character.cpp */; };
 		843C16231C0B7F5D0036794D /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16151C0B7F5D0036794D /* drawing.cpp */; };
@@ -24,7 +27,18 @@
 		843C16361C0B80180036794D /* audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C162E1C0B80180036794D /* audio.cpp */; };
 		843C16371C0B80180036794D /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16301C0B80180036794D /* core.cpp */; };
 		843C16381C0B80180036794D /* glcdfont.c in Sources */ = {isa = PBXBuildFile; fileRef = 843C16321C0B80180036794D /* glcdfont.c */; };
+		843C165D1C0BDC4B0036794D /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C165B1C0BDC4B0036794D /* View.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		843911B91C0BE6C000134AB6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8413A13F1C0AEBD100367F3E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8413A1461C0AEBD100367F3E;
+			remoteInfo = PixelSpaceOdyssey;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8413A1471C0AEBD100367F3E /* PixelSpaceOdyssey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PixelSpaceOdyssey.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,6 +46,12 @@
 		8413A1581C0AEBD100367F3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8413A15E1C0AEC6D00367F3E /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = /Library/Frameworks/SDL2.framework; sourceTree = "<absolute>"; };
 		8413A1601C0AEC7200367F3E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		843911B41C0BE6C000134AB6 /* PixelSpaceOdysseyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixelSpaceOdysseyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		843911B61C0BE6C000134AB6 /* PixelSpaceOdysseyTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PixelSpaceOdysseyTests.mm; sourceTree = "<group>"; };
+		843911B81C0BE6C000134AB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		843911BE1C0BF00F00134AB6 /* tiles.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = tiles.bmp; sourceTree = "<group>"; };
+		843911C01C0BF30900134AB6 /* TileView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TileView.cpp; sourceTree = "<group>"; };
+		843911C11C0BF30900134AB6 /* TileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileView.h; sourceTree = "<group>"; };
 		843C160C1C0B7E9A0036794D /* DisplayView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DisplayView.cpp; sourceTree = "<group>"; };
 		843C160D1C0B7E9A0036794D /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		843C16101C0B7F5D0036794D /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../../../PixelSpaceOdyssey/animation.h; sourceTree = "<group>"; };
@@ -62,6 +82,9 @@
 		843C16321C0B80180036794D /* glcdfont.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glcdfont.c; sourceTree = "<group>"; };
 		843C16331C0B80180036794D /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
 		843C16571C0B85700036794D /* Platform */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Platform; path = ../Platform; sourceTree = "<group>"; };
+		843C165B1C0BDC4B0036794D /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
+		843C165C1C0BDC4B0036794D /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View.h; sourceTree = "<group>"; };
+		843C16651C0BE0FF0036794D /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +97,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		843911B11C0BE6C000134AB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -82,6 +112,7 @@
 			children = (
 				843C162A1C0B80180036794D /* Arduboy */,
 				8413A1491C0AEBD100367F3E /* PixelSpaceOdyssey */,
+				843911B51C0BE6C000134AB6 /* PixelSpaceOdysseyTests */,
 				843C16571C0B85700036794D /* Platform */,
 				843C160B1C0AED150036794D /* Frameworks */,
 				8413A1481C0AEBD100367F3E /* Products */,
@@ -92,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				8413A1471C0AEBD100367F3E /* PixelSpaceOdyssey.app */,
+				843911B41C0BE6C000134AB6 /* PixelSpaceOdysseyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,11 +131,17 @@
 		8413A1491C0AEBD100367F3E /* PixelSpaceOdyssey */ = {
 			isa = PBXGroup;
 			children = (
-				843C160F1C0B7F450036794D /* Project */,
 				843C160C1C0B7E9A0036794D /* DisplayView.cpp */,
 				843C160D1C0B7E9A0036794D /* DisplayView.h */,
 				8413A1581C0AEBD100367F3E /* Info.plist */,
+				843C16651C0BE0FF0036794D /* List.h */,
+				843C160F1C0B7F450036794D /* Project */,
 				8413A14D1C0AEBD100367F3E /* Supporting Files */,
+				843911BE1C0BF00F00134AB6 /* tiles.bmp */,
+				843911C01C0BF30900134AB6 /* TileView.cpp */,
+				843911C11C0BF30900134AB6 /* TileView.h */,
+				843C165B1C0BDC4B0036794D /* View.cpp */,
+				843C165C1C0BDC4B0036794D /* View.h */,
 			);
 			path = PixelSpaceOdyssey;
 			sourceTree = "<group>";
@@ -114,6 +152,15 @@
 				8413A14E1C0AEBD100367F3E /* main.cpp */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		843911B51C0BE6C000134AB6 /* PixelSpaceOdysseyTests */ = {
+			isa = PBXGroup;
+			children = (
+				843911B61C0BE6C000134AB6 /* PixelSpaceOdysseyTests.mm */,
+				843911B81C0BE6C000134AB6 /* Info.plist */,
+			);
+			path = PixelSpaceOdysseyTests;
 			sourceTree = "<group>";
 		};
 		843C160B1C0AED150036794D /* Frameworks */ = {
@@ -187,6 +234,24 @@
 			productReference = 8413A1471C0AEBD100367F3E /* PixelSpaceOdyssey.app */;
 			productType = "com.apple.product-type.application";
 		};
+		843911B31C0BE6C000134AB6 /* PixelSpaceOdysseyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 843911BD1C0BE6C000134AB6 /* Build configuration list for PBXNativeTarget "PixelSpaceOdysseyTests" */;
+			buildPhases = (
+				843911B01C0BE6C000134AB6 /* Sources */,
+				843911B11C0BE6C000134AB6 /* Frameworks */,
+				843911B21C0BE6C000134AB6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				843911BA1C0BE6C000134AB6 /* PBXTargetDependency */,
+			);
+			name = PixelSpaceOdysseyTests;
+			productName = PixelSpaceOdysseyTests;
+			productReference = 843911B41C0BE6C000134AB6 /* PixelSpaceOdysseyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -198,6 +263,10 @@
 				TargetAttributes = {
 					8413A1461C0AEBD100367F3E = {
 						CreatedOnToolsVersion = 7.1;
+					};
+					843911B31C0BE6C000134AB6 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 8413A1461C0AEBD100367F3E;
 					};
 				};
 			};
@@ -215,6 +284,7 @@
 			projectRoot = "";
 			targets = (
 				8413A1461C0AEBD100367F3E /* PixelSpaceOdyssey */,
+				843911B31C0BE6C000134AB6 /* PixelSpaceOdysseyTests */,
 			);
 		};
 /* End PBXProject section */
@@ -225,6 +295,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				843C16291C0B7F5D0036794D /* PixelSpaceOdyssey.ino in Resources */,
+				843911BF1C0BF00F00134AB6 /* tiles.bmp in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		843911B21C0BE6C000134AB6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,9 +313,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				843C165D1C0BDC4B0036794D /* View.cpp in Sources */,
 				843C16231C0B7F5D0036794D /* drawing.cpp in Sources */,
 				843C16281C0B7F5D0036794D /* tiles_tb_caverns.cpp in Sources */,
 				8413A14F1C0AEBD100367F3E /* main.cpp in Sources */,
+				843911C21C0BF30900134AB6 /* TileView.cpp in Sources */,
 				843C16371C0B80180036794D /* core.cpp in Sources */,
 				843C16381C0B80180036794D /* glcdfont.c in Sources */,
 				843C16271C0B7F5D0036794D /* tiles_lair_01.cpp in Sources */,
@@ -252,7 +332,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		843911B01C0BE6C000134AB6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				843911B71C0BE6C000134AB6 /* PixelSpaceOdysseyTests.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		843911BA1C0BE6C000134AB6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8413A1461C0AEBD100367F3E /* PixelSpaceOdyssey */;
+			targetProxy = 843911B91C0BE6C000134AB6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8413A1591C0AEBD100367F3E /* Debug */ = {
@@ -360,6 +456,32 @@
 			};
 			name = Release;
 		};
+		843911BB1C0BE6C000134AB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PixelSpaceOdysseyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacemadness.PixelSpaceOdysseyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PixelSpaceOdyssey.app/Contents/MacOS/PixelSpaceOdyssey";
+			};
+			name = Debug;
+		};
+		843911BC1C0BE6C000134AB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PixelSpaceOdysseyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacemadness.PixelSpaceOdysseyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PixelSpaceOdyssey.app/Contents/MacOS/PixelSpaceOdyssey";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -380,6 +502,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		843911BD1C0BE6C000134AB6 /* Build configuration list for PBXNativeTarget "PixelSpaceOdysseyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				843911BB1C0BE6C000134AB6 /* Debug */,
+				843911BC1C0BE6C000134AB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

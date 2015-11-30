@@ -4,15 +4,22 @@
 #include <SDL2/SDL_opengl.h>
 
 #include "DisplayView.h"
+#include "TileView.h"
 
 #include "game.h"
 #include "platform.h"
 #include "bridge.h"
 
-static const int SCREEN_WIDTH  = 512;
-static const int SCREEN_HEIGHT = 256;
+static const int GAME_WIDTH   = 512;
+static const int GAME_HEIGHT  = 256;
+static const int TILES_WIDTH  = 512;
+static const int TILES_HEIGHT = 5 * (32 + 2) + 2;
+
+static const int SCREEN_WIDTH  = GAME_WIDTH;
+static const int SCREEN_HEIGHT = GAME_HEIGHT + TILES_HEIGHT;
 
 static DisplayView* displayView;
+static TileView* tileView;
 
 static const uint8_t LEFT_BUTTON  = 1 << 5;
 static const uint8_t RIGHT_BUTTON = 1 << 2;
@@ -21,6 +28,8 @@ static const uint8_t DOWN_BUTTON  = 1 << 6;
 static const uint8_t A_BUTTON     = 1 << 1;
 static const uint8_t B_BUTTON     = 1 << 0;
 static int inputMask = 0;
+
+static unsigned long gameMillis;
 
 void handleEvent(const SDL_Event* event);
 
@@ -54,7 +63,14 @@ int main(int argc, char * argv[])
     }
     
     // init display view
-    displayView = new DisplayView(SCREEN_WIDTH, SCREEN_HEIGHT);
+    displayView = new DisplayView(GAME_WIDTH, GAME_HEIGHT);
+    
+    // load tiles
+    SDL_Surface *tilesSurface = SDL_LoadBMP("tiles.bmp");
+    SDL_Texture *tilesTexture = SDL_CreateTextureFromSurface(renderer, tilesSurface);
+    tileView = new TileView(tilesTexture, TILES_WIDTH, TILES_HEIGHT);
+    tileView->setPos(0, displayView->bottom());
+    SDL_FreeSurface(tilesSurface);
     
     SDL_Event event;	 // used to store any events from the OS
     bool running = true; // used to determine if we're running the game
@@ -71,21 +87,31 @@ int main(int argc, char * argv[])
         {
             // determine if the user still wants to have the window open
             // (this basically checks if the user has pressed 'X')
-            running = event.type != SDL_QUIT;
+            if (event.type == SDL_QUIT)
+            {
+                running = false;
+            }
+            
             handleEvent(&event);
         }
         
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);
         
-        if (SDL_GetTicks() - lastFrameTime >= frameDelay)
+        Uint32 delta = SDL_GetTicks() - lastFrameTime;
+        if (delta >= frameDelay)
         {
             lastFrameTime = SDL_GetTicks();
+            gameMillis += delta;
+            
             updateGame();
             drawGame();
         }
         
         displayView->render(renderer);
+        
+        // draw tiles
+        tileView->render(renderer);
         
         // Swap OpenGL buffers
         SDL_RenderPresent(renderer);
@@ -93,6 +119,12 @@ int main(int argc, char * argv[])
     
     // Delete display view
     delete displayView;
+    
+    // Delete tiles view
+    delete tileView;
+    
+    // Destroy tiles texture
+    SDL_DestroyTexture(tilesTexture);
     
     // Destroy the renderer
     SDL_DestroyRenderer(renderer);
@@ -143,7 +175,9 @@ int keyButtonMask(SDL_Keycode code)
 
 void handleKeyboardEvent(const SDL_KeyboardEvent* event)
 {
-    int keyMask = keyButtonMask(event->keysym.sym);
+    SDL_Keysym keysym = event->keysym;
+    
+    int keyMask = keyButtonMask(keysym.sym);
     if (keyMask)
     {
         if (event->type == SDL_KEYDOWN)
@@ -155,6 +189,20 @@ void handleKeyboardEvent(const SDL_KeyboardEvent* event)
             inputMask &= ~keyMask;
         }
     }
+    
+    if (event->type == SDL_KEYDOWN)
+    {
+        switch (keysym.sym)
+        {
+            case SDLK_g:
+                displayView->toggleGrid();
+                break;
+        }
+    }
+}
+
+void handleMouseMotionEvent(const SDL_MouseMotionEvent* event)
+{
 }
 
 void handleEvent(const SDL_Event* event)
@@ -164,6 +212,10 @@ void handleEvent(const SDL_Event* event)
         case SDL_KEYDOWN:
         case SDL_KEYUP:
             handleKeyboardEvent(&event->key);
+            break;
+            
+        case SDL_MOUSEMOTION:
+            handleMouseMotionEvent(&event->motion);
             break;
     }
 }
@@ -178,7 +230,7 @@ void platformRenderScreen(unsigned const char* screenBuffer, int width, int heig
 
 unsigned long platformMillis(void)
 {
-    return SDL_GetTicks();
+    return gameMillis;
 }
 
 void platformDelay(unsigned long millis)

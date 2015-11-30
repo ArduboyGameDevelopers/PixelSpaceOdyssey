@@ -10,16 +10,22 @@
 #define DisplayView_h
 
 #include <stdio.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
 
-class DisplayView
+#include "View.h"
+
+struct RectList;
+typedef struct RectList RectList;
+
+RectList* RectListCreate(int capacity);
+void RectListRender(SDL_Renderer* renderer, const RectList* list, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+void RectListDestroy(RectList* list);
+
+class DisplayView : public View
 {
 private:
-    SDL_Rect     * _pixelRects;
-    int            _pixelRectsCount;
-    int            _width;
-    int            _height;
+    RectList* _pixelRects;
+    RectList* _gridRects;
+    bool     _gridVisible;
     
 public:
     DisplayView(int width, int height);
@@ -28,6 +34,11 @@ public:
 public:
     void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
     void render(SDL_Renderer* renderer);
+    
+public:
+    inline bool gridVisible() { return _gridVisible; }
+    inline void setGridVisible(bool visible) { _gridVisible = visible; }
+    inline void toggleGrid() { _gridVisible = !_gridVisible; }
 };
 
 #endif /* DisplayView_h */
