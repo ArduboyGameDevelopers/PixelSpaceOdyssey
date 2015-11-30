@@ -36,9 +36,17 @@ public:
     void render(SDL_Renderer* renderer);
     
 public:
+    virtual void mouseDown(int x, int y);
+    virtual void mouseMove(int x, int y);
+    virtual void mouseUp(int x, int y);
+    
+public:
     inline bool gridVisible() { return _gridVisible; }
     inline void setGridVisible(bool visible) { _gridVisible = visible; }
     inline void toggleGrid() { _gridVisible = !_gridVisible; }
+    
+private:
+    int gridIndexFromCords(int x, int y);
 };
 
 #endif /* DisplayView_h */

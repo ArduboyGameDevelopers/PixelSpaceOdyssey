@@ -21,6 +21,11 @@ static const int SCREEN_HEIGHT = GAME_HEIGHT + TILES_HEIGHT;
 static DisplayView* displayView;
 static TileView* tileView;
 
+static const int kViewIndexDisplayView  = 0;
+static const int kViewIndexTileView     = 1;
+static const int kViewsCount            = 2;
+static View* views[kViewsCount];
+
 static const uint8_t LEFT_BUTTON  = 1 << 5;
 static const uint8_t RIGHT_BUTTON = 1 << 2;
 static const uint8_t UP_BUTTON    = 1 << 4;
@@ -64,12 +69,14 @@ int main(int argc, char * argv[])
     
     // init display view
     displayView = new DisplayView(GAME_WIDTH, GAME_HEIGHT);
+    views[kViewIndexDisplayView] = displayView;
     
     // load tiles
     SDL_Surface *tilesSurface = SDL_LoadBMP("tiles.bmp");
     SDL_Texture *tilesTexture = SDL_CreateTextureFromSurface(renderer, tilesSurface);
     tileView = new TileView(tilesTexture, TILES_WIDTH, TILES_HEIGHT);
     tileView->setPos(0, displayView->bottom());
+    views[kViewIndexTileView] = tileView;
     SDL_FreeSurface(tilesSurface);
     
     SDL_Event event;	 // used to store any events from the OS
@@ -141,6 +148,8 @@ int main(int argc, char * argv[])
 ////////////////////////////////////////////////////////////////////////////////////
 // Events
 
+View* findMouseView(int x, int y);
+
 int keyButtonMask(SDL_Keycode code)
 {
     switch (code)
@@ -205,6 +214,28 @@ void handleMouseMotionEvent(const SDL_MouseMotionEvent* event)
 {
 }
 
+void handleMouseButtonEvent(const SDL_MouseButtonEvent* event)
+{
+    int x = event->x;
+    int y = event->y;
+    
+    View *view = findMouseView(x, y);
+    if (view)
+    {
+        int localX = x - view->left();
+        int localY = y - view->top();
+        
+        if (event->type == SDL_MOUSEBUTTONDOWN)
+        {
+            view->mouseDown(localX, localY);
+        }
+        else if (event->type == SDL_MOUSEBUTTONUP)
+        {
+            view->mouseUp(localX, localY);
+        }
+    }
+}
+
 void handleEvent(const SDL_Event* event)
 {
     switch (event->type)
@@ -214,10 +245,32 @@ void handleEvent(const SDL_Event* event)
             handleKeyboardEvent(&event->key);
             break;
             
+        case SDL_MOUSEBUTTONDOWN:
+        case SDL_MOUSEBUTTONUP:
+            handleMouseButtonEvent(&event->button);
+            break;
+            
         case SDL_MOUSEMOTION:
             handleMouseMotionEvent(&event->motion);
             break;
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// Mouse
+
+View* findMouseView(int x, int y)
+{
+    for (int i = 0; i < kViewsCount; ++i)
+    {
+        View* view = views[i];
+        if (view->containsPoint(x, y))
+        {
+            return view;
+        }
+    }
+    
+    return NULL;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

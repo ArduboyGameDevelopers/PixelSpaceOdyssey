@@ -50,6 +50,8 @@ public:
     
     inline void setPos(int x, int y)  { _bounds.x = x; _bounds.y = y; }
     inline void setSize(int w, int h) { _bounds.w = w; _bounds.h = h; }
+    
+    inline bool containsPoint(int x, int y) const { return x >= left() && x < right() && y >= top() && y < bottom(); }
 };
 
 #endif /* View_h */

@@ -11,12 +11,17 @@
 #include "drawing.h"
 #include "game.h"
 
+#include "EditorState.h"
+#include "tiles_lair_01.h"
+
 struct RectList {
     SDL_Rect* rects;
     int count;
 };
 
 static const int GRID_CELL_SIZE = 8;
+static const int PIXEL_WIDTH    = 4;
+static const int PIXEL_HEIGHT   = 4;
 
 DisplayView::DisplayView(int width, int height) :
     View(width, height),
@@ -39,9 +44,6 @@ void DisplayView::copyScreenBuffer(unsigned const char* screenBuffer, int buffer
         _pixelRects = RectListCreate(bufferWidth * bufferHeight);
     }
     
-    int pixelWidth = width() / bufferWidth;
-    int pixelHeight = height() / bufferHeight;
-    
     _pixelRects->count = 0;
     for (int y = 0; y < bufferHeight; y++)
     {
@@ -53,10 +55,10 @@ void DisplayView::copyScreenBuffer(unsigned const char* screenBuffer, int buffer
             if (!bit)
             {
                 SDL_Rect& rect = _pixelRects->rects[_pixelRects->count++];
-                rect.x = x * pixelWidth;
-                rect.y = y * pixelHeight;
-                rect.w = pixelWidth;
-                rect.h = pixelHeight;
+                rect.x = x * PIXEL_WIDTH;
+                rect.y = y * PIXEL_HEIGHT;
+                rect.w = PIXEL_WIDTH;
+                rect.h = PIXEL_HEIGHT;
             }
         }
     }
@@ -71,10 +73,10 @@ void DisplayView::copyScreenBuffer(unsigned const char* screenBuffer, int buffer
         }
         
         bool cellVisible = false;
-        int cellWidth = GRID_CELL_SIZE * pixelWidth;
-        int cellHeight = GRID_CELL_SIZE * pixelHeight;
-        int offsetX = drawTransX * pixelWidth;
-        int offsetY = drawTransY * pixelHeight;
+        int cellWidth = GRID_CELL_SIZE * PIXEL_WIDTH;
+        int cellHeight = GRID_CELL_SIZE * PIXEL_HEIGHT;
+        int offsetX = drawTransX * PIXEL_WIDTH;
+        int offsetY = drawTransY * PIXEL_HEIGHT;
         
         _gridRects->count = 0;
         for (int i = 0; i <= gridRows; ++i)
@@ -105,6 +107,36 @@ void DisplayView::render(SDL_Renderer* renderer)
 
     // render pixels
     RectListRender(renderer, _pixelRects, 0, 0, 0, 255);
+}
+
+void DisplayView::mouseDown(int x, int y)
+{
+    if (editorState.tileIndex != -1)
+    {
+        int gridIndex = gridIndexFromCords(x, y);
+        uint8_t* indicesPtr = (uint8_t*)(void*)INDICES_LAIR_01; // evil C
+        indicesPtr[gridIndex] = editorState.tileIndex;
+    }
+}
+
+void DisplayView::mouseMove(int x, int y)
+{
+    
+}
+
+void DisplayView::mouseUp(int x, int y)
+{
+    
+}
+
+int DisplayView::gridIndexFromCords(int x, int y)
+{
+    int col = (x / PIXEL_WIDTH - drawTransX) / GRID_CELL_SIZE;
+    int row = (y / PIXEL_HEIGHT - drawTransY) / GRID_CELL_SIZE;
+    int width = W2S(tileMapWidth);
+    
+    int colCount = width / GRID_CELL_SIZE;
+    return colCount * row + col;
 }
 
 RectList* RectListCreate(int capacity)

@@ -13,6 +13,7 @@
 		843911B71C0BE6C000134AB6 /* PixelSpaceOdysseyTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 843911B61C0BE6C000134AB6 /* PixelSpaceOdysseyTests.mm */; };
 		843911BF1C0BF00F00134AB6 /* tiles.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 843911BE1C0BF00F00134AB6 /* tiles.bmp */; };
 		843911C21C0BF30900134AB6 /* TileView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843911C01C0BF30900134AB6 /* TileView.cpp */; };
+		843911C71C0C288600134AB6 /* EditorState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843911C61C0C288600134AB6 /* EditorState.cpp */; };
 		843C160E1C0B7E9A0036794D /* DisplayView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C160C1C0B7E9A0036794D /* DisplayView.cpp */; };
 		843C16221C0B7F5D0036794D /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16121C0B7F5D0036794D /* character.cpp */; };
 		843C16231C0B7F5D0036794D /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16151C0B7F5D0036794D /* drawing.cpp */; };
@@ -52,6 +53,8 @@
 		843911BE1C0BF00F00134AB6 /* tiles.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = tiles.bmp; sourceTree = "<group>"; };
 		843911C01C0BF30900134AB6 /* TileView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TileView.cpp; sourceTree = "<group>"; };
 		843911C11C0BF30900134AB6 /* TileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileView.h; sourceTree = "<group>"; };
+		843911C41C0C26D300134AB6 /* EditorState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorState.h; sourceTree = "<group>"; };
+		843911C61C0C288600134AB6 /* EditorState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditorState.cpp; sourceTree = "<group>"; };
 		843C160C1C0B7E9A0036794D /* DisplayView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DisplayView.cpp; sourceTree = "<group>"; };
 		843C160D1C0B7E9A0036794D /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		843C16101C0B7F5D0036794D /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../../../PixelSpaceOdyssey/animation.h; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 			children = (
 				843C160C1C0B7E9A0036794D /* DisplayView.cpp */,
 				843C160D1C0B7E9A0036794D /* DisplayView.h */,
+				843911C61C0C288600134AB6 /* EditorState.cpp */,
+				843911C41C0C26D300134AB6 /* EditorState.h */,
 				8413A1581C0AEBD100367F3E /* Info.plist */,
 				843C16651C0BE0FF0036794D /* List.h */,
 				843C160F1C0B7F450036794D /* Project */,
@@ -326,6 +331,7 @@
 				843C16261C0B7F5D0036794D /* tilemap.cpp in Sources */,
 				843C160E1C0B7E9A0036794D /* DisplayView.cpp in Sources */,
 				843C16341C0B80180036794D /* Arduboy.cpp in Sources */,
+				843911C71C0C288600134AB6 /* EditorState.cpp in Sources */,
 				843C16251C0B7F5D0036794D /* player_animations.cpp in Sources */,
 				843C16241C0B7F5D0036794D /* game.cpp in Sources */,
 				843C16221C0B7F5D0036794D /* character.cpp in Sources */,

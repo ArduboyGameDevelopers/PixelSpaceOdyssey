@@ -27,9 +27,13 @@ public:
     
 public:
     virtual void render(SDL_Renderer* render) const;
+    virtual void mouseDown(int x, int y);
     
 public:
     inline int selectedIndex() const { return _selectedIndex; }
+    
+private:
+    int tileIndexFromCords(int x, int y) const;
 };
 
 #endif /* TileView_h */
