@@ -16,15 +16,18 @@
 class DisplayView
 {
 private:
-    SDL_Renderer * _renderer;
     SDL_Rect     * _pixelRects;
+    int            _pixelRectsCount;
+    int            _width;
+    int            _height;
     
 public:
-    DisplayView(SDL_Renderer* renderer);
+    DisplayView(int width, int height);
     ~DisplayView();
     
 public:
-    void renderScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
+    void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
+    void render(SDL_Renderer* renderer);
 };
 
 #endif /* DisplayView_h */

@@ -54,7 +54,7 @@ int main(int argc, char * argv[])
     }
     
     // init display view
-    displayView = new DisplayView(renderer);
+    displayView = new DisplayView(SCREEN_WIDTH, SCREEN_HEIGHT);
     
     SDL_Event event;	 // used to store any events from the OS
     bool running = true; // used to determine if we're running the game
@@ -82,9 +82,10 @@ int main(int argc, char * argv[])
         {
             lastFrameTime = SDL_GetTicks();
             updateGame();
+            drawGame();
         }
         
-        drawGame();
+        displayView->render(renderer);
         
         // Swap OpenGL buffers
         SDL_RenderPresent(renderer);
@@ -172,7 +173,7 @@ void handleEvent(const SDL_Event* event)
 
 void platformRenderScreen(unsigned const char* screenBuffer, int width, int height)
 {
-    displayView->renderScreenBuffer(screenBuffer, width, height);
+    displayView->copyScreenBuffer(screenBuffer, width, height);
 }
 
 unsigned long platformMillis(void)

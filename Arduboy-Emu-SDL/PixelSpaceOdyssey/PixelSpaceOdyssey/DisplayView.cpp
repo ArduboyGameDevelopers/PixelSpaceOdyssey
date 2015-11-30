@@ -8,9 +8,11 @@
 
 #include "DisplayView.h"
 
-DisplayView::DisplayView(SDL_Renderer *renderer) :
-    _renderer(renderer),
-    _pixelRects(NULL)
+DisplayView::DisplayView(int width, int height) :
+    _pixelRects(NULL),
+    _pixelRectsCount(0),
+    _width(width),
+    _height(height)
 {
 }
 
@@ -22,20 +24,17 @@ DisplayView::~DisplayView()
     }
 }
 
-void DisplayView::renderScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight)
+void DisplayView::copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight)
 {
     if (_pixelRects == NULL)
     {
         _pixelRects = (SDL_Rect *) malloc(bufferWidth * bufferHeight * sizeof(SDL_Rect));
     }
     
-    int width, height;
-    SDL_GetRendererOutputSize(_renderer, &width, &height);
+    int pixelWidth = _width / bufferWidth;
+    int pixelHeight = _height / bufferHeight;
     
-    int pixelWidth = width / bufferWidth;
-    int pixelHeight = height / bufferHeight;
-    
-    int pixelRectsCount = 0;
+    _pixelRectsCount = 0;
     for (int y = 0; y < bufferHeight; y++)
     {
         for (int x = 0; x < bufferWidth; x++)
@@ -50,11 +49,17 @@ void DisplayView::renderScreenBuffer(unsigned const char* screenBuffer, int buff
                 pixelRect.y = y * pixelHeight;
                 pixelRect.w = pixelWidth;
                 pixelRect.h = pixelHeight;
-                _pixelRects[pixelRectsCount++] = pixelRect;
+                _pixelRects[_pixelRectsCount++] = pixelRect;
             }
         }
     }
-    
-    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-    SDL_RenderFillRects(_renderer, _pixelRects, pixelRectsCount);
+}
+
+void DisplayView::render(SDL_Renderer* renderer)
+{
+    if (_pixelRectsCount > 0)
+    {
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderFillRects(renderer, _pixelRects, _pixelRectsCount);
+    }
 }
