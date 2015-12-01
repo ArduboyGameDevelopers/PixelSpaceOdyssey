@@ -10,7 +10,9 @@
 #define game_h
 
 #include "common.h"
+#include "tilemap.h"
 
+extern TileMap tileMap;
 extern uint16_t tileMapWidth;
 extern uint16_t tileMapHeight;
 

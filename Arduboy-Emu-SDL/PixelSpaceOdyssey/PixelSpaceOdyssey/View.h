@@ -17,17 +17,17 @@
 class View
 {
 protected:
-    SDL_Rect _bounds;
+    SDL_Rect _rect;
     
 public:
     View()
     {
-        _bounds = { 0, 0, 0, 0 };
+        _rect = { 0, 0, 0, 0 };
     }
     
     View(int width, int height)
     {
-        _bounds = { 0, 0, width, height };
+        _rect = { 0, 0, width, height };
     }
     
 public:
@@ -41,15 +41,16 @@ public:
     virtual void keyUp() {}
     
 public:
-    inline int top()    const { return _bounds.y; }
-    inline int left()   const { return _bounds.x; }
-    inline int right()  const { return _bounds.x + _bounds.w; }
-    inline int bottom() const { return _bounds.y + _bounds.h; }
-    inline int width()  const { return _bounds.w; }
-    inline int height() const { return _bounds.h; }
+    inline int top()    const { return _rect.y; }
+    inline int left()   const { return _rect.x; }
+    inline int right()  const { return _rect.x + _rect.w; }
+    inline int bottom() const { return _rect.y + _rect.h; }
+    inline int width()  const { return _rect.w; }
+    inline int height() const { return _rect.h; }
+    inline SDL_Rect rect() const { return _rect; }
     
-    inline void setPos(int x, int y)  { _bounds.x = x; _bounds.y = y; }
-    inline void setSize(int w, int h) { _bounds.w = w; _bounds.h = h; }
+    inline void setPos(int x, int y)  { _rect.x = x; _rect.y = y; }
+    inline void setSize(int w, int h) { _rect.w = w; _rect.h = h; }
     
     inline bool containsPoint(int x, int y) const { return x >= left() && x < right() && y >= top() && y < bottom(); }
 };

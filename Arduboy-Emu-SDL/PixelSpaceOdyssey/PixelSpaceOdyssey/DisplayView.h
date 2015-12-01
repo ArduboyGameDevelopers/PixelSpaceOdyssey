@@ -33,9 +33,9 @@ public:
     
 public:
     void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
-    void render(SDL_Renderer* renderer);
     
 public:
+    virtual void render(SDL_Renderer* render) const;
     virtual void mouseDown(int x, int y);
     virtual void mouseMove(int x, int y);
     virtual void mouseUp(int x, int y);

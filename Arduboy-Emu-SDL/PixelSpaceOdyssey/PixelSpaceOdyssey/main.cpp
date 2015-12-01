@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
+#include "RootView.h"
+#include "TileSet.h"
 #include "DisplayView.h"
 #include "TileView.h"
 
@@ -18,13 +20,8 @@ static const int TILES_HEIGHT = 5 * (32 + 2) + 2;
 static const int SCREEN_WIDTH  = GAME_WIDTH;
 static const int SCREEN_HEIGHT = GAME_HEIGHT + TILES_HEIGHT;
 
+static RootView* rootView;
 static DisplayView* displayView;
-static TileView* tileView;
-
-static const int kViewIndexDisplayView  = 0;
-static const int kViewIndexTileView     = 1;
-static const int kViewsCount            = 2;
-static View* views[kViewsCount];
 
 static const uint8_t LEFT_BUTTON  = 1 << 5;
 static const uint8_t RIGHT_BUTTON = 1 << 2;
@@ -67,17 +64,21 @@ int main(int argc, char * argv[])
         return 2;
     }
     
-    // init display view
+    // Init display view
     displayView = new DisplayView(GAME_WIDTH, GAME_HEIGHT);
-    views[kViewIndexDisplayView] = displayView;
     
     // load tiles
     SDL_Surface *tilesSurface = SDL_LoadBMP("tiles.bmp");
     SDL_Texture *tilesTexture = SDL_CreateTextureFromSurface(renderer, tilesSurface);
-    tileView = new TileView(tilesTexture, TILES_WIDTH, TILES_HEIGHT);
-    tileView->setPos(0, displayView->bottom());
-    views[kViewIndexTileView] = tileView;
+    TileSet tileSet(tilesTexture);
     SDL_FreeSurface(tilesSurface);
+    
+    TileView* tileView = new TileView(tilesTexture, TILES_WIDTH, TILES_HEIGHT);
+    tileView->setPos(0, displayView->bottom());
+    
+    rootView = new RootView(SCREEN_WIDTH, SCREEN_HEIGHT);
+    rootView->addView(displayView);
+    rootView->addView(tileView);
     
     SDL_Event event;	 // used to store any events from the OS
     bool running = true; // used to determine if we're running the game
@@ -115,14 +116,15 @@ int main(int argc, char * argv[])
             drawGame();
         }
         
-        displayView->render(renderer);
-        
-        // draw tiles
-        tileView->render(renderer);
+        // Draw UI
+        rootView->render(renderer);
         
         // Swap OpenGL buffers
         SDL_RenderPresent(renderer);
     }
+    
+    // Delete root view
+    delete rootView;
     
     // Delete display view
     delete displayView;
@@ -147,8 +149,6 @@ int main(int argc, char * argv[])
 
 ////////////////////////////////////////////////////////////////////////////////////
 // Events
-
-View* findMouseView(int x, int y);
 
 int keyButtonMask(SDL_Keycode code)
 {
@@ -219,20 +219,13 @@ void handleMouseButtonEvent(const SDL_MouseButtonEvent* event)
     int x = event->x;
     int y = event->y;
     
-    View *view = findMouseView(x, y);
-    if (view)
+    if (event->type == SDL_MOUSEBUTTONDOWN)
     {
-        int localX = x - view->left();
-        int localY = y - view->top();
-        
-        if (event->type == SDL_MOUSEBUTTONDOWN)
-        {
-            view->mouseDown(localX, localY);
-        }
-        else if (event->type == SDL_MOUSEBUTTONUP)
-        {
-            view->mouseUp(localX, localY);
-        }
+        rootView->mouseDown(x, y);
+    }
+    else if (event->type == SDL_MOUSEBUTTONUP)
+    {
+        rootView->mouseUp(x, y);
     }
 }
 
@@ -254,23 +247,6 @@ void handleEvent(const SDL_Event* event)
             handleMouseMotionEvent(&event->motion);
             break;
     }
-}
-
-////////////////////////////////////////////////////////////////////////////////////
-// Mouse
-
-View* findMouseView(int x, int y)
-{
-    for (int i = 0; i < kViewsCount; ++i)
-    {
-        View* view = views[i];
-        if (view->containsPoint(x, y))
-        {
-            return view;
-        }
-    }
-    
-    return NULL;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

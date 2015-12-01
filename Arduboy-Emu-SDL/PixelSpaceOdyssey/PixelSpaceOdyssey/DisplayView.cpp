@@ -97,16 +97,16 @@ void DisplayView::copyScreenBuffer(unsigned const char* screenBuffer, int buffer
     }
 }
 
-void DisplayView::render(SDL_Renderer* renderer)
+void DisplayView::render(SDL_Renderer* render) const
 {
     // render grid
     if (_gridVisible)
     {
-        RectListRender(renderer, _gridRects, 241, 245, 248, 255);
+        RectListRender(render, _gridRects, 241, 245, 248, 255);
     }
 
     // render pixels
-    RectListRender(renderer, _pixelRects, 0, 0, 0, 255);
+    RectListRender(render, _pixelRects, 0, 0, 0, 255);
 }
 
 void DisplayView::mouseDown(int x, int y)

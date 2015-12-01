@@ -29,7 +29,7 @@ TileView::TileView(SDL_Texture* tilesTexture, int width, int height) :
 void TileView::render(SDL_Renderer* render) const
 {
     SDL_SetRenderDrawColor(render, 0, 0, 0, 255);
-    SDL_RenderFillRect(render, &_bounds);
+    SDL_RenderFillRect(render, &_rect);
     
     SDL_Rect src = { 0, 0, _tileSize, _tileSize };
     SDL_Rect dst = { 0, 0, _tileSize, _tileSize };

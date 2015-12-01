@@ -52,7 +52,7 @@ static bool jumpPressed = false;
 static int16_t playerJumpSpeed = 0;
 static Direction playerSlopeDir = 0;
 
-static TileMap tileMap = TileMapMake(TILES_TB_CAVERNS, INDICES_LAIR_01, TILEMAP_LAIR_01_HEIGHT, TILEMAP_LAIR_01_WIDTH);
+TileMap tileMap = TileMapMake(TILES_TB_CAVERNS, INDICES_LAIR_01, TILEMAP_LAIR_01_HEIGHT, TILEMAP_LAIR_01_WIDTH);
 
 /* Tile map size in world space */
 uint16_t tileMapWidth = TILEMAP_GET_WIDTH(tileMap);
