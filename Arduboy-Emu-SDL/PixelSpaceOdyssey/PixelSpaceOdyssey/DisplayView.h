@@ -25,7 +25,9 @@ class DisplayView : public View
 private:
     RectList* _pixelRects;
     RectList* _gridRects;
-    bool     _gridVisible;
+    bool      _gridVisible;
+    SDL_Rect  _mouseTileRect;
+    bool      _hasMouse;
     
 public:
     DisplayView(int width, int height);
@@ -39,6 +41,8 @@ public:
     virtual void mouseDown(int x, int y);
     virtual void mouseMove(int x, int y);
     virtual void mouseUp(int x, int y);
+    virtual void mouseEnter(int x, int y);
+    virtual void mouseExit(int x, int y);
     
 public:
     inline bool gridVisible() { return _gridVisible; }

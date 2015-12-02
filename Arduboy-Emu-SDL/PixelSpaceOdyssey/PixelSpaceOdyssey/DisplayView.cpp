@@ -27,8 +27,10 @@ DisplayView::DisplayView(int width, int height) :
     View(width, height),
     _pixelRects(NULL),
     _gridRects(NULL),
-    _gridVisible(false)
+    _gridVisible(false),
+    _hasMouse(false)
 {
+    _mouseTileRect = { 0, 0, GRID_CELL_SIZE * PIXEL_WIDTH, GRID_CELL_SIZE * PIXEL_HEIGHT };
 }
 
 DisplayView::~DisplayView()
@@ -107,6 +109,13 @@ void DisplayView::render(SDL_Renderer* render) const
 
     // render pixels
     RectListRender(render, _pixelRects, 0, 0, 0, 255);
+    
+    // render mouse rect
+    if (_hasMouse)
+    {
+        SDL_SetRenderDrawColor(render, 128, 128, 128, 128);
+        SDL_RenderDrawRect(render, &_mouseTileRect);
+    }
 }
 
 void DisplayView::mouseDown(int x, int y)
@@ -121,12 +130,30 @@ void DisplayView::mouseDown(int x, int y)
 
 void DisplayView::mouseMove(int x, int y)
 {
+    int col = (x / PIXEL_WIDTH - drawTransX) / GRID_CELL_SIZE;
+    int row = (y / PIXEL_HEIGHT - drawTransY) / GRID_CELL_SIZE;
+    int cellWidth = GRID_CELL_SIZE * PIXEL_WIDTH;
+    int cellHeight = GRID_CELL_SIZE * PIXEL_HEIGHT;
+    int offsetX = left() + drawTransX * PIXEL_WIDTH;
+    int offsetY = top() + drawTransY * PIXEL_HEIGHT;
     
+    _mouseTileRect.x = offsetX + col * cellWidth;
+    _mouseTileRect.y = offsetY + row * cellHeight;
 }
 
 void DisplayView::mouseUp(int x, int y)
 {
     
+}
+
+void DisplayView::mouseEnter(int x, int y)
+{
+    _hasMouse = true;
+}
+
+void DisplayView::mouseExit(int x, int y)
+{
+    _hasMouse = false;
 }
 
 int DisplayView::gridIndexFromCords(int x, int y)

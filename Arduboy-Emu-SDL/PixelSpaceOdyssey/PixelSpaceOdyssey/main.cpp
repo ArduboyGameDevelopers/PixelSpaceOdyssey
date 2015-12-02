@@ -340,7 +340,7 @@ Button *createButton(SDL_Renderer* renderer, const char* filename, ButtonClickHa
 
 void gridButtonPressed(Button* button)
 {
-    
+    displayView->toggleGrid();
 }
 
 void playButtonPressed(Button* button)
