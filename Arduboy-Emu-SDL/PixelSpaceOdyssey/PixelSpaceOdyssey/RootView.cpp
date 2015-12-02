@@ -69,6 +69,7 @@ void RootView::mouseMove(int x, int y)
         {
             int localX = x - _mouseOverView->left();
             int localY = y - _mouseOverView->top();
+            _mouseOverView->setHasMouse(false);
             _mouseOverView->mouseExit(localY, localX);
         }
         
@@ -76,6 +77,7 @@ void RootView::mouseMove(int x, int y)
         {
             int localX = x - view->left();
             int localY = y - view->top();
+            view->setHasMouse(true);
             view->mouseEnter(localX, localY);
         }
         

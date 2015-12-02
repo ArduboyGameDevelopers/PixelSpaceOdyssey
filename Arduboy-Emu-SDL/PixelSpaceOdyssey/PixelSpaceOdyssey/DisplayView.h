@@ -27,7 +27,7 @@ private:
     RectList* _gridRects;
     bool      _gridVisible;
     SDL_Rect  _mouseTileRect;
-    bool      _hasMouse;
+    bool      _mouseDown;
     
 public:
     DisplayView(int width, int height);

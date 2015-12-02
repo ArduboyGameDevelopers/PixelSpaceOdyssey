@@ -19,6 +19,9 @@ class View : public Object
 {
 OBJECT_DEF(View)
     
+private:
+    bool _hasMouse;
+    
 protected:
     SDL_Rect _rect;
     
@@ -57,6 +60,9 @@ public:
     
     inline void setPos(int x, int y)  { _rect.x = x; _rect.y = y; }
     inline void setSize(int w, int h) { _rect.w = w; _rect.h = h; }
+    
+    inline bool hasMouse() const { return _hasMouse; }
+    inline void setHasMouse(bool hasMouse) { _hasMouse = hasMouse; }
     
     inline bool containsPoint(int x, int y) const { return x >= left() && x < right() && y >= top() && y < bottom(); }
 };

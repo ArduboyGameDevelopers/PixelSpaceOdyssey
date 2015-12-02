@@ -21,11 +21,16 @@ const int kButtonStateCount = 3;
 
 class Button : public View
 {
+OBJECT_DEF(Button)
+    
 private:
     ButtonClickHandler _clickHandler;
-    ButtonState _state;
     bool _mousePressed;
+    bool _selected;
     Image* _stateImages[kButtonStateCount];
+    
+protected:
+    bool _toggle;
     
 public:
     Button(int width, int height, ButtonClickHandler handler = NULL);
@@ -47,6 +52,10 @@ public:
 public:
     inline ButtonClickHandler clickHandler() const { return _clickHandler; }
     inline void setClickHandler(ButtonClickHandler clickHandler) { _clickHandler = clickHandler; }
+    inline bool isSelected() const { return _selected; }
+    inline void setSelected(bool selected) { _selected = selected; }
+    inline bool isToggle() const { return _toggle; }
+    inline void setToggle(bool toggle) { _toggle = toggle; }
 };
 
 #endif /* Button_h */

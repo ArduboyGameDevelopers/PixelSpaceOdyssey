@@ -21,6 +21,8 @@
 		843911D41C0E9A7300134AB6 /* button_step.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 843911D21C0E9A7300134AB6 /* button_step.bmp */; };
 		843911D71C0E9E5600134AB6 /* RectView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843911D51C0E9E5600134AB6 /* RectView.cpp */; };
 		843911D91C0EA28D00134AB6 /* button_grid.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 843911D81C0EA28D00134AB6 /* button_grid.bmp */; };
+		843911DC1C0EB1E900134AB6 /* button_brush.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 843911DA1C0EB1E900134AB6 /* button_brush.bmp */; };
+		843911DD1C0EB1E900134AB6 /* button_move.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 843911DB1C0EB1E900134AB6 /* button_move.bmp */; };
 		843C160E1C0B7E9A0036794D /* DisplayView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C160C1C0B7E9A0036794D /* DisplayView.cpp */; };
 		843C16221C0B7F5D0036794D /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16121C0B7F5D0036794D /* character.cpp */; };
 		843C16231C0B7F5D0036794D /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16151C0B7F5D0036794D /* drawing.cpp */; };
@@ -77,6 +79,8 @@
 		843911D51C0E9E5600134AB6 /* RectView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectView.cpp; sourceTree = "<group>"; };
 		843911D61C0E9E5600134AB6 /* RectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectView.h; sourceTree = "<group>"; };
 		843911D81C0EA28D00134AB6 /* button_grid.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = button_grid.bmp; sourceTree = "<group>"; };
+		843911DA1C0EB1E900134AB6 /* button_brush.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = button_brush.bmp; sourceTree = "<group>"; };
+		843911DB1C0EB1E900134AB6 /* button_move.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = button_move.bmp; sourceTree = "<group>"; };
 		843C160C1C0B7E9A0036794D /* DisplayView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DisplayView.cpp; sourceTree = "<group>"; };
 		843C160D1C0B7E9A0036794D /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		843C16101C0B7F5D0036794D /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../../../PixelSpaceOdyssey/animation.h; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 		8413A1491C0AEBD100367F3E /* PixelSpaceOdyssey */ = {
 			isa = PBXGroup;
 			children = (
+				843911DA1C0EB1E900134AB6 /* button_brush.bmp */,
+				843911DB1C0EB1E900134AB6 /* button_move.bmp */,
 				843911D81C0EA28D00134AB6 /* button_grid.bmp */,
 				843911D11C0E9A7300134AB6 /* button_pause.bmp */,
 				843911D21C0E9A7300134AB6 /* button_step.bmp */,
@@ -369,6 +375,8 @@
 				843911D41C0E9A7300134AB6 /* button_step.bmp in Resources */,
 				843911D91C0EA28D00134AB6 /* button_grid.bmp in Resources */,
 				843911D31C0E9A7300134AB6 /* button_pause.bmp in Resources */,
+				843911DC1C0EB1E900134AB6 /* button_brush.bmp in Resources */,
+				843911DD1C0EB1E900134AB6 /* button_move.bmp in Resources */,
 				843911BF1C0BF00F00134AB6 /* tiles.bmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

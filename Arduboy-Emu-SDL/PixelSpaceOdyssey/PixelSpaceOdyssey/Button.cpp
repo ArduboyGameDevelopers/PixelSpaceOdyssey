@@ -14,8 +14,9 @@
 Button::Button(int width, int height, ButtonClickHandler handler) :
     View(width, height),
     _clickHandler(handler),
-    _state(ButtonStateNormal),
-    _mousePressed(false)
+    _selected(false),
+    _mousePressed(false),
+    _toggle(false)
 {
     bzero(_stateImages, sizeof(_stateImages));
 }
@@ -33,11 +34,21 @@ Button::~Button()
 
 void Button::render(SDL_Renderer* render) const
 {
-    Image* image = getStateImage(_state);
-    if (image == NULL)
+    ButtonState state;
+    if (_selected || _mousePressed)
     {
-        image = getStateImage(ButtonStateNormal);
+        state = ButtonStateSelected;
     }
+    else if (hasMouse())
+    {
+        state = ButtonStateHighlighted;
+    }
+    else
+    {
+        state = ButtonStateNormal;
+    }
+    
+    Image* image = getStateImage(state);
     if (image != NULL)
     {
         image->draw(render, left(), top());
@@ -47,7 +58,6 @@ void Button::render(SDL_Renderer* render) const
 void Button::mouseDown(int x, int y)
 {
     _mousePressed = true;
-    _state = ButtonStateSelected;
 }
 
 void Button::mouseMove(int x, int y)
@@ -59,21 +69,22 @@ void Button::mouseUp(int x, int y)
     if (_mousePressed)
     {
         _mousePressed = false;
+        if (_toggle)
+        {
+            _selected = !_selected;
+        }
 
         if (_clickHandler)
             _clickHandler(this);
     }
-    _state = ButtonStateHighlighted;
 }
 
 void Button::mouseEnter(int x, int y)
 {
-    _state = ButtonStateHighlighted;
 }
 
 void Button::mouseExit(int x, int y)
 {
-    _state = ButtonStateNormal;
     _mousePressed = false;
 }
 
