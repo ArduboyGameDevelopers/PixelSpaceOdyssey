@@ -103,7 +103,7 @@ void RootView::mouseUp(int x, int y)
 
 View* RootView::findMouseView(int x, int y)
 {
-    for (int i = 0; i < _children->size(); ++i)
+    for (int i = _children->size() - 1; i >= 0; --i)
     {
         View* view = _children->get(i);
         if (view->containsPoint(x, y))

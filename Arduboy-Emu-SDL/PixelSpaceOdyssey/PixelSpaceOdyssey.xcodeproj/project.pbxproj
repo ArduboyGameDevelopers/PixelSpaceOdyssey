@@ -17,6 +17,10 @@
 		843911CA1C0D339700134AB6 /* EditorView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843911C81C0D339700134AB6 /* EditorView.cpp */; };
 		843911CD1C0D364800134AB6 /* TileSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843911CB1C0D364800134AB6 /* TileSet.cpp */; };
 		843911D01C0D41B100134AB6 /* RootView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843911CE1C0D41B100134AB6 /* RootView.cpp */; };
+		843911D31C0E9A7300134AB6 /* button_pause.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 843911D11C0E9A7300134AB6 /* button_pause.bmp */; };
+		843911D41C0E9A7300134AB6 /* button_step.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 843911D21C0E9A7300134AB6 /* button_step.bmp */; };
+		843911D71C0E9E5600134AB6 /* RectView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843911D51C0E9E5600134AB6 /* RectView.cpp */; };
+		843911D91C0EA28D00134AB6 /* button_grid.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 843911D81C0EA28D00134AB6 /* button_grid.bmp */; };
 		843C160E1C0B7E9A0036794D /* DisplayView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C160C1C0B7E9A0036794D /* DisplayView.cpp */; };
 		843C16221C0B7F5D0036794D /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16121C0B7F5D0036794D /* character.cpp */; };
 		843C16231C0B7F5D0036794D /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16151C0B7F5D0036794D /* drawing.cpp */; };
@@ -68,6 +72,11 @@
 		843911CC1C0D364800134AB6 /* TileSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileSet.h; sourceTree = "<group>"; };
 		843911CE1C0D41B100134AB6 /* RootView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RootView.cpp; sourceTree = "<group>"; };
 		843911CF1C0D41B100134AB6 /* RootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootView.h; sourceTree = "<group>"; };
+		843911D11C0E9A7300134AB6 /* button_pause.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = button_pause.bmp; sourceTree = "<group>"; };
+		843911D21C0E9A7300134AB6 /* button_step.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = button_step.bmp; sourceTree = "<group>"; };
+		843911D51C0E9E5600134AB6 /* RectView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RectView.cpp; sourceTree = "<group>"; };
+		843911D61C0E9E5600134AB6 /* RectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectView.h; sourceTree = "<group>"; };
+		843911D81C0EA28D00134AB6 /* button_grid.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = button_grid.bmp; sourceTree = "<group>"; };
 		843C160C1C0B7E9A0036794D /* DisplayView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DisplayView.cpp; sourceTree = "<group>"; };
 		843C160D1C0B7E9A0036794D /* DisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayView.h; sourceTree = "<group>"; };
 		843C16101C0B7F5D0036794D /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../../../PixelSpaceOdyssey/animation.h; sourceTree = "<group>"; };
@@ -155,6 +164,9 @@
 		8413A1491C0AEBD100367F3E /* PixelSpaceOdyssey */ = {
 			isa = PBXGroup;
 			children = (
+				843911D81C0EA28D00134AB6 /* button_grid.bmp */,
+				843911D11C0E9A7300134AB6 /* button_pause.bmp */,
+				843911D21C0E9A7300134AB6 /* button_step.bmp */,
 				EF79DFF81C0E65A800F67559 /* button_play.bmp */,
 				EFF3B3CB1C0E3FC300B19A87 /* Core */,
 				843911C61C0C288600134AB6 /* EditorState.cpp */,
@@ -248,6 +260,8 @@
 				843C160D1C0B7E9A0036794D /* DisplayView.h */,
 				843911C81C0D339700134AB6 /* EditorView.cpp */,
 				843911C91C0D339700134AB6 /* EditorView.h */,
+				843911D51C0E9E5600134AB6 /* RectView.cpp */,
+				843911D61C0E9E5600134AB6 /* RectView.h */,
 				843911C01C0BF30900134AB6 /* TileView.cpp */,
 				843911C11C0BF30900134AB6 /* TileView.h */,
 				843C165C1C0BDC4B0036794D /* View.h */,
@@ -352,6 +366,9 @@
 			files = (
 				EF79DFF91C0E65A800F67559 /* button_play.bmp in Resources */,
 				843C16291C0B7F5D0036794D /* PixelSpaceOdyssey.ino in Resources */,
+				843911D41C0E9A7300134AB6 /* button_step.bmp in Resources */,
+				843911D91C0EA28D00134AB6 /* button_grid.bmp in Resources */,
+				843911D31C0E9A7300134AB6 /* button_pause.bmp in Resources */,
 				843911BF1C0BF00F00134AB6 /* tiles.bmp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,6 +391,7 @@
 				843C16281C0B7F5D0036794D /* tiles_tb_caverns.cpp in Sources */,
 				8413A14F1C0AEBD100367F3E /* main.cpp in Sources */,
 				843911C21C0BF30900134AB6 /* TileView.cpp in Sources */,
+				843911D71C0E9E5600134AB6 /* RectView.cpp in Sources */,
 				843C16371C0B80180036794D /* core.cpp in Sources */,
 				EF79DFFC1C0E69FE00F67559 /* Texture.cpp in Sources */,
 				843C16381C0B80180036794D /* glcdfont.c in Sources */,

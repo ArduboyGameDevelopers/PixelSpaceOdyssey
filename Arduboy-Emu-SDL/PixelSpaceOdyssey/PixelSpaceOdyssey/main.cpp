@@ -11,18 +11,22 @@
 #include "TileSet.h"
 #include "DisplayView.h"
 #include "TileView.h"
+#include "RectView.h"
 
 #include "game.h"
 #include "platform.h"
 #include "bridge.h"
 
-static const int GAME_WIDTH   = 512;
-static const int GAME_HEIGHT  = 256;
-static const int TILES_WIDTH  = 512;
-static const int TILES_HEIGHT = 5 * (32 + 2) + 2;
+static const int kButtonViewHeight  = 31;
 
-static const int SCREEN_WIDTH  = GAME_WIDTH;
-static const int SCREEN_HEIGHT = GAME_HEIGHT + TILES_HEIGHT;
+static const int kDisplayViewWidth  = 512;
+static const int kDisplayViewHeight = 256;
+
+static const int kTilesViewWidth    = kDisplayViewWidth;
+static const int kTilesViewHeight   = 5 * (32 + 2) + 2;
+
+static const int kWindowWidth       = kDisplayViewWidth;
+static const int kWindowHeight      = kButtonViewHeight + kDisplayViewHeight + kTilesViewHeight;
 
 static RootView* rootView;
 static DisplayView* displayView;
@@ -39,8 +43,13 @@ static unsigned long gameMillis;
 
 void handleEvent(const SDL_Event* event);
 
+void createButtons(SDL_Renderer* renderer);
 Button *createButton(SDL_Renderer* renderer, const char* filename, ButtonClickHandler handler);
+
+void gridButtonPressed(Button* button);
 void playButtonPressed(Button* button);
+void pauseButtonPressed(Button* button);
+void stepButtonPressed(Button* button);
 
 int main(int argc, char * argv[])
 {
@@ -50,7 +59,7 @@ int main(int argc, char * argv[])
     // Create an SDL window
     SDL_Window* window = SDL_CreateWindow("Pixel Space Odyssey",
                                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                          SCREEN_WIDTH, SCREEN_HEIGHT,
+                                          kWindowWidth, kWindowHeight,
                                           SDL_WINDOW_OPENGL);
     
     // if failed to create a window
@@ -71,26 +80,26 @@ int main(int argc, char * argv[])
         return 2;
     }
     
-    // Init display view
-    displayView = new DisplayView(GAME_WIDTH, GAME_HEIGHT);
+    // Create UI
+    rootView = new RootView(kWindowWidth, kWindowHeight);
     
-    // load tiles
+    // UI: buttons
+    createButtons(renderer);
+    
+    // UI: display view
+    displayView = new DisplayView(kDisplayViewWidth, kDisplayViewHeight);
+    displayView->setPos(0, kButtonViewHeight);
+    rootView->addView(displayView);
+    
+    // UI: tiles
     SDL_Surface *tilesSurface = SDL_LoadBMP("tiles.bmp");
     SDL_Texture *tilesTexture = SDL_CreateTextureFromSurface(renderer, tilesSurface);
     TileSet tileSet(tilesTexture);
     SDL_FreeSurface(tilesSurface);
     
-    TileView* tileView = new TileView(tilesTexture, TILES_WIDTH, TILES_HEIGHT);
+    TileView* tileView = new TileView(tilesTexture, kTilesViewWidth, kTilesViewHeight);
     tileView->setPos(0, displayView->bottom());
-    
-    rootView = new RootView(SCREEN_WIDTH, SCREEN_HEIGHT);
-
-    Button* button = createButton(renderer, "button_play.bmp", playButtonPressed);
-    rootView->addView(button);
-    button->release();
-    
-    // rootView->addView(displayView);
-    // rootView->addView(tileView);
+    rootView->addView(tileView);
     
     SDL_Event event;	 // used to store any events from the OS
     bool running = true; // used to determine if we're running the game
@@ -272,6 +281,37 @@ void handleEvent(const SDL_Event* event)
 ////////////////////////////////////////////////////////////////////////////////////
 // Buttons
 
+void createButtons(SDL_Renderer* renderer)
+{
+    RectView* rect = new RectView(kWindowWidth, kButtonViewHeight, 234, 234, 234);
+    rootView->addView(rect);
+    rect->release();
+    
+    Button* buttonGrid = createButton(renderer, "button_grid.bmp", gridButtonPressed);
+    rootView->addView(buttonGrid);
+    buttonGrid->release();
+    
+    Button* buttonPlay = createButton(renderer, "button_play.bmp", playButtonPressed);
+    rootView->addView(buttonPlay);
+    buttonPlay->release();
+    
+    Button* buttonPause = createButton(renderer, "button_pause.bmp", pauseButtonPressed);
+    rootView->addView(buttonPause);
+    buttonPause->release();
+    
+    Button* buttonStep = createButton(renderer, "button_step.bmp", stepButtonPressed);
+    rootView->addView(buttonStep);
+    buttonStep->release();
+    
+    int totalWidth = buttonPlay->width() + buttonPause->width() + buttonStep->width();
+    int buttonX = (kWindowWidth - totalWidth) / 2;
+    int buttonY = (kButtonViewHeight - buttonPlay->height()) / 2;
+    buttonGrid->setPos(buttonY, buttonY);
+    buttonPlay->setPos(buttonX, buttonY); buttonX += buttonPlay->width();
+    buttonPause->setPos(buttonX, buttonY); buttonX += buttonPause->width();
+    buttonStep->setPos(buttonX, buttonY);
+}
+
 Button *createButton(SDL_Renderer* renderer, const char* filename, ButtonClickHandler handler)
 {
     Texture* texture = Texture::load(renderer, filename);
@@ -298,7 +338,20 @@ Button *createButton(SDL_Renderer* renderer, const char* filename, ButtonClickHa
     return button;
 }
 
+void gridButtonPressed(Button* button)
+{
+    
+}
+
 void playButtonPressed(Button* button)
+{
+}
+
+void pauseButtonPressed(Button* button)
+{
+}
+
+void stepButtonPressed(Button* button)
 {
 }
 

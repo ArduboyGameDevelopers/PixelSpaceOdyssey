@@ -55,8 +55,8 @@ void DisplayView::copyScreenBuffer(unsigned const char* screenBuffer, int buffer
             if (!bit)
             {
                 SDL_Rect& rect = _pixelRects->rects[_pixelRects->count++];
-                rect.x = x * PIXEL_WIDTH;
-                rect.y = y * PIXEL_HEIGHT;
+                rect.x = left() + x * PIXEL_WIDTH;
+                rect.y = top() + y * PIXEL_HEIGHT;
                 rect.w = PIXEL_WIDTH;
                 rect.h = PIXEL_HEIGHT;
             }
@@ -75,8 +75,8 @@ void DisplayView::copyScreenBuffer(unsigned const char* screenBuffer, int buffer
         bool cellVisible = false;
         int cellWidth = GRID_CELL_SIZE * PIXEL_WIDTH;
         int cellHeight = GRID_CELL_SIZE * PIXEL_HEIGHT;
-        int offsetX = drawTransX * PIXEL_WIDTH;
-        int offsetY = drawTransY * PIXEL_HEIGHT;
+        int offsetX = left() + drawTransX * PIXEL_WIDTH;
+        int offsetY = top() + drawTransY * PIXEL_HEIGHT;
         
         _gridRects->count = 0;
         for (int i = 0; i <= gridRows; ++i)
