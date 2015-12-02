@@ -14,6 +14,8 @@
 #include "EditorState.h"
 #include "tiles_lair_01.h"
 
+#include <Arduino.h>
+
 struct RectList {
     SDL_Rect* rects;
     int count;
@@ -28,7 +30,10 @@ DisplayView::DisplayView(int width, int height) :
     _pixelRects(NULL),
     _gridRects(NULL),
     _gridVisible(false),
-    _mouseDown(false)
+    _mouseDown(false),
+    _mode(DisplayViewModeNormal),
+    _lastMouseX(0),
+    _lastMouseY(0)
 {
     _mouseTileRect = { 0, 0, GRID_CELL_SIZE * PIXEL_WIDTH, GRID_CELL_SIZE * PIXEL_HEIGHT };
 }
@@ -115,7 +120,7 @@ void DisplayView::render(SDL_Renderer* render) const
     RectListRender(render, _pixelRects, 0, 0, 0, 255);
     
     // render mouse rect
-    if (hasMouse() && editorState.tileIndex != -1)
+    if (_mode == DisplayViewModeEdit && hasMouse() && editorState.tileIndex != -1)
     {
         SDL_SetRenderDrawColor(render, 128, 128, 128, 128);
         SDL_RenderDrawRect(render, &_mouseTileRect);
@@ -124,11 +129,17 @@ void DisplayView::render(SDL_Renderer* render) const
 
 void DisplayView::mouseDown(int x, int y)
 {
-    if (editorState.tileIndex != -1)
+    _lastMouseX = x;
+    _lastMouseY = y;
+    
+    if (_mode == DisplayViewModeEdit)
     {
-        int gridIndex = gridIndexFromCords(x, y);
-        uint8_t* indicesPtr = (uint8_t*)(void*)INDICES_LAIR_01; // evil C
-        indicesPtr[gridIndex] = editorState.tileIndex;
+        if (editorState.tileIndex != -1)
+        {
+            int gridIndex = gridIndexFromCords(x, y);
+            uint8_t* indicesPtr = (uint8_t*)(void*)INDICES_LAIR_01; // evil C
+            indicesPtr[gridIndex] = editorState.tileIndex;
+        }
     }
     
     _mouseDown = true;
@@ -136,23 +147,45 @@ void DisplayView::mouseDown(int x, int y)
 
 void DisplayView::mouseMove(int x, int y)
 {
-    if (editorState.tileIndex != -1)
+    int dx = x - _lastMouseX;
+    int dy = y - _lastMouseY;
+    
+    _lastMouseX = x;
+    _lastMouseY = y;
+    
+    if (_mode == DisplayViewModeDrag)
     {
-        int col = (x / PIXEL_WIDTH - drawTransX) / GRID_CELL_SIZE;
-        int row = (y / PIXEL_HEIGHT - drawTransY) / GRID_CELL_SIZE;
-        int cellWidth = GRID_CELL_SIZE * PIXEL_WIDTH;
-        int cellHeight = GRID_CELL_SIZE * PIXEL_HEIGHT;
-        int offsetX = left() + drawTransX * PIXEL_WIDTH;
-        int offsetY = top() + drawTransY * PIXEL_HEIGHT;
-        
-        _mouseTileRect.x = offsetX + col * cellWidth;
-        _mouseTileRect.y = offsetY + row * cellHeight;
-        
         if (_mouseDown)
         {
-            int gridIndex = gridIndexFromCords(x, y);
-            uint8_t* indicesPtr = (uint8_t*)(void*)INDICES_LAIR_01; // evil C
-            indicesPtr[gridIndex] = editorState.tileIndex;
+            camX -= S2W(dx) / PIXEL_WIDTH;
+            camY -= S2W(dy) / PIXEL_HEIGHT;
+            
+            int16_t maxCamX = tileMapWidth - CAM_WIDTH_HALF;
+            int16_t maxCamY = tileMapHeight - CAM_HEIGHT_HALF;
+            camX = constrain(camX, CAM_WIDTH_HALF, maxCamX);
+            camY = constrain(camY, CAM_HEIGHT_HALF, maxCamY);
+        }
+    }
+    else if (_mode == DisplayViewModeEdit)
+    {
+        if (editorState.tileIndex != -1)
+        {
+            int col = (x / PIXEL_WIDTH - drawTransX) / GRID_CELL_SIZE;
+            int row = (y / PIXEL_HEIGHT - drawTransY) / GRID_CELL_SIZE;
+            int cellWidth = GRID_CELL_SIZE * PIXEL_WIDTH;
+            int cellHeight = GRID_CELL_SIZE * PIXEL_HEIGHT;
+            int offsetX = left() + drawTransX * PIXEL_WIDTH;
+            int offsetY = top() + drawTransY * PIXEL_HEIGHT;
+            
+            _mouseTileRect.x = offsetX + col * cellWidth;
+            _mouseTileRect.y = offsetY + row * cellHeight;
+            
+            if (_mouseDown)
+            {
+                int gridIndex = gridIndexFromCords(x, y);
+                uint8_t* indicesPtr = (uint8_t*)(void*)INDICES_LAIR_01; // evil C
+                indicesPtr[gridIndex] = editorState.tileIndex;
+            }
         }
     }
 }

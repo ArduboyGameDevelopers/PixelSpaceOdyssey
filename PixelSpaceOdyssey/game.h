@@ -13,7 +13,16 @@
 #include "tilemap.h"
 
 extern TileMap tileMap;
+extern int16_t camX;
+extern int16_t camY;
 extern uint16_t tileMapWidth;
 extern uint16_t tileMapHeight;
+
+extern const int16_t CAM_WIDTH;
+extern const int16_t CAM_HEIGHT;
+extern const int16_t CAM_WIDTH_HALF;
+extern const int16_t CAM_HEIGHT_HALF;
+extern const int16_t CAM_RANGE_X;
+extern const int16_t CAM_RANGE_Y;
 
 #endif /* game_h */

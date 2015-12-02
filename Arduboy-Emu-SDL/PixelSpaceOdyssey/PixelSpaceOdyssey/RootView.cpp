@@ -52,7 +52,7 @@ void RootView::render(SDL_Renderer* render) const
 void RootView::mouseDown(int x, int y)
 {
     View *view = findMouseView(x, y);
-    if (view)
+    if (view && view->intractable())
     {
         int localX = x - view->left();
         int localY = y - view->top();
@@ -73,18 +73,22 @@ void RootView::mouseMove(int x, int y)
             _mouseOverView->mouseExit(localY, localX);
         }
         
-        if (view)
+        if (view && view->intractable())
         {
             int localX = x - view->left();
             int localY = y - view->top();
             view->setHasMouse(true);
             view->mouseEnter(localX, localY);
+            
+            _mouseOverView = view;
         }
-        
-        _mouseOverView = view;
+        else
+        {
+            _mouseOverView = NULL;
+        }
     }
     
-    if (view)
+    if (view && view->intractable())
     {
         int localX = x - view->left();
         int localY = y - view->top();
@@ -95,7 +99,7 @@ void RootView::mouseMove(int x, int y)
 void RootView::mouseUp(int x, int y)
 {
     View *view = findMouseView(x, y);
-    if (view)
+    if (view && view->intractable())
     {
         int localX = x - view->left();
         int localY = y - view->top();

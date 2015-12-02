@@ -34,6 +34,8 @@ static DisplayView* displayView;
 static Button* buttonGrid;
 static Button* buttonPlay;
 static Button* buttonPause;
+static Button* buttonBrush;
+static Button* buttonMove;
 
 static const uint8_t LEFT_BUTTON  = 1 << 5;
 static const uint8_t RIGHT_BUTTON = 1 << 2;
@@ -55,6 +57,10 @@ void gridButtonPressed(Button* button);
 void playButtonPressed(Button* button);
 void pauseButtonPressed(Button* button);
 void stepButtonPressed(Button* button);
+void brushButtonPressed(Button* button);
+
+void setEmulationPaused(bool paused);
+void setEditMode(bool editMode);
 
 int main(int argc, char * argv[])
 {
@@ -170,6 +176,7 @@ int main(int argc, char * argv[])
     buttonGrid->release();
     buttonPause->release();
     buttonPlay->release();
+    buttonBrush->release();
     
     // Destroy tiles texture
     SDL_DestroyTexture(tilesTexture);
@@ -243,9 +250,50 @@ void handleKeyboardEvent(const SDL_KeyboardEvent* event)
         switch (keysym.sym)
         {
             case SDLK_g:
+            {
                 displayView->toggleGrid();
                 buttonGrid->setSelected(displayView->gridVisible());
                 break;
+            }
+            case SDLK_p:
+            {
+                setEmulationPaused(buttonPlay->isSelected());
+                break;
+            }
+            case SDLK_e:
+            {
+                setEditMode(!buttonBrush->isSelected());
+                break;
+            }
+            case SDLK_SPACE:
+            {
+                if (buttonBrush->isSelected())
+                {
+                    displayView->setMode(DisplayViewModeDrag);
+                    buttonMove->setSelected(true);
+                }
+                break;
+            }
+        }
+    }
+    else if (event->type == SDL_KEYUP)
+    {
+        switch (keysym.sym)
+        {
+            case SDLK_SPACE:
+            {
+                if (buttonBrush->isSelected())
+                {
+                    displayView->setMode(DisplayViewModeEdit);
+                    buttonMove->setSelected(false);
+                }
+                else
+                {
+                    displayView->setMode(DisplayViewModeNormal);
+                }
+                
+                break;
+            }
         }
     }
 }
@@ -294,6 +342,27 @@ void handleEvent(const SDL_Event* event)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
+// Emulation
+
+void setEmulationPaused(bool paused)
+{
+    buttonPlay->setSelected(!paused);
+    buttonPause->setSelected(paused);
+    if (!paused && buttonBrush->isSelected())
+    {
+        setEditMode(false);
+    }
+}
+
+void setEditMode(bool editMode)
+{
+    buttonPlay->setSelected(!editMode);
+    buttonPause->setSelected(editMode);
+    buttonBrush->setSelected(editMode);
+    displayView->setMode(editMode ? DisplayViewModeEdit : DisplayViewModeNormal);
+}
+
+////////////////////////////////////////////////////////////////////////////////////
 // Buttons
 
 void createEditorButtons(SDL_Renderer* renderer)
@@ -302,15 +371,14 @@ void createEditorButtons(SDL_Renderer* renderer)
     buttonGrid->setToggle(true);
     rootView->addView(buttonGrid);
     
-    Button* buttonBrush = createButton(renderer, "button_brush.bmp", gridButtonPressed);
-    buttonGrid->setToggle(true);
+    buttonBrush = createButton(renderer, "button_brush.bmp", brushButtonPressed);
+    buttonBrush->setToggle(true);
     rootView->addView(buttonBrush);
-    buttonBrush->release();
     
-    Button* buttonMove = createButton(renderer, "button_move.bmp", gridButtonPressed);
-    buttonGrid->setToggle(true);
+    buttonMove = createButton(renderer, "button_move.bmp", gridButtonPressed);
+    buttonMove->setToggle(true);
+    buttonMove->setIntractable(false);
     rootView->addView(buttonMove);
-    buttonMove->release();
     
     Button* buttons[] = { buttonBrush, buttonMove };
     
@@ -391,19 +459,23 @@ void gridButtonPressed(Button* button)
 
 void playButtonPressed(Button* button)
 {
-    buttonPause->setSelected(!button->isSelected());
+    setEmulationPaused(false);
 }
 
 void pauseButtonPressed(Button* button)
 {
-    buttonPlay->setSelected(!button->isSelected());
+    setEmulationPaused(true);
 }
 
 void stepButtonPressed(Button* button)
 {
-    buttonPause->setSelected(true);
-    buttonPlay->setSelected(false);
+    setEmulationPaused(true);
     step = true;
+}
+
+void brushButtonPressed(Button* button)
+{
+    setEditMode(button->isSelected());
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

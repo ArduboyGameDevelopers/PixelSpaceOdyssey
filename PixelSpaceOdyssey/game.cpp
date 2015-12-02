@@ -36,12 +36,12 @@ static const uint8_t PLAYER_HEIGHT               = S2W(8);
 static const uint8_t PLAYER_COLLIDER_HALF_WIDTH  = S2W(3);
 static const uint8_t PLAYER_COLLIDER_HALF_HEIGHT = S2W(4);
 
-static const int16_t CAM_WIDTH         = S2W(128);
-static const int16_t CAM_HEIGHT        = S2W(64);
-static const int16_t CAM_WIDTH_HALF    = CAM_WIDTH / 2;
-static const int16_t CAM_HEIGHT_HALF   = CAM_HEIGHT / 2;
-static const int16_t CAM_RANGE_X       = S2W(30);
-static const int16_t CAM_RANGE_Y       = S2W(15);
+const int16_t CAM_WIDTH         = S2W(128);
+const int16_t CAM_HEIGHT        = S2W(64);
+const int16_t CAM_WIDTH_HALF    = CAM_WIDTH / 2;
+const int16_t CAM_HEIGHT_HALF   = CAM_HEIGHT / 2;
+const int16_t CAM_RANGE_X       = S2W(30);
+const int16_t CAM_RANGE_Y       = S2W(15);
 
 static Arduboy display;
 
@@ -59,8 +59,8 @@ uint16_t tileMapWidth = TILEMAP_GET_WIDTH(tileMap);
 uint16_t tileMapHeight = TILEMAP_GET_HEIGHT(tileMap);
 
 /* Camera center pos in world space */
-static int16_t camX;
-static int16_t camY;
+int16_t camX;
+int16_t camY;
 
 static TimeInterval lastFrameTime;
 static TimeInterval lastDrawTime;
