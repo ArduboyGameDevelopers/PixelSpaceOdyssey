@@ -14,8 +14,11 @@
 
 class RootView : public View
 {
+OBJECT_DEF(RootView)
+    
 private:
     List<View *>* _children;
+    View* _mouseOverView;
     
 public:
     RootView(int width, int height);
@@ -25,6 +28,7 @@ public:
     void addView(View* view);
     
 public:
+    virtual void update(Uint32 ticks);
     virtual void render(SDL_Renderer* render) const;
     
     virtual void mouseDown(int x, int y);

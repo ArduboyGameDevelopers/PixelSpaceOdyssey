@@ -31,6 +31,11 @@
 		843C16361C0B80180036794D /* audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C162E1C0B80180036794D /* audio.cpp */; };
 		843C16371C0B80180036794D /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 843C16301C0B80180036794D /* core.cpp */; };
 		843C16381C0B80180036794D /* glcdfont.c in Sources */ = {isa = PBXBuildFile; fileRef = 843C16321C0B80180036794D /* glcdfont.c */; };
+		EF79DFF91C0E65A800F67559 /* button_play.bmp in Resources */ = {isa = PBXBuildFile; fileRef = EF79DFF81C0E65A800F67559 /* button_play.bmp */; };
+		EF79DFFC1C0E69FE00F67559 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF79DFFA1C0E69FE00F67559 /* Texture.cpp */; };
+		EF79E0011C0E725A00F67559 /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF79E0001C0E725A00F67559 /* Object.cpp */; };
+		EFF3B3CA1C0E3E3100B19A87 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF3B3C81C0E3E3100B19A87 /* Button.cpp */; };
+		EFF3B3CE1C0E3FDB00B19A87 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EFF3B3CC1C0E3FDB00B19A87 /* Image.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +100,15 @@
 		843C16571C0B85700036794D /* Platform */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Platform; path = ../Platform; sourceTree = "<group>"; };
 		843C165C1C0BDC4B0036794D /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View.h; sourceTree = "<group>"; };
 		843C16651C0BE0FF0036794D /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
+		EF79DFF81C0E65A800F67559 /* button_play.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = button_play.bmp; sourceTree = "<group>"; };
+		EF79DFFA1C0E69FE00F67559 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Texture.cpp; sourceTree = "<group>"; };
+		EF79DFFB1C0E69FE00F67559 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Texture.h; sourceTree = "<group>"; };
+		EF79DFFE1C0E6A2200F67559 /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
+		EF79E0001C0E725A00F67559 /* Object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
+		EFF3B3C81C0E3E3100B19A87 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
+		EFF3B3C91C0E3E3100B19A87 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
+		EFF3B3CC1C0E3FDB00B19A87 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
+		EFF3B3CD1C0E3FDB00B19A87 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,12 +155,10 @@
 		8413A1491C0AEBD100367F3E /* PixelSpaceOdyssey */ = {
 			isa = PBXGroup;
 			children = (
-				843C160C1C0B7E9A0036794D /* DisplayView.cpp */,
-				843C160D1C0B7E9A0036794D /* DisplayView.h */,
+				EF79DFF81C0E65A800F67559 /* button_play.bmp */,
+				EFF3B3CB1C0E3FC300B19A87 /* Core */,
 				843911C61C0C288600134AB6 /* EditorState.cpp */,
 				843911C41C0C26D300134AB6 /* EditorState.h */,
-				843911C81C0D339700134AB6 /* EditorView.cpp */,
-				843911C91C0D339700134AB6 /* EditorView.h */,
 				8413A1581C0AEBD100367F3E /* Info.plist */,
 				843C16651C0BE0FF0036794D /* List.h */,
 				843C160F1C0B7F450036794D /* Project */,
@@ -154,11 +166,7 @@
 				843911CF1C0D41B100134AB6 /* RootView.h */,
 				8413A14D1C0AEBD100367F3E /* Supporting Files */,
 				843911BE1C0BF00F00134AB6 /* tiles.bmp */,
-				843911CB1C0D364800134AB6 /* TileSet.cpp */,
-				843911CC1C0D364800134AB6 /* TileSet.h */,
-				843911C01C0BF30900134AB6 /* TileView.cpp */,
-				843911C11C0BF30900134AB6 /* TileView.h */,
-				843C165C1C0BDC4B0036794D /* View.h */,
+				EFE961371C0E25750092B2CF /* UI */,
 			);
 			path = PixelSpaceOdyssey;
 			sourceTree = "<group>";
@@ -229,6 +237,37 @@
 			);
 			name = Arduboy;
 			path = ../Arduboy;
+			sourceTree = "<group>";
+		};
+		EFE961371C0E25750092B2CF /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				EFF3B3C81C0E3E3100B19A87 /* Button.cpp */,
+				EFF3B3C91C0E3E3100B19A87 /* Button.h */,
+				843C160C1C0B7E9A0036794D /* DisplayView.cpp */,
+				843C160D1C0B7E9A0036794D /* DisplayView.h */,
+				843911C81C0D339700134AB6 /* EditorView.cpp */,
+				843911C91C0D339700134AB6 /* EditorView.h */,
+				843911C01C0BF30900134AB6 /* TileView.cpp */,
+				843911C11C0BF30900134AB6 /* TileView.h */,
+				843C165C1C0BDC4B0036794D /* View.h */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		EFF3B3CB1C0E3FC300B19A87 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EFF3B3CC1C0E3FDB00B19A87 /* Image.cpp */,
+				EFF3B3CD1C0E3FDB00B19A87 /* Image.h */,
+				EF79E0001C0E725A00F67559 /* Object.cpp */,
+				EF79DFFE1C0E6A2200F67559 /* Object.h */,
+				EF79DFFA1C0E69FE00F67559 /* Texture.cpp */,
+				EF79DFFB1C0E69FE00F67559 /* Texture.h */,
+				843911CB1C0D364800134AB6 /* TileSet.cpp */,
+				843911CC1C0D364800134AB6 /* TileSet.h */,
+			);
+			name = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,6 +350,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF79DFF91C0E65A800F67559 /* button_play.bmp in Resources */,
 				843C16291C0B7F5D0036794D /* PixelSpaceOdyssey.ino in Resources */,
 				843911BF1C0BF00F00134AB6 /* tiles.bmp in Resources */,
 			);
@@ -335,18 +375,22 @@
 				8413A14F1C0AEBD100367F3E /* main.cpp in Sources */,
 				843911C21C0BF30900134AB6 /* TileView.cpp in Sources */,
 				843C16371C0B80180036794D /* core.cpp in Sources */,
+				EF79DFFC1C0E69FE00F67559 /* Texture.cpp in Sources */,
 				843C16381C0B80180036794D /* glcdfont.c in Sources */,
 				843C16271C0B7F5D0036794D /* tiles_lair_01.cpp in Sources */,
+				EFF3B3CA1C0E3E3100B19A87 /* Button.cpp in Sources */,
 				843C16361C0B80180036794D /* audio.cpp in Sources */,
 				843C16351C0B80180036794D /* Arduino.cpp in Sources */,
 				843C16261C0B7F5D0036794D /* tilemap.cpp in Sources */,
 				843911CD1C0D364800134AB6 /* TileSet.cpp in Sources */,
 				843911CA1C0D339700134AB6 /* EditorView.cpp in Sources */,
+				EF79E0011C0E725A00F67559 /* Object.cpp in Sources */,
 				843C160E1C0B7E9A0036794D /* DisplayView.cpp in Sources */,
 				843911D01C0D41B100134AB6 /* RootView.cpp in Sources */,
 				843C16341C0B80180036794D /* Arduboy.cpp in Sources */,
 				843911C71C0C288600134AB6 /* EditorState.cpp in Sources */,
 				843C16251C0B7F5D0036794D /* player_animations.cpp in Sources */,
+				EFF3B3CE1C0E3FDB00B19A87 /* Image.cpp in Sources */,
 				843C16241C0B7F5D0036794D /* game.cpp in Sources */,
 				843C16221C0B7F5D0036794D /* character.cpp in Sources */,
 			);
@@ -530,6 +574,7 @@
 				843911BC1C0BE6C000134AB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

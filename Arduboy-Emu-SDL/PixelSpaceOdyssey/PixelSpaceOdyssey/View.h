@@ -12,10 +12,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
+#include "Object.h"
 #include "List.h"
 
-class View
+class View : public Object
 {
+OBJECT_DEF(View)
+    
 protected:
     SDL_Rect _rect;
     
@@ -31,11 +34,14 @@ public:
     }
     
 public:
+    virtual void update(Uint32 ticks) {}
     virtual void render(SDL_Renderer* render) const {}
     
     virtual void mouseDown(int x, int y) {}
     virtual void mouseMove(int x, int y) {}
     virtual void mouseUp(int x, int y) {}
+    virtual void mouseEnter(int x, int y) {}
+    virtual void mouseExit(int x, int y) {}
     
     virtual void keyDown() {}
     virtual void keyUp() {}

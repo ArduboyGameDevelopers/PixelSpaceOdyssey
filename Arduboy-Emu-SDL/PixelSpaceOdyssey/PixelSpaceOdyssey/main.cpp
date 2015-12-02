@@ -3,6 +3,10 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
+#include "Texture.h"
+#include "Image.h"
+#include "Button.h"
+
 #include "RootView.h"
 #include "TileSet.h"
 #include "DisplayView.h"
@@ -34,6 +38,9 @@ static int inputMask = 0;
 static unsigned long gameMillis;
 
 void handleEvent(const SDL_Event* event);
+
+Button *createButton(SDL_Renderer* renderer, const char* filename, ButtonClickHandler handler);
+void playButtonPressed(Button* button);
 
 int main(int argc, char * argv[])
 {
@@ -77,8 +84,13 @@ int main(int argc, char * argv[])
     tileView->setPos(0, displayView->bottom());
     
     rootView = new RootView(SCREEN_WIDTH, SCREEN_HEIGHT);
-    rootView->addView(displayView);
-    rootView->addView(tileView);
+
+    Button* button = createButton(renderer, "button_play.bmp", playButtonPressed);
+    rootView->addView(button);
+    button->release();
+    
+    // rootView->addView(displayView);
+    // rootView->addView(tileView);
     
     SDL_Event event;	 // used to store any events from the OS
     bool running = true; // used to determine if we're running the game
@@ -106,15 +118,19 @@ int main(int argc, char * argv[])
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
         SDL_RenderClear(renderer);
         
-        Uint32 delta = SDL_GetTicks() - lastFrameTime;
+        Uint32 ticks = SDL_GetTicks();
+        Uint32 delta = ticks - lastFrameTime;
         if (delta >= frameDelay)
         {
-            lastFrameTime = SDL_GetTicks();
+            lastFrameTime = ticks;
             gameMillis += delta;
             
             updateGame();
             drawGame();
         }
+        
+        // Update UI
+        rootView->update(ticks);
         
         // Draw UI
         rootView->render(renderer);
@@ -124,13 +140,13 @@ int main(int argc, char * argv[])
     }
     
     // Delete root view
-    delete rootView;
+    rootView->release();
     
     // Delete display view
-    delete displayView;
+    displayView->release();
     
     // Delete tiles view
-    delete tileView;
+    tileView->release();
     
     // Destroy tiles texture
     SDL_DestroyTexture(tilesTexture);
@@ -212,6 +228,10 @@ void handleKeyboardEvent(const SDL_KeyboardEvent* event)
 
 void handleMouseMotionEvent(const SDL_MouseMotionEvent* event)
 {
+    int x = event->x;
+    int y = event->y;
+    
+    rootView->mouseMove(x, y);
 }
 
 void handleMouseButtonEvent(const SDL_MouseButtonEvent* event)
@@ -247,6 +267,39 @@ void handleEvent(const SDL_Event* event)
             handleMouseMotionEvent(&event->motion);
             break;
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// Buttons
+
+Button *createButton(SDL_Renderer* renderer, const char* filename, ButtonClickHandler handler)
+{
+    Texture* texture = Texture::load(renderer, filename);
+    
+    assert(texture->width() % kButtonStateCount == 0);
+    int width = texture->width() / kButtonStateCount;
+    int height = texture->height();
+
+    Image* normalImage = new Image(texture, 0, 0, width, height);
+    Image* highlightedImage = new Image(texture, width, 0, width, height);
+    Image* selectedImage = new Image(texture, 2 * width, 0, width, height);
+    
+    Button* button = new Button(width, height, handler);
+    button->setStateImage(ButtonStateNormal, normalImage);
+    button->setStateImage(ButtonStateHighlighted, highlightedImage);
+    button->setStateImage(ButtonStateSelected, selectedImage);
+    
+    normalImage->release();
+    highlightedImage->release();
+    selectedImage->release();
+    
+    texture->release();
+    
+    return button;
+}
+
+void playButtonPressed(Button* button)
+{
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
