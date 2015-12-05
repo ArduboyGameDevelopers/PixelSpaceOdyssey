@@ -9,16 +9,39 @@
 #include <QPainter>
 #include <QDebug>
 
+#define RECT_COLOR_PIXEL 0, 0, 0
+#define RECT_COLOR_GRID  241, 245, 248
+
 const int GRID_CELL_SIZE = 8;
 const int PIXEL_WIDTH    = 4;
 const int PIXEL_HEIGHT   = 4;
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
     QOpenGLWidget(parent),
-    _pixelRects(WIDTH * HEIGHT),
+    _pixelRects(WIDTH * HEIGHT, RECT_COLOR_PIXEL),
+    _gridRects((WIDTH / GRID_CELL_SIZE + 1) * (HEIGHT / GRID_CELL_SIZE + 1), RECT_COLOR_GRID),
     _currentTool(NULL)
 {
     setAutoFillBackground(false);
+    
+    bool cellVisible = false;
+    int cellWidth = GRID_CELL_SIZE * PIXEL_WIDTH;
+    int cellHeight = GRID_CELL_SIZE * PIXEL_HEIGHT;
+    int cols = WIDTH / GRID_CELL_SIZE + 1;
+    int rows = HEIGHT / GRID_CELL_SIZE + 1;
+    for (int i = 0; i < rows; ++i)
+    {
+        for (int j = 0; j < cols; ++j)
+        {
+            if (cellVisible)
+            {
+                int x = j * cellWidth;
+                int y = i * cellHeight;
+                _gridRects.add(x, y, cellWidth, cellHeight);
+            }
+            cellVisible = !cellVisible;
+        }
+    }
 }
 
 DisplayWidget::~DisplayWidget()
@@ -62,7 +85,17 @@ void DisplayWidget::paintEvent(QPaintEvent *event)
 {
     QPainter painter;
     painter.begin(this);
+    
+    // background
     painter.fillRect(0, 0, width(), height(), Qt::white);
+    
+    // draw grid
+    if (_gridVisible)
+    {
+        _gridRects.paint(&painter);
+    }
+    
+    // draw pixels
     _pixelRects.paint(&painter);
 
     if (_currentTool)
@@ -135,7 +168,8 @@ void DisplayWidget::enterEvent(QEvent *event)
     }
 }
 
-RectList::RectList(int capacity) :
+RectList::RectList(int capacity, int r, int g, int b, int a) :
+    _color(r, g, b, a),
     _capacity(capacity),
     _count(0)
 {
@@ -151,7 +185,7 @@ void RectList::paint(QPainter *painter)
 {
     for (int i = 0; i < count(); ++i)
     {
-        painter->fillRect(_rects[i], Qt::black);
+        painter->fillRect(_rects[i], _color);
     }
 }
 

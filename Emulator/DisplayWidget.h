@@ -14,7 +14,7 @@ typedef QRect Rect;
 class RectList
 {
 public:
-    RectList(int capacity);
+    RectList(int capacity, int r, int g, int b, int a = 255);
     virtual ~RectList();
 
 public:
@@ -27,9 +27,10 @@ public:
     inline int count() const { return _count; }
 
 private:
-    Rect* _rects;
-    int _capacity;
-    int _count;
+    Rect*  _rects;
+    QColor _color;
+    int    _capacity;
+    int    _count;
 };
 
 class EditorTool;
@@ -70,6 +71,7 @@ public:
 
 private:
     RectList _pixelRects;
+    RectList _gridRects;
     EditorTool* _currentTool;
     bool _gridVisible;
 };
