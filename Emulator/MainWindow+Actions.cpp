@@ -23,6 +23,9 @@ void MainWindow::setupActions()
     connect(actionPause, SIGNAL(triggered()),     this, SLOT(onActionPause()));
     connect(actionEdit,  SIGNAL(triggered(bool)), this, SLOT(onActionEdit(bool)));
     connect(actionGrid,  SIGNAL(toggled(bool)),   this, SLOT(onActionToggleGrid(bool)));
+    
+    // grid
+    actionGrid->setChecked(displayWidget()->gridVisible());
 }
 
 void MainWindow::setPauseMode(bool pauseMode)
@@ -88,5 +91,5 @@ void MainWindow::onActionStep()
 
 void MainWindow::onActionToggleGrid(bool selected)
 {
-    _displayWidget->setGridVisible(selected);
+    displayWidget()->setGridVisible(selected);
 }

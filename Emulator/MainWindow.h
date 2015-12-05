@@ -36,6 +36,9 @@ public slots:
 
 public:
     void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
+    
+public:
+    inline DisplayWidget *displayWidget() const { return _displayWidget; }
 
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;

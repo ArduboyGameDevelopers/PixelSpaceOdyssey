@@ -12,32 +12,37 @@
 #define RECT_COLOR_PIXEL 0, 0, 0
 #define RECT_COLOR_GRID  241, 245, 248
 
-const int GRID_CELL_SIZE = 8;
-const int PIXEL_WIDTH    = 4;
-const int PIXEL_HEIGHT   = 4;
+const int PIXEL_WIDTH         = 4;
+const int PIXEL_HEIGHT        = 4;
+
+const int GRID_CELL_WIDTH     = 8;
+const int GRID_CELL_HEIGHT    = 8;
+
+const int GRID_CELL_WIDTH_PX  = GRID_CELL_WIDTH * PIXEL_WIDTH;
+const int GRID_CELL_HEIGHT_PX = GRID_CELL_HEIGHT * PIXEL_HEIGHT;
+
+static const int GRID_ROWS = WIDTH / GRID_CELL_WIDTH + 2;
+static const int GRID_COLS = HEIGHT / GRID_CELL_HEIGHT + 2;
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
     QOpenGLWidget(parent),
     _pixelRects(WIDTH * HEIGHT, RECT_COLOR_PIXEL),
-    _gridRects((WIDTH / GRID_CELL_SIZE + 1) * (HEIGHT / GRID_CELL_SIZE + 1), RECT_COLOR_GRID),
-    _currentTool(NULL)
+    _gridRects(GRID_ROWS * GRID_COLS, RECT_COLOR_GRID),
+    _currentTool(NULL),
+    _gridVisible(false)
 {
     setAutoFillBackground(false);
     
-    bool cellVisible = false;
-    int cellWidth = GRID_CELL_SIZE * PIXEL_WIDTH;
-    int cellHeight = GRID_CELL_SIZE * PIXEL_HEIGHT;
-    int cols = WIDTH / GRID_CELL_SIZE + 1;
-    int rows = HEIGHT / GRID_CELL_SIZE + 1;
-    for (int i = 0; i < rows; ++i)
+    for (int i = 0; i < GRID_COLS; ++i)
     {
-        for (int j = 0; j < cols; ++j)
+        bool cellVisible = i % 2 != 0;
+        for (int j = 0; j < GRID_ROWS; ++j)
         {
             if (cellVisible)
             {
-                int x = j * cellWidth;
-                int y = i * cellHeight;
-                _gridRects.add(x, y, cellWidth, cellHeight);
+                int x = j * GRID_CELL_WIDTH_PX;
+                int y = i * GRID_CELL_HEIGHT_PX;
+                _gridRects.add(x, y, GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX);
             }
             cellVisible = !cellVisible;
         }
@@ -92,7 +97,15 @@ void DisplayWidget::paintEvent(QPaintEvent *event)
     // draw grid
     if (_gridVisible)
     {
+        int drawOffsetX = drawTransX * PIXEL_WIDTH;
+        int drawOffsetY = drawTransY * PIXEL_HEIGHT;
+        int kx = 2 * GRID_CELL_WIDTH_PX;
+        int ky = 2 * GRID_CELL_HEIGHT_PX;
+        int offsetX = drawOffsetX - (drawOffsetX / kx) * kx;
+        int offsetY = drawOffsetY - (drawOffsetY / ky) * ky;
+        painter.translate(offsetX, offsetY);
         _gridRects.paint(&painter);
+        painter.translate(-offsetX, -offsetY);
     }
     
     // draw pixels
