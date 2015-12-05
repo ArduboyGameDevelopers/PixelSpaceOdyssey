@@ -22,9 +22,8 @@ void EditorTool::stop()
     onStop();
 }
 
-void EditorTool::paint(QPainter *painter)
+void EditorTool::paint(QPainter *)
 {
-
 }
 
 void EditorTool::keyPressed(int key)
@@ -88,27 +87,27 @@ void EditorTool::onStop()
 {
 }
 
-void EditorTool::onPaint(QPainter *painter)
+void EditorTool::onPaint(QPainter *)
 {
 }
 
-void EditorTool::onKeyPressed(int key)
+void EditorTool::onKeyPressed(int)
 {
 }
 
-void EditorTool::onKeyReleased(int key)
+void EditorTool::onKeyReleased(int)
 {
 }
 
-void EditorTool::onMousePressed(int x, int y)
+void EditorTool::onMousePressed(int, int)
 {
 }
 
-void EditorTool::onMouseMoved(int x, int y)
+void EditorTool::onMouseMoved(int, int)
 {
 }
 
-void EditorTool::onMouseReleased(int x, int y)
+void EditorTool::onMouseReleased(int, int)
 {
 }
 

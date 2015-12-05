@@ -1,6 +1,8 @@
 #ifndef EDITORTOOL_H
 #define EDITORTOOL_H
 
+#include "Object.h"
+
 #include <QtGlobal>
 #include <QKeyEvent>
 #include <QMouseEvent>
@@ -8,16 +10,18 @@
 
 class DisplayWidget;
 
-class EditorTool
+class EditorTool : public Object
 {
+    OBJECT_DEF(EditorTool)
+
 public:
     EditorTool(DisplayWidget *displayWidget);
     
 public:
+    virtual void paint(QPainter *painter);
+    
     void start();
     void stop();
-
-    void paint(QPainter *painter);
 
     void keyPressed(int key);
     void keyReleased(int key);

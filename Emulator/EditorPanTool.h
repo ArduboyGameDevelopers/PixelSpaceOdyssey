@@ -18,9 +18,6 @@ protected:
 private:
     void setCursor(Qt::CursorShape shape);
     void unsetCursor();
-    
-private:
-    EditorTool * _prevTool;
 };
 
 #endif // EDITORPANTOOL_H

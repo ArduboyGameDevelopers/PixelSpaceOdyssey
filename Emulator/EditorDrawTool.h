@@ -11,7 +11,7 @@ public:
     EditorDrawTool(DisplayWidget *displayWidget);
 
 protected:
-    void paint(QPainter *painter);
+    void paint(QPainter *painter) Q_DECL_OVERRIDE;
     
     void onMousePressed(int x, int y) Q_DECL_OVERRIDE;
     void onMouseMoved(int x, int y) Q_DECL_OVERRIDE;

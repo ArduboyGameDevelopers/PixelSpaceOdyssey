@@ -32,6 +32,7 @@ DisplayWidget::DisplayWidget(QWidget *parent) :
     _gridVisible(false)
 {
     setAutoFillBackground(false);
+    setMouseTracking(true);
     
     for (int i = 0; i < GRID_COLS; ++i)
     {
@@ -51,6 +52,7 @@ DisplayWidget::DisplayWidget(QWidget *parent) :
 
 DisplayWidget::~DisplayWidget()
 {
+    RELEASE(_currentTool);
 }
 
 void DisplayWidget::copyScreenBuffer(const unsigned char *screenBuffer, int bufferWidth, int bufferHeight)
@@ -73,20 +75,16 @@ void DisplayWidget::copyScreenBuffer(const unsigned char *screenBuffer, int buff
     repaint();
 }
 
-void DisplayWidget::startPan()
+void DisplayWidget::setTool(EditorTool *tool)
 {
-    EditorPanTool *panTool = new EditorPanTool(this);
-    panTool->start();
-    setCurrentTool(panTool);
+    EditorTool *oldTool = _currentTool;
+    _currentTool = RETAIN(tool);
+    if (_currentTool) _currentTool->start();
+    if (oldTool) oldTool->stop();
+    RELEASE(oldTool);
 }
 
-void DisplayWidget::stopPan()
-{
-    EditorTool *panTool = currentTool();
-    panTool->stop();
-}
-
-void DisplayWidget::paintEvent(QPaintEvent *event)
+void DisplayWidget::paintEvent(QPaintEvent *)
 {
     QPainter painter;
     painter.begin(this);
@@ -165,7 +163,7 @@ void DisplayWidget::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void DisplayWidget::leaveEvent(QEvent *event)
+void DisplayWidget::leaveEvent(QEvent *)
 {
     if (_currentTool)
     {
@@ -173,7 +171,7 @@ void DisplayWidget::leaveEvent(QEvent *event)
     }
 }
 
-void DisplayWidget::enterEvent(QEvent *event)
+void DisplayWidget::enterEvent(QEvent *)
 {
     if (_currentTool)
     {

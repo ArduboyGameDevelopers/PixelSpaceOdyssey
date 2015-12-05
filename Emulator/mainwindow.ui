@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>512</width>
-    <height>340</height>
+    <height>464</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,6 +21,26 @@
       <y>0</y>
       <width>512</width>
       <height>256</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="tilesComboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>260</y>
+      <width>501</width>
+      <height>26</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="TilesWidget" name="tilesWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>290</y>
+      <width>511</width>
+      <height>91</height>
      </rect>
     </property>
    </widget>
@@ -192,6 +212,12 @@
    <class>DisplayWidget</class>
    <extends>QWidget</extends>
    <header>displaywidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TilesWidget</class>
+   <extends>QWidget</extends>
+   <header>TilesWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

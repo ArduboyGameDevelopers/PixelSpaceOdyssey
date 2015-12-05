@@ -28,7 +28,10 @@ SOURCES += main.cpp\
     EditorDrawTool.cpp \
     EditorState.cpp \
     Level.cpp \
-    MainWindow+Actions.cpp
+    MainWindow+Actions.cpp \
+    TilesWidget.cpp \
+    Tileset.cpp \
+    Object.cpp
 
 HEADERS  += \
     DisplayWidget.h \
@@ -39,7 +42,11 @@ HEADERS  += \
     MainWindow.h \
     EditorDrawTool.h \
     EditorState.h \
-    Level.h
+    Level.h \
+    TilesWidget.h \
+    Tileset.h \
+    Object.h \
+    EditorTools.h
 
 FORMS    += mainwindow.ui
 

@@ -10,6 +10,8 @@ class MainWindow;
 
 class QToolBar;
 class DisplayWidget;
+class TilesWidget;
+class EditorTool;
 
 extern Emulator emulator;
 
@@ -47,13 +49,19 @@ protected:
 private:
     void setupToolBar(QToolBar* toolBar);
     void setupActions();
+    void setupTileSet(TilesWidget *tilesWidget);
     
     void setPauseMode(bool pauseMode);
     void setEditMode(bool editMode);
+    
+    void setEditorTool(EditorTool *tool);
+    void pushEditorTool(EditorTool *tool);
+    void popEditorTool();
 
 private:
     Ui::MainWindow *_ui;
     DisplayWidget *_displayWidget;
+    EditorTool *_lastTool;
     qint64 _lastFrameTime;
 };
 

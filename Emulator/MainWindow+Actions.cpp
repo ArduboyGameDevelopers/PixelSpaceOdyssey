@@ -1,6 +1,8 @@
 #include "MainWindow.h"
 #include "DisplayWidget.h"
 #include "ui_mainwindow.h"
+#include "Tileset.h"
+#include "EditorTools.h"
 
 void MainWindow::setupActions()
 {
@@ -28,6 +30,15 @@ void MainWindow::setupActions()
     actionGrid->setChecked(displayWidget()->gridVisible());
 }
 
+void MainWindow::setupTileSet(TilesWidget *tilesWidget)
+{
+    QImageReader imageReader("/Users/weee/dev/projects/arduboy/games/PixelSpaceOdysspy/Arduboy-Emu-SDL/PixelSpaceOdyssey/PixelSpaceOdyssey/tiles.bmp");
+    QImage tilesImage = imageReader.read();
+    TileSet* tileSet = new TileSet(tilesImage);
+    tilesWidget->setTileSet(tileSet);
+    tileSet->release();
+}
+
 void MainWindow::setPauseMode(bool pauseMode)
 {
     emulator.setPaused(pauseMode);
@@ -49,6 +60,10 @@ void MainWindow::setEditMode(bool editMode)
     }
     
     _ui->actionEdit->setChecked(editMode);
+    
+    EditorTool *tool = editMode ? new EditorDrawTool(displayWidget()) : NULL;
+    setEditorTool(tool);
+    RELEASE(tool);
 }
 
 void MainWindow::onActionNew()

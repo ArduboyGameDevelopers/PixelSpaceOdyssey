@@ -49,11 +49,8 @@ public:
     void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
 
 public:
-    void startPan();
-    void stopPan();
-    
     EditorTool* currentTool() const { return _currentTool; }
-    void setCurrentTool(EditorTool* tool) { _currentTool = tool; }
+    void setTool(EditorTool* tool);
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

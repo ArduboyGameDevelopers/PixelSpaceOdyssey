@@ -6,8 +6,7 @@
 #include <Arduino.h>
 
 EditorPanTool::EditorPanTool(DisplayWidget *displayWidget) :
-    EditorTool(displayWidget),
-    _prevTool(displayWidget->currentTool())
+    EditorTool(displayWidget)
 {
 }
 
@@ -19,10 +18,9 @@ void EditorPanTool::onStart()
 void EditorPanTool::onStop()
 {
     unsetCursor();
-    displayWidget()->setCurrentTool(_prevTool);
 }
 
-void EditorPanTool::onMousePressed(int x, int y)
+void EditorPanTool::onMousePressed(int, int)
 {
     setCursor(Qt::ClosedHandCursor);
 }
@@ -44,7 +42,7 @@ void EditorPanTool::onMouseMoved(int x, int y)
     }
 }
 
-void EditorPanTool::onMouseReleased(int x, int y)
+void EditorPanTool::onMouseReleased(int, int)
 {
     setCursor(Qt::OpenHandCursor);
 }

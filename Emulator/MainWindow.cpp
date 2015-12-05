@@ -14,6 +14,8 @@
 
 #include "GameInput.h"
 
+#include "EditorTools.h"
+
 static const int kTimerDelay = 1000 / 60;
 
 Emulator emulator;
@@ -23,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     _ui(new Ui::MainWindow),
     _displayWidget(NULL),
+    _lastTool(NULL),
     _lastFrameTime(0)
 {
     _instance = this;
@@ -32,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     
     setupToolBar(_ui->toolBar);
     setupActions();
+    setupTileSet(_ui->tilesWidget);
 
     editorState.level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
 
@@ -46,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     _instance = NULL;
+    RELEASE(_lastTool);
     delete _ui;
 }
 
@@ -73,7 +78,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
         switch (key) {
             case Qt::Key_Space:
-                _displayWidget->startPan();
+                EditorPanTool *panTool = new EditorPanTool(displayWidget());
+                pushEditorTool(panTool);
+                panTool->release();
                 break;
         }
     }
@@ -90,10 +97,29 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     {
         switch (key) {
             case Qt::Key_Space:
-                _displayWidget->stopPan();
+                popEditorTool();
                 break;
         }
     }
+}
+
+void MainWindow::setEditorTool(EditorTool *tool)
+{
+    _displayWidget->setTool(tool);
+}
+
+void MainWindow::pushEditorTool(EditorTool *tool)
+{
+    Q_ASSERT(_lastTool == NULL);
+    _lastTool = RETAIN(displayWidget()->currentTool());
+    
+    setEditorTool(tool);
+}
+
+void MainWindow::popEditorTool()
+{
+    setEditorTool(_lastTool);
+    RELEASE(_lastTool);
 }
 
 void platformRenderScreen(unsigned const char* screenBuffer, int width, int height)
