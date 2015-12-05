@@ -10,17 +10,17 @@
 
 #include "TileSet.h"
 
-TileSet::TileSet(SDL_Texture* tileTexture) :
-    _tileTexture(tileTexture)
+TileSet::TileSet(Texture* tileTexture) :
+    _tileTexture(tileTexture->retain())
 {
-    int w, h;
-    SDL_QueryTexture(tileTexture, NULL, NULL, &w, &h);
-    
-    assert(w % h == 0);
-    
-    _tileHeight = h;
-    _tileWidth = h;
-    _tileCount = w / h;
+    _tileHeight = tileTexture->height();
+    _tileWidth = tileTexture->height();
+    _tileCount = tileTexture->width() / tileTexture->height();
+}
+
+TileSet::~TileSet()
+{
+    _tileTexture->release();
 }
 
 void TileSet::drawTile(SDL_Renderer* renderer, int tileIndex, int x, int y)
@@ -29,5 +29,5 @@ void TileSet::drawTile(SDL_Renderer* renderer, int tileIndex, int x, int y)
 
     SDL_Rect src = { tileIndex * _tileWidth, 0, _tileWidth, _tileHeight };
     SDL_Rect dst = { x, y, _tileWidth, _tileHeight };
-    SDL_RenderCopy(renderer, _tileTexture, &src, &dst);
+    SDL_RenderCopy(renderer, _tileTexture->texture(), &src, &dst);
 }

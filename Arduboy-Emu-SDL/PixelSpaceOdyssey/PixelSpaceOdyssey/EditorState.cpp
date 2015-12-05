@@ -8,4 +8,4 @@
 
 #include "EditorState.h"
 
-EditorState editorState = { -1 };
+EditorState editorState = { NULL, -1 };

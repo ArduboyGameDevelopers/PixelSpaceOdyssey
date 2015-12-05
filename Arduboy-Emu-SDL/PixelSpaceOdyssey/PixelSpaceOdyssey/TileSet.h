@@ -12,16 +12,22 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
-class TileSet
+#include "Object.h"
+#include "Texture.h"
+
+class TileSet : public Object
 {
+OBJECT_DEF(TileSet);
+    
 private:
-    SDL_Texture* _tileTexture;
+    Texture* _tileTexture;
     int _tileWidth;
     int _tileHeight;
     int _tileCount;
     
 public:
-    TileSet(SDL_Texture* tileTexture);
+    TileSet(Texture* tileTexture);
+    virtual ~TileSet();
     
 public:
     void drawTile(SDL_Renderer* renderer, int tileIndex, int x, int y);

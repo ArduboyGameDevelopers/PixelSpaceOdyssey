@@ -9,7 +9,10 @@
 #ifndef EditorState_h
 #define EditorState_h
 
+#include "Level.h"
+
 typedef struct _EditorState {
+    Level* level;
     int tileIndex;
 } EditorState;
 

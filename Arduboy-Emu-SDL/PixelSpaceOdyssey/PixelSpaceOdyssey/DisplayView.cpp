@@ -137,8 +137,7 @@ void DisplayView::mouseDown(int x, int y)
         if (editorState.tileIndex != -1)
         {
             int gridIndex = gridIndexFromCords(x, y);
-            uint8_t* indicesPtr = (uint8_t*)(void*)INDICES_LAIR_01; // evil C
-            indicesPtr[gridIndex] = editorState.tileIndex;
+            tileMap.indices[gridIndex] = editorState.tileIndex;
         }
     }
     
@@ -183,8 +182,7 @@ void DisplayView::mouseMove(int x, int y)
             if (_mouseDown)
             {
                 int gridIndex = gridIndexFromCords(x, y);
-                uint8_t* indicesPtr = (uint8_t*)(void*)INDICES_LAIR_01; // evil C
-                indicesPtr[gridIndex] = editorState.tileIndex;
+                tileMap.indices[gridIndex] = editorState.tileIndex;
             }
         }
     }

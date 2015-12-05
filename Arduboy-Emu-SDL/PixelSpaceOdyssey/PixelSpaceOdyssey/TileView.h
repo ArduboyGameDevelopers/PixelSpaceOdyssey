@@ -10,6 +10,7 @@
 #define TileView_h
 
 #include "View.h"
+#include "TileSet.h"
 
 class TileView : public View
 {
@@ -17,13 +18,11 @@ private:
     static const int kBorder = 2;
     
 private:
-    SDL_Texture* _tilesTexture;
+    TileSet* _tileSet;
     int _selectedIndex;
-    int _tileSize;
-    int _tileCount;
     
 public:
-    TileView(SDL_Texture* tilesTexture, int width, int height);
+    TileView(TileSet* tileSet, int width, int height);
     
 public:
     virtual void render(SDL_Renderer* render) const;

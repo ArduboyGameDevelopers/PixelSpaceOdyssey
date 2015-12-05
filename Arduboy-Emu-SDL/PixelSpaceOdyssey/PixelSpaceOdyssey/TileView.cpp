@@ -13,17 +13,11 @@
 
 static const int ROW_SIZES[] = { 13, 2, 4, 2, 2 };
 
-TileView::TileView(SDL_Texture* tilesTexture, int width, int height) :
+TileView::TileView(TileSet* tileSet, int width, int height) :
     View(width, height),
-    _tilesTexture(tilesTexture),
-    _selectedIndex(0)
+    _tileSet(tileSet->retain()),
+    _selectedIndex(-1)
 {
-    int tw, th;
-    SDL_QueryTexture(tilesTexture, NULL, NULL, &tw, &th);
-    
-    assert(tw % th == 0);
-    _tileCount = tw / th;
-    _tileSize = th;
 }
 
 void TileView::render(SDL_Renderer* render) const
@@ -31,10 +25,9 @@ void TileView::render(SDL_Renderer* render) const
     SDL_SetRenderDrawColor(render, 0, 0, 0, 255);
     SDL_RenderFillRect(render, &_rect);
     
-    SDL_Rect src = { 0, 0, _tileSize, _tileSize };
-    SDL_Rect dst = { 0, 0, _tileSize, _tileSize };
-    
-    for (int tileIndex = 0, k = 0, row = 0, col = 0; tileIndex < _tileCount; ++tileIndex, ++col, ++k)
+    int tileWidth = _tileSet->tileWidth();
+    int tileHeight = _tileSet->tileHeight();
+    for (int tileIndex = 0, k = 0, row = 0, col = 0; tileIndex < _tileSet->tileCount(); ++tileIndex, ++col, ++k)
     {
         if (ROW_SIZES[row] <= k)
         {
@@ -43,18 +36,17 @@ void TileView::render(SDL_Renderer* render) const
             ++row;
         }
         
-        dst.x = kBorder + left() + col * (_tileSize + kBorder);
-        dst.y = top() + kBorder + row * (_tileSize + kBorder);
+        int x = kBorder + left() + col * (tileWidth + kBorder);
+        int y = top() + kBorder + row * (tileHeight + kBorder);
         
         if (tileIndex == _selectedIndex)
         {
-            SDL_Rect rect = { dst.x - kBorder, dst.y - kBorder, _tileSize + 2 * kBorder, _tileSize + 2 * kBorder };
+            SDL_Rect rect = { x - kBorder, y - kBorder, tileWidth + 2 * kBorder, tileHeight + 2 * kBorder };
             SDL_SetRenderDrawColor(render, 255, 0, 255, 255);
             SDL_RenderFillRect(render, &rect);
         }
         
-        src.x = tileIndex * _tileSize;
-        SDL_RenderCopy(render, _tilesTexture, &src, &dst);
+        _tileSet->drawTile(render, tileIndex, x, y);
     }
 }
 
@@ -66,8 +58,8 @@ void TileView::mouseDown(int x, int y)
 
 int TileView::tileIndexFromCords(int x, int y) const
 {
-    int col = (x - kBorder) / (_tileSize + kBorder);
-    int row = (y - kBorder) / (_tileSize + kBorder);
+    int col = (x - kBorder) / (_tileSet->tileWidth() + kBorder);
+    int row = (y - kBorder) / (_tileSet->tileHeight() + kBorder);
     
     int indicesLength = sizeof(ROW_SIZES) / sizeof(ROW_SIZES[0]);
     if (row >= 0 && row < indicesLength)

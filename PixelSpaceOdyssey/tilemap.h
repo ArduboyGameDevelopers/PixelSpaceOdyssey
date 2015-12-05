@@ -42,12 +42,12 @@ typedef struct _Tile {
 
 typedef struct _TileMap {
     const PgmPtr* tiles;
-    const uint8_t* indices;
+    WEAK_CONST uint8_t* indices;
     uint8_t rows;
     uint8_t cols;
 } TileMap;
 
-inline TileMap TileMapMake(const PgmPtr* tiles, const uint8_t* indices, uint8_t rows, uint8_t cols)
+inline TileMap TileMapMake(const PgmPtr* tiles, WEAK_CONST uint8_t* indices, uint8_t rows, uint8_t cols)
 {
     TileMap tileMap;
     tileMap.tiles   = tiles;

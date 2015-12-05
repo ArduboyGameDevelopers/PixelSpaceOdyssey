@@ -19,22 +19,13 @@ task :init do
 
   $dir_out          = "#{$dir_builder}/out"
 
-  $dir_emu          = resolve_path "#{$dir_repo}/Arduboy-Emu"
-  $file_emu_project = resolve_path "#{$dir_emu}/#{$project_name}.xcodeproj"
+  $dir_emu          = resolve_path "#{$dir_repo}/Emulator"
+  $file_emu_project = resolve_path "#{$dir_emu}/Emulator.pro"
 
   $dir_art          = resolve_path "#{$dir_repo}/Art"
   $dir_animations   = resolve_path "#{$dir_art}/animations"
   $dir_tiles        = resolve_path "#{$dir_art}/tiles"
   $dir_tilemaps     = resolve_path "#{$dir_art}/tilemaps"
-
-  def extract_project_version(dir_project)
-    file_plist = resolve_path "#{dir_project}/Arduboy-Emu/Info.plist"
-    plist = Plist::parse_xml file_plist
-
-    not_nil plist['CFBundleShortVersionString']
-  end
-
-  $project_version = extract_project_version $dir_emu
 end
 
 task :clean => :init do
@@ -71,9 +62,30 @@ task :generate_tilemaps => [:generate_tiles] do
 
 end
 
+desc 'Generates xcode proj'
+task :generate_xcode_proj => :init do
+
+  dir_output = "#{$dir_emu}/Xcode"
+  FileUtils.rm_rf dir_output
+  FileUtils.mkdir dir_output
+
+  Dir.chdir dir_output do
+    exec_shell %(qmake -spec macx-xcode "#{$file_emu_project}"), "Can't generate Xcode project"
+  end
+end
+
 desc 'Build the app'
 task :build => :clean do
-  puts "Project version: #{$project_version}"
+  def extract_project_version(dir_project)
+    file_plist = resolve_path "#{dir_project}/Arduboy-Emu/Info.plist"
+    plist = Plist::parse_xml file_plist
+
+    not_nil plist['CFBundleShortVersionString']
+  end
+
+  project_version = extract_project_version $dir_emu
+
+  puts "Project version: #{project_version}"
 
   cmd = 'xcodebuild'
   cmd << %( -project "#{$file_emu_project}")
@@ -84,7 +96,7 @@ task :build => :clean do
   dir_project = File.dirname $file_emu_project
   dir_build = File.resolve_path "#{dir_project}/build/#{$project_config}"
 
-  file_output = "#{$dir_out}/#{$project_name}-#{$project_version}.zip"
+  file_output = "#{$dir_out}/#{$project_name}-#{project_version}.zip"
   zip_dir dir_build, file_output
 
 end

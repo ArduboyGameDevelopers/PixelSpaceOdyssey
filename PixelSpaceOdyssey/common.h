@@ -14,8 +14,10 @@
     #include <types.h>
 
     #define DEBUG_LOG(format, ...) printf(format, __VA_ARGS__)
+    #define WEAK_CONST
 #else
     #define DEBUG_LOG(format, ...)
+    #define WEAK_CONST const
 #endif
 
 #include <assert.h>

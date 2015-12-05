@@ -55,8 +55,8 @@ static Direction playerSlopeDir = 0;
 TileMap tileMap = TileMapMake(TILES_TB_CAVERNS, INDICES_LAIR_01, TILEMAP_LAIR_01_HEIGHT, TILEMAP_LAIR_01_WIDTH);
 
 /* Tile map size in world space */
-uint16_t tileMapWidth = TILEMAP_GET_WIDTH(tileMap);
-uint16_t tileMapHeight = TILEMAP_GET_HEIGHT(tileMap);
+uint16_t tileMapWidth;
+uint16_t tileMapHeight;
 
 /* Camera center pos in world space */
 int16_t camX;
@@ -78,6 +78,9 @@ void startGame()
     
     player.x = S2W(62);
     player.y = S2W(28);
+    
+    tileMapWidth = TILEMAP_GET_WIDTH(tileMap);
+    tileMapHeight = TILEMAP_GET_HEIGHT(tileMap);
     
     camX = CAM_WIDTH_HALF;
     camY = CAM_HEIGHT_HALF;

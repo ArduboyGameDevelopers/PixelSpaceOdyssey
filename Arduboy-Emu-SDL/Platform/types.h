@@ -8,6 +8,6 @@ typedef signed short   int16_t;
 typedef unsigned int   uint32_t;
 typedef signed int     int32_t;
 typedef unsigned char  byte;
-typedef char boolean;
+typedef unsigned char  boolean;
 
 #endif // types_h__

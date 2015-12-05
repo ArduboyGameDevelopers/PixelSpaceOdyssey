@@ -3,21 +3,53 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
 
-#include "Texture.h"
-#include "Image.h"
+
 #include "Button.h"
-
-#include "RootView.h"
-#include "TileSet.h"
 #include "DisplayView.h"
-#include "TileView.h"
+#include "EditorState.h"
+#include "Image.h"
+#include "Level.h"
 #include "RectView.h"
-
+#include "RootView.h"
+#include "Texture.h"
+#include "TileSet.h"
+#include "TileView.h"
+#include "bridge.h"
 #include "game.h"
 #include "platform.h"
-#include "bridge.h"
 
-static const int kButtonViewHeight  = 50;
+typedef void (*ActionCallback)(void);
+
+typedef struct _ButtonInfo {
+    const char* textureName;
+    ButtonClickHandler clickHandler;
+    bool toggle;
+} ButtonInfo;
+
+typedef struct _KeyboardShortcut {
+    ActionCallback action;
+    SDL_Keycode sym;    /**< SDL virtual key code - see ::SDL_Keycode for details */
+    Uint32 type;        /**< ::SDL_KEYDOWN or ::SDL_KEYUP */
+    Uint16 mod;         /**< current key modifiers */
+} KeyboardShortcut;
+
+inline KeyboardShortcut KeyboardShortcutMake(SDL_Keycode sym,
+                                             ActionCallback action,
+                                             Uint32 type = SDL_KEYDOWN,
+                                             Uint16 mod = 0)
+{
+    KeyboardShortcut shortcut;
+    shortcut.action = action;
+    shortcut.sym = sym;
+    shortcut.type = type;
+    shortcut.mod = mod;
+    return shortcut;
+}
+
+static const char* const kLevelName = "level.pso";
+
+static const int kTopViewHeight  = 48;
+static const int kSideViewWidth     = 48;
 
 static const int kDisplayViewWidth  = 512;
 static const int kDisplayViewHeight = 256;
@@ -25,8 +57,8 @@ static const int kDisplayViewHeight = 256;
 static const int kTilesViewWidth    = kDisplayViewWidth;
 static const int kTilesViewHeight   = 5 * (32 + 2) + 2;
 
-static const int kWindowWidth       = kDisplayViewWidth;
-static const int kWindowHeight      = kButtonViewHeight + kDisplayViewHeight + kTilesViewHeight;
+static const int kWindowWidth       = kDisplayViewWidth + kSideViewWidth;
+static const int kWindowHeight      = kTopViewHeight + kDisplayViewHeight + kTilesViewHeight;
 
 static RootView* rootView;
 static DisplayView* displayView;
@@ -34,8 +66,8 @@ static DisplayView* displayView;
 static Button* buttonGrid;
 static Button* buttonPlay;
 static Button* buttonPause;
-static Button* buttonBrush;
-static Button* buttonMove;
+static Button* buttonEdit;
+static Button* buttonPan;
 
 static const uint8_t LEFT_BUTTON  = 1 << 5;
 static const uint8_t RIGHT_BUTTON = 1 << 2;
@@ -48,19 +80,43 @@ static bool step = false;
 
 static unsigned long gameMillis;
 
+void createUI(SDL_Renderer* renderer);
 void handleEvent(const SDL_Event* event);
-
-void createButtons(SDL_Renderer* renderer);
-Button *createButton(SDL_Renderer* renderer, const char* filename, ButtonClickHandler handler);
-
-void gridButtonPressed(Button* button);
-void playButtonPressed(Button* button);
-void pauseButtonPressed(Button* button);
-void stepButtonPressed(Button* button);
-void brushButtonPressed(Button* button);
 
 void setEmulationPaused(bool paused);
 void setEditMode(bool editMode);
+
+static void shiftLevel(int dx, int dy);
+static void shiftLevelLeft()   { shiftLevel(-1, 0); }
+static void shiftLevelRight()  { shiftLevel(1, 0); }
+static void shiftLevelTop()    { shiftLevel(0, -1); }
+static void shiftLevelBottom() { shiftLevel(0, 1); }
+
+static void toggleGrid();
+static void togglePauseEmulation() { setEmulationPaused(buttonPlay->isSelected()); }
+static void toggleEditMode() { setEditMode(!buttonEdit->isSelected()); }
+
+static void startPan();
+static void stopPan();
+
+#ifdef __APPLE__
+    #define MOD_CTRL KMOD_GUI
+#else
+    #define MOD_CTRL KMOD_CTRL
+#endif
+
+static KeyboardShortcut keyboardShortcuts[] = {
+    KeyboardShortcutMake(SDLK_g, toggleGrid),
+    KeyboardShortcutMake(SDLK_p, togglePauseEmulation),
+    KeyboardShortcutMake(SDLK_e, toggleEditMode),
+    KeyboardShortcutMake(SDLK_SPACE, startPan, SDL_KEYDOWN),
+    KeyboardShortcutMake(SDLK_SPACE, stopPan, SDL_KEYUP),
+    KeyboardShortcutMake(SDLK_LEFT, shiftLevelLeft, SDL_KEYDOWN, MOD_CTRL),
+    KeyboardShortcutMake(SDLK_RIGHT, shiftLevelRight, SDL_KEYDOWN, MOD_CTRL),
+    KeyboardShortcutMake(SDLK_UP, shiftLevelTop, SDL_KEYDOWN, MOD_CTRL),
+    KeyboardShortcutMake(SDLK_DOWN, shiftLevelBottom, SDL_KEYDOWN, MOD_CTRL),
+};
+static int keyboardShortcutCount = sizeof(keyboardShortcuts) / sizeof(KeyboardShortcut);
 
 int main(int argc, char * argv[])
 {
@@ -91,26 +147,22 @@ int main(int argc, char * argv[])
         return 2;
     }
     
+    // Load level
+    Level* level = Level::readFromFile(kLevelName);
+    if (level != NULL)
+    {
+        tileMap.indices = level->indices();
+        tileMap.rows = level->rows();
+        tileMap.cols = level->cols();
+    }
+    else
+    {
+        level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
+    }
+    editorState.level = level;
+    
     // Create UI
-    rootView = new RootView(kWindowWidth, kWindowHeight);
-    
-    // UI: buttons
-    createButtons(renderer);
-    
-    // UI: display view
-    displayView = new DisplayView(kDisplayViewWidth, kDisplayViewHeight);
-    displayView->setPos(0, kButtonViewHeight);
-    rootView->addView(displayView);
-    
-    // UI: tiles
-    SDL_Surface *tilesSurface = SDL_LoadBMP("tiles.bmp");
-    SDL_Texture *tilesTexture = SDL_CreateTextureFromSurface(renderer, tilesSurface);
-    TileSet tileSet(tilesTexture);
-    SDL_FreeSurface(tilesSurface);
-    
-    TileView* tileView = new TileView(tilesTexture, kTilesViewWidth, kTilesViewHeight);
-    tileView->setPos(0, displayView->bottom());
-    rootView->addView(tileView);
+    createUI(renderer);
     
     SDL_Event event;	 // used to store any events from the OS
     bool running = true; // used to determine if we're running the game
@@ -135,7 +187,7 @@ int main(int argc, char * argv[])
             handleEvent(&event);
         }
         
-        SDL_SetRenderDrawColor(renderer, 83, 83, 83, 255);
+        SDL_SetRenderDrawColor(renderer, 228, 228, 228, 255);
         SDL_RenderClear(renderer);
         
         Uint32 ticks = SDL_GetTicks();
@@ -169,17 +221,11 @@ int main(int argc, char * argv[])
     // Delete display view
     displayView->release();
     
-    // Delete tiles view
-    tileView->release();
-    
     // Destroy buttons
     buttonGrid->release();
     buttonPause->release();
     buttonPlay->release();
-    buttonBrush->release();
-    
-    // Destroy tiles texture
-    SDL_DestroyTexture(tilesTexture);
+    buttonEdit->release();
     
     // Destroy the renderer
     SDL_DestroyRenderer(renderer);
@@ -230,6 +276,7 @@ int keyButtonMask(SDL_Keycode code)
 
 void handleKeyboardEvent(const SDL_KeyboardEvent* event)
 {
+    Uint32 type = event->type;
     SDL_Keysym keysym = event->keysym;
     
     int keyMask = keyButtonMask(keysym.sym);
@@ -245,55 +292,14 @@ void handleKeyboardEvent(const SDL_KeyboardEvent* event)
         }
     }
     
-    if (event->type == SDL_KEYDOWN)
+    
+    for (int i = 0; i < keyboardShortcutCount; ++i)
     {
-        switch (keysym.sym)
+        const KeyboardShortcut& shortcut = keyboardShortcuts[i];
+        if (type == shortcut.type && keysym.sym == shortcut.sym && (shortcut.mod == 0 || (keysym.mod & shortcut.mod)))
         {
-            case SDLK_g:
-            {
-                displayView->toggleGrid();
-                buttonGrid->setSelected(displayView->gridVisible());
-                break;
-            }
-            case SDLK_p:
-            {
-                setEmulationPaused(buttonPlay->isSelected());
-                break;
-            }
-            case SDLK_e:
-            {
-                setEditMode(!buttonBrush->isSelected());
-                break;
-            }
-            case SDLK_SPACE:
-            {
-                if (buttonBrush->isSelected())
-                {
-                    displayView->setMode(DisplayViewModeDrag);
-                    buttonMove->setSelected(true);
-                }
-                break;
-            }
-        }
-    }
-    else if (event->type == SDL_KEYUP)
-    {
-        switch (keysym.sym)
-        {
-            case SDLK_SPACE:
-            {
-                if (buttonBrush->isSelected())
-                {
-                    displayView->setMode(DisplayViewModeEdit);
-                    buttonMove->setSelected(false);
-                }
-                else
-                {
-                    displayView->setMode(DisplayViewModeNormal);
-                }
-                
-                break;
-            }
+            shortcut.action();
+            break;
         }
     }
 }
@@ -348,7 +354,7 @@ void setEmulationPaused(bool paused)
 {
     buttonPlay->setSelected(!paused);
     buttonPause->setSelected(paused);
-    if (!paused && buttonBrush->isSelected())
+    if (!paused && buttonEdit->isSelected())
     {
         setEditMode(false);
     }
@@ -358,98 +364,12 @@ void setEditMode(bool editMode)
 {
     buttonPlay->setSelected(!editMode);
     buttonPause->setSelected(editMode);
-    buttonBrush->setSelected(editMode);
+    buttonEdit->setSelected(editMode);
     displayView->setMode(editMode ? DisplayViewModeEdit : DisplayViewModeNormal);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
-// Buttons
-
-void createEditorButtons(SDL_Renderer* renderer)
-{
-    buttonGrid = createButton(renderer, "button_grid.bmp", gridButtonPressed);
-    buttonGrid->setToggle(true);
-    rootView->addView(buttonGrid);
-    
-    buttonBrush = createButton(renderer, "button_brush.bmp", brushButtonPressed);
-    buttonBrush->setToggle(true);
-    rootView->addView(buttonBrush);
-    
-    buttonMove = createButton(renderer, "button_move.bmp", gridButtonPressed);
-    buttonMove->setToggle(true);
-    buttonMove->setIntractable(false);
-    rootView->addView(buttonMove);
-    
-    Button* buttons[] = { buttonBrush, buttonMove };
-    
-    int buttonCount = sizeof(buttons) / sizeof(Button*);
-    int totalWidth = 0;
-    for (int i = 0; i < buttonCount; ++i)
-    {
-        totalWidth += buttons[i]->width();
-    }
-    
-    int buttonX = kWindowWidth - totalWidth;
-    int buttonY = (kButtonViewHeight - buttons[0]->height()) / 2;
-    for (int i = 0; i < buttonCount; ++i)
-    {
-        buttons[i]->setPos(buttonX, buttonY);
-        buttonX += buttons[i]->width();
-    }
-    
-    buttonGrid->setPos(0, buttonY);
-}
-
-void createButtons(SDL_Renderer* renderer)
-{
-    createEditorButtons(renderer);
-    
-    buttonPlay = createButton(renderer, "button_play.bmp", playButtonPressed);
-    buttonPlay->setToggle(true);
-    buttonPlay->setSelected(true);
-    rootView->addView(buttonPlay);
-    
-    buttonPause = createButton(renderer, "button_pause.bmp", pauseButtonPressed);
-    buttonPause->setToggle(true);
-    rootView->addView(buttonPause);
-    
-    Button* buttonStep = createButton(renderer, "button_step.bmp", stepButtonPressed);
-    rootView->addView(buttonStep);
-    buttonStep->release();
-    
-    int totalWidth = buttonPlay->width() + buttonPause->width() + buttonStep->width();
-    int buttonX = (kWindowWidth - totalWidth) / 2;
-    int buttonY = (kButtonViewHeight - buttonPlay->height()) / 2;
-    buttonPlay->setPos(buttonX, buttonY); buttonX += buttonPlay->width();
-    buttonPause->setPos(buttonX, buttonY); buttonX += buttonPause->width();
-    buttonStep->setPos(buttonX, buttonY);
-}
-
-Button *createButton(SDL_Renderer* renderer, const char* filename, ButtonClickHandler handler)
-{
-    Texture* texture = Texture::load(renderer, filename);
-    
-    assert(texture->width() % kButtonStateCount == 0);
-    int width = texture->width() / kButtonStateCount;
-    int height = texture->height();
-
-    Image* normalImage = new Image(texture, 0, 0, width, height);
-    Image* highlightedImage = new Image(texture, width, 0, width, height);
-    Image* selectedImage = new Image(texture, 2 * width, 0, width, height);
-    
-    Button* button = new Button(width, height, handler);
-    button->setStateImage(ButtonStateNormal, normalImage);
-    button->setStateImage(ButtonStateHighlighted, highlightedImage);
-    button->setStateImage(ButtonStateSelected, selectedImage);
-    
-    normalImage->release();
-    highlightedImage->release();
-    selectedImage->release();
-    
-    texture->release();
-    
-    return button;
-}
+// Button handlers
 
 void gridButtonPressed(Button* button)
 {
@@ -473,9 +393,201 @@ void stepButtonPressed(Button* button)
     step = true;
 }
 
-void brushButtonPressed(Button* button)
+void editButtonPressed(Button* button)
 {
     setEditMode(button->isSelected());
+}
+
+void newButtonPressed(Button* button)
+{
+}
+
+void saveButtonPressed(Button* button)
+{
+    editorState.level->writeToFile(kLevelName);
+}
+
+void playerButtonPressed(Button* button)
+{
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// UI helpers
+
+Button *createButton(SDL_Renderer* renderer, const char* filename, ButtonClickHandler handler)
+{
+    Texture* texture = Texture::load(renderer, filename);
+    
+    assert(texture->width() % kButtonStateCount == 0);
+    int width = texture->width() / kButtonStateCount;
+    int height = texture->height();
+    
+    Image* normalImage = new Image(texture, 0, 0, width, height);
+    Image* highlightedImage = new Image(texture, width, 0, width, height);
+    Image* selectedImage = new Image(texture, 2 * width, 0, width, height);
+    
+    Button* button = new Button(width, height, handler);
+    button->setStateImage(ButtonStateNormal, normalImage);
+    button->setStateImage(ButtonStateHighlighted, highlightedImage);
+    button->setStateImage(ButtonStateSelected, selectedImage);
+    
+    normalImage->release();
+    highlightedImage->release();
+    selectedImage->release();
+    
+    texture->release();
+    
+    return button;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// UI: Top bar
+
+void createTopBar(SDL_Renderer* renderer)
+{
+    // new level
+    Button *buttonNew = createButton(renderer, "button_new.bmp", newButtonPressed);
+    rootView->addView(buttonNew);
+    buttonNew->release();
+    
+    // save level
+    Button *buttonSave = createButton(renderer, "button_save.bmp", saveButtonPressed);
+    rootView->addView(buttonSave);
+    buttonSave->setPos(buttonNew->right(), 0);
+    buttonSave->release();
+    
+    // play
+    buttonPlay = createButton(renderer, "button_play.bmp", playButtonPressed);
+    buttonPlay->setToggle(true);
+    buttonPlay->setSelected(true);
+    rootView->addView(buttonPlay);
+    
+    // pause
+    buttonPause = createButton(renderer, "button_pause.bmp", pauseButtonPressed);
+    buttonPause->setToggle(true);
+    rootView->addView(buttonPause);
+    
+    // step
+    Button* buttonStep = createButton(renderer, "button_step.bmp", stepButtonPressed);
+    rootView->addView(buttonStep);
+    buttonStep->release();
+    
+    int totalWidth = buttonPlay->width() + buttonPause->width() + buttonStep->width();
+    int buttonX = (kWindowWidth - totalWidth) / 2;
+    int buttonY = 0;
+    buttonPlay->setPos(buttonX, buttonY); buttonX += buttonPlay->width();
+    buttonPause->setPos(buttonX, buttonY); buttonX += buttonPause->width();
+    buttonStep->setPos(buttonX, buttonY);
+    
+    // toggle grid
+    buttonGrid = createButton(renderer, "button_grid.bmp", gridButtonPressed);
+    buttonGrid->setToggle(true);
+    rootView->addView(buttonGrid);
+    
+    // pan
+    buttonPan = createButton(renderer, "button_pan.bmp", gridButtonPressed);
+    buttonPan->setToggle(true);
+    buttonPan->setIntractable(false);
+    rootView->addView(buttonPan);
+    
+    buttonGrid->setPos(kWindowWidth - buttonSave->width(), buttonY);
+    buttonPan->setPos(buttonGrid->left() - buttonPan->width(), buttonY);
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// UI: Side bar
+
+void createSideBar(SDL_Renderer* renderer)
+{
+    // edit
+    buttonEdit = createButton(renderer, "button_edit.bmp", editButtonPressed);
+    buttonEdit->setToggle(true);
+    rootView->addView(buttonEdit);
+    
+    // alignment
+    Button* buttons[] = {
+        buttonEdit,
+    };
+
+    int buttonX = kWindowWidth - kSideViewWidth + (kSideViewWidth - 48) / 2;
+    int buttonY = kTopViewHeight;
+    int buttonCount = sizeof(buttons) / sizeof(Button*);
+    
+    for (int i = 0; i < buttonCount; ++i)
+    {
+        buttons[i]->setPos(buttonX, buttonY);
+        buttonY += buttons[i]->height();
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// UI
+
+void createUI(SDL_Renderer* renderer)
+{
+    rootView = new RootView(kWindowWidth, kWindowHeight);
+    
+    // top bar
+    createTopBar(renderer);
+    
+    // side bar
+    createSideBar(renderer);
+    
+    // display view
+    displayView = new DisplayView(kDisplayViewWidth, kDisplayViewHeight);
+    displayView->setPos(0, kTopViewHeight);
+    rootView->addView(displayView);
+
+    // tiles
+    Texture* tileTexture = Texture::load(renderer, "tiles.bmp");
+    TileSet* tileSet = new TileSet(tileTexture);
+    TileView* tileView = new TileView(tileSet, kTilesViewWidth, kTilesViewHeight);
+    tileView->setPos(0, displayView->bottom());
+    rootView->addView(tileView);
+    tileView->release();
+    tileSet->release();
+    tileTexture->release();
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// Display view
+
+void toggleGrid()
+{
+    displayView->toggleGrid();
+    buttonGrid->setSelected(displayView->gridVisible());
+}
+
+void startPan()
+{
+    if (buttonEdit->isSelected())
+    {
+        displayView->setMode(DisplayViewModeDrag);
+        buttonPan->setSelected(true);
+    }
+}
+
+void stopPan()
+{
+    if (buttonEdit->isSelected())
+    {
+        displayView->setMode(DisplayViewModeEdit);
+        buttonPan->setSelected(false);
+    }
+    else
+    {
+        displayView->setMode(DisplayViewModeNormal);
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+// Level
+
+void shiftLevel(int dx, int dy)
+{
+    if (buttonEdit->isSelected())
+    {
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

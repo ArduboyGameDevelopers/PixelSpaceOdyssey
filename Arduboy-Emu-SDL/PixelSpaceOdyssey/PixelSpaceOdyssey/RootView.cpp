@@ -42,9 +42,12 @@ void RootView::render(SDL_Renderer* render) const
     for (int i = 0; i < _children->size(); ++i)
     {
         View* view = _children->get(i);
-        SDL_Rect viewRect = view->rect();
-        SDL_RenderSetClipRect(render, &viewRect);
-        view->render(render);
+        if (view->visible())
+        {
+            SDL_Rect viewRect = view->rect();
+            SDL_RenderSetClipRect(render, &viewRect);
+            view->render(render);
+        }
     }
     SDL_RenderSetClipRect(render, &_rect);
 }

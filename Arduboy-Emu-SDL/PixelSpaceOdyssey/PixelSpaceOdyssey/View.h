@@ -22,6 +22,7 @@ OBJECT_DEF(View)
 private:
     bool _hasMouse;
     bool _intractable;
+    bool _visible;
     
 protected:
     SDL_Rect _rect;
@@ -29,14 +30,16 @@ protected:
 public:
     View() :
         _hasMouse(false),
-        _intractable(true)
+        _intractable(true),
+        _visible(true)
     {
         _rect = { 0, 0, 0, 0 };
     }
     
     View(int width, int height) :
         _hasMouse(false),
-        _intractable(true)
+        _intractable(true),
+        _visible(true)
     {
         _rect = { 0, 0, width, height };
     }
@@ -71,6 +74,9 @@ public:
     
     inline bool intractable() const { return _intractable; }
     inline void setIntractable(bool intractable) { _intractable = intractable; }
+    
+    inline bool visible() const { return _visible; }
+    inline void setVisible(bool visible) { _visible = visible; }
     
     inline bool containsPoint(int x, int y) const { return x >= left() && x < right() && y >= top() && y < bottom(); }
 };
