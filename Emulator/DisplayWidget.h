@@ -5,13 +5,6 @@
 #include <QOpenGLWidget>
 #include <QPainter>
 
-extern const int PIXEL_WIDTH;
-extern const int PIXEL_HEIGHT;
-extern const int GRID_CELL_WIDTH;
-extern const int GRID_CELL_HEIGHT;
-extern const int GRID_CELL_WIDTH_PX;
-extern const int GRID_CELL_HEIGHT_PX;
-
 typedef QRect Rect;
 
 class RectList

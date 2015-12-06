@@ -50,4 +50,6 @@ protected:
     inline void setIndices(uint8_t* indices) { _indices = indices; }
 };
 
+extern void setGameLevel(Level *level);
+
 #endif // LEVEL_H

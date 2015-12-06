@@ -1,6 +1,8 @@
 #include <string.h>
 
 #include "Level.h"
+#include "Constants.h"
+#include "game.h"
 
 #include <QFile>
 #include <QJsonObject>
@@ -117,4 +119,21 @@ void Level::writeToFile(const QString &filename)
         file.write(saveDoc.toJson());
         file.close();
     }
+}
+
+void setGameLevel(Level *level)
+{
+    int cols = level->cols();
+    int rows = level->rows();
+    
+    player.x = S2W(level->playerX());
+    player.y = S2W(level->playerY());
+    // player.dir = level->direction();
+    
+    tileMap.indices = level->indices();
+    tileMap.rows = rows;
+    tileMap.cols = cols;
+    
+    tileMapWidth = S2W(cols * GRID_CELL_WIDTH);
+    tileMapHeight = S2W(rows * GRID_CELL_HEIGHT);
 }

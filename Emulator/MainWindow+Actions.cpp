@@ -5,8 +5,7 @@
 #include "EditorTools.h"
 #include "EditorState.h"
 #include "Settings.h"
-
-#include "Arduboy.h"
+#include "Constants.h"
 
 #include <QFileDialog>
 
@@ -80,8 +79,8 @@ void MainWindow::setEditMode(bool editMode)
 
 void MainWindow::onActionNew()
 {
-    int rows = HEIGHT / GRID_CELL_HEIGHT;;
-    int cols = WIDTH / GRID_CELL_WIDTH;
+    int rows = DISPLAY_HEIGHT / GRID_CELL_HEIGHT;;
+    int cols = DISPLAY_WIDTH / GRID_CELL_WIDTH;
     int indexCount = rows * cols;
     
     uint8_t indices[indexCount];
@@ -98,9 +97,6 @@ void MainWindow::onActionNew()
         indices[i1 * cols + j] = 16;
         indices[i2 * cols + j] = 16;
     }
-    
-    player.x = S2W(cols / 2 * GRID_CELL_WIDTH);
-    player.y = S2W(rows / 2 * GRID_CELL_HEIGHT);
     
     Level *level = new Level(indices, rows, cols);
     tileMap.indices = level->indices();

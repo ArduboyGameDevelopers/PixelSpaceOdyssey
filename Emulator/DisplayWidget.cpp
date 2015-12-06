@@ -2,9 +2,9 @@
 
 #include "drawing.h"
 #include "game.h"
-#include "Arduboy.h"
 #include "EditorTool.h"
 #include "EditorPanTool.h"
+#include "Constants.h"
 
 #include <QPainter>
 #include <QDebug>
@@ -12,21 +12,12 @@
 #define RECT_COLOR_PIXEL 0, 0, 0
 #define RECT_COLOR_GRID  241, 245, 248
 
-const int PIXEL_WIDTH         = 4;
-const int PIXEL_HEIGHT        = 4;
-
-const int GRID_CELL_WIDTH     = 8;
-const int GRID_CELL_HEIGHT    = 8;
-
-const int GRID_CELL_WIDTH_PX  = GRID_CELL_WIDTH * PIXEL_WIDTH;
-const int GRID_CELL_HEIGHT_PX = GRID_CELL_HEIGHT * PIXEL_HEIGHT;
-
-static const int GRID_ROWS = WIDTH / GRID_CELL_WIDTH + 2;
-static const int GRID_COLS = HEIGHT / GRID_CELL_HEIGHT + 2;
+static const int GRID_ROWS = DISPLAY_WIDTH / GRID_CELL_WIDTH + 2;
+static const int GRID_COLS = DISPLAY_HEIGHT / GRID_CELL_HEIGHT + 2;
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
     QOpenGLWidget(parent),
-    _pixelRects(WIDTH * HEIGHT, RECT_COLOR_PIXEL),
+    _pixelRects(DISPLAY_WIDTH * DISPLAY_HEIGHT, RECT_COLOR_PIXEL),
     _gridRects(GRID_ROWS * GRID_COLS, RECT_COLOR_GRID),
     _currentTool(NULL),
     _gridVisible(false)

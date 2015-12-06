@@ -3,7 +3,7 @@
 #include "DisplayWidget.h"
 #include "drawing.h"
 #include "game.h"
-#include <Arduino.h>
+#include "Constants.h"
 
 EditorPanTool::EditorPanTool(DisplayWidget *displayWidget) :
     EditorTool(displayWidget)
@@ -37,8 +37,8 @@ void EditorPanTool::onMouseMoved(int x, int y)
 
         int16_t maxCamX = tileMapWidth - CAM_WIDTH_HALF;
         int16_t maxCamY = tileMapHeight - CAM_HEIGHT_HALF;
-        camX = constrain(camX, CAM_WIDTH_HALF, maxCamX);
-        camY = constrain(camY, CAM_HEIGHT_HALF, maxCamY);
+        camX = qBound(camX, CAM_WIDTH_HALF, maxCamX);
+        camY = qBound(camY, CAM_HEIGHT_HALF, maxCamY);
     }
 }
 

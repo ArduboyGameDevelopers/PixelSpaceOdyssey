@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     TilesWidget.cpp \
     Tileset.cpp \
     Object.cpp \
-    Settings.cpp
+    Settings.cpp \
+    Constants.cpp
 
 HEADERS  += \
     DisplayWidget.h \
@@ -48,7 +49,8 @@ HEADERS  += \
     Tileset.h \
     Object.h \
     EditorTools.h \
-    Settings.h
+    Settings.h \
+    Constants.h
 
 FORMS    += mainwindow.ui
 

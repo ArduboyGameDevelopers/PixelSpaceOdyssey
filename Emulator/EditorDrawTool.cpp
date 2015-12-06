@@ -4,6 +4,7 @@
 #include "EditorState.h"
 #include "drawing.h"
 #include "game.h"
+#include "Constants.h"
 
 static int gridIndexFromCords(int x, int y);
 
