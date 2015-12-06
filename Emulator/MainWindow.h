@@ -27,7 +27,9 @@ public slots:
     void runUpdate();
 
     void onActionNew();
+    void onActionOpen();
     void onActionSave();
+    void onActionSaveAs();
 
     void onActionPlay();
     void onActionPause();

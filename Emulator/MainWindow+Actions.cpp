@@ -3,29 +3,38 @@
 #include "ui_mainwindow.h"
 #include "Tileset.h"
 #include "EditorTools.h"
+#include "EditorState.h"
 #include "Settings.h"
+
+#include "Arduboy.h"
+
+#include <QFileDialog>
 
 void MainWindow::setupActions()
 {
-    QAction *actionNew   = _ui->actionNew;
-    QAction *actionSave  = _ui->actionSave;
-    QAction *actionPlay  = _ui->actionPlay;
-    QAction *actionPause = _ui->actionPause;
-    QAction *actionStep  = _ui->actionStep;
-    QAction *actionGrid  = _ui->actionGrid;
-    QAction *actionEdit  = _ui->actionEdit;
+    QAction *actionNew    = _ui->actionNew;
+    QAction *actionOpen   = _ui->actionOpen;
+    QAction *actionSave   = _ui->actionSave;
+    QAction *actionSaveAs = _ui->actionSaveAs;
+    QAction *actionPlay   = _ui->actionPlay;
+    QAction *actionPause  = _ui->actionPause;
+    QAction *actionStep   = _ui->actionStep;
+    QAction *actionGrid   = _ui->actionGrid;
+    QAction *actionEdit   = _ui->actionEdit;
 
     // set state
     setPauseMode(emulator.paused());
 
     // connect slots
-    connect(actionNew,   SIGNAL(changed()),       this, SLOT(onActionNew()));
-    connect(actionSave,  SIGNAL(changed()),       this, SLOT(onActionSave()));
-    connect(actionStep,  SIGNAL(triggered()),     this, SLOT(onActionStep()));
-    connect(actionPlay,  SIGNAL(triggered()),     this, SLOT(onActionPlay()));
-    connect(actionPause, SIGNAL(triggered()),     this, SLOT(onActionPause()));
-    connect(actionEdit,  SIGNAL(triggered(bool)), this, SLOT(onActionEdit(bool)));
-    connect(actionGrid,  SIGNAL(toggled(bool)),   this, SLOT(onActionToggleGrid(bool)));
+    connect(actionNew,    SIGNAL(triggered()),     this, SLOT(onActionNew()));
+    connect(actionOpen,   SIGNAL(triggered()),     this, SLOT(onActionOpen()));
+    connect(actionSave,   SIGNAL(triggered()),     this, SLOT(onActionSave()));
+    connect(actionSaveAs, SIGNAL(triggered()),     this, SLOT(onActionSaveAs()));
+    connect(actionStep,   SIGNAL(triggered()),     this, SLOT(onActionStep()));
+    connect(actionPlay,   SIGNAL(triggered()),     this, SLOT(onActionPlay()));
+    connect(actionPause,  SIGNAL(triggered()),     this, SLOT(onActionPause()));
+    connect(actionEdit,   SIGNAL(triggered(bool)), this, SLOT(onActionEdit(bool)));
+    connect(actionGrid,   SIGNAL(toggled(bool)),   this, SLOT(onActionToggleGrid(bool)));
     
     // grid
     bool gridVisible = Settings::getBool(kSettingsGridVisible);
@@ -71,10 +80,58 @@ void MainWindow::setEditMode(bool editMode)
 
 void MainWindow::onActionNew()
 {
+    int rows = HEIGHT / GRID_CELL_HEIGHT;;
+    int cols = WIDTH / GRID_CELL_WIDTH;
+    int indexCount = rows * cols;
+    
+    uint8_t indices[indexCount];
+    memset(indices, 0, sizeof(indices));
+    
+    for (int i = 0, j1 = 0, j2 = cols - 1; i < rows; ++i)
+    {
+        indices[i * cols + j1] = 16;
+        indices[i * cols + j2] = 16;
+    }
+    
+    for (int i1 = 0, i2 = rows - 1, j = 0; j < cols; ++j)
+    {
+        indices[i1 * cols + j] = 16;
+        indices[i2 * cols + j] = 16;
+    }
+    
+    player.x = S2W(cols / 2 * GRID_CELL_WIDTH);
+    player.y = S2W(rows / 2 * GRID_CELL_HEIGHT);
+    
+    Level *level = new Level(indices, rows, cols);
+    tileMap.indices = level->indices();
+    tileMap.rows = level->rows();
+    tileMap.cols = level->cols();
+    
+    tileMapWidth = S2W(cols * GRID_CELL_WIDTH);
+    tileMapHeight = S2W(rows * GRID_CELL_HEIGHT);
+}
+
+void MainWindow::onActionOpen()
+{
+    QString filename = QFileDialog::getOpenFileName(NULL, "Open Level", "", "Level Files (*.pso)");
+    if (filename.length() > 0)
+    {
+        Level *level = Level::readFromFile(filename);
+        editorState.level = level;
+        tileMap.indices = level->indices();
+        tileMap.rows = level->rows();
+        tileMap.cols = level->cols();
+    }
 }
 
 void MainWindow::onActionSave()
 {
+    editorState.level->writeToFile("level.pso");
+}
+
+void MainWindow::onActionSaveAs()
+{
+    QString filename = QFileDialog::getSaveFileName(NULL, "Save Level As", "", "Level Files (*.pso)");
 }
 
 void MainWindow::onActionPlay()

@@ -90,15 +90,13 @@
      <string>File</string>
     </property>
     <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
    </widget>
    <addaction name="menuFile"/>
   </widget>
   <action name="actionNew">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/icon_new.png</normaloff>:/icon_new.png</iconset>
-   </property>
    <property name="text">
     <string>New...</string>
    </property>
@@ -110,10 +108,6 @@
    </property>
   </action>
   <action name="actionSave">
-   <property name="icon">
-    <iconset>
-     <normaloff>:/icon_save.png</normaloff>:/icon_save.png</iconset>
-   </property>
    <property name="text">
     <string>Save</string>
    </property>
@@ -203,6 +197,22 @@
    </property>
    <property name="shortcut">
     <string>E</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="toolTip">
+    <string>Open level</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSaveAs">
+   <property name="text">
+    <string>Save as...</string>
    </property>
   </action>
  </widget>

@@ -3,10 +3,13 @@
 
 #include "tilemap.h"
 
+#include "Object.h"
 #include <QtGlobal>
 
-class Level
+class Level : public Object
 {
+    OBJECT_DEF(Level)
+    
 private:
     uint8_t  _tileSetId;
     uint8_t* _indices;

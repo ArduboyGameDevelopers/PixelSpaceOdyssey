@@ -45,7 +45,7 @@ const int16_t CAM_RANGE_Y       = S2W(15);
 
 static Arduboy display;
 
-static Character player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
+Character player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
 static bool playerCrouching = false;
 static bool playerJumping = false;
 static bool jumpPressed = false;
