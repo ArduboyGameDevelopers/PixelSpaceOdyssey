@@ -15,7 +15,7 @@ DEFINES += EMULATOR
 include(PixelSpaceOdyssey.pri)
 include(Arduboy.pri)
 
-INCLUDEPATH += ../Arduboy-Emu-SDL/Platform
+INCLUDEPATH += Platform
 
 SOURCES += main.cpp\
     DisplayWidget.cpp \
@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     MainWindow+Actions.cpp \
     TilesWidget.cpp \
     Tileset.cpp \
-    Object.cpp
+    Object.cpp \
+    Settings.cpp
 
 HEADERS  += \
     DisplayWidget.h \
@@ -46,7 +47,8 @@ HEADERS  += \
     TilesWidget.h \
     Tileset.h \
     Object.h \
-    EditorTools.h
+    EditorTools.h \
+    Settings.h
 
 FORMS    += mainwindow.ui
 

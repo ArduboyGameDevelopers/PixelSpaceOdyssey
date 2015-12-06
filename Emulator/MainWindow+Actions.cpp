@@ -3,6 +3,7 @@
 #include "ui_mainwindow.h"
 #include "Tileset.h"
 #include "EditorTools.h"
+#include "Settings.h"
 
 void MainWindow::setupActions()
 {
@@ -27,12 +28,14 @@ void MainWindow::setupActions()
     connect(actionGrid,  SIGNAL(toggled(bool)),   this, SLOT(onActionToggleGrid(bool)));
     
     // grid
-    actionGrid->setChecked(displayWidget()->gridVisible());
+    bool gridVisible = Settings::getBool(kSettingsGridVisible);
+    displayWidget()->setGridVisible(gridVisible);
+    actionGrid->setChecked(gridVisible);
 }
 
 void MainWindow::setupTileSet(TilesWidget *tilesWidget)
 {
-    QImageReader imageReader("/Users/weee/dev/projects/arduboy/games/PixelSpaceOdysspy/Arduboy-Emu-SDL/PixelSpaceOdyssey/PixelSpaceOdyssey/tiles.bmp");
+    QImageReader imageReader("/Users/weee/dev/projects/arduboy/games/PixelSpaceOdysspy/Emulator/Images/tiles.png");
     QImage tilesImage = imageReader.read();
     TileSet* tileSet = new TileSet(tilesImage);
     tilesWidget->setTileSet(tileSet);
@@ -107,4 +110,5 @@ void MainWindow::onActionStep()
 void MainWindow::onActionToggleGrid(bool selected)
 {
     displayWidget()->setGridVisible(selected);
+    Settings::setBool(kSettingsGridVisible, selected);
 }
