@@ -3,8 +3,8 @@
 
 #include "common.h"
 
-#define TILES_TB_CAVERNS_COUNT 23
+#define TILES_TB_CAVERNS_COUNT 31
 
-extern PgmPtr const TILES_TB_CAVERNS[];
+extern PgmPtr WEAK_CONST TILES_TB_CAVERNS[];
 
 #endif /* tiles_tb_caverns_h */

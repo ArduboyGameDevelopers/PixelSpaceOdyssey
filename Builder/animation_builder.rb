@@ -88,7 +88,7 @@ class AnimationBuilder
         frames_names << var_name
 
         source_cpp.println
-        source_cpp.println "PROGMEM static const unsigned char #{var_name}[] ="
+        source_cpp.println "PROGMEM WEAK_CONST unsigned char #{var_name}[] ="
         source_cpp.block_open
         source_cpp.println "#{frame.x}, #{frame.y}, #{frame.width}, #{frame.height},"
         source_cpp.println "#{data.join ', '}"

@@ -3,6 +3,8 @@
 
 #include "Level.h"
 
+#include <QList>
+
 class TileSet;
 
 class EditorState
@@ -12,14 +14,17 @@ public:
     virtual ~EditorState();
 
 public:
-    inline TileSet *tileSet() const { return _tileSet; }
-    void setTileSet(TileSet *tileSet);
+    void addTileSet(TileSet *tileSet);
+
+    inline TileSet *currentTileSet() const { return _tiles.at(_tileSetIndex); }
+    void setTileSetIndex(int tileSetIndex);
 
     inline int tileIndex() const { return _tileIndex; }
     inline void setTileIndex(int tileIndex) { _tileIndex = tileIndex; }
 
 private:
-    TileSet* _tileSet;
+    QList<TileSet *> _tiles;
+    int _tileSetIndex;
     int _tileIndex;
 };
 

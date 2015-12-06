@@ -32,9 +32,10 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->setupUi(this);
     _displayWidget = _ui->displayWidget;
     
+    loadTiles();
+    
     setupToolBar(_ui->toolBar);
     setupActions();
-    setupTileSet(_ui->tilesWidget);
 
     Level *level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
     level->setPlayerX(W2S(player.x));
@@ -55,6 +56,44 @@ MainWindow::~MainWindow()
     _instance = NULL;
     RELEASE(_lastTool);
     delete _ui;
+}
+
+void MainWindow::loadTiles()
+{
+    QDir tilesDir("Tiles");
+    if (!tilesDir.exists())
+    {
+        QMessageBox::critical(NULL, "Error", "Can't find 'Tiles' directory");
+    }
+    
+    QComboBox *tilesComboBox = _ui->tilesComboBox;
+    
+    QFileInfoList files = tilesDir.entryInfoList(QStringList("*.png"));
+    for (int i = 0; i < files.size(); ++i)
+    {
+        TileSet* tileSet = new TileSet(files.at(i).filePath());
+        editorState.addTileSet(tileSet);
+        tilesComboBox->addItem(tileSet->name());
+        tileSet->release();
+    }
+    
+    selectTileSet(0);
+    
+    connect(tilesComboBox, SIGNAL(activated(int)), this, SLOT(onTileSetSelected(int)));
+}
+
+void MainWindow::selectTileSet(int index)
+{
+    editorState.setTileSetIndex(index);
+    
+    TileSet *scaledTileSet = new TileSet(*editorState.currentTileSet(), 4);
+    _ui->tilesWidget->setTileSet(scaledTileSet);
+    scaledTileSet->release();
+}
+
+void MainWindow::onTileSetSelected(int index)
+{
+    selectTileSet(index);
 }
 
 void MainWindow::runUpdate()

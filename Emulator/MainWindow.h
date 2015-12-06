@@ -34,6 +34,7 @@ public slots:
     void onActionSize();
     void onActionOffset();
 
+    void onActionImportTileSet();
     void onActionImport();
     void onActionExport();
 
@@ -43,6 +44,8 @@ public slots:
     void onActionStep();
 
     void onActionToggleGrid(bool selected);
+    
+    void onTileSetSelected(int index);
 
 public:
     void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
@@ -55,9 +58,11 @@ protected:
     void keyReleaseEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 
 private:
+    void loadTiles();
+    void selectTileSet(int index);
+    
     void setupToolBar(QToolBar* toolBar);
     void setupActions();
-    void setupTileSet(TilesWidget *tilesWidget);
     
     void setPauseMode(bool pauseMode);
     void setEditMode(bool editMode);

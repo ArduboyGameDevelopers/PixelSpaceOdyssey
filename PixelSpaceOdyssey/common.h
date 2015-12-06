@@ -35,7 +35,7 @@
 #define DM_FLIP_X 8
 #define DM_FLIP_Y 16
 
-typedef const unsigned char* PgmPtr;
+typedef WEAK_CONST unsigned char* PgmPtr;
 typedef unsigned long TimeInterval;
 typedef uint8_t DrawMode;
 

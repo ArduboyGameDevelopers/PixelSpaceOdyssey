@@ -6,6 +6,29 @@
 #include <QImage>
 #include <QPainter>
 
+#include "common.h"
+
+class PgmMem : public Object
+{
+    OBJECT_DEF(PgmMem)
+    
+public:
+    PgmMem(const QImage &image);
+    virtual ~PgmMem();
+    
+public:
+    PgmPtr dataCopy() const;
+
+    inline PgmPtr data() const { return _data; }
+    inline int width() const   { return _width; }
+    inline int height() const  { return _height; }
+    
+private:
+    PgmPtr _data;
+    int    _width;
+    int    _height;
+};
+
 class TileImage
 {
 public:
@@ -31,7 +54,8 @@ class TileSet : public Object
     OBJECT_DEF(TileSet)
 
 public:
-    TileSet(QImage image);
+    TileSet(const QString &filename);
+    TileSet(const QString &name, const QImage &image);
     TileSet(const TileSet &other, int scale = 1);
     virtual ~TileSet();
 
@@ -42,6 +66,7 @@ public:
     int indexOfTile(TileImage *tileImage) const;
 
 public:
+    inline const QString name() const { return _name; }
     inline int tileCount() const { return _tileCount; }
     inline int tileWidth() const { return _tileWidth; }
     inline int tileHeight() const { return _tileHeight; }
@@ -52,6 +77,10 @@ public:
     }
 
 private:
+    void init(const QImage &image);
+    
+private:
+    QString _name;
     TileImage** _images;
     int _tileWidth;
     int _tileHeight;

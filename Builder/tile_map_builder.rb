@@ -90,7 +90,7 @@ class TileMapBuilder
     source_h.println "#define TILEMAP_#{basename.upcase}_WIDTH  #{tile_map.width}"
     source_h.println "#define TILEMAP_#{basename.upcase}_HEIGHT #{tile_map.height}"
     source_h.println
-    source_h.println "extern const uint8_t #{indices_var_name}[];"
+    source_h.println "extern WEAK_CONST uint8_t #{indices_var_name}[];"
 
     source_cpp.println '#include <avr/pgmspace.h>'
     source_cpp.println
@@ -99,7 +99,7 @@ class TileMapBuilder
     source_cpp.println "#include \"common.h\""
     source_cpp.println
 
-    source_cpp.println "PROGMEM const uint8_t #{indices_var_name}[] ="
+    source_cpp.println "PROGMEM WEAK_CONST uint8_t #{indices_var_name}[] ="
     source_cpp.block_open
     (0..tile_map.height-1).each do |r|
       (0..tile_map.width-1).each do |c|

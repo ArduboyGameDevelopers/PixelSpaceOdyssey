@@ -26,41 +26,31 @@ void MainWindow::setupActions()
     QAction *actionStep   = _ui->actionStep;
     QAction *actionGrid   = _ui->actionGrid;
     QAction *actionEdit   = _ui->actionEdit;
+    QAction *actionImportTileset = _ui->actionImportTileset;
 
     // set state
     setPauseMode(emulator.paused());
 
     // connect slots
-    connect(actionNew,    SIGNAL(triggered()),     this, SLOT(onActionNew()));
-    connect(actionOpen,   SIGNAL(triggered()),     this, SLOT(onActionOpen()));
-    connect(actionSave,   SIGNAL(triggered()),     this, SLOT(onActionSave()));
-    connect(actionSaveAs, SIGNAL(triggered()),     this, SLOT(onActionSaveAs()));
-    connect(actionSize,   SIGNAL(triggered()),     this, SLOT(onActionSize()));
-    connect(actionOffset, SIGNAL(triggered()),     this, SLOT(onActionOffset()));
-    connect(actionImport, SIGNAL(triggered()),     this, SLOT(onActionImport()));
-    connect(actionExport, SIGNAL(triggered()),     this, SLOT(onActionExport()));
-    connect(actionStep,   SIGNAL(triggered()),     this, SLOT(onActionStep()));
-    connect(actionPlay,   SIGNAL(triggered()),     this, SLOT(onActionPlay()));
-    connect(actionPause,  SIGNAL(triggered()),     this, SLOT(onActionPause()));
-    connect(actionEdit,   SIGNAL(triggered(bool)), this, SLOT(onActionEdit(bool)));
-    connect(actionGrid,   SIGNAL(toggled(bool)),   this, SLOT(onActionToggleGrid(bool)));
+    connect(actionNew,           SIGNAL(triggered()),     this, SLOT(onActionNew()));
+    connect(actionOpen,          SIGNAL(triggered()),     this, SLOT(onActionOpen()));
+    connect(actionSave,          SIGNAL(triggered()),     this, SLOT(onActionSave()));
+    connect(actionSaveAs,        SIGNAL(triggered()),     this, SLOT(onActionSaveAs()));
+    connect(actionSize,          SIGNAL(triggered()),     this, SLOT(onActionSize()));
+    connect(actionOffset,        SIGNAL(triggered()),     this, SLOT(onActionOffset()));
+    connect(actionImportTileset, SIGNAL(triggered()),     this, SLOT(onActionImportTileSet()));
+    connect(actionImport,        SIGNAL(triggered()),     this, SLOT(onActionImport()));
+    connect(actionExport,        SIGNAL(triggered()),     this, SLOT(onActionExport()));
+    connect(actionStep,          SIGNAL(triggered()),     this, SLOT(onActionStep()));
+    connect(actionPlay,          SIGNAL(triggered()),     this, SLOT(onActionPlay()));
+    connect(actionPause,         SIGNAL(triggered()),     this, SLOT(onActionPause()));
+    connect(actionEdit,          SIGNAL(triggered(bool)), this, SLOT(onActionEdit(bool)));
+    connect(actionGrid,          SIGNAL(toggled(bool)),   this, SLOT(onActionToggleGrid(bool)));
     
     // grid
     bool gridVisible = Settings::getBool(kSettingsGridVisible);
     displayWidget()->setGridVisible(gridVisible);
     actionGrid->setChecked(gridVisible);
-}
-
-void MainWindow::setupTileSet(TilesWidget *tilesWidget)
-{
-    QImageReader imageReader("/Users/weee/dev/projects/arduboy/games/PixelSpaceOdysspy/Emulator/Images/tiles.png");
-    QImage tilesImage = imageReader.read();
-    TileSet* tileSet = new TileSet(tilesImage);
-    editorState.setTileSet(tileSet);
-    TileSet *scaledTileSet = new TileSet(*tileSet, 4);
-    tilesWidget->setTileSet(scaledTileSet);
-    scaledTileSet->release();
-    tileSet->release();
 }
 
 void MainWindow::setPauseMode(bool pauseMode)
@@ -158,6 +148,19 @@ void MainWindow::onActionOffset()
     
 }
 
+void MainWindow::onActionImportTileSet()
+{
+    QString filename = QFileDialog::getOpenFileName(NULL, "Import Tileset", "", "Image files (*.png)");
+    if (filename.length() > 0)
+    {
+        QImage image(filename);
+
+        TileSet *tileSet = new TileSet("foo", image);
+        editorState.addTileSet(tileSet);
+        tileSet->release();
+    }
+}
+
 void MainWindow::onActionImport()
 {
     QString filename = QFileDialog::getOpenFileName(NULL, "Import Level", "", "Image files (*.png)");
@@ -165,7 +168,7 @@ void MainWindow::onActionImport()
     {
         QImage image(filename);
         
-        Level *level = Level::readFromImage(image, editorState.tileSet());
+        Level *level = Level::readFromImage(image, editorState.currentTileSet());
         Level::setCurrent(level);
         level->release();
     }
@@ -180,7 +183,7 @@ void MainWindow::onActionExport()
     }
     
     Level *level = Level::current();
-    TileSet *tileSet = editorState.tileSet();
+    TileSet *tileSet = editorState.currentTileSet();
     
     const uint8_t *indices = level->indices();
     int rows = level->rows();

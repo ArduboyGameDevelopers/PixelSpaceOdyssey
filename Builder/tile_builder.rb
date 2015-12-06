@@ -79,7 +79,7 @@ class TileBuilder
     source_h.println
     source_h.println "#define #{tiles_var_name}_COUNT #{tiles.count}"
     source_h.println
-    source_h.println "extern PgmPtr const #{tiles_var_name}[];"
+    source_h.println "extern PgmPtr WEAK_CONST #{tiles_var_name}[];"
 
     source_cpp.println '#include <avr/pgmspace.h>'
     source_cpp.println
@@ -90,14 +90,14 @@ class TileBuilder
 
     tiles.each do |tile|
       prog_mem = tile.to_prog_mem
-      source_cpp.println "PROGMEM static const unsigned char #{tiles_var_name}_#{Utils.to_identifier(tile.name).upcase}[] = "
+      source_cpp.println "PROGMEM static WEAK_CONST unsigned char #{tiles_var_name}_#{Utils.to_identifier(tile.name).upcase}[] = "
       source_cpp.block_open
       source_cpp.println prog_mem.to_code
       source_cpp.block_close ';'
       source_cpp.println
     end
 
-    source_cpp.println "PgmPtr const #{tiles_var_name}[] ="
+    source_cpp.println "PgmPtr WEAK_CONST #{tiles_var_name}[] ="
     source_cpp.block_open
     tiles.each_with_index do |tile, index|
       source_cpp.print "#{tiles_var_name}_#{Utils.to_identifier(tile.name).upcase} /* #{index + 1} */"
