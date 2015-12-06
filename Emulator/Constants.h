@@ -3,7 +3,6 @@
 
 extern const int DISPLAY_WIDTH;
 extern const int DISPLAY_HEIGHT;
-
 extern const int PIXEL_WIDTH;
 extern const int PIXEL_HEIGHT;
 extern const int GRID_CELL_WIDTH;

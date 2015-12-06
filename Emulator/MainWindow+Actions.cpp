@@ -3,9 +3,9 @@
 #include "ui_mainwindow.h"
 #include "Tileset.h"
 #include "EditorTools.h"
-#include "EditorState.h"
 #include "Settings.h"
 #include "Constants.h"
+#include "Level.h"
 
 #include <QFileDialog>
 
@@ -113,16 +113,14 @@ void MainWindow::onActionOpen()
     if (filename.length() > 0)
     {
         Level *level = Level::readFromFile(filename);
-        editorState.level = level;
-        tileMap.indices = level->indices();
-        tileMap.rows = level->rows();
-        tileMap.cols = level->cols();
+        Level::setCurrent(level);
+        level->release();
     }
 }
 
 void MainWindow::onActionSave()
 {
-    editorState.level->writeToFile("level.pso");
+    Level::current()->writeToFile("level.pso");
 }
 
 void MainWindow::onActionSaveAs()

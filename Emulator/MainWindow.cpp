@@ -9,7 +9,6 @@
 #include "bridge.h"
 #include "platform.h"
 #include "Level.h"
-#include "EditorState.h"
 #include "game.h"
 
 #include "GameInput.h"
@@ -37,7 +36,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setupActions();
     setupTileSet(_ui->tilesWidget);
 
-    editorState.level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
+    Level *level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
+    Level::setCurrent(level);
+    level->release();
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(runUpdate()));

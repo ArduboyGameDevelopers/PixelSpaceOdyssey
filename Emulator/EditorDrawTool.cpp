@@ -27,10 +27,10 @@ void EditorDrawTool::paint(QPainter *painter)
 
 void EditorDrawTool::onMousePressed(int x, int y)
 {
-    if (editorState.tileIndex != -1)
+    if (editorState.tileIndex() != -1)
     {
         int gridIndex = gridIndexFromCords(x, y);
-        tileMap.indices[gridIndex] = editorState.tileIndex;
+        tileMap.indices[gridIndex] = editorState.tileIndex();
     }
 }
 
@@ -52,10 +52,10 @@ void EditorDrawTool::onMouseMoved(int x, int y)
         displayWidget()->repaint();
     }
     
-    if (mouseDown() && editorState.tileIndex != -1)
+    if (mouseDown() && editorState.tileIndex() != -1)
     {
         int gridIndex = gridIndexFromCords(x, y);
-        tileMap.indices[gridIndex] = editorState.tileIndex;
+        tileMap.indices[gridIndex] = editorState.tileIndex();
     }
 }
 

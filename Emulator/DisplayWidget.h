@@ -5,6 +5,8 @@
 #include <QOpenGLWidget>
 #include <QPainter>
 
+#include "Constants.h"
+
 typedef QRect Rect;
 
 class RectList

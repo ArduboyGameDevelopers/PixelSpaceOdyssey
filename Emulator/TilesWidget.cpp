@@ -51,7 +51,7 @@ void TilesWidget::mousePressEvent(QMouseEvent *event)
     int x = event->x();
     int y = event->y();
     _selectedIndex = tileIndexFromCords(x, y);
-    editorState.tileIndex = _selectedIndex + 1;
+    editorState.setTileIndex(_selectedIndex + 1);
 
     repaint();
 }

@@ -13,7 +13,7 @@
 
 static const uint8_t kVersion = 1;
 
-static QStringList readLines(const QString &filename);
+Level* Level::_currentLevel(NULL);
 
 Level::Level() :
     _tileSetId(0),
@@ -121,8 +121,12 @@ void Level::writeToFile(const QString &filename)
     }
 }
 
-void setGameLevel(Level *level)
+void Level::setCurrent(Level *level)
 {
+    Level *oldLevel = _currentLevel;
+    _currentLevel = RETAIN(level);
+    RELEASE(oldLevel);
+    
     int cols = level->cols();
     int rows = level->rows();
     

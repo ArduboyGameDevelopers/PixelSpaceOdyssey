@@ -1,3 +1,8 @@
 #include "EditorState.h"
 
-EditorState editorState = { NULL, 0 };
+EditorState editorState;
+
+EditorState::EditorState() :
+    _tileIndex(0)
+{
+}

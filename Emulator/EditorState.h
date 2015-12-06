@@ -3,10 +3,18 @@
 
 #include "Level.h"
 
-typedef struct _EditorState {
-    Level* level;
-    int tileIndex;
-} EditorState;
+class EditorState
+{
+public:
+    EditorState();
+
+public:
+    inline int tileIndex() const { return _tileIndex; }
+    inline void setTileIndex(int tileIndex) { _tileIndex = tileIndex; }
+
+private:
+    int _tileIndex;
+};
 
 extern EditorState editorState;
 

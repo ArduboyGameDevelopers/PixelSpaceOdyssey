@@ -9,14 +9,6 @@
 class Level : public Object
 {
     OBJECT_DEF(Level)
-    
-private:
-    uint8_t  _tileSetId;
-    uint8_t* _indices;
-    uint8_t  _rows;
-    uint8_t  _cols;
-    uint16_t _playerX;
-    uint16_t _playerY;
 
 protected:
     Level();
@@ -28,6 +20,10 @@ public:
 public:
     static Level* readFromFile(const QString &filename);
     void writeToFile(const QString &filename);
+    
+public:
+    static Level *current() { return _currentLevel; }
+    static void setCurrent(Level *level);
 
 public:
     inline uint8_t* indices() const { return _indices; }
@@ -48,8 +44,15 @@ public:
 
 protected:
     inline void setIndices(uint8_t* indices) { _indices = indices; }
+    
+private:
+    static Level * _currentLevel;
+    uint8_t  _tileSetId;
+    uint8_t* _indices;
+    uint8_t  _rows;
+    uint8_t  _cols;
+    uint16_t _playerX;
+    uint16_t _playerY;
 };
-
-extern void setGameLevel(Level *level);
 
 #endif // LEVEL_H
