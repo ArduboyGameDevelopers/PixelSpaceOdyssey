@@ -102,7 +102,7 @@ Level *Level::readFromImage(const QImage &image, const TileSet *tileSet)
             int y = i * tileHeight;
 
             TileImage tileImage(image, x, y, tileWidth, tileHeight);
-            indices[nextIndex++] = tileSet->indexOfTile(&tileImage);
+            indices[nextIndex++] = tileSet->indexOfTile(&tileImage) + 1;
         }
     }
 

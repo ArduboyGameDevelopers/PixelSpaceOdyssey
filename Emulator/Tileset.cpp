@@ -74,7 +74,41 @@ TileImage::TileImage(const QImage &image, int x, int y, int w, int h) :
 {
 }
 
+inline static bool isWhite(QRgb pixel)
+{
+    int r = qRed(pixel);
+    int g = qGreen(pixel);
+    int b = qBlue(pixel);
+    
+    return r > 250 && g > 250 & b > 250;
+}
+
 bool TileImage::matches(const TileImage *other)
 {
-    return image() != other->image();
+    const QImage &image1 = image();
+    const QImage &image2 = other->image();
+
+    int width = image1.width();
+    int height = image1.height();
+    
+    if (width != image2.width() || height != image2.height())
+    {
+        return false;
+    }
+    
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            bool white1 = isWhite(image1.pixel(x, y));
+            bool white2 = isWhite(image2.pixel(x, y));
+            
+            if (white1 ^ white2)
+            {
+                return false;
+            }
+        }
+    }
+    
+    return true;
 }
