@@ -1,6 +1,7 @@
 #include <string.h>
 
 #include "Level.h"
+#include "Tileset.h"
 #include "Constants.h"
 #include "game.h"
 
@@ -81,6 +82,31 @@ Level* Level::readFromFile(const QString &filename)
     }
     
     return NULL;
+}
+
+Level *Level::readFromImage(const QImage &image, const TileSet *tileSet)
+{
+    int tileWidth = tileSet->tileWidth();
+    int tileHeight = tileSet->tileHeight();
+
+    int rows = image.height() / tileWidth;
+    int cols = image.width() / tileHeight;
+
+    uint8_t indices[rows * cols];
+    int nextIndex = 0;
+    for (int i = 0; i < rows; ++i)
+    {
+        for (int j = 0; j < cols; ++j)
+        {
+            int x = j * tileWidth;
+            int y = i * tileHeight;
+
+            TileImage tileImage(image, x, y, tileWidth, tileHeight);
+            indices[nextIndex++] = tileSet->indexOfTile(&tileImage);
+        }
+    }
+
+    return new Level(indices, rows, cols);
 }
 
 void Level::writeToFile(const QString &filename)

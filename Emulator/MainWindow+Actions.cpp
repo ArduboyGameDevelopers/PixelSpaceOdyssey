@@ -5,6 +5,7 @@
 #include "EditorTools.h"
 #include "Settings.h"
 #include "Constants.h"
+#include "EditorState.h"
 #include "Level.h"
 
 #include "Input2Dialog.h"
@@ -18,6 +19,8 @@ void MainWindow::setupActions()
     QAction *actionSaveAs = _ui->actionSaveAs;
     QAction *actionSize   = _ui->actionSize;
     QAction *actionOffset = _ui->actionOffset;
+    QAction *actionImport = _ui->actionImportImage;
+    QAction *actionExport = _ui->actionExportImage;
     QAction *actionPlay   = _ui->actionPlay;
     QAction *actionPause  = _ui->actionPause;
     QAction *actionStep   = _ui->actionStep;
@@ -34,6 +37,8 @@ void MainWindow::setupActions()
     connect(actionSaveAs, SIGNAL(triggered()),     this, SLOT(onActionSaveAs()));
     connect(actionSize,   SIGNAL(triggered()),     this, SLOT(onActionSize()));
     connect(actionOffset, SIGNAL(triggered()),     this, SLOT(onActionOffset()));
+    connect(actionImport, SIGNAL(triggered()),     this, SLOT(onActionImport()));
+    connect(actionExport, SIGNAL(triggered()),     this, SLOT(onActionExport()));
     connect(actionStep,   SIGNAL(triggered()),     this, SLOT(onActionStep()));
     connect(actionPlay,   SIGNAL(triggered()),     this, SLOT(onActionPlay()));
     connect(actionPause,  SIGNAL(triggered()),     this, SLOT(onActionPause()));
@@ -51,7 +56,10 @@ void MainWindow::setupTileSet(TilesWidget *tilesWidget)
     QImageReader imageReader("/Users/weee/dev/projects/arduboy/games/PixelSpaceOdysspy/Emulator/Images/tiles.png");
     QImage tilesImage = imageReader.read();
     TileSet* tileSet = new TileSet(tilesImage);
-    tilesWidget->setTileSet(tileSet);
+    editorState.setTileSet(tileSet);
+    TileSet *scaledTileSet = new TileSet(*tileSet, 4);
+    tilesWidget->setTileSet(scaledTileSet);
+    scaledTileSet->release();
     tileSet->release();
 }
 
@@ -148,6 +156,54 @@ void MainWindow::onActionSize()
 void MainWindow::onActionOffset()
 {
     
+}
+
+void MainWindow::onActionImport()
+{
+    QString filename = QFileDialog::getOpenFileName(NULL, "Import Level", "", "Image files (*.png)");
+    if (filename.length() > 0)
+    {
+        QImage image(filename);
+        
+        Level *level = Level::readFromImage(image, editorState.tileSet());
+        Level::setCurrent(level);
+        level->release();
+    }
+}
+
+void MainWindow::onActionExport()
+{
+    QString filename = QFileDialog::getSaveFileName(NULL, "Save Level", "", "Image files (*.png)");
+    if (filename.length() == 0)
+    {
+        return;
+    }
+    
+    Level *level = Level::current();
+    TileSet *tileSet = editorState.tileSet();
+    
+    const uint8_t *indices = level->indices();
+    int rows = level->rows();
+    int cols = level->cols();
+    
+    QImage image(cols * GRID_CELL_WIDTH, rows * GRID_CELL_HEIGHT, QImage::Format_RGB32);
+    
+    int index = 0;
+    QPainter painter(&image);
+    painter.fillRect(0, 0, image.width(), image.height(), Qt::white);
+    for (int i = 0; i < rows; ++i)
+    {
+        for (int j = 0; j < cols; ++j)
+        {
+            int tileIndex = indices[index++];
+            if (tileIndex > 0)
+            {
+                tileSet->drawTile(&painter, tileIndex - 1, j * tileSet->tileWidth(), i * tileSet->tileHeight());
+            }
+        }
+    }
+    
+    image.save(filename, "PNG");
 }
 
 void MainWindow::onActionPlay()

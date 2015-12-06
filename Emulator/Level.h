@@ -4,7 +4,10 @@
 #include "tilemap.h"
 
 #include "Object.h"
+#include "Tileset.h"
+
 #include <QtGlobal>
+#include <QImage>
 
 class Level : public Object
 {
@@ -19,6 +22,7 @@ public:
 
 public:
     static Level* readFromFile(const QString &filename);
+    static Level* readFromImage(const QImage &image, const TileSet* tileSet);
     void writeToFile(const QString &filename);
     
 public:

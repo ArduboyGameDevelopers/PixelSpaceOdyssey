@@ -93,6 +93,7 @@
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuLevel">
     <property name="title">
@@ -100,6 +101,9 @@
     </property>
     <addaction name="actionSize"/>
     <addaction name="actionOffset"/>
+    <addaction name="separator"/>
+    <addaction name="actionImportImage"/>
+    <addaction name="actionExportImage"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuLevel"/>
@@ -231,6 +235,21 @@
   <action name="actionOffset">
    <property name="text">
     <string>Offset...</string>
+   </property>
+  </action>
+  <action name="actionFrom_png">
+   <property name="text">
+    <string>From png...</string>
+   </property>
+  </action>
+  <action name="actionImportImage">
+   <property name="text">
+    <string>Import image...</string>
+   </property>
+  </action>
+  <action name="actionExportImage">
+   <property name="text">
+    <string>Export image...</string>
    </property>
   </action>
  </widget>

@@ -34,6 +34,9 @@ public slots:
     void onActionSize();
     void onActionOffset();
 
+    void onActionImport();
+    void onActionExport();
+
     void onActionPlay();
     void onActionPause();
     void onActionEdit(bool selected);
