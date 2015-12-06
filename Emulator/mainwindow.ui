@@ -94,7 +94,15 @@
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
    </widget>
+   <widget class="QMenu" name="menuLevel">
+    <property name="title">
+     <string>Level</string>
+    </property>
+    <addaction name="actionSize"/>
+    <addaction name="actionOffset"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuLevel"/>
   </widget>
   <action name="actionNew">
    <property name="text">
@@ -213,6 +221,16 @@
   <action name="actionSaveAs">
    <property name="text">
     <string>Save as...</string>
+   </property>
+  </action>
+  <action name="actionSize">
+   <property name="text">
+    <string>Size...</string>
+   </property>
+  </action>
+  <action name="actionOffset">
+   <property name="text">
+    <string>Offset...</string>
    </property>
   </action>
  </widget>

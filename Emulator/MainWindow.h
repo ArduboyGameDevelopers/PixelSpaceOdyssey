@@ -30,6 +30,9 @@ public slots:
     void onActionOpen();
     void onActionSave();
     void onActionSaveAs();
+    
+    void onActionSize();
+    void onActionOffset();
 
     void onActionPlay();
     void onActionPause();

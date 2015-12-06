@@ -37,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setupTileSet(_ui->tilesWidget);
 
     Level *level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
+    level->setPlayerX(W2S(player.x));
+    level->setPlayerY(W2S(player.y));
     Level::setCurrent(level);
     level->release();
 
@@ -111,7 +113,7 @@ void MainWindow::setEditorTool(EditorTool *tool)
 
 void MainWindow::pushEditorTool(EditorTool *tool)
 {
-    Q_ASSERT(_lastTool == NULL);
+     Q_ASSERT(_lastTool == NULL);
     _lastTool = RETAIN(displayWidget()->currentTool());
     
     setEditorTool(tool);
@@ -120,7 +122,7 @@ void MainWindow::pushEditorTool(EditorTool *tool)
 void MainWindow::popEditorTool()
 {
     setEditorTool(_lastTool);
-    RELEASE(_lastTool);
+    RELEASE(_lastTool); _lastTool = NULL;
 }
 
 void platformRenderScreen(unsigned const char* screenBuffer, int width, int height)

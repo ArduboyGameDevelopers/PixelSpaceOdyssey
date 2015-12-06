@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "Level.h"
 
+#include "Input2Dialog.h"
 #include <QFileDialog>
 
 void MainWindow::setupActions()
@@ -15,6 +16,8 @@ void MainWindow::setupActions()
     QAction *actionOpen   = _ui->actionOpen;
     QAction *actionSave   = _ui->actionSave;
     QAction *actionSaveAs = _ui->actionSaveAs;
+    QAction *actionSize   = _ui->actionSize;
+    QAction *actionOffset = _ui->actionOffset;
     QAction *actionPlay   = _ui->actionPlay;
     QAction *actionPause  = _ui->actionPause;
     QAction *actionStep   = _ui->actionStep;
@@ -29,6 +32,8 @@ void MainWindow::setupActions()
     connect(actionOpen,   SIGNAL(triggered()),     this, SLOT(onActionOpen()));
     connect(actionSave,   SIGNAL(triggered()),     this, SLOT(onActionSave()));
     connect(actionSaveAs, SIGNAL(triggered()),     this, SLOT(onActionSaveAs()));
+    connect(actionSize,   SIGNAL(triggered()),     this, SLOT(onActionSize()));
+    connect(actionOffset, SIGNAL(triggered()),     this, SLOT(onActionOffset()));
     connect(actionStep,   SIGNAL(triggered()),     this, SLOT(onActionStep()));
     connect(actionPlay,   SIGNAL(triggered()),     this, SLOT(onActionPlay()));
     connect(actionPause,  SIGNAL(triggered()),     this, SLOT(onActionPause()));
@@ -99,12 +104,10 @@ void MainWindow::onActionNew()
     }
     
     Level *level = new Level(indices, rows, cols);
-    tileMap.indices = level->indices();
-    tileMap.rows = level->rows();
-    tileMap.cols = level->cols();
-    
-    tileMapWidth = S2W(cols * GRID_CELL_WIDTH);
-    tileMapHeight = S2W(rows * GRID_CELL_HEIGHT);
+    level->setPlayerX(cols / 2 * GRID_CELL_WIDTH);
+    level->setPlayerY(rows / 2 * GRID_CELL_HEIGHT);
+    Level::setCurrent(level);
+    level->release();
 }
 
 void MainWindow::onActionOpen()
@@ -126,6 +129,25 @@ void MainWindow::onActionSave()
 void MainWindow::onActionSaveAs()
 {
     QString filename = QFileDialog::getSaveFileName(NULL, "Save Level As", "", "Level Files (*.pso)");
+}
+
+void MainWindow::onActionSize()
+{
+    Input2Dialog dialog(this, "Width:", "Height:");
+    dialog.setFirst(QString::number(Level::current()->cols()));
+    dialog.setSecond(QString::number(Level::current()->rows()));
+    int result = dialog.exec();
+    if (result == QDialog::Accepted)
+    {
+        int cols = dialog.first().toInt();
+        int rows = dialog.second().toInt();
+        Level::current()->resize(rows, cols);
+    }
+}
+
+void MainWindow::onActionOffset()
+{
+    
 }
 
 void MainWindow::onActionPlay()

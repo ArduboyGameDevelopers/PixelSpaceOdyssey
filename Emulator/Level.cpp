@@ -4,6 +4,7 @@
 #include "Constants.h"
 #include "game.h"
 
+#include <QtGlobal>
 #include <QFile>
 #include <QJsonObject>
 #include <QJsonDocument>
@@ -140,4 +141,37 @@ void Level::setCurrent(Level *level)
     
     tileMapWidth = S2W(cols * GRID_CELL_WIDTH);
     tileMapHeight = S2W(rows * GRID_CELL_HEIGHT);
+
+    camX = CAM_WIDTH_HALF;
+    camY = CAM_WIDTH_HALF;
+}
+
+void Level::resize(uint8_t rows, uint8_t cols)
+{
+    if (rows == _rows && cols == _cols) return;
+
+    int size = rows * cols * sizeof(uint8_t);
+    uint8_t *newIndices = (uint8_t *)malloc(size);
+    memset(newIndices, 0, size);
+
+    uint8_t r = qMin(rows, _rows);
+    uint8_t c = qMin(cols, _cols);
+
+    for (int i = 0; i < r; ++i)
+    {
+        for (int j = 0; j < c; ++j)
+        {
+            int from = i * _cols + j;
+            int to = i * c + j;
+            newIndices[to] = _indices[from];
+        }
+    }
+
+    _rows = rows;
+    _cols = cols;
+
+    free(_indices);
+    _indices = newIndices;
+
+    setCurrent(this);
 }

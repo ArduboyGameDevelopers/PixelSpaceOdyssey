@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     Tileset.cpp \
     Object.cpp \
     Settings.cpp \
-    Constants.cpp
+    Constants.cpp \
+    Input2Dialog.cpp
 
 HEADERS  += \
     DisplayWidget.h \
@@ -50,9 +51,11 @@ HEADERS  += \
     Object.h \
     EditorTools.h \
     Settings.h \
-    Constants.h
+    Constants.h \
+    Input2Dialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    input2dialog.ui
 
 RESOURCES += \
     Images/images.qrc

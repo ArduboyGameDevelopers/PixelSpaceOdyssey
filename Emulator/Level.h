@@ -26,6 +26,9 @@ public:
     static void setCurrent(Level *level);
 
 public:
+    void resize(uint8_t rows, uint8_t cols);
+
+public:
     inline uint8_t* indices() const { return _indices; }
 
     inline uint8_t tileSetId() const { return _tileSetId; }
