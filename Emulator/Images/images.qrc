@@ -6,4 +6,12 @@
         <file>icon_play.png</file>
         <file>icon_step.png</file>
     </qresource>
+
+    <qresource prefix="/characters">
+        <file>ch_bear_32x24.png</file>
+        <file>ch_dog_16x10.png</file>
+        <file>ch_player_8x8.png</file>
+        <file>ch_spider_16x8.png</file>
+        <file>ch_spider_24x16.png</file>
+    </qresource>
 </RCC>
