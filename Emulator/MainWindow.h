@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QtGlobal>
 #include <QtWidgets>
+
 #include "Emulator.h"
 
 namespace Ui {
@@ -12,8 +14,7 @@ class QToolBar;
 class DisplayWidget;
 class TilesWidget;
 class EditorTool;
-
-extern Emulator emulator;
+class CharacterButton;
 
 class MainWindow : public QMainWindow
 {
@@ -44,6 +45,7 @@ public slots:
     void onActionStep();
 
     void onActionToggleGrid(bool selected);
+    void onCharacterButton(bool);
     
     void onTileSetSelected(int index);
 
@@ -76,6 +78,7 @@ private:
     DisplayWidget *_displayWidget;
     EditorTool *_lastTool;
     qint64 _lastFrameTime;
+    QList<CharacterButton *> _characterButtons;
 };
 
 #endif // MAINWINDOW_H

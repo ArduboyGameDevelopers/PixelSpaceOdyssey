@@ -2,9 +2,11 @@
 
 #include "drawing.h"
 #include "game.h"
+#include "Emulator.h"
 #include "EditorTool.h"
 #include "EditorPanTool.h"
 #include "Constants.h"
+#include "Level.h"
 
 #include <QPainter>
 #include <QDebug>
@@ -66,6 +68,23 @@ void DisplayWidget::copyScreenBuffer(const unsigned char *screenBuffer, int buff
     repaint();
 }
 
+void DisplayWidget::drawCharaters(QPainter *painter)
+{
+    Level *level = Level::current();
+    painter->setOpacity(0.5);
+    drawCharater(painter, level->player());
+    painter->setOpacity(1.0);
+}
+
+void DisplayWidget::drawCharater(QPainter *painter, const LevelCharacter &character)
+{
+    const QImage &image = character.image();
+    int drawX = character.x() * PIXEL_WIDTH;
+    int drawY = character.y() * PIXEL_HEIGHT;
+    
+    painter->drawImage(drawX, drawY, image);
+}
+
 void DisplayWidget::setTool(EditorTool *tool)
 {
     EditorTool *oldTool = _currentTool;
@@ -100,6 +119,12 @@ void DisplayWidget::paintEvent(QPaintEvent *)
     // draw pixels
     _pixelRects.paint(&painter);
 
+    // draw enemies
+    if (emulator.editMode())
+    {
+        drawCharaters(&painter);
+    }
+    
     if (_currentTool)
     {
         _currentTool->paint(&painter);

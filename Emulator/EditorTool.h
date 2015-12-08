@@ -18,7 +18,7 @@ public:
     EditorTool(DisplayWidget *displayWidget);
     
 public:
-    virtual void paint(QPainter *painter);
+    void paint(QPainter *painter);
     
     void start();
     void stop();
@@ -55,6 +55,11 @@ protected:
     inline bool mouseDown() const { return _mouseDown; }
     inline int lastMouseX() const { return _lastMouseX; }
     inline int lastMouseY() const { return _lastMouseY; }
+    inline int tileX() const { return _tileX; }
+    inline int tileY() const { return _tileY; }
+    
+private:
+    void updateTileCords(int x, int y);
 
 private:
     DisplayWidget* _displayWidget;
@@ -62,6 +67,8 @@ private:
     bool _mouseDown;
     int _lastMouseX;
     int _lastMouseY;
+    int _tileX;
+    int _tileY;
 };
 
 #endif // EDITORTOOL_H

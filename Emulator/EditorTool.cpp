@@ -1,12 +1,17 @@
 #include "EditorTool.h"
 #include "DisplayWidget.h"
 
+#include "game.h"
+#include "drawing.h"
+
 EditorTool::EditorTool(DisplayWidget *displayWidget) :
     _displayWidget(displayWidget),
     _hasMouse(false),
     _mouseDown(false),
     _lastMouseX(0),
-    _lastMouseY(0)
+    _lastMouseY(0),
+    _tileX(0),
+    _tileY(0)
 {
 }
 
@@ -22,8 +27,9 @@ void EditorTool::stop()
     onStop();
 }
 
-void EditorTool::paint(QPainter *)
+void EditorTool::paint(QPainter *painter)
 {
+    onPaint(painter);
 }
 
 void EditorTool::keyPressed(int key)
@@ -42,12 +48,14 @@ void EditorTool::mousePressed(int x, int y)
     _lastMouseX = x;
     _lastMouseY = y;
 
+    updateTileCords(x, y);
     onMousePressed(x, y);
 }
 
 void EditorTool::mouseMoved(int x, int y)
 {
     onMouseMoved(x, y);
+    updateTileCords(x, y);
 
     _lastMouseX = x;
     _lastMouseY = y;
@@ -117,4 +125,15 @@ void EditorTool::onMouseEntered()
 
 void EditorTool::onMouseExited()
 {
+}
+
+void EditorTool::updateTileCords(int x, int y)
+{
+    int col = (x / PIXEL_WIDTH - drawTransX) / GRID_CELL_WIDTH;
+    int row = (y / PIXEL_HEIGHT - drawTransY) / GRID_CELL_HEIGHT;
+    int offsetX = drawTransX * PIXEL_WIDTH;
+    int offsetY = drawTransY * PIXEL_HEIGHT;
+    
+    _tileX = offsetX + col * GRID_CELL_WIDTH_PX;
+    _tileY = offsetY + row * GRID_CELL_HEIGHT_PX;
 }

@@ -30,4 +30,6 @@ private:
     bool _step;
 };
 
+extern Emulator emulator;
+
 #endif // EMULATOR_H

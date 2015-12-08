@@ -34,7 +34,10 @@ SOURCES += main.cpp\
     Object.cpp \
     Settings.cpp \
     Constants.cpp \
-    Input2Dialog.cpp
+    Input2Dialog.cpp \
+    EditorCharTool.cpp \
+    CharacterButton.cpp \
+    LevelCharacter.cpp
 
 HEADERS  += \
     DisplayWidget.h \
@@ -52,7 +55,10 @@ HEADERS  += \
     EditorTools.h \
     Settings.h \
     Constants.h \
-    Input2Dialog.h
+    Input2Dialog.h \
+    EditorCharTool.h \
+    CharacterButton.h \
+    LevelCharacter.h
 
 FORMS    += mainwindow.ui \
     input2dialog.ui

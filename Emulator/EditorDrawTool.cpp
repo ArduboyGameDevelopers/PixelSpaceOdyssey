@@ -10,19 +10,14 @@ static int gridIndexFromCords(int x, int y);
 
 EditorDrawTool::EditorDrawTool(DisplayWidget *displayWidget) :
     EditorTool(displayWidget),
-    _color(128, 128, 128, 128),
-    _tileX(0),
-    _tileY(0)
+    _color(128, 128, 128, 128)
 {
 }
 
-void EditorDrawTool::paint(QPainter *painter)
+void EditorDrawTool::onPaint(QPainter *painter)
 {
-    if (hasMouse())
-    {
-        QRect rect(_tileX, _tileY, GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX);
-        painter->drawRect(rect);
-    }
+    QRect rect(tileX(), tileY(), GRID_CELL_WIDTH_PX, GRID_CELL_HEIGHT_PX);
+    painter->drawRect(rect);
 }
 
 void EditorDrawTool::onMousePressed(int x, int y)
@@ -36,18 +31,12 @@ void EditorDrawTool::onMousePressed(int x, int y)
 
 void EditorDrawTool::onMouseMoved(int x, int y)
 {
-    int col = (x / PIXEL_WIDTH - drawTransX) / GRID_CELL_WIDTH;
-    int row = (y / PIXEL_HEIGHT - drawTransY) / GRID_CELL_HEIGHT;
-    int offsetX = drawTransX * PIXEL_WIDTH;
-    int offsetY = drawTransY * PIXEL_HEIGHT;
+    int oldTileX = tileX();
+    int oldTileY = tileY();
 
-    int oldTileX = _tileX;
-    int oldTileY = _tileY;
+    EditorTool::onMouseMoved(x, y);
     
-    _tileX = offsetX + col * GRID_CELL_WIDTH_PX;
-    _tileY = offsetY + row * GRID_CELL_HEIGHT_PX;
-    
-    if (oldTileX != _tileX || oldTileY != _tileY)
+    if (oldTileX != tileX() || oldTileY != tileY())
     {
         displayWidget()->repaint();
     }

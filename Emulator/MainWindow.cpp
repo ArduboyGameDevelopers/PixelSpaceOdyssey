@@ -14,10 +14,10 @@
 #include "GameInput.h"
 
 #include "EditorTools.h"
+#include "CharacterButton.h"
 
 static const int kTimerDelay = 1000 / 60;
 
-Emulator emulator;
 static MainWindow* _instance = NULL;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -25,10 +25,12 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui(new Ui::MainWindow),
     _displayWidget(NULL),
     _lastTool(NULL),
-    _lastFrameTime(0)
+    _lastFrameTime(0),
+    _characterButtons()
 {
     _instance = this;
-
+    setFocusPolicy(Qt::StrongFocus);
+    
     _ui->setupUi(this);
     _displayWidget = _ui->displayWidget;
     
@@ -38,8 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setupActions();
 
     Level *level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
-    level->setPlayerX(W2S(player.x));
-    level->setPlayerY(W2S(player.y));
+    level->setPlayerPos(W2S(player.x), W2S(player.y));
+    level->setPlayerDir((CharacterDir) player.dir);
     Level::setCurrent(level);
     level->release();
 

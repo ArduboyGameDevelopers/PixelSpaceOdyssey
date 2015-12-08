@@ -46,6 +46,27 @@ void MainWindow::setupActions()
     connect(actionPause,         SIGNAL(triggered()),     this, SLOT(onActionPause()));
     connect(actionEdit,          SIGNAL(triggered(bool)), this, SLOT(onActionEdit(bool)));
     connect(actionGrid,          SIGNAL(toggled(bool)),   this, SLOT(onActionToggleGrid(bool)));
+
+    // character buttons
+    _ui->characterButtonPlayer->setCharacterType(CharacterTypePlayer);
+    _characterButtons.append(_ui->characterButtonPlayer);
+    
+    _ui->characterButtonBear->setCharacterType(CharacterTypeBear);
+    _characterButtons.append(_ui->characterButtonBear);
+    
+    _ui->characterButtonDog->setCharacterType(CharacterTypeDog);
+    _characterButtons.append(_ui->characterButtonDog);
+    
+    _ui->characterButtonSpiderSmall->setCharacterType(CharacterTypeSpiderSmall);
+    _characterButtons.append(_ui->characterButtonSpiderSmall);
+    
+    _ui->characterButtonSpiderBig->setCharacterType(CharacterTypeSpiderLarge);
+    _characterButtons.append(_ui->characterButtonSpiderBig);
+    
+    for (int i = 0; i < _characterButtons.size(); ++i)
+    {
+        connect(_characterButtons[i], SIGNAL(clicked(bool)), this, SLOT(onCharacterButton(bool)));
+    }
     
     // grid
     bool gridVisible = Settings::getBool(kSettingsGridVisible);
@@ -102,8 +123,8 @@ void MainWindow::onActionNew()
     }
     
     Level *level = new Level(indices, rows, cols);
-    level->setPlayerX(cols / 2 * GRID_CELL_WIDTH);
-    level->setPlayerY(rows / 2 * GRID_CELL_HEIGHT);
+    level->setPlayerPos(cols / 2 * GRID_CELL_WIDTH, cols / 2 * GRID_CELL_WIDTH);
+    level->setPlayerDir(CharacterDirRight);
     Level::setCurrent(level);
     level->release();
 }
@@ -243,4 +264,20 @@ void MainWindow::onActionToggleGrid(bool selected)
 {
     displayWidget()->setGridVisible(selected);
     Settings::setBool(kSettingsGridVisible, selected);
+}
+
+void MainWindow::onCharacterButton(bool checked)
+{
+    if (checked)
+    {
+        setEditMode(true);
+        
+        CharacterButton *button = dynamic_cast<CharacterButton *>(QObject::sender());
+        button->deselectOther();
+        button->setChecked(true);
+
+        EditorCharTool *tool = new EditorCharTool(displayWidget(), button->characterType());
+        setEditorTool(tool);
+        tool->release();
+    }
 }

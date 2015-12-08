@@ -18,21 +18,21 @@ static const uint8_t kVersion = 1;
 Level* Level::_currentLevel(NULL);
 
 Level::Level() :
+    _player(CharacterTypePlayer, 0, 0, CharacterDirRight),
+    _enemies(),
     _tileSetId(0),
     _indices(NULL),
     _rows(0),
-    _cols(0),
-    _playerX(0),
-    _playerY(0)
+    _cols(0)
 {
 }
 
 Level::Level(uint8_t* indices, uint8_t rows, uint8_t cols) :
+    _player(CharacterTypePlayer, 0, 0, CharacterDirRight),
+    _enemies(),
     _tileSetId(0),
     _rows(rows),
-    _cols(cols),
-    _playerX(0),
-    _playerY(0)
+    _cols(cols)
 {
     size_t size = rows * cols * sizeof(uint8_t);
     _indices = (uint8_t *) malloc(size);
@@ -56,19 +56,20 @@ Level* Level::readFromFile(const QString &filename)
         file.close();
         
         QJsonDocument levelDoc = QJsonDocument::fromJson(levelData);
-        QJsonObject levelJson = levelDoc.object();
+        QJsonObject levelObj = levelDoc.object();
         
-        QJsonObject player = levelJson["player"].toObject();
-        int playerX = player["x"].toInt();
-        int playerY = player["y"].toInt();
+        QJsonObject playerObj = levelObj["player"].toObject();
+        int playerX = playerObj["x"].toInt();
+        int playerY = playerObj["y"].toInt();
+        CharacterDir direction = (CharacterDir) playerObj["direction"].toInt();
         
-        QJsonObject map = levelJson["map"].toObject();
-        int cols = map["cols"].toInt();
-        int rows = map["rows"].toInt();
+        QJsonObject mapObj = levelObj["map"].toObject();
+        int cols = mapObj["cols"].toInt();
+        int rows = mapObj["rows"].toInt();
         int indexCount = rows * cols;
         uint8_t indices[indexCount];
         
-        QString indicesString = map["indices"].toString();
+        QString indicesString = mapObj["indices"].toString();
         QStringList tokens = indicesString.split(",");
         for (int i = 0; i < indexCount; ++i)
         {
@@ -76,8 +77,8 @@ Level* Level::readFromFile(const QString &filename)
         }
         
         Level *level = new Level(indices, rows, cols);
-        level->setPlayerX(playerX);
-        level->setPlayerY(playerY);
+        level->setPlayerPos(playerX, playerY);
+        level->setPlayerDir(direction);
         return level;
     }
     
@@ -117,11 +118,11 @@ void Level::writeToFile(const QString &filename)
     json["version"] = kVersion;
     
     // player
-    QJsonObject player;
-    player["x"] = _playerX;
-    player["y"] = _playerY;
-    player["direction"] = 1;
-    json["player"] = player;
+    QJsonObject playerObj;
+    playerObj["x"] = _player.x();
+    playerObj["y"] = _player.y();
+    playerObj["direction"] = (int) _player.direction();
+    json["player"] = playerObj;
     
     // map
     QJsonObject map;
@@ -156,10 +157,12 @@ void Level::setCurrent(Level *level)
     
     int cols = level->cols();
     int rows = level->rows();
+
+    const LevelCharacter &player = level->player();
     
-    player.x = S2W(level->playerX());
-    player.y = S2W(level->playerY());
-    // player.dir = level->direction();
+    ::player.x = S2W(player.x());
+    ::player.y = S2W(player.y());
+    ::player.dir = (int) player.direction();
     
     tileMap.indices = level->indices();
     tileMap.rows = rows;
@@ -170,6 +173,10 @@ void Level::setCurrent(Level *level)
 
     camX = CAM_WIDTH_HALF;
     camY = CAM_WIDTH_HALF;
+}
+
+void Level::addCharacter(CharacterType type, int x, int y)
+{
 }
 
 void Level::resize(uint8_t rows, uint8_t cols)

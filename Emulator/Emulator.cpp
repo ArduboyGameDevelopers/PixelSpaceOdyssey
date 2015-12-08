@@ -3,6 +3,8 @@
 #include "platform.h"
 #include "bridge.h"
 
+Emulator emulator;
+
 static uint8_t _inputMask = 0;
 static unsigned long _gameTime = 0;
 

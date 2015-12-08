@@ -6,6 +6,7 @@
 #include <QPainter>
 
 #include "Constants.h"
+#include "LevelCharacter.h"
 
 typedef QRect Rect;
 
@@ -42,6 +43,10 @@ public:
 
 public:
     void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
+    
+public:
+    void drawCharaters(QPainter *painter);
+    void drawCharater(QPainter *painter, const LevelCharacter &character);
 
 public:
     EditorTool* currentTool() const { return _currentTool; }

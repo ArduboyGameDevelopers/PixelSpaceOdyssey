@@ -5,6 +5,7 @@
 
 #include "Object.h"
 #include "Tileset.h"
+#include "LevelCharacter.h"
 
 #include <QtGlobal>
 #include <QImage>
@@ -19,7 +20,7 @@ protected:
 public:
     Level(uint8_t* indices, uint8_t rows, uint8_t cols);
     virtual ~Level();
-
+    
 public:
     static Level* readFromFile(const QString &filename);
     static Level* readFromImage(const QImage &image, const TileSet* tileSet);
@@ -30,9 +31,14 @@ public:
     static void setCurrent(Level *level);
 
 public:
+    void addCharacter(CharacterType type, int x, int y);
     void resize(uint8_t rows, uint8_t cols);
 
 public:
+    inline LevelCharacter player() const { return _player; }
+    inline void setPlayerPos(int x, int y) { _player.setPos(x, y); }
+    inline void setPlayerDir(CharacterDir dir) { _player.setDirection(dir); }
+    
     inline uint8_t* indices() const { return _indices; }
 
     inline uint8_t tileSetId() const { return _tileSetId; }
@@ -44,22 +50,17 @@ public:
     inline uint8_t cols() const { return _cols; }
     inline void setCols(uint8_t cols) { _cols = cols; }
 
-    inline uint16_t playerX() const { return _playerX; }
-    inline void setPlayerX(uint16_t playerX) { _playerX = playerX; }
-    inline uint16_t playerY() const { return _playerY; }
-    inline void setPlayerY(uint16_t playerY) { _playerY = playerY; }
-
 protected:
     inline void setIndices(uint8_t* indices) { _indices = indices; }
     
 private:
     static Level * _currentLevel;
+    LevelCharacter _player;
+    QList<LevelCharacter> _enemies;
     uint8_t  _tileSetId;
     uint8_t* _indices;
     uint8_t  _rows;
     uint8_t  _cols;
-    uint16_t _playerX;
-    uint16_t _playerY;
 };
 
 #endif // LEVEL_H
