@@ -174,7 +174,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QListView" name="characterListView">
+   <widget class="CharacterListView" name="characterListView">
     <property name="geometry">
      <rect>
       <x>620</x>
@@ -428,6 +428,11 @@
    <class>CharacterButton</class>
    <extends>QToolButton</extends>
    <header>CharacterButton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CharacterListView</class>
+   <extends>QListView</extends>
+   <header>CharacterListView.h</header>
   </customwidget>
  </customwidgets>
  <resources>

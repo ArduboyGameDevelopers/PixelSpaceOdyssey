@@ -15,6 +15,7 @@ class DisplayWidget;
 class TilesWidget;
 class EditorTool;
 class CharacterButton;
+class Level;
 
 class MainWindow : public QMainWindow
 {
@@ -53,7 +54,11 @@ public:
     void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
     
 public:
+    inline static MainWindow* instance() { return _instance; };
     inline DisplayWidget *displayWidget() const { return _displayWidget; }
+    
+public:
+    void updateLevelUi(Level *level);
 
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
@@ -74,6 +79,7 @@ private:
     void popEditorTool();
 
 private:
+    static MainWindow *_instance;
     Ui::MainWindow *_ui;
     DisplayWidget *_displayWidget;
     EditorTool *_lastTool;

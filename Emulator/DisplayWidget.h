@@ -51,6 +51,7 @@ public:
 public:
     EditorTool* currentTool() const { return _currentTool; }
     void setTool(EditorTool* tool);
+    void setDefaultTool();
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

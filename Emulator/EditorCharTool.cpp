@@ -2,6 +2,7 @@
 #include "CharacterButton.h"
 
 #include <DisplayWidget.h>
+#include "drawing.h"
 
 EditorCharTool::EditorCharTool(DisplayWidget *displayWidget, CharacterType characterType) :
     EditorTool(displayWidget),
@@ -29,8 +30,8 @@ void EditorCharTool::onMousePressed(int, int)
     
     Level *level = Level::current();
     
-    int cx = (tileX() + (GRID_CELL_WIDTH_PX - _characterImage.width()) / 2) / PIXEL_WIDTH ;
-    int cy = (tileY() + GRID_CELL_HEIGHT_PX - _characterImage.height()) / PIXEL_HEIGHT;
+    int cx = (tileX() + (GRID_CELL_WIDTH_PX - _characterImage.width()) / 2) / PIXEL_WIDTH - drawTransX;
+    int cy = (tileY() + GRID_CELL_HEIGHT_PX - _characterImage.height()) / PIXEL_HEIGHT - drawTransY;
     if (_characterType == CharacterTypePlayer)
     {
         level->setPlayerPos(cx, cy);
@@ -38,8 +39,10 @@ void EditorCharTool::onMousePressed(int, int)
     }
     else
     {
-        level->addCharacter(_characterType, cx, cy);
+        level->addEnemy(_characterType, cx, cy, CharacterDirLeft);
     }
+    
+    displayWidget()->setDefaultTool();
 }
 
 void EditorCharTool::onMouseMoved(int x, int y)

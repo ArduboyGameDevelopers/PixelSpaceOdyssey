@@ -31,7 +31,7 @@ public:
     static void setCurrent(Level *level);
 
 public:
-    void addCharacter(CharacterType type, int x, int y);
+    void addEnemy(CharacterType type, int x, int y, CharacterDir dir);
     void resize(uint8_t rows, uint8_t cols);
 
 public:
@@ -39,6 +39,7 @@ public:
     inline void setPlayerPos(int x, int y) { _player.setPos(x, y); }
     inline void setPlayerDir(CharacterDir dir) { _player.setDirection(dir); }
     
+    inline const QList<LevelCharacter> enemies() const { return _enemies; }
     inline uint8_t* indices() const { return _indices; }
 
     inline uint8_t tileSetId() const { return _tileSetId; }

@@ -15,10 +15,11 @@
 
 #include "EditorTools.h"
 #include "CharacterButton.h"
+#include "CharacterListView.h"
 
 static const int kTimerDelay = 1000 / 60;
 
-static MainWindow* _instance = NULL;
+MainWindow *MainWindow::_instance(NULL);
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -111,6 +112,12 @@ void MainWindow::copyScreenBuffer(const unsigned char *screenBuffer, int bufferW
     _displayWidget->copyScreenBuffer(screenBuffer, bufferWidth, bufferHeight);
 }
 
+void MainWindow::updateLevelUi(Level *level)
+{
+    CharacterListView *characterListView = _ui->characterListView;
+    characterListView->updateItem(level);
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     int key = event->key();
@@ -168,5 +175,5 @@ void MainWindow::popEditorTool()
 
 void platformRenderScreen(unsigned const char* screenBuffer, int width, int height)
 {
-    _instance->copyScreenBuffer(screenBuffer, width, height);
+    MainWindow::instance()->copyScreenBuffer(screenBuffer, width, height);
 }

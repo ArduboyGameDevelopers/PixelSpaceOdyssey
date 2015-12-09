@@ -3,8 +3,7 @@
 #include "drawing.h"
 #include "game.h"
 #include "Emulator.h"
-#include "EditorTool.h"
-#include "EditorPanTool.h"
+#include "EditorTools.h"
 #include "Constants.h"
 #include "Level.h"
 
@@ -72,15 +71,25 @@ void DisplayWidget::drawCharaters(QPainter *painter)
 {
     Level *level = Level::current();
     painter->setOpacity(0.5);
+
+    // draw player
     drawCharater(painter, level->player());
+
+    // draw enemies
+    const QList<LevelCharacter> enemies = level->enemies();
+    for (int i = 0; i < enemies.size(); ++i)
+    {
+        drawCharater(painter, enemies.at(i));
+    }
+
     painter->setOpacity(1.0);
 }
 
 void DisplayWidget::drawCharater(QPainter *painter, const LevelCharacter &character)
 {
     const QImage &image = character.image();
-    int drawX = character.x() * PIXEL_WIDTH;
-    int drawY = character.y() * PIXEL_HEIGHT;
+    int drawX = (character.x() + drawTransX) * PIXEL_WIDTH;
+    int drawY = (character.y() + drawTransY) * PIXEL_HEIGHT;
     
     painter->drawImage(drawX, drawY, image);
 }
@@ -92,6 +101,13 @@ void DisplayWidget::setTool(EditorTool *tool)
     if (_currentTool) _currentTool->start();
     if (oldTool) oldTool->stop();
     RELEASE(oldTool);
+}
+
+void DisplayWidget::setDefaultTool()
+{
+    EditorDrawTool *tool = new EditorDrawTool(this);
+    setTool(tool);
+    tool->release();
 }
 
 void DisplayWidget::paintEvent(QPaintEvent *)

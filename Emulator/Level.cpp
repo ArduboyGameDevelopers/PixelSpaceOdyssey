@@ -4,6 +4,7 @@
 #include "Tileset.h"
 #include "Constants.h"
 #include "game.h"
+#include "MainWindow.h"
 
 #include <QtGlobal>
 #include <QFile>
@@ -61,7 +62,7 @@ Level* Level::readFromFile(const QString &filename)
         QJsonObject playerObj = levelObj["player"].toObject();
         int playerX = playerObj["x"].toInt();
         int playerY = playerObj["y"].toInt();
-        CharacterDir direction = (CharacterDir) playerObj["direction"].toInt();
+        CharacterDir characterDir = (CharacterDir) playerObj["direction"].toInt();
         
         QJsonObject mapObj = levelObj["map"].toObject();
         int cols = mapObj["cols"].toInt();
@@ -78,7 +79,27 @@ Level* Level::readFromFile(const QString &filename)
         
         Level *level = new Level(indices, rows, cols);
         level->setPlayerPos(playerX, playerY);
-        level->setPlayerDir(direction);
+        level->setPlayerDir(characterDir);
+        
+        QJsonArray enemies = levelObj["enemies"].toArray();
+        for (int i = 0; i < enemies.size(); ++i)
+        {
+            QJsonObject enemyObj = enemies.at(i).toObject();
+            QString name = enemyObj["name"].toString();
+            CharacterType characterType = LevelCharacter::typeFromName(name);
+            if (characterType == CharacterTypeCount)
+            {
+                qDebug() << "Unknown enemy type: " << name;
+                continue;
+            }
+            
+            int x = enemyObj["x"].toInt();
+            int y = enemyObj["y"].toInt();
+            CharacterDir enemyDir = (CharacterDir) enemyObj["direction"].toInt();
+            
+            level->addEnemy(characterType, x, y, enemyDir);
+        }
+        
         return level;
     }
     
@@ -123,6 +144,22 @@ void Level::writeToFile(const QString &filename)
     playerObj["y"] = _player.y();
     playerObj["direction"] = (int) _player.direction();
     json["player"] = playerObj;
+    
+    // enemies
+    QJsonArray enemiesObj;
+    for (int i = 0; i < _enemies.size(); ++i)
+    {
+        const LevelCharacter &enemy = _enemies.at(i);
+        
+        QJsonObject enemyObj;
+        enemyObj["name"] = enemy.name();
+        enemyObj["x"] = enemy.x();
+        enemyObj["y"] = enemy.y();
+        enemyObj["direction"] = (int) enemy.direction();
+        
+        enemiesObj << enemyObj;
+    }
+    json["enemies"] = enemiesObj;
     
     // map
     QJsonObject map;
@@ -173,10 +210,17 @@ void Level::setCurrent(Level *level)
 
     camX = CAM_WIDTH_HALF;
     camY = CAM_WIDTH_HALF;
+    
+    MainWindow::instance()->updateLevelUi(level);
 }
 
-void Level::addCharacter(CharacterType type, int x, int y)
+void Level::addEnemy(CharacterType type, int x, int y, CharacterDir dir)
 {
+    LevelCharacter enemy(type, x, y, CharacterDirLeft);
+    enemy.setDirection(dir);
+    _enemies.append(enemy);
+
+    MainWindow::instance()->updateLevelUi(this);
 }
 
 void Level::resize(uint8_t rows, uint8_t cols)

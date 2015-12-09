@@ -44,6 +44,8 @@ public:
     
 public:
     static const QImage getImage(CharacterType type);
+    static const QString getName(CharacterType type);
+    static CharacterType typeFromName(const QString &name);
 
 public:
     inline CharacterType type() const { return _type; }
@@ -61,6 +63,7 @@ public:
     inline bool isValid() const { return _type != CharacterTypeCount; }
     
     const QImage image() const;
+    const QString name() const;
 
 private:
     CharacterType _type;
