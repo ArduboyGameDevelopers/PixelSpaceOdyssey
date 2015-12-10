@@ -21,11 +21,15 @@ public:
 
     inline int tileIndex() const { return _tileIndex; }
     inline void setTileIndex(int tileIndex) { _tileIndex = tileIndex; }
+    
+    inline int characterIndex() const { return _characterIndex; }
+    inline void setCharacterIndex(int characterIndex) { _characterIndex = characterIndex; }
 
 private:
     QList<TileSet *> _tiles;
     int _tileSetIndex;
     int _tileIndex;
+    int _characterIndex;
 };
 
 extern EditorState editorState;

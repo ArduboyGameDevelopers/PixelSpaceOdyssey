@@ -49,12 +49,13 @@ public slots:
     void onCharacterButton(bool);
     
     void onTileSetSelected(int index);
+    void onCharacterListItemClicked(const QModelIndex & index);
 
 public:
     void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
     
 public:
-    inline static MainWindow* instance() { return _instance; };
+    inline static MainWindow* instance() { return _instance; }
     inline DisplayWidget *displayWidget() const { return _displayWidget; }
     
 public:
@@ -70,6 +71,7 @@ private:
     
     void setupToolBar(QToolBar* toolBar);
     void setupActions();
+    void setupCharacterList();
     
     void setPauseMode(bool pauseMode);
     void setEditMode(bool editMode);

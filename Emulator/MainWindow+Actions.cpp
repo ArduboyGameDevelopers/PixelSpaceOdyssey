@@ -7,6 +7,7 @@
 #include "Constants.h"
 #include "EditorState.h"
 #include "Level.h"
+#include "CharacterListView.h"
 
 #include "Input2Dialog.h"
 #include <QFileDialog>
@@ -72,6 +73,12 @@ void MainWindow::setupActions()
     bool gridVisible = Settings::getBool(kSettingsGridVisible);
     displayWidget()->setGridVisible(gridVisible);
     actionGrid->setChecked(gridVisible);
+}
+
+void MainWindow::setupCharacterList()
+{
+    CharacterListView *characterList = _ui->characterListView;
+    connect(characterList, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onCharacterListItemClicked(QModelIndex)));
 }
 
 void MainWindow::setPauseMode(bool pauseMode)
@@ -280,4 +287,12 @@ void MainWindow::onCharacterButton(bool checked)
         setEditorTool(tool);
         tool->release();
     }
+}
+
+void MainWindow::onCharacterListItemClicked(const QModelIndex & index)
+{
+    int characterIndex = index.row();
+    
+    editorState.setCharacterIndex(characterIndex);
+    displayWidget()->focusCharacter(characterIndex);
 }

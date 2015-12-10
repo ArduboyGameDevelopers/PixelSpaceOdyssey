@@ -8,7 +8,8 @@ EditorState editorState;
 EditorState::EditorState() :
     _tiles(),
     _tileSetIndex(-1),
-    _tileIndex(0)
+    _tileIndex(0),
+    _characterIndex(-1)
 {
 }
 

@@ -40,6 +40,7 @@ public:
     inline void setPlayerDir(CharacterDir dir) { _player.setDirection(dir); }
     
     inline const QList<LevelCharacter> enemies() const { return _enemies; }
+    inline const int enemiesCount() const { return _enemies.size(); }
     inline uint8_t* indices() const { return _indices; }
 
     inline uint8_t tileSetId() const { return _tileSetId; }

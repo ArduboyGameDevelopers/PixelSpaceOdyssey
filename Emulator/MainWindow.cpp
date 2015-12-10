@@ -39,6 +39,9 @@ MainWindow::MainWindow(QWidget *parent) :
     
     setupToolBar(_ui->toolBar);
     setupActions();
+    setupCharacterList();
+    
+    emulator.start();
 
     Level *level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
     level->setPlayerPos(W2S(player.x), W2S(player.y));
@@ -50,7 +53,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer, SIGNAL(timeout()), this, SLOT(runUpdate()));
     timer->start(kTimerDelay);
 
-    emulator.start();
     _lastFrameTime = QDateTime::currentMSecsSinceEpoch();
 }
 

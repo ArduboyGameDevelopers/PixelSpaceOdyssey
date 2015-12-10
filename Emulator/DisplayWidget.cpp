@@ -7,6 +7,8 @@
 #include "Constants.h"
 #include "Level.h"
 
+#include <Arduino.h>
+
 #include <QPainter>
 #include <QDebug>
 
@@ -108,6 +110,31 @@ void DisplayWidget::setDefaultTool()
     EditorDrawTool *tool = new EditorDrawTool(this);
     setTool(tool);
     tool->release();
+}
+
+void DisplayWidget::focusCharacter(int index) const
+{
+    Level *level = Level::current();
+    
+    if (emulator.editMode())
+    {
+        if (index == 0)
+        {
+            camX = S2W(level->player().x());
+            camY = S2W(level->player().y());
+        }
+        else if (index > 0 && index <= level->enemiesCount())
+        {
+            const LevelCharacter &enemy = level->enemies().at(index - 1);
+            camX = S2W(enemy.x());
+            camY = S2W(enemy.y());
+        }
+        
+        int16_t maxCamX = tileMapWidth - CAM_WIDTH_HALF;
+        int16_t maxCamY = tileMapHeight - CAM_HEIGHT_HALF;
+        camX = constrain(camX, CAM_WIDTH_HALF, maxCamX);
+        camY = constrain(camY, CAM_HEIGHT_HALF, maxCamY);
+    }
 }
 
 void DisplayWidget::paintEvent(QPaintEvent *)

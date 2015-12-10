@@ -52,6 +52,9 @@ public:
     EditorTool* currentTool() const { return _currentTool; }
     void setTool(EditorTool* tool);
     void setDefaultTool();
+    
+public:
+    void focusCharacter(int index) const;
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
