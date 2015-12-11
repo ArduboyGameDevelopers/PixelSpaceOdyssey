@@ -19,6 +19,7 @@ static const uint8_t kVersion = 1;
 Level* Level::_currentLevel(NULL);
 
 Level::Level() :
+    _filename(),
     _player(CharacterTypePlayer, 0, 0, CharacterDirRight),
     _enemies(),
     _tileSetId(0),
@@ -28,7 +29,8 @@ Level::Level() :
 {
 }
 
-Level::Level(uint8_t* indices, uint8_t rows, uint8_t cols) :
+Level::Level(uint8_t* indices, uint8_t rows, uint8_t cols, const QString &filename) :
+    _filename(filename),
     _player(CharacterTypePlayer, 0, 0, CharacterDirRight),
     _enemies(),
     _tileSetId(0),
@@ -77,7 +79,7 @@ Level* Level::readFromFile(const QString &filename)
             indices[i] = tokens.at(i).toInt();
         }
         
-        Level *level = new Level(indices, rows, cols);
+        Level *level = new Level(indices, rows, cols, filename);
         level->setPlayerPos(playerX, playerY);
         level->setPlayerDir(characterDir);
         
@@ -184,6 +186,8 @@ void Level::writeToFile(const QString &filename)
         file.write(saveDoc.toJson());
         file.close();
     }
+    
+    _filename = filename;
 }
 
 void Level::setCurrent(Level *level)

@@ -144,17 +144,35 @@ void MainWindow::onActionOpen()
         Level *level = Level::readFromFile(filename);
         Level::setCurrent(level);
         level->release();
+        
+        Settings::setString(kSettingsLastLevel, filename);
     }
 }
 
 void MainWindow::onActionSave()
 {
-    Level::current()->writeToFile("level.pso");
+    Level *level = Level::current();
+    if (level->hasFilename())
+    {
+        level->writeToFile(level->filename());
+        Settings::setString(kSettingsLastLevel, level->filename());
+    }
+    else
+    {
+        onActionSaveAs();
+    }
 }
 
 void MainWindow::onActionSaveAs()
 {
     QString filename = QFileDialog::getSaveFileName(NULL, "Save Level As", "", "Level Files (*.pso)");
+    if (filename.length() > 0)
+    {
+        Level *level = Level::current();
+        level->writeToFile(filename);
+        Settings::setString(kSettingsLastLevel, filename);
+        updateWindowTitle(level);
+    }
 }
 
 void MainWindow::onActionSize()

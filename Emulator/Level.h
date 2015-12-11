@@ -18,7 +18,7 @@ protected:
     Level();
 
 public:
-    Level(uint8_t* indices, uint8_t rows, uint8_t cols);
+    Level(uint8_t* indices, uint8_t rows, uint8_t cols, const QString &filename = QString());
     virtual ~Level();
     
 public:
@@ -35,12 +35,15 @@ public:
     void resize(uint8_t rows, uint8_t cols);
 
 public:
+    inline const QString &filename() const { return _filename; }
+    inline bool hasFilename() const { return _filename.length() > 0; }
+    
     inline LevelCharacter player() const { return _player; }
     inline void setPlayerPos(int x, int y) { _player.setPos(x, y); }
     inline void setPlayerDir(CharacterDir dir) { _player.setDirection(dir); }
     
     inline const QList<LevelCharacter> enemies() const { return _enemies; }
-    inline const int enemiesCount() const { return _enemies.size(); }
+    inline int enemiesCount() const { return _enemies.size(); }
     inline uint8_t* indices() const { return _indices; }
 
     inline uint8_t tileSetId() const { return _tileSetId; }
@@ -57,6 +60,7 @@ protected:
     
 private:
     static Level * _currentLevel;
+    QString _filename;
     LevelCharacter _player;
     QList<LevelCharacter> _enemies;
     uint8_t  _tileSetId;

@@ -5,6 +5,7 @@
 #include <QString>
 
 extern const QString kSettingsGridVisible;
+extern const QString kSettingsLastLevel;
 
 class Settings
 {

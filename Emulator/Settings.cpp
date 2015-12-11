@@ -1,6 +1,7 @@
 #include "Settings.h"
 
 const QString kSettingsGridVisible = "gridVisible";
+const QString kSettingsLastLevel = "lastLevel";
 
 const QString _NullString(QString::Null);
 

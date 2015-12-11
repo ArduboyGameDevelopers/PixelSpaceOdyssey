@@ -60,6 +60,7 @@ public:
     
 public:
     void updateLevelUi(Level *level);
+    void updateWindowTitle(Level *level);
 
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;

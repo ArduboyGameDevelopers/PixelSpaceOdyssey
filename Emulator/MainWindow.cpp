@@ -12,6 +12,7 @@
 #include "game.h"
 
 #include "GameInput.h"
+#include "Settings.h"
 
 #include "EditorTools.h"
 #include "CharacterButton.h"
@@ -34,8 +35,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _instance = this;
     setFocusPolicy(Qt::StrongFocus);
     
-    setWindowTitle(QString("Pixel Space Oddysey %1").arg(PROJECT_VERSION));
-
     _ui->setupUi(this);
     _displayWidget = _ui->displayWidget;
     
@@ -46,10 +45,20 @@ MainWindow::MainWindow(QWidget *parent) :
     setupCharacterList();
     
     emulator.start();
+    
+    Level *level = NULL;
+    const QString &lastLevel = Settings::getString(kSettingsLastLevel, "");
+    if (lastLevel.length() > 0)
+    {
+        level = Level::readFromFile(lastLevel);
+    }
 
-    Level *level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
-    level->setPlayerPos(W2S(player.x), W2S(player.y));
-    level->setPlayerDir((CharacterDir) player.dir);
+    if (level == NULL)
+    {
+        level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
+        level->setPlayerPos(W2S(player.x), W2S(player.y));
+        level->setPlayerDir((CharacterDir) player.dir);
+    }
     Level::setCurrent(level);
     level->release();
 
@@ -58,6 +67,8 @@ MainWindow::MainWindow(QWidget *parent) :
     timer->start(kTimerDelay);
 
     _lastFrameTime = QDateTime::currentMSecsSinceEpoch();
+    
+    setFocus();
 }
 
 MainWindow::~MainWindow()
@@ -122,6 +133,16 @@ void MainWindow::updateLevelUi(Level *level)
 {
     CharacterListView *characterListView = _ui->characterListView;
     characterListView->updateItem(level);
+    
+    updateWindowTitle(level);
+}
+
+void MainWindow::updateWindowTitle(Level *level)
+{
+    const QString &basename = QFileInfo(level->filename()).baseName();
+    const QString &name = basename.length() > 0 ? basename : "Untitled";
+    
+    setWindowTitle(QString("Pixel Space Oddysey %1 - %2").arg(PROJECT_VERSION, name));
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
