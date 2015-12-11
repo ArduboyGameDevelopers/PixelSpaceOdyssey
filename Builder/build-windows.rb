@@ -1,3 +1,5 @@
+require_relative 'dropbox_deploy'
+require_relative 'dropbox_deploy_credentials'
 require_relative 'common'
 
 include Common
@@ -10,6 +12,7 @@ $dir_repo         = File.expand_path '..'
 $dir_project      = resolve_path "#{$dir_repo}/#{$project_name}"
 
 $dir_out          = "#{$dir_builder}/out"
+$dir_out_builds   = "#{$dir_out}/builds"
 
 $dir_emu          = resolve_path "#{$dir_repo}/Emulator"
 $dir_emu_build    = "#{$dir_emu}/build"
@@ -58,9 +61,39 @@ Dir.chdir dir_deploy do
   cmd << "windeployqt"
   cmd << " --#{$project_config.downcase}"
   cmd << " --no-translations"
+  cmd << " --no-quick-import"
+  cmd << " --no-system-d3d-compiler"
+  cmd << " --no-angle"
   cmd << " Emulator.exe"
   exec_shell cmd, "Can't deploy windows"
+
+  trash_files = [
+      'iconengines',
+      'imageformats',
+      'opengl32sw.dll',
+      'Qt5Svg.dll'
+  ]
+
+  trash_files.each do |file|
+    if File.directory? file
+      FileUtils.rm_rf file
+    else
+      FileUtils.rm_f file
+    end
+  end
+
 end
 
 # copy tiles
 FileUtils.cp_r "#{$dir_emu}/Tiles", "#{dir_deploy}/"
+
+# zip delivery
+
+FileUtils.rm_rf $dir_out_builds
+FileUtils.mkpath $dir_out_builds
+
+file_build = "#{$dir_out_builds}/#{$project_name}-#{project_version}.zip"
+zip_dir dir_deploy, file_build
+
+dropbox = DropboxDeploy.new $dropbox_access_token
+dropbox.deploy file_build
