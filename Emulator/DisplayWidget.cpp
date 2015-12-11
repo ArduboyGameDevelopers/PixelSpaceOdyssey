@@ -19,7 +19,7 @@ static const int GRID_ROWS = DISPLAY_WIDTH / GRID_CELL_WIDTH + 2;
 static const int GRID_COLS = DISPLAY_HEIGHT / GRID_CELL_HEIGHT + 2;
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
-    QOpenGLWidget(parent),
+    QWidget(parent),
     _pixelRects(DISPLAY_WIDTH * DISPLAY_HEIGHT, RECT_COLOR_PIXEL),
     _gridRects(GRID_ROWS * GRID_COLS, RECT_COLOR_GRID),
     _currentTool(NULL),

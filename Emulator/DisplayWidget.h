@@ -2,7 +2,7 @@
 #define DISPLAYWIDGET_H
 
 #include <QtGlobal>
-#include <QOpenGLWidget>
+#include <QWidget>
 #include <QPainter>
 
 #include "Constants.h"
@@ -34,7 +34,7 @@ private:
 
 class EditorTool;
 
-class DisplayWidget : public QOpenGLWidget
+class DisplayWidget : public QWidget
 {
     Q_OBJECT
 public:
