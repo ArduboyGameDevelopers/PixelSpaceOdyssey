@@ -6,6 +6,9 @@ require_relative 'animation_builder'
 require_relative 'tile_builder'
 require_relative 'tile_map_builder'
 
+require_relative 'dropbox_deploy'
+require_relative 'dropbox_deploy_credentials'
+
 include Common
 
 task :init do
@@ -77,27 +80,35 @@ end
 desc 'Build the app'
 task :build => :clean do
   def extract_project_version(dir_project)
-    file_plist = resolve_path "#{dir_project}/Arduboy-Emu/Info.plist"
-    plist = Plist::parse_xml file_plist
+    file_plist = resolve_path "#{dir_project}/Version.h"
+    source = File.read file_plist
+    source =~ /#define\s+PROJECT_VERSION\s+"(\d+\.\d+\.\d+)"/
 
-    not_nil plist['CFBundleShortVersionString']
+    not_nil $1
   end
 
   project_version = extract_project_version $dir_emu
 
   puts "Project version: #{project_version}"
 
-  cmd = 'xcodebuild'
-  cmd << %( -project "#{$file_emu_project}")
-  cmd << ' -configuration Debug'
-  cmd << %( -target "#{$project_name}")
-  exec_shell cmd, 'Unable to build the project'
 
-  dir_project = File.dirname $file_emu_project
-  dir_build = File.resolve_path "#{dir_project}/build/#{$project_config}"
+  dropbox = DropboxDeploy.new $dropbox_access_token
+  dropbox.deploy __FILE__
 
-  file_output = "#{$dir_out}/#{$project_name}-#{project_version}.zip"
-  zip_dir dir_build, file_output
+
+
+
+  # cmd = 'xcodebuild'
+  # cmd << %( -project "#{$file_emu_project}")
+  # cmd << ' -configuration Debug'
+  # cmd << %( -target "#{$project_name}")
+  # exec_shell cmd, 'Unable to build the project'
+  #
+  # dir_project = File.dirname $file_emu_project
+  # dir_build = File.resolve_path "#{dir_project}/build/#{$project_config}"
+  #
+  # file_output = "#{$dir_out}/#{$project_name}-#{project_version}.zip"
+  # zip_dir dir_build, file_output
 
 end
 

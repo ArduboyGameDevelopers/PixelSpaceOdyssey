@@ -17,6 +17,8 @@
 #include "CharacterButton.h"
 #include "CharacterListView.h"
 
+#include "Version.h"
+
 static const int kTimerDelay = 1000 / 60;
 
 MainWindow *MainWindow::_instance(NULL);
@@ -32,6 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _instance = this;
     setFocusPolicy(Qt::StrongFocus);
     
+    setWindowTitle(QString("Pixel Space Oddysey %1").arg(PROJECT_VERSION));
+
     _ui->setupUi(this);
     _displayWidget = _ui->displayWidget;
     

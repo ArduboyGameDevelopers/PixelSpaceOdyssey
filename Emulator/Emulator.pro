@@ -60,7 +60,8 @@ HEADERS  += \
     EditorCharTool.h \
     CharacterButton.h \
     LevelCharacter.h \
-    CharacterListView.h
+    CharacterListView.h \
+    Version.h
 
 FORMS    += mainwindow.ui \
     input2dialog.ui
