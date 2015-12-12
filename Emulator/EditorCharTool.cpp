@@ -7,7 +7,7 @@
 EditorCharTool::EditorCharTool(DisplayWidget *displayWidget, CharacterType characterType) :
     EditorTool(displayWidget),
     _characterType(characterType),
-    _characterImage(LevelCharacter::getImage(characterType))
+    _characterImage(CharacterInfo::getImage(characterType))
 {
 }
 

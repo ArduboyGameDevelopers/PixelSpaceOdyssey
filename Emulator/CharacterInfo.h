@@ -15,10 +15,10 @@ enum CharacterType {
 
 enum CharacterDir { CharacterDirLeft = -1, CharacterDirRight = 1 };
 
-class LevelCharacter
+class CharacterInfo
 {
 public:
-    LevelCharacter() :
+    CharacterInfo() :
         _type(CharacterTypeCount),
         _x(0),
         _y(0),
@@ -26,7 +26,7 @@ public:
     {
     }
     
-    LevelCharacter(CharacterType type, int x, int y, CharacterDir direction) :
+    CharacterInfo(CharacterType type, int x, int y, CharacterDir direction) :
         _type(type),
         _x(x),
         _y(y),
@@ -34,7 +34,7 @@ public:
     {
     }
     
-    LevelCharacter(const LevelCharacter &other) :
+    CharacterInfo(const CharacterInfo &other) :
         _type(other.type()),
         _x(other.x()),
         _y(other.y()),

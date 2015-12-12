@@ -1,4 +1,4 @@
-#include "LevelCharacter.h"
+#include "CharacterInfo.h"
 
 static const QString kCharacterImageLookup[] = {
     ":/characters/ch_player_8x8.png",
@@ -16,18 +16,18 @@ static const QString kCharacterNameLookup[] = {
     "Spider Large"
 };
 
-const QImage LevelCharacter::getImage(CharacterType type)
+const QImage CharacterInfo::getImage(CharacterType type)
 {
     const QString &name = kCharacterImageLookup[type];
     return QImage(name);
 }
 
-const QString LevelCharacter::getName(CharacterType type)
+const QString CharacterInfo::getName(CharacterType type)
 {
     return kCharacterNameLookup[type];
 }
 
-CharacterType LevelCharacter::typeFromName(const QString &name)
+CharacterType CharacterInfo::typeFromName(const QString &name)
 {
     if (name == "Player") return CharacterTypePlayer;
     if (name == "Bear") return CharacterTypeBear;
@@ -38,12 +38,12 @@ CharacterType LevelCharacter::typeFromName(const QString &name)
     return CharacterTypeCount;
 }
 
-const QImage LevelCharacter::image() const
+const QImage CharacterInfo::image() const
 {
     return getImage(_type);
 }
 
-const QString LevelCharacter::name() const
+const QString CharacterInfo::name() const
 {
     return getName(_type);
 }

@@ -90,7 +90,7 @@ Level* Level::readFromFile(const QString &filename)
         {
             QJsonObject enemyObj = enemies.at(i).toObject();
             QString name = enemyObj["name"].toString();
-            CharacterType characterType = LevelCharacter::typeFromName(name);
+            CharacterType characterType = CharacterInfo::typeFromName(name);
             if (characterType == CharacterTypeCount)
             {
                 qDebug() << "Unknown enemy type: " << name;
@@ -153,7 +153,7 @@ void Level::writeToFile(const QString &filename)
     QJsonArray enemiesObj;
     for (int i = 0; i < _enemies.size(); ++i)
     {
-        const LevelCharacter &enemy = _enemies.at(i);
+        const CharacterInfo &enemy = _enemies.at(i);
         
         QJsonObject enemyObj;
         enemyObj["name"] = enemy.name();
@@ -201,7 +201,7 @@ void Level::setCurrent(Level *level)
     int cols = level->cols();
     int rows = level->rows();
 
-    const LevelCharacter &player = level->player();
+    const CharacterInfo &player = level->player();
     
     ::player.x = S2W(player.x());
     ::player.y = S2W(player.y());
@@ -221,7 +221,7 @@ void Level::setCurrent(Level *level)
     ::initEnemies(level->enemiesCount());
     for (int i = 0; i < level->enemiesCount(); ++i)
     {
-        const LevelCharacter &enemy = level->enemies().at(i);
+        const CharacterInfo &enemy = level->enemies().at(i);
         const Character &spider = EnemyMakeSpiderLargeCharacter();
         
         ::addEnemy(spider, S2W(enemy.x()), S2W(enemy.y()));
@@ -232,7 +232,7 @@ void Level::setCurrent(Level *level)
 
 void Level::addEnemy(CharacterType type, int x, int y, CharacterDir dir)
 {
-    LevelCharacter enemy(type, x, y, CharacterDirLeft);
+    CharacterInfo enemy(type, x, y, CharacterDirLeft);
     enemy.setDirection(dir);
     _enemies.append(enemy);
 

@@ -37,8 +37,8 @@ SOURCES += main.cpp\
     Input2Dialog.cpp \
     EditorCharTool.cpp \
     CharacterButton.cpp \
-    LevelCharacter.cpp \
-    CharacterListView.cpp
+    CharacterListView.cpp \
+    CharacterInfo.cpp
 
 HEADERS  += \
     DisplayWidget.h \
@@ -59,9 +59,9 @@ HEADERS  += \
     Input2Dialog.h \
     EditorCharTool.h \
     CharacterButton.h \
-    LevelCharacter.h \
     CharacterListView.h \
-    Version.h
+    Version.h \
+    CharacterInfo.h
 
 FORMS    += mainwindow.ui \
     input2dialog.ui

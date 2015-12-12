@@ -3,7 +3,7 @@
 #include <QStringList>
 #include <QTextStream>
 
-static inline QString toListString(const LevelCharacter &character)
+static inline QString toListString(const CharacterInfo &character)
 {
     return QString("%1 (%2,%3)").arg(
         character.name(),
@@ -24,7 +24,7 @@ void CharacterListView::updateItem(Level *level)
     QStringList list;
     list << toListString(level->player());
  
-    const QList<LevelCharacter> &enemies = level->enemies();
+    const QList<CharacterInfo> &enemies = level->enemies();
     for (int i = 0; i < enemies.size(); ++i)
     {
         list << toListString(enemies[i]);

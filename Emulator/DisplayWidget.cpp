@@ -78,7 +78,7 @@ void DisplayWidget::drawCharaters(QPainter *painter)
     drawCharater(painter, level->player());
 
     // draw enemies
-    const QList<LevelCharacter> enemies = level->enemies();
+    const QList<CharacterInfo> enemies = level->enemies();
     for (int i = 0; i < enemies.size(); ++i)
     {
         drawCharater(painter, enemies.at(i));
@@ -87,7 +87,7 @@ void DisplayWidget::drawCharaters(QPainter *painter)
     painter->setOpacity(1.0);
 }
 
-void DisplayWidget::drawCharater(QPainter *painter, const LevelCharacter &character)
+void DisplayWidget::drawCharater(QPainter *painter, const CharacterInfo &character)
 {
     const QImage &image = character.image();
     int drawX = (character.x() + drawTransX) * PIXEL_WIDTH;
@@ -125,7 +125,7 @@ void DisplayWidget::focusCharacter(int index) const
         }
         else if (index > 0 && index <= level->enemiesCount())
         {
-            const LevelCharacter &enemy = level->enemies().at(index - 1);
+            const CharacterInfo &enemy = level->enemies().at(index - 1);
             camX = S2W(enemy.x());
             camY = S2W(enemy.y());
         }

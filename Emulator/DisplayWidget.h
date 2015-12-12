@@ -6,7 +6,7 @@
 #include <QPainter>
 
 #include "Constants.h"
-#include "LevelCharacter.h"
+#include "CharacterInfo.h"
 
 typedef QRect Rect;
 
@@ -46,7 +46,7 @@ public:
     
 public:
     void drawCharaters(QPainter *painter);
-    void drawCharater(QPainter *painter, const LevelCharacter &character);
+    void drawCharater(QPainter *painter, const CharacterInfo&character);
 
 public:
     EditorTool* currentTool() const { return _currentTool; }

@@ -5,7 +5,7 @@
 
 #include "Object.h"
 #include "Tileset.h"
-#include "LevelCharacter.h"
+#include "CharacterInfo.h"
 
 #include <QtGlobal>
 #include <QImage>
@@ -38,11 +38,11 @@ public:
     inline const QString &filename() const { return _filename; }
     inline bool hasFilename() const { return _filename.length() > 0; }
     
-    inline LevelCharacter player() const { return _player; }
+    inline CharacterInfo player() const { return _player; }
     inline void setPlayerPos(int x, int y) { _player.setPos(x, y); }
     inline void setPlayerDir(CharacterDir dir) { _player.setDirection(dir); }
     
-    inline const QList<LevelCharacter> enemies() const { return _enemies; }
+    inline const QList<CharacterInfo> enemies() const { return _enemies; }
     inline int enemiesCount() const { return _enemies.size(); }
     inline uint8_t* indices() const { return _indices; }
 
@@ -61,8 +61,8 @@ protected:
 private:
     static Level * _currentLevel;
     QString _filename;
-    LevelCharacter _player;
-    QList<LevelCharacter> _enemies;
+    CharacterInfo _player;
+    QList<CharacterInfo> _enemies;
     uint8_t  _tileSetId;
     uint8_t* _indices;
     uint8_t  _rows;
