@@ -18,9 +18,19 @@
 
 typedef int8_t Direction;
 
+struct _Character;
+typedef struct _Character Character;
+
+typedef void (*CharacterBehaviour)(Character *character, TimeInterval dt);
+
 typedef struct _Character
 {
+    CharacterBehaviour behaviour;
     const Animation* animation;
+
+    uint16_t user1;
+    uint16_t user2;
+
     uint16_t width;
     uint16_t height;
     int16_t x;
@@ -29,7 +39,6 @@ typedef struct _Character
     Direction dir;
     int8_t move;
     uint8_t frame;
-    
 } Character;
 
 inline Character CharacterMake(uint16_t width, uint16_t height)
@@ -42,7 +51,7 @@ inline Character CharacterMake(uint16_t width, uint16_t height)
 }
 
 void CharacterSetAnimation(Character* character, const Animation* animation);
-void CharacterUpdateAnimation(Character* character, TimeInterval dt);
-void CharacterDraw(Character* character, DrawMode mode);
+void CharacterUpdate(Character* character, TimeInterval dt);
+void CharacterDraw(Character* character);
 
 #endif /* character_h */

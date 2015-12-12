@@ -25,8 +25,14 @@ void CharacterSetAnimation(Character* character, const Animation* animation)
     }
 }
 
-void CharacterUpdateAnimation(Character* character, TimeInterval dt)
+void CharacterUpdate(Character* character, TimeInterval dt)
 {
+    CharacterBehaviour characterBehaviour = character->behaviour;
+    if (characterBehaviour)
+    {
+        characterBehaviour(character, dt);
+    }
+
     character->frameTime += dt;
     if (character->frameTime >= FRAME_DELAY_MS)
     {
@@ -35,10 +41,16 @@ void CharacterUpdateAnimation(Character* character, TimeInterval dt)
     }
 }
 
-void CharacterDraw(Character* character, DrawMode mode)
+void CharacterDraw(Character* character)
 {
     assert(character);
     PgmPtr framePtr = AnimationGetFrame(character->animation, character->frame);
+
+    DrawMode mode = DM_UNLIT;
+    if (character->dir == DIR_LEFT)
+    {
+        mode |= DM_FLIP_X;
+    }
     
     uint16_t frameWidth  = pgm_read_byte(framePtr + 2);
     uint16_t frameHeight = pgm_read_byte(framePtr + 3);

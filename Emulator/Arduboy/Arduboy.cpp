@@ -89,7 +89,7 @@ void Arduboy::initRandomSeed()
 //  power_adc_disable(); // ADC off
 }
 
-uint16_t Arduboy::rawADC(byte adc_bits)
+uint16_t Arduboy::rawADC(byte)
 {
     assert(false);
     return 0;

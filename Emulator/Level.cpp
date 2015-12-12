@@ -14,6 +14,8 @@
 #include <QTextStream>
 #include <QDebug>
 
+#include "enemies.h"
+
 static const uint8_t kVersion = 1;
 
 Level* Level::_currentLevel(NULL);
@@ -214,6 +216,14 @@ void Level::setCurrent(Level *level)
 
     camX = CAM_WIDTH_HALF;
     camY = CAM_WIDTH_HALF;
+    
+    // setup enemies
+    ::initEnemies(level->enemiesCount());
+    for (int i = 0; i < level->enemiesCount(); ++i)
+    {
+        const LevelCharacter &enemy = level->enemies().at(i);
+        ::addEnemy(S2W(enemy.x()), S2W(enemy.y()), EnemyBehaviourSpiderLarge);
+    }
     
     MainWindow::instance()->updateLevelUi(level);
 }

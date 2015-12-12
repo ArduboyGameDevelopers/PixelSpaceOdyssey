@@ -6,9 +6,6 @@ require_relative 'animation_builder'
 require_relative 'tile_builder'
 require_relative 'tile_map_builder'
 
-require_relative 'dropbox_deploy'
-require_relative 'dropbox_deploy_credentials'
-
 include Common
 
 task :init do
@@ -75,6 +72,11 @@ task :generate_xcode_proj => :init do
   Dir.chdir dir_output do
     exec_shell %(qmake -spec macx-xcode "#{$file_emu_project}"), "Can't generate Xcode project"
   end
+
+  dir_debug = "#{dir_output}/Debug"
+  FileUtils.mkpath dir_debug unless File.directory? dir_debug
+
+  FileUtils.cp_r "#{$dir_emu}/Tiles", "#{dir_debug}/"
 end
 
 desc 'Build the app'

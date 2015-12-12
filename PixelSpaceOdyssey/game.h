@@ -27,5 +27,10 @@ extern const int16_t CAM_RANGE_X;
 extern const int16_t CAM_RANGE_Y;
 
 extern Character player;
+extern Character *enemies;
+extern uint8_t enemiesCount;
+
+extern void initEnemies(uint8_t enemiesCount);
+extern void addEnemy(uint16_t width, uint16_t height, CharacterBehaviour behavior);
 
 #endif /* game_h */

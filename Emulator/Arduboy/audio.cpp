@@ -48,7 +48,7 @@ void ArduboyAudio::setup()
   tune_playing = false;
 }
 
-void ArduboyAudio::tone(uint8_t channel, unsigned int frequency, unsigned long duration)
+void ArduboyAudio::tone(uint8_t, unsigned int, unsigned long)
 {
   // if (audio_enabled)
     // ::tone(channel, frequency, duration);
@@ -57,19 +57,19 @@ void ArduboyAudio::tone(uint8_t channel, unsigned int frequency, unsigned long d
 
 /* TUNES */
 
-void ArduboyTunes::initChannel(byte pin)
+void ArduboyTunes::initChannel(byte)
 {
 }
 
-void ArduboyTunes::playNote(byte chan, byte note)
+void ArduboyTunes::playNote(byte, byte)
 {
 }
 
-void ArduboyTunes::stopNote(byte chan)
+void ArduboyTunes::stopNote(byte)
 {
 }
 
-void ArduboyTunes::playScore(const byte *score)
+void ArduboyTunes::playScore(const byte *)
 {
 }
 
@@ -91,7 +91,7 @@ void ArduboyTunes::step()
 {
 }
 
-void ArduboyTunes::delay (unsigned duration)
+void ArduboyTunes::delay (unsigned)
 {
 }
 
@@ -103,6 +103,6 @@ void ArduboyTunes::soundOutput()
 {
 }
 
-void ArduboyTunes::tone(unsigned int frequency, unsigned long duration)
+void ArduboyTunes::tone(unsigned int, unsigned long)
 {
 }

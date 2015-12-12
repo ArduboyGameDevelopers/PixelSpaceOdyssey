@@ -51,7 +51,7 @@ unsigned long platformMillis(void)
     return _gameTime;
 }
 
-void platformDelay(unsigned long millis)
+void platformDelay(unsigned long)
 {
 }
 

@@ -50,11 +50,11 @@ uint8_t ArduboyCore::height() { return HEIGHT; }
 
 /* Drawing */
 
-void ArduboyCore::paint8Pixels(uint8_t pixels)
+void ArduboyCore::paint8Pixels(uint8_t)
 {
 }
 
-void ArduboyCore::paintScreen(const unsigned char *image)
+void ArduboyCore::paintScreen(const unsigned char *)
 {
 }
 

@@ -30,7 +30,6 @@
 #define WALK_SPEED 9
 #define SLIDE_SPEED 12
 
-
 static const uint8_t PLAYER_WIDTH                = S2W(8);
 static const uint8_t PLAYER_HEIGHT               = S2W(8);
 static const uint8_t PLAYER_COLLIDER_HALF_WIDTH  = S2W(3);
@@ -45,7 +44,10 @@ const int16_t CAM_RANGE_Y       = S2W(15);
 
 static Arduboy display;
 
-Character player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
+Character  player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
+Character *enemies = NULL;
+uint8_t enemiesCount = 0;
+
 static bool playerCrouching = false;
 static bool playerJumping = false;
 static bool jumpPressed = false;
@@ -63,11 +65,13 @@ int16_t camX;
 int16_t camY;
 
 static TimeInterval lastFrameTime;
-static TimeInterval lastDrawTime;
 
-void playerUpdate(TimeInterval dt);
-void playerDraw();
-void playerSetAnimation(int index);
+static void playerUpdate(TimeInterval dt);
+static void playerDraw();
+static void playerSetAnimation(int index);
+
+static void enemiesUpdate(TimeInterval dt);
+static void enemiesDraw();
 
 void tilemapDraw();
 
@@ -93,6 +97,7 @@ void updateGame()
     lastFrameTime = millis();
     
     playerUpdate(dt);
+    enemiesUpdate(dt);
 }
 
 void drawGame()
@@ -107,6 +112,7 @@ void drawGame()
     
     tilemapDraw();
     playerDraw();
+    enemiesDraw();
     
     display.display();
 }
@@ -339,23 +345,51 @@ void playerUpdate(TimeInterval dt)
         playerSetAnimation(PLAYER_ANIMATION_RUN);
     }
     
-    CharacterUpdateAnimation(&player, dt);
+    CharacterUpdate(&player, dt);
 }
 
 void playerDraw()
 {
-    DrawMode mode = DM_UNLIT;
-    if (player.dir == DIR_LEFT)
-    {
-        mode |= DM_FLIP_X;
-    }
-    CharacterDraw(&player, mode);
+    CharacterDraw(&player);
 }
 
 void playerSetAnimation(int index)
 {
     assert(index >= 0 && index < PLAYER_ANIMATIONS_COUNT);
     CharacterSetAnimation(&player, &PLAYER_ANIMATIONS[index]);
+}
+
+////////////////////////////////////////////////////////////////////
+// Enemies
+
+void initEnemies(uint8_t enemiesCount)
+{
+    free(enemies);
+    enemies = (Character *) malloc(enemiesCount * sizeof(Character));
+    enemiesCount = 0;
+}
+
+void addEnemy(uint16_t width, uint16_t height, CharacterBehaviour behavior)
+{
+    Character enemy = CharacterMake(width, height);
+    enemy.behaviour = behavior;
+    enemies[enemiesCount++] = enemy;
+}
+
+void enemiesUpdate(TimeInterval dt)
+{
+    for (int i = 0; i < enemiesCount; ++i)
+    {
+        CharacterUpdate(&enemies[i], dt);
+    }
+}
+
+void enemiesDraw()
+{
+    for (int i = 0; i < enemiesCount; ++i)
+    {
+        CharacterDraw(&enemies[i]);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////

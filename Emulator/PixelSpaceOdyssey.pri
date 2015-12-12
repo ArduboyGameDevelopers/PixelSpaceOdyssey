@@ -13,7 +13,8 @@ SOURCES += $${PROJ_PATH}/character.cpp \
     $${PROJ_PATH}/player_animations.cpp \
     $${PROJ_PATH}/tilemap.cpp \
     $${PROJ_PATH}/tiles_lair_01.cpp \
-    $${PROJ_PATH}/tiles_tb_caverns.cpp
+    $${PROJ_PATH}/tiles_tb_caverns.cpp \
+    $${PROJ_PATH}/spider_large.cpp
 
 HEADERS  += $${PROJ_PATH}/animation.h \
     $${PROJ_PATH}/bridge.h \
@@ -24,4 +25,6 @@ HEADERS  += $${PROJ_PATH}/animation.h \
     $${PROJ_PATH}/player_animations.h \
     $${PROJ_PATH}/tilemap.h \
     $${PROJ_PATH}/tiles_lair_01.h \
-    $${PROJ_PATH}/tiles_tb_caverns.h
+    $${PROJ_PATH}/tiles_tb_caverns.h \
+    $${PROJ_PATH}/spider_large.h \
+    $${PROJ_PATH}/enemies.h
