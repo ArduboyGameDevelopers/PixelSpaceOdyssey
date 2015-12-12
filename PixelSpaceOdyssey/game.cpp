@@ -74,7 +74,7 @@ static void playerSetAnimation(int index);
 static void enemiesUpdate(TimeInterval dt);
 static void enemiesDraw();
 
-void tilemapDraw();
+static void tilemapDraw();
 
 void startGame()
 {
@@ -118,8 +118,8 @@ void drawGame()
     display.display();
 }
 
-////////////////////////////////////////////////////////////////////
-// Player
+#pragma mark -
+#pragma mark Player
 
 #define GET_TILE(X,Y,T) TileMapGetTile(&tileMap, X, Y, &T)
 #define GET_TILE_SOLID(X,Y,T) (TileMapGetTile(&tileMap, X, Y, &T) > 15)
@@ -331,7 +331,7 @@ void playerUpdate(TimeInterval dt)
     }
     else if (playerCrouching)
     {
-        playerSetAnimation(PLAYER_ANIMATION_CROUCH);
+        playerSetAnimation(PLAYER_ANIMATION_CROUNCH);
     }
     else if (player.move == 0)
     {
@@ -360,8 +360,8 @@ void playerSetAnimation(int index)
     CharacterSetAnimation(&player, &PLAYER_ANIMATIONS[index]);
 }
 
-////////////////////////////////////////////////////////////////////
-// Enemies
+#pragma mark -
+#pragma mark Enemies
 
 void initEnemies(uint8_t enemiesCount)
 {
@@ -394,8 +394,8 @@ void enemiesDraw()
     }
 }
 
-////////////////////////////////////////////////////////////////////
-// Tilemap
+#pragma mark -
+#pragma mark Tilemap
 
 void tilemapDraw()
 {

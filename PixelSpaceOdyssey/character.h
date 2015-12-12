@@ -16,17 +16,22 @@
 #define DIR_LEFT -1
 #define DIR_RIGHT 1
 
+#define CHARACTER_CALLBACK_ANIMATION_FINISHED 1
+
 typedef int8_t Direction;
+typedef uint8_t CharacterCallbackType;
 
 struct _Character;
 typedef struct _Character Character;
 
 typedef void (*CharacterInit)(Character *character);
+typedef void (*CharacterCallback)(Character *character, CharacterCallbackType type, int16_t user1, int16_t user2);
 typedef void (*CharacterBehaviour)(Character *character, TimeInterval dt);
 
 typedef struct _Character
 {
     CharacterBehaviour behaviour;
+    CharacterCallback callback;
     const Animation* animation;
 
     uint16_t user1;
@@ -36,7 +41,7 @@ typedef struct _Character
     uint16_t height;
     int16_t x;
     int16_t y;
-    int16_t frameTime;
+    uint16_t frameTime;
     Direction dir;
     int8_t move;
     uint8_t frame;
@@ -51,8 +56,15 @@ inline Character CharacterMake(uint16_t width, uint16_t height)
     return character;
 }
 
+inline bool CharacterIsAnimationEnded(Character* character)
+{
+    const Animation *animation = character->animation;
+    return character->frame == animation->frameCount - 1 && !animation->looped;
+}
+
 void CharacterSetAnimation(Character* character, const Animation* animation);
 void CharacterUpdate(Character* character, TimeInterval dt);
 void CharacterDraw(Character* character);
+void CharacterCallbackInvoke(Character *character, CharacterCallbackType type, int16_t user1 = 0, int16_t user2 = 0);
 
 #endif /* character_h */

@@ -14,13 +14,15 @@
 typedef struct _Animation {
     const PgmPtr* frames;
     uint8_t frameCount;
+    bool looped;
 } Animation;
 
-inline Animation AnimationMake(const PgmPtr* frames, uint8_t frameCount)
+inline Animation AnimationMake(const PgmPtr* frames, uint8_t frameCount, bool looped = false)
 {
     Animation animation;
     animation.frames = frames;
     animation.frameCount = frameCount;
+    animation.looped = looped;
     return animation;
 }
 

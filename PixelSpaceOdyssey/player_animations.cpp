@@ -128,22 +128,22 @@ static PgmPtr FRAMES_PUNCH[] =
   FRAME_PUNCH_1,
 };
 
-static PROGMEM WEAK_CONST unsigned char FRAME_CROUCH_0[] =
+static PROGMEM WEAK_CONST unsigned char FRAME_CROUNCH_0[] =
 {
   1, 1, 7, 7,
   0x42, 0x42, 0x7e, 0x7e, 0x3f, 0x4f, 0x30
 };
 
-static PROGMEM WEAK_CONST unsigned char FRAME_CROUCH_1[] =
+static PROGMEM WEAK_CONST unsigned char FRAME_CROUNCH_1[] =
 {
   0, 3, 8, 5,
   0x12, 0x1a, 0x1e, 0x1e, 0x1e, 0x1f, 0x7, 0x18
 };
 
-static PgmPtr FRAMES_CROUCH[] =
+static PgmPtr FRAMES_CROUNCH[] =
 {
-  FRAME_CROUCH_0,
-  FRAME_CROUCH_1,
+  FRAME_CROUNCH_0,
+  FRAME_CROUNCH_1,
 };
 
 static PROGMEM WEAK_CONST unsigned char FRAME_RECEP_0[] =
@@ -288,12 +288,12 @@ const Animation PLAYER_ANIMATIONS[] =
   AnimationMake(FRAMES_IMPACT_FRONT, 1),
   AnimationMake(FRAMES_JUMPKICK, 2),
   AnimationMake(FRAMES_PUNCH, 2),
-  AnimationMake(FRAMES_CROUCH, 2),
+  AnimationMake(FRAMES_CROUNCH, 2),
   AnimationMake(FRAMES_RECEP, 1),
-  AnimationMake(FRAMES_FALL, 2),
-  AnimationMake(FRAMES_JUMP, 2),
+  AnimationMake(FRAMES_FALL, 2, true),
+  AnimationMake(FRAMES_JUMP, 2, true),
   AnimationMake(FRAMES_RUNSTOP, 1),
-  AnimationMake(FRAMES_RUN, 4),
-  AnimationMake(FRAMES_WALK, 4),
+  AnimationMake(FRAMES_RUN, 4, true),
+  AnimationMake(FRAMES_WALK, 4, true),
   AnimationMake(FRAMES_STAT, 1),
 };

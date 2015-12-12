@@ -62,7 +62,7 @@ class AnimationBuilder
     source_cpp.println "#include \"#{File.basename file_h}\""
 
     animation_defines = []
-    animation_inializers = []
+    animation_initializers = []
 
     total_frames = 0;
 
@@ -113,13 +113,16 @@ class AnimationBuilder
       source_h.println
       source_h.println "#define #{animation_define} #{animation_index}"
 
-      animation_inializers << "AnimationMake(#{frames_name}, #{frames.length})"
+      animation_initializer = "AnimationMake(#{frames_name}, #{frames.length}"
+      animation_initializer << ", #{animation.looped}" if animation.looped
+      animation_initializer << ')'
+      animation_initializers << animation_initializer
     }
 
     puts total_frames
 
     source_h.println
-    source_h.println "#define #{basename.upcase}_ANIMATIONS_COUNT #{animation_inializers.length}"
+    source_h.println "#define #{basename.upcase}_ANIMATIONS_COUNT #{animation_initializers.length}"
 
     source_h.println
     source_h.println "extern const Animation #{basename.upcase}_ANIMATIONS[];"
@@ -127,7 +130,7 @@ class AnimationBuilder
     source_cpp.println
     source_cpp.println "const Animation #{basename.upcase}_ANIMATIONS[] = "
     source_cpp.block_open
-    animation_inializers.each { |a| source_cpp.println "#{a}," }
+    animation_initializers.each { |a| source_cpp.println "#{a}," }
     source_cpp.block_close ';'
 
     source_h.println

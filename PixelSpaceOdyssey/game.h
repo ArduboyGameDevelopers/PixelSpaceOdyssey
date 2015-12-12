@@ -34,4 +34,11 @@ extern uint8_t enemiesCount;
 extern void initEnemies(uint8_t enemiesCount);
 extern void addEnemy(const Character &enemy, int16_t x, int16_t y);
 
+inline uint16_t playerDistanceSqr(const Character *character)
+{
+    int16_t dx = W2S(character->x - player.x);
+    int16_t dy = W2S(character->y - player.y);
+    return dx * dx + dy * dy;
+}
+
 #endif /* game_h */

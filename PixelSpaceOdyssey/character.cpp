@@ -32,12 +32,29 @@ void CharacterUpdate(Character* character, TimeInterval dt)
     {
         characterBehaviour(character, dt);
     }
-
-    character->frameTime += dt;
-    if (character->frameTime >= FRAME_DELAY_MS)
+    
+    if (!CharacterIsAnimationEnded(character))
     {
-        character->frameTime = 0;
-        character->frame = (character->frame + 1) % character->animation->frameCount;
+        character->frameTime += dt;
+        if (character->frameTime >= FRAME_DELAY_MS)
+        {
+            character->frameTime = 0;
+            character->frame = character->frame + 1;
+            
+            const Animation *animation = character->animation;
+            if (character->frame >= animation->frameCount)
+            {
+                if (animation->looped)
+                {
+                    character->frame = character->frame % animation->frameCount;
+                }
+                else
+                {
+                    character->frame = animation->frameCount - 1;
+                    CharacterCallbackInvoke(character, CHARACTER_CALLBACK_ANIMATION_FINISHED);
+                }
+            }
+        }
     }
 }
 
@@ -76,4 +93,13 @@ void CharacterDraw(Character* character)
     
     PgmPtr imagePtr = framePtr + 4;
     drawImage(imagePtr, drawX, drawY, frameWidth, frameHeight, mode);
+}
+
+void CharacterCallbackInvoke(Character *character, CharacterCallbackType type, int16_t user1, int16_t user2)
+{
+    CharacterCallback callback = character->callback;
+    if (callback)
+    {
+        callback(character, type, user1, user2);
+    }
 }
