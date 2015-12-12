@@ -21,6 +21,7 @@ typedef int8_t Direction;
 struct _Character;
 typedef struct _Character Character;
 
+typedef void (*CharacterInit)(Character *character);
 typedef void (*CharacterBehaviour)(Character *character, TimeInterval dt);
 
 typedef struct _Character

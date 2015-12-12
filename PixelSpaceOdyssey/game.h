@@ -12,6 +12,7 @@
 #include "common.h"
 #include "character.h"
 #include "tilemap.h"
+#include "enemies.h"
 
 extern TileMap tileMap;
 extern int16_t camX;
@@ -31,6 +32,6 @@ extern Character *enemies;
 extern uint8_t enemiesCount;
 
 extern void initEnemies(uint8_t enemiesCount);
-extern void addEnemy(uint16_t width, uint16_t height, CharacterBehaviour behavior);
+extern void addEnemy(const Character &enemy, int16_t x, int16_t y);
 
 #endif /* game_h */

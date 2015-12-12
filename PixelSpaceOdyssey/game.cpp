@@ -20,6 +20,7 @@
 
 #include "tiles_tb_caverns.h"
 #include "tiles_lair_01.h"
+#include "enemies.h"
 
 #define RUN_BUTTON  A_BUTTON
 #define JUMP_BUTTON B_BUTTON
@@ -369,11 +370,12 @@ void initEnemies(uint8_t enemiesCount)
     enemiesCount = 0;
 }
 
-void addEnemy(uint16_t width, uint16_t height, CharacterBehaviour behavior)
+void addEnemy(const Character &enemy, int16_t x, int16_t y)
 {
-    Character enemy = CharacterMake(width, height);
-    enemy.behaviour = behavior;
-    enemies[enemiesCount++] = enemy;
+    enemies[enemiesCount] = enemy;
+    enemies[enemiesCount].x = x;
+    enemies[enemiesCount].y = y;
+    ++enemiesCount;
 }
 
 void enemiesUpdate(TimeInterval dt)

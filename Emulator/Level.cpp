@@ -222,7 +222,9 @@ void Level::setCurrent(Level *level)
     for (int i = 0; i < level->enemiesCount(); ++i)
     {
         const LevelCharacter &enemy = level->enemies().at(i);
-        ::addEnemy(S2W(enemy.x()), S2W(enemy.y()), EnemyBehaviourSpiderLarge);
+        const Character &spider = EnemyMakeSpiderLargeCharacter();
+        
+        ::addEnemy(spider, S2W(enemy.x()), S2W(enemy.y()));
     }
     
     MainWindow::instance()->updateLevelUi(level);
