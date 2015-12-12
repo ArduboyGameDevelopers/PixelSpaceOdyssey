@@ -21,6 +21,7 @@ void CharacterSetAnimation(Character* character, const Animation* animation)
     if (character->animation != animation)
     {
         character->animation = animation;
+        character->animationEnded = false;
         character->frame = 0;
     }
 }
@@ -33,24 +34,25 @@ void CharacterUpdate(Character* character, TimeInterval dt)
         characterBehaviour(character, dt);
     }
     
-    if (!CharacterIsAnimationEnded(character))
+    if (!character->animationEnded)
     {
         character->frameTime += dt;
         if (character->frameTime >= FRAME_DELAY_MS)
         {
             character->frameTime = 0;
-            character->frame = character->frame + 1;
+            ++character->frame;
             
-            const Animation *animation = character->animation;
-            if (character->frame >= animation->frameCount)
+            int frameCount = character->animation->frameCount;
+            if (character->frame >= frameCount)
             {
-                if (animation->looped)
+                if (character->animation->looped)
                 {
-                    character->frame = character->frame % animation->frameCount;
+                    character->frame %= frameCount;
                 }
                 else
                 {
-                    character->frame = animation->frameCount - 1;
+                    character->frame = frameCount - 1;
+                    character->animationEnded = true;
                     CharacterCallbackInvoke(character, CHARACTER_CALLBACK_ANIMATION_FINISHED);
                 }
             }

@@ -37,8 +37,9 @@ void EditorState::setTileSetIndex(int tileSetIndex)
     for (int i = 0; i < tileSet->tileCount(); ++i)
     {
         TileImage *tile = tileSet->getTileImage(i);
-        PgmMem tileMem(tile->image());
-        tiles[i] = tileMem.dataCopy();
+        PgmMem *tileMem = new PgmMem(tile->image());
+        tiles[i] = tileMem->dataCopy();
+        tileMem->release();
     }
     tileMap.tiles = tiles;
 }

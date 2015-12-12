@@ -45,6 +45,7 @@ typedef struct _Character
     Direction dir;
     int8_t move;
     uint8_t frame;
+    boolean animationEnded;
 } Character;
 
 inline Character CharacterMake(uint16_t width, uint16_t height)
@@ -54,12 +55,6 @@ inline Character CharacterMake(uint16_t width, uint16_t height)
     character.width = width;
     character.height = height;
     return character;
-}
-
-inline bool CharacterIsAnimationEnded(Character* character)
-{
-    const Animation *animation = character->animation;
-    return character->frame == animation->frameCount - 1 && !animation->looped;
 }
 
 void CharacterSetAnimation(Character* character, const Animation* animation);

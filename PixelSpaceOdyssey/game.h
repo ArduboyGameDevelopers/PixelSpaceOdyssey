@@ -26,6 +26,7 @@ extern const int16_t CAM_WIDTH_HALF;
 extern const int16_t CAM_HEIGHT_HALF;
 extern const int16_t CAM_RANGE_X;
 extern const int16_t CAM_RANGE_Y;
+extern const int8_t  WALK_SPEED;
 
 extern Character player;
 extern Character *enemies;

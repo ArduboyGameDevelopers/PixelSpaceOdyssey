@@ -27,9 +27,9 @@
 
 #define GRAVITY 5
 
-#define JUMP_SPEED -65
-#define WALK_SPEED 9
-#define SLIDE_SPEED 12
+const int8_t WALK_SPEED         = 9;
+static const int8_t JUMP_SPEED  = -65;
+static const int8_t SLIDE_SPEED = 12;
 
 static const uint8_t PLAYER_WIDTH                = S2W(8);
 static const uint8_t PLAYER_HEIGHT               = S2W(8);
