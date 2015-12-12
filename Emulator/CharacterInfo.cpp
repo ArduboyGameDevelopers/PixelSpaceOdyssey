@@ -1,30 +1,38 @@
 #include "CharacterInfo.h"
 
-static const QString kCharacterImageLookup[] = {
-    ":/characters/ch_player_8x8.png",
-    ":/characters/ch_bear_32x24.png",
-    ":/characters/ch_dog_16x10.png",
-    ":/characters/ch_spider_16x8.png",
-    ":/characters/ch_spider_24x16.png"
-};
+#include <QDebug>
 
-static const QString kCharacterNameLookup[] = {
-    "Player",
-    "Bear",
-    "Dog",
-    "Spider Small",
-    "Spider Large"
+typedef struct _CharacterTypeParams {
+    QString name;
+    QString filename;
+    QSize size;
+} CharacterTypeParams;
+
+static const CharacterTypeParams lookup[] = {
+    { "Player",       ":/characters_full/ch_player_8x8_full.png",     QSize(8, 8) },
+    { "Bear",         ":/characters_full/ch_bear_32x24_full.png",     QSize(32, 24) },
+    { "Dog",          ":/characters_full/ch_dog_16x10_full.png",      QSize(16, 10) },
+    { "Spider Small", ":/characters_full/ch_spider_16x8_full.png",    QSize(16, 8) },
+    { "Spider Large", ":/characters_full/ch_spider_24x16_full.png",   QSize(24, 16) },
 };
+static const int lookupCount = sizeof(lookup) / sizeof(CharacterTypeParams);
 
 const QImage CharacterInfo::getImage(CharacterType type)
 {
-    const QString &name = kCharacterImageLookup[type];
-    return QImage(name);
+    Q_ASSERT(type >= 0 && type < lookupCount);
+    return QImage(lookup[type].filename);
+}
+
+QSize CharacterInfo::getSize(CharacterType type)
+{
+    Q_ASSERT(type >= 0 && type < lookupCount);
+    return lookup[type].size;
 }
 
 const QString CharacterInfo::getName(CharacterType type)
 {
-    return kCharacterNameLookup[type];
+    Q_ASSERT(type >= 0 && type < lookupCount);
+    return lookup[type].name;
 }
 
 CharacterType CharacterInfo::typeFromName(const QString &name)

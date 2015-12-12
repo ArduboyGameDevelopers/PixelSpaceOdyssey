@@ -13,6 +13,7 @@ public:
     
 public:
     void updateItem(Level *level);
+    void deleteItem(int index);
 
 private:
     QStringListModel * _model;

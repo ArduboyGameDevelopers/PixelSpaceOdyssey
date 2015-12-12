@@ -23,12 +23,10 @@ SOURCES += main.cpp\
     EditorTool.cpp \
     Emulator.cpp \
     GameInput.cpp \
-    MainWindow+ToolBar.cpp \
     MainWindow.cpp \
     EditorDrawTool.cpp \
     EditorState.cpp \
     Level.cpp \
-    MainWindow+Actions.cpp \
     TilesWidget.cpp \
     Tileset.cpp \
     Object.cpp \

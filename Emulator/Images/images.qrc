@@ -14,4 +14,12 @@
         <file>ch_spider_16x8.png</file>
         <file>ch_spider_24x16.png</file>
     </qresource>
+
+    <qresource prefix="/characters_full">
+        <file>ch_bear_32x24_full.png</file>
+        <file>ch_dog_16x10_full.png</file>
+        <file>ch_player_8x8_full.png</file>
+        <file>ch_spider_16x8_full.png</file>
+        <file>ch_spider_24x16_full.png</file>
+    </qresource>
 </RCC>

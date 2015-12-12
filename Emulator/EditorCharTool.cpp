@@ -30,16 +30,14 @@ void EditorCharTool::onMousePressed(int, int)
     
     Level *level = Level::current();
     
-    int cx = (tileX() + (GRID_CELL_WIDTH_PX - _characterImage.width()) / 2) / PIXEL_WIDTH - drawTransX;
-    int cy = (tileY() + GRID_CELL_HEIGHT_PX - _characterImage.height()) / PIXEL_HEIGHT - drawTransY;
     if (_characterType == CharacterTypePlayer)
     {
-        level->setPlayerPos(cx, cy);
+        level->setPlayerPos(cx(), cy());
         level->setPlayerDir(CharacterDirRight);
     }
     else
     {
-        level->addEnemy(_characterType, cx, cy, CharacterDirLeft);
+        level->addEnemy(_characterType, cx(), cy(), CharacterDirLeft);
     }
     
     displayWidget()->setDefaultTool();
@@ -56,4 +54,15 @@ void EditorCharTool::onMouseMoved(int x, int y)
     {
         displayWidget()->repaint();
     }
+}
+
+int EditorCharTool::cx() const
+{
+    return (tileX() + DIV2(GRID_CELL_WIDTH_PX)) / PIXEL_WIDTH - drawTransX;
+}
+
+int EditorCharTool::cy() const
+{
+    QSize characterSize = CharacterInfo::getSize(_characterType);
+    return (tileY() + GRID_CELL_HEIGHT_PX - DIV2(characterSize.height() * PIXEL_HEIGHT)) / PIXEL_HEIGHT - drawTransY;
 }

@@ -239,6 +239,14 @@ void Level::addEnemy(CharacterType type, int x, int y, CharacterDir dir)
     MainWindow::instance()->updateLevelUi(this);
 }
 
+void Level::deleteEnemy(int index)
+{
+    Q_ASSERT(index >= 0 && index < _enemies.length());
+    _enemies.removeAt(index);
+    
+    MainWindow::instance()->updateLevelUi(this);
+}
+
 void Level::resize(uint8_t rows, uint8_t cols)
 {
     if (rows == _rows && cols == _cols) return;

@@ -90,8 +90,8 @@ void DisplayWidget::drawCharaters(QPainter *painter)
 void DisplayWidget::drawCharater(QPainter *painter, const CharacterInfo &character)
 {
     const QImage &image = character.image();
-    int drawX = (character.x() + drawTransX) * PIXEL_WIDTH;
-    int drawY = (character.y() + drawTransY) * PIXEL_HEIGHT;
+    int drawX = (character.x() - character.width() / 2 + drawTransX) * PIXEL_WIDTH;
+    int drawY = (character.y() - character.height() / 2 + drawTransY) * PIXEL_HEIGHT;
     
     painter->drawImage(drawX, drawY, image);
 }

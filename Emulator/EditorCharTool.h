@@ -18,6 +18,10 @@ protected:
 
 public:
     inline CharacterType characterType() const { return _characterType; }
+    
+private:
+    int cx() const;
+    int cy() const;
 
 private:
     CharacterType _characterType;

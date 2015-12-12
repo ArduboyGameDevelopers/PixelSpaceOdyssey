@@ -44,6 +44,8 @@ public:
     
 public:
     static const QImage getImage(CharacterType type);
+    static QSize getSize(CharacterType type);
+    
     static const QString getName(CharacterType type);
     static CharacterType typeFromName(const QString &name);
 
@@ -54,6 +56,9 @@ public:
 
     inline int y() const { return _y; }
     inline void setY(int y) { _y = y; }
+    
+    inline int width() const { return getSize(_type).width(); }
+    inline int height() const { return getSize(_type).height(); }
 
     inline void setPos(int x, int y) { setX(x); setY(y); }
 

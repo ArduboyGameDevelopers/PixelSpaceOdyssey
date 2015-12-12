@@ -47,6 +47,7 @@ public slots:
 
     void onActionToggleGrid(bool selected);
     void onCharacterButton(bool);
+    void onDeleteEnemyButton();
     
     void onTileSetSelected(int index);
     void onCharacterListItemClicked(const QModelIndex & index);
