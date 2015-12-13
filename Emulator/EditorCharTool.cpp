@@ -33,11 +33,11 @@ void EditorCharTool::onMousePressed(int, int)
     if (_characterType == CharacterTypePlayer)
     {
         level->setPlayerPos(cx(), cy());
-        level->setPlayerDir(CharacterDirRight);
+        level->setPlayerDir(DIR_RIGHT);
     }
     else
     {
-        level->addEnemy(_characterType, cx(), cy(), CharacterDirLeft);
+        level->addEnemy(_characterType, cx(), cy(), DIR_LEFT);
     }
     
     displayWidget()->setDefaultTool();

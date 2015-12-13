@@ -50,6 +50,7 @@ public slots:
     void onDeleteEnemyButton();
     
     void onTileSetSelected(int index);
+    void onDirectionButtonChecked(bool checked);
     void onCharacterListItemClicked(const QModelIndex & index);
 
 public:
@@ -81,6 +82,8 @@ private:
     void setEditorTool(EditorTool *tool);
     void pushEditorTool(EditorTool *tool);
     void popEditorTool();
+    
+    void updateDirectionalRadioButtons();
 
 private:
     static MainWindow *_instance;

@@ -58,7 +58,7 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
         level->setPlayerPos(W2S(player.x), W2S(player.y));
-        level->setPlayerDir((CharacterDir) player.dir);
+        level->setPlayerDir((Direction) player.dir);
     }
     Level::setCurrent(level);
     level->release();
@@ -334,6 +334,10 @@ void MainWindow::setupActions()
     // delete enemy buttons
     connect(_ui->enemyDeleteButton, SIGNAL(clicked()), this, SLOT(onDeleteEnemyButton()));
     
+    // direction selection
+    connect(_ui->leftRadioButton, SIGNAL(clicked(bool)), this, SLOT(onDirectionButtonChecked(bool)));
+    connect(_ui->rightRadioButton, SIGNAL(clicked(bool)), this, SLOT(onDirectionButtonChecked(bool)));
+    
     // grid
     bool gridVisible = Settings::getBool(kSettingsGridVisible);
     displayWidget()->setGridVisible(gridVisible);
@@ -363,7 +367,7 @@ void MainWindow::onActionNew()
     
     Level *level = new Level(indices, rows, cols);
     level->setPlayerPos(cols / 2 * GRID_CELL_WIDTH, cols / 2 * GRID_CELL_WIDTH);
-    level->setPlayerDir(CharacterDirRight);
+    level->setPlayerDir(DIR_RIGHT);
     Level::setCurrent(level);
     level->release();
 }
@@ -556,6 +560,7 @@ void MainWindow::onCharacterListItemClicked(const QModelIndex & index)
     
     editorState.setCharacterIndex(characterIndex);
     displayWidget()->focusCharacter(characterIndex);
+    updateDirectionalRadioButtons();
 }
 
 #pragma mark -
@@ -565,4 +570,72 @@ void MainWindow::setupCharacterList()
 {
     CharacterListView *characterList = _ui->characterListView;
     connect(characterList, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onCharacterListItemClicked(QModelIndex)));
+}
+
+void MainWindow::onDirectionButtonChecked(bool checked)
+{
+    int characterIndex = editorState.characterIndex();
+    if (characterIndex == -1)
+    {
+        return;
+    }
+    
+    if (checked)
+    {
+        Direction dir;
+        
+        QRadioButton *radioButton = dynamic_cast<QRadioButton *>(QWidget::sender());
+        if (radioButton == _ui->leftRadioButton)
+        {
+            dir = DIR_LEFT;
+        }
+        else /* if (radioButton == _ui->rightRadioButton) */
+        {
+            dir = DIR_RIGHT;
+        }
+        
+        Level *level = Level::current();
+        if (characterIndex == 0)
+        {
+            level->player().setDirection(dir);
+        }
+        else
+        {
+            int enemyIndex = characterIndex - 1;
+            level->setEnemyDir(enemyIndex, dir);
+        }
+    }
+}
+
+void MainWindow::updateDirectionalRadioButtons()
+{
+    int characterIndex = editorState.characterIndex();
+    if (characterIndex == -1)
+    {
+        _ui->rightRadioButton->setEnabled(false);
+        _ui->leftRadioButton->setEnabled(false);
+        
+        _ui->rightRadioButton->setChecked(false);
+        _ui->leftRadioButton->setChecked(false);
+    }
+    else
+    {
+        _ui->rightRadioButton->setEnabled(true);
+        _ui->leftRadioButton->setEnabled(true);
+        
+        const Level *level = Level::current();
+        Direction direction;
+        if (characterIndex == 0)
+        {
+            direction = level->player().direction();
+        }
+        else
+        {
+            int enemyIndex = characterIndex - 1;
+            direction = level->enemies().at(enemyIndex).direction();
+        }
+        
+        _ui->rightRadioButton->setChecked(direction == DIR_RIGHT);
+        _ui->leftRadioButton->setChecked(direction == DIR_LEFT);
+    }
 }

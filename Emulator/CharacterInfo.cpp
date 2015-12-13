@@ -6,21 +6,32 @@ typedef struct _CharacterTypeParams {
     QString name;
     QString filename;
     QSize size;
+    QImage image;
+    QImage imageFlipped;
+    
 } CharacterTypeParams;
 
-static const CharacterTypeParams lookup[] = {
-    { "Player",       ":/characters_full/ch_player_8x8_full.png",     QSize(8, 8) },
-    { "Bear",         ":/characters_full/ch_bear_32x24_full.png",     QSize(32, 24) },
-    { "Dog",          ":/characters_full/ch_dog_16x10_full.png",      QSize(16, 10) },
-    { "Spider Small", ":/characters_full/ch_spider_16x8_full.png",    QSize(16, 8) },
-    { "Spider Large", ":/characters_full/ch_spider_24x16_full.png",   QSize(24, 16) },
+static CharacterTypeParams lookup[] = {
+    { "Player",       ":/characters_full/ch_player_8x8_full.png",     QSize(8, 8),   QImage(), QImage() },
+    { "Bear",         ":/characters_full/ch_bear_32x24_full.png",     QSize(32, 24), QImage(), QImage() },
+    { "Dog",          ":/characters_full/ch_dog_16x10_full.png",      QSize(16, 10), QImage(), QImage() },
+    { "Spider Small", ":/characters_full/ch_spider_16x8_full.png",    QSize(16, 8),  QImage(), QImage() },
+    { "Spider Large", ":/characters_full/ch_spider_24x16_full.png",   QSize(24, 16), QImage(), QImage() },
 };
 static const int lookupCount = sizeof(lookup) / sizeof(CharacterTypeParams);
 
-const QImage CharacterInfo::getImage(CharacterType type)
+const QImage CharacterInfo::getImage(CharacterType type, bool flipped)
 {
     Q_ASSERT(type >= 0 && type < lookupCount);
-    return QImage(lookup[type].filename);
+    
+    CharacterTypeParams &params = lookup[type];
+    if (params.image.isNull())
+    {
+        params.image = QImage(params.filename);
+        params.imageFlipped = params.image.mirrored(true, false);
+    }
+    
+    return flipped? params.imageFlipped : params.image;
 }
 
 QSize CharacterInfo::getSize(CharacterType type)
@@ -48,7 +59,7 @@ CharacterType CharacterInfo::typeFromName(const QString &name)
 
 const QImage CharacterInfo::image() const
 {
-    return getImage(_type);
+    return getImage(_type, _direction == DIR_RIGHT);
 }
 
 const QString CharacterInfo::name() const

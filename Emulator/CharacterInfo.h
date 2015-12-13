@@ -4,6 +4,8 @@
 #include <QtGlobal>
 #include <QImage>
 
+#include "character.h"
+
 enum CharacterType {
     CharacterTypePlayer,
     CharacterTypeBear,
@@ -13,8 +15,6 @@ enum CharacterType {
     CharacterTypeCount
 };
 
-enum CharacterDir { CharacterDirLeft = -1, CharacterDirRight = 1 };
-
 class CharacterInfo
 {
 public:
@@ -22,11 +22,11 @@ public:
         _type(CharacterTypeCount),
         _x(0),
         _y(0),
-        _direction(CharacterDirLeft)
+        _direction(DIR_LEFT)
     {
     }
     
-    CharacterInfo(CharacterType type, int x, int y, CharacterDir direction) :
+    CharacterInfo(CharacterType type, int x, int y, Direction direction) :
         _type(type),
         _x(x),
         _y(y),
@@ -43,7 +43,7 @@ public:
     }
     
 public:
-    static const QImage getImage(CharacterType type);
+    static const QImage getImage(CharacterType type, bool flipped = false);
     static QSize getSize(CharacterType type);
     
     static const QString getName(CharacterType type);
@@ -62,8 +62,8 @@ public:
 
     inline void setPos(int x, int y) { setX(x); setY(y); }
 
-    inline CharacterDir direction() const { return _direction; }
-    inline void setDirection(CharacterDir direction) { _direction = direction; }
+    inline Direction direction() const { return _direction; }
+    inline void setDirection(Direction direction) { _direction = direction; }
     
     inline bool isValid() const { return _type != CharacterTypeCount; }
     
@@ -74,7 +74,7 @@ private:
     CharacterType _type;
     int _x;
     int _y;
-    CharacterDir _direction;
+    Direction _direction;
 };
 
 #endif // LEVELCHARACTER_H

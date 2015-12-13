@@ -22,7 +22,7 @@ Level* Level::_currentLevel(NULL);
 
 Level::Level() :
     _filename(),
-    _player(CharacterTypePlayer, 0, 0, CharacterDirRight),
+    _player(CharacterTypePlayer, 0, 0, DIR_RIGHT),
     _enemies(),
     _tileSetId(0),
     _indices(NULL),
@@ -33,7 +33,7 @@ Level::Level() :
 
 Level::Level(uint8_t* indices, uint8_t rows, uint8_t cols, const QString &filename) :
     _filename(filename),
-    _player(CharacterTypePlayer, 0, 0, CharacterDirRight),
+    _player(CharacterTypePlayer, 0, 0, DIR_RIGHT),
     _enemies(),
     _tileSetId(0),
     _rows(rows),
@@ -66,7 +66,7 @@ Level* Level::readFromFile(const QString &filename)
         QJsonObject playerObj = levelObj["player"].toObject();
         int playerX = playerObj["x"].toInt();
         int playerY = playerObj["y"].toInt();
-        CharacterDir characterDir = (CharacterDir) playerObj["direction"].toInt();
+        Direction characterDir = (Direction) playerObj["direction"].toInt();
         
         QJsonObject mapObj = levelObj["map"].toObject();
         int cols = mapObj["cols"].toInt();
@@ -99,7 +99,7 @@ Level* Level::readFromFile(const QString &filename)
             
             int x = enemyObj["x"].toInt();
             int y = enemyObj["y"].toInt();
-            CharacterDir enemyDir = (CharacterDir) enemyObj["direction"].toInt();
+            Direction enemyDir = (Direction) enemyObj["direction"].toInt();
             
             level->addEnemy(characterType, x, y, enemyDir);
         }
@@ -222,7 +222,8 @@ void Level::setCurrent(Level *level)
     for (int i = 0; i < level->enemiesCount(); ++i)
     {
         const CharacterInfo &enemy = level->enemies().at(i);
-        const Character &spider = EnemyMakeSpiderLargeCharacter();
+        Character spider = EnemyMakeSpiderLargeCharacter();
+        spider.dir = enemy.direction();
         
         ::addEnemy(spider, S2W(enemy.x()), S2W(enemy.y()));
     }
@@ -230,9 +231,9 @@ void Level::setCurrent(Level *level)
     MainWindow::instance()->updateLevelUi(level);
 }
 
-void Level::addEnemy(CharacterType type, int x, int y, CharacterDir dir)
+void Level::addEnemy(CharacterType type, int x, int y, Direction dir)
 {
-    CharacterInfo enemy(type, x, y, CharacterDirLeft);
+    CharacterInfo enemy(type, x, y, DIR_LEFT);
     enemy.setDirection(dir);
     _enemies.append(enemy);
 
