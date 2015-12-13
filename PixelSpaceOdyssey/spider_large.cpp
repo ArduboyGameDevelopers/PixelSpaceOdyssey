@@ -27,6 +27,7 @@ static inline SpiderLargeState getState(Character *character)
 static inline void setState(Character *character, SpiderLargeState state)
 {
     character->user1 = (uint16_t) state;
+    character->move = 0;
     setAnimation(character, state);
 }
 
@@ -79,27 +80,27 @@ void EnemyCallbackSpiderLarge(Character *character, CharacterCallbackType type, 
     }
 }
 
-void EnemyBehaviourSpiderLarge(Character *character, TimeInterval dt)
+void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
 {
-    SpiderLargeState state = getState(character);
+    SpiderLargeState state = getState(self);
     
     switch (state)
     {
         case SpiderLargeStateSleep:
         {
-            uint16_t distanceSqr = playerDistanceSqr(character);
+            uint16_t distanceSqr = playerDistanceSqr(self);
             if (distanceSqr < 900)
             {
-                awake(character);
+                awake(self);
             }
             break;
         }
         case SpiderLargeStateAwaken:
         {
-            character->user2 += dt;
-            if (character->user2 > 500)
+            self->user2 += dt;
+            if (self->user2 > 500)
             {
-                rise(character);
+                rise(self);
             }
             break;
         }
@@ -109,18 +110,14 @@ void EnemyBehaviourSpiderLarge(Character *character, TimeInterval dt)
         }
         case SpiderLargeStateWalk:
         {
-            uint16_t distanceSqr = playerDistanceSqr(character);
+            uint16_t distanceSqr = playerDistanceSqr(self);
             
-            int16_t distance = player.x - character->x;
-            character->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT;
+            int16_t distance = playerDistanceHor(self);
+            self->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT;
             
             if (distanceSqr < 100)
             {
-                attack(character);
-            }
-            else
-            {
-                character->x += character->dir * character->move * WALK_SPEED;
+                attack(self);
             }
             break;
         }

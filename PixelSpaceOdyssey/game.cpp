@@ -46,6 +46,9 @@ const int16_t CAM_RANGE_Y       = S2W(15);
 static Arduboy display;
 
 Character  player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
+int16_t playerLastSeenX;
+int16_t playerLastSeenY;
+
 Character *enemies = NULL;
 uint8_t enemiesCount = 0;
 
@@ -83,6 +86,9 @@ void startGame()
     
     player.x = S2W(62);
     player.y = S2W(28);
+    
+    playerLastSeenX = player.x;
+    playerLastSeenY = player.y;
     
     tileMapWidth = TILEMAP_GET_WIDTH(tileMap);
     tileMapHeight = TILEMAP_GET_HEIGHT(tileMap);
@@ -346,6 +352,13 @@ void playerUpdate(TimeInterval dt)
         playerSetAnimation(PLAYER_ANIMATION_RUN);
     }
     
+    // update last seen position
+    if (!playerJumping)
+    {
+        playerLastSeenX = player.x;
+        playerLastSeenY = player.y;
+    }
+    
     CharacterUpdate(&player, dt);
 }
 
@@ -382,7 +395,7 @@ void enemiesUpdate(TimeInterval dt)
 {
     for (int i = 0; i < enemiesCount; ++i)
     {
-        CharacterUpdate(&enemies[i], dt);
+        EnemyUpdate(&enemies[i], dt);
     }
 }
 

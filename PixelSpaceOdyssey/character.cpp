@@ -28,12 +28,6 @@ void CharacterSetAnimation(Character* character, const Animation* animation)
 
 void CharacterUpdate(Character* character, TimeInterval dt)
 {
-    CharacterBehaviour characterBehaviour = character->behaviour;
-    if (characterBehaviour)
-    {
-        characterBehaviour(character, dt);
-    }
-    
     if (!character->animationEnded)
     {
         character->frameTime += dt;

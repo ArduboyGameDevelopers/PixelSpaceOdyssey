@@ -17,7 +17,8 @@ SOURCES += $${PROJ_PATH}/character.cpp \
     $${PROJ_PATH}/spider_large.cpp \
     $${PROJ_PATH}/spider_large_animations.cpp \
     $${PROJ_PATH}/dog.cpp \
-    $${PROJ_PATH}/dog_animations.cpp
+    $${PROJ_PATH}/dog_animations.cpp \
+    $${PROJ_PATH}/enemy_base.cpp
 
 HEADERS  += $${PROJ_PATH}/animation.h \
     $${PROJ_PATH}/bridge.h \
@@ -33,4 +34,5 @@ HEADERS  += $${PROJ_PATH}/animation.h \
     $${PROJ_PATH}/spider_large_animations.h \
     $${PROJ_PATH}/dog.h \
     $${PROJ_PATH}/dog_animations.h \
-    $${PROJ_PATH}/enemies.h
+    $${PROJ_PATH}/enemies.h \
+    $${PROJ_PATH}/enemy_base.h

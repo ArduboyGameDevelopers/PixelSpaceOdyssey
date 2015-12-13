@@ -11,6 +11,8 @@
 
 typedef uint16_t EnemyType;
 
+#include "enemy_base.h"
+
 #include "spider_large.h"
 #include "dog.h"
 

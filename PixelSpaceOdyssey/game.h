@@ -29,16 +29,26 @@ extern const int16_t CAM_RANGE_Y;
 extern const int8_t  WALK_SPEED;
 
 extern Character player;
+
+/* Enemy AI will target this position to create some delay */
+extern int16_t playerLastSeenX;
+extern int16_t playerLastSeenY;
+
 extern Character *enemies;
 extern uint8_t enemiesCount;
 
 extern void initEnemies(uint8_t enemiesCount);
 extern void addEnemy(const Character &enemy, int16_t x, int16_t y);
 
+inline uint16_t playerDistanceHor(const Character *character)
+{
+    return W2S(playerLastSeenX - character->x);
+}
+
 inline uint16_t playerDistanceSqr(const Character *character)
 {
-    int16_t dx = W2S(character->x - player.x);
-    int16_t dy = W2S(character->y - player.y);
+    int16_t dx = W2S(character->x - playerLastSeenX);
+    int16_t dy = W2S(character->y - playerLastSeenY);
     return dx * dx + dy * dy;
 }
 
