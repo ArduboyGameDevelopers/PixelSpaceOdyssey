@@ -221,11 +221,33 @@ void Level::setCurrent(Level *level)
     ::initEnemies(level->enemiesCount());
     for (int i = 0; i < level->enemiesCount(); ++i)
     {
-        const CharacterInfo &enemy = level->enemies().at(i);
-        Character spider = EnemyMakeSpiderLargeCharacter();
-        spider.dir = enemy.direction();
-        
-        ::addEnemy(spider, S2W(enemy.x()), S2W(enemy.y()));
+        const CharacterInfo &enemyInfo = level->enemies().at(i);
+        switch (enemyInfo.type())
+        {
+            case CharacterTypeBear:
+            {
+                break;
+            }
+            case CharacterTypeDog:
+            {
+                Character enemy = EnemyMakeDog();
+                enemy.dir = enemyInfo.direction();
+                ::addEnemy(enemy, S2W(enemyInfo.x()), S2W(enemyInfo.y()));
+                break;
+                break;
+            }
+            case CharacterTypeSpiderSmall:
+            {
+                break;
+            }
+            case CharacterTypeSpiderLarge:
+            {
+                Character enemy = EnemyMakeSpiderLargeCharacter();
+                enemy.dir = enemyInfo.direction();
+                ::addEnemy(enemy, S2W(enemyInfo.x()), S2W(enemyInfo.y()));
+                break;
+            }
+        }
     }
     
     MainWindow::instance()->updateLevelUi(level);

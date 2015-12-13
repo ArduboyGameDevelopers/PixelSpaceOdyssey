@@ -45,7 +45,6 @@ static inline void walk(Character *character)
 {
     setState(character, SpiderLargeStateWalk);
     character->move = 1;
-    character->dir = DIR_LEFT;
 }
 
 static inline void attack(Character *character)
