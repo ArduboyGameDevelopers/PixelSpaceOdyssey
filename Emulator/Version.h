@@ -1,7 +1,7 @@
 #ifndef VERSION
 #define VERSION
 
-#define PROJECT_VERSION "1.5.2"
+#define PROJECT_VERSION "1.5.3"
 
 #endif // VERSION
 
