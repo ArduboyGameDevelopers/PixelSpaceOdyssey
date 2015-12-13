@@ -48,6 +48,11 @@ static inline void walk(Character *character)
     character->dir = DIR_LEFT;
 }
 
+static inline void attack(Character *character)
+{
+    setState(character, SpiderLargeStateAttack);
+}
+
 void EnemyInitSpiderLarge(Character *character)
 {
     setState(character, SpiderLargeStateSleep);
@@ -60,9 +65,15 @@ void EnemyCallbackSpiderLarge(Character *character, CharacterCallbackType type, 
         case CHARACTER_CALLBACK_ANIMATION_FINISHED:
         {
             SpiderLargeState state = getState(character);
-            if (state == SpiderLargeStateRise)
+            switch (state)
             {
-                walk(character);
+                case SpiderLargeStateRise:
+                    walk(character);
+                    break;
+                    
+                case SpiderLargeStateAttack:
+                    walk(character);
+                    break;
             }
             break;
         }
@@ -99,7 +110,19 @@ void EnemyBehaviourSpiderLarge(Character *character, TimeInterval dt)
         }
         case SpiderLargeStateWalk:
         {
-            character->x += character->dir * character->move * WALK_SPEED;
+            uint16_t distanceSqr = playerDistanceSqr(character);
+            
+            int16_t distance = player.x - character->x;
+            character->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT;
+            
+            if (distanceSqr < 100)
+            {
+                attack(character);
+            }
+            else
+            {
+                character->x += character->dir * character->move * WALK_SPEED;
+            }
             break;
         }
         case SpiderLargeStateAttack:
