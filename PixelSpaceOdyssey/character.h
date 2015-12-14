@@ -17,6 +17,8 @@
 #define DIR_RIGHT 1
 
 #define CHARACTER_CALLBACK_ANIMATION_FINISHED 1
+#define CHARACTER_CALLBACK_OBSTACLE_WALL 2
+#define CHARACTER_CALLBACK_OBSTACLE_TRENCH 3
 
 typedef int8_t Direction;
 typedef uint8_t CharacterCallbackType;

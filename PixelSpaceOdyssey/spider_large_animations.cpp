@@ -59,6 +59,17 @@ static PgmPtr FRAMES_WALK[] =
   FRAME_WALK_4,
 };
 
+static PROGMEM WEAK_CONST unsigned char FRAME_STAT_0[] =
+{
+  1, 2, 18, 14,
+  0xe0, 0x20, 0x40, 0xc0, 0xff, 0xe3, 0xf6, 0xf8, 0xf0, 0xf0, 0xf0, 0xfe, 0xf8, 0xe0, 0xc0, 0x20, 0x10, 0xf8, 0x3f, 0x0, 0x7, 0x7, 0x3f, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x3d, 0x7, 0x1d, 0xf, 0x18, 0x0, 0x3f
+};
+
+static PgmPtr FRAMES_STAT[] =
+{
+  FRAME_STAT_0,
+};
+
 static PROGMEM WEAK_CONST unsigned char FRAME_RISE_0[] =
 {
   1, 5, 17, 11,
@@ -110,6 +121,7 @@ const Animation SPIDER_LARGE_ANIMATIONS[] =
 {
   AnimationMake(FRAMES_ATTACK, 2),
   AnimationMake(FRAMES_WALK, 5, true),
+  AnimationMake(FRAMES_STAT, 1),
   AnimationMake(FRAMES_RISE, 3),
   AnimationMake(FRAMES_AWAKEN, 1),
   AnimationMake(FRAMES_SLEEP, 1),

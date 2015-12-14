@@ -5,11 +5,21 @@
 
 #include "game.h"
 
-#define SpiderLargeStateSleep   SPIDER_LARGE_ANIMATION_SLEEP
-#define SpiderLargeStateAwaken  SPIDER_LARGE_ANIMATION_AWAKEN
-#define SpiderLargeStateRise    SPIDER_LARGE_ANIMATION_RISE
-#define SpiderLargeStateWalk    SPIDER_LARGE_ANIMATION_WALK
-#define SpiderLargeStateAttack  SPIDER_LARGE_ANIMATION_ATTACK
+#define SpiderLargeStateSleep   0
+#define SpiderLargeStateAwaken  1
+#define SpiderLargeStateRise    2
+#define SpiderLargeStateWalk    3
+#define SpiderLargeStateAttack  4
+#define SpiderLargeStateStat    5
+
+static const uint8_t ANIMATION_LOOKUP[] = {
+    SPIDER_LARGE_ANIMATION_SLEEP,   /* SpiderLargeStateSleep */
+    SPIDER_LARGE_ANIMATION_AWAKEN,  /* SpiderLargeStateAwaken */
+    SPIDER_LARGE_ANIMATION_RISE,    /* SpiderLargeStateRise */
+    SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStateWalk */
+    SPIDER_LARGE_ANIMATION_ATTACK,  /* SpiderLargeStateAttack */
+    SPIDER_LARGE_ANIMATION_STAT,    /* SpiderLargeStateStat */
+};
 
 typedef uint16_t SpiderLargeState;
 
@@ -27,14 +37,14 @@ static inline SpiderLargeState getState(Character *character)
 static inline void setState(Character *character, SpiderLargeState state)
 {
     character->user1 = (uint16_t) state;
+    character->user2 = 0;
     character->move = 0;
-    setAnimation(character, state);
+    setAnimation(character, ANIMATION_LOOKUP[state]);
 }
 
 static inline void awake(Character *character)
 {
     setState(character, SpiderLargeStateAwaken);
-    character->user2 = 0;
 }
 
 static inline void rise(Character *character)
@@ -48,6 +58,11 @@ static inline void walk(Character *character)
     character->move = 1;
 }
 
+static inline void stat(Character *character)
+{
+    setState(character, SpiderLargeStateStat);
+}
+
 static inline void attack(Character *character)
 {
     setState(character, SpiderLargeStateAttack);
@@ -58,23 +73,34 @@ void EnemyInitSpiderLarge(Character *character)
     setState(character, SpiderLargeStateSleep);
 }
 
-void EnemyCallbackSpiderLarge(Character *character, CharacterCallbackType type, int16_t, int16_t)
+void EnemyCallbackSpiderLarge(Character *self, CharacterCallbackType type, int16_t, int16_t)
 {
+    SpiderLargeState state = getState(self);
     switch (type)
     {
         case CHARACTER_CALLBACK_ANIMATION_FINISHED:
         {
-            SpiderLargeState state = getState(character);
             switch (state)
             {
                 case SpiderLargeStateRise:
-                    walk(character);
+                    walk(self);
                     break;
                     
                 case SpiderLargeStateAttack:
-                    walk(character);
+                    walk(self);
                     break;
             }
+            break;
+        }
+            
+        case CHARACTER_CALLBACK_OBSTACLE_TRENCH:
+        case CHARACTER_CALLBACK_OBSTACLE_WALL:
+        {
+            if (state == SpiderLargeStateWalk)
+            {
+                stat(self);
+            }
+            
             break;
         }
     }
@@ -109,6 +135,7 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
             break;
         }
         case SpiderLargeStateWalk:
+        case SpiderLargeStateStat:
         {
             uint16_t distanceSqr = playerDistanceSqr(self);
             
@@ -119,8 +146,13 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
             {
                 attack(self);
             }
+            else if (self->move == 0)
+            {
+                walk(self);
+            }
             break;
         }
+        
         case SpiderLargeStateAttack:
         {
             break;

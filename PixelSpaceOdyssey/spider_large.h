@@ -6,7 +6,7 @@
 #define ENEMY_TYPE_SPIDER_LARGE_WIDTH  24
 #define ENEMY_TYPE_SPIDER_LARGE_HEIGHT 16
 #define ENEMY_TYPE_SPIDER_LARGE_COLLIDER_WIDTH  20
-#define ENEMY_TYPE_SPIDER_LARGE_COLLIDER_HEIGHT 10
+#define ENEMY_TYPE_SPIDER_LARGE_COLLIDER_HEIGHT 16
 
 extern void EnemyInitSpiderLarge(Character *character);
 extern void EnemyCallbackSpiderLarge(Character *character, CharacterCallbackType type, int16_t user1, int16_t user2);

@@ -127,9 +127,6 @@ void drawGame()
 #pragma mark -
 #pragma mark Player
 
-#define GET_TILE(X,Y,T) TileMapGetTile(&tileMap, X, Y, &T)
-#define GET_TILE_SOLID(X,Y,T) (TileMapGetTile(&tileMap, X, Y, &T) > 15)
-
 #define PLAYER_TOP           (player.y - PLAYER_COLLIDER_HALF_HEIGHT)
 #define PLAYER_BOTTOM        (player.y + PLAYER_COLLIDER_HALF_HEIGHT)
 #define PLAYER_LEFT          (player.x - (PLAYER_COLLIDER_HALF_WIDTH - 1))
@@ -140,7 +137,7 @@ inline void PLAYER_SET_BOTTOM(int16_t y) { player.y = y - PLAYER_COLLIDER_HALF_H
 inline void PLAYER_SET_LEFT(int16_t x)   { player.x = x + PLAYER_COLLIDER_HALF_WIDTH; }
 inline void PLAYER_SET_RIGHT(int16_t x)  { player.x = x - PLAYER_COLLIDER_HALF_WIDTH; }
 
-void playerHandleTileHorCollision(const Tile& tile)
+inline static void playerHandleTileHorCollision(const Tile& tile)
 {
     if (player.x > tile.x) // tile on the left
     {
@@ -152,7 +149,7 @@ void playerHandleTileHorCollision(const Tile& tile)
     }
 }
 
-void playerSlideSlope(const Tile& slopeTile, Direction dir)
+inline static void playerSlideSlope(const Tile& slopeTile, Direction dir)
 {
     assert(slopeTile.index == TILE_SLOPE_RIGHT || slopeTile.index == TILE_SLOPE_LEFT);
     playerSlopeDir = dir;
@@ -229,7 +226,7 @@ void playerUpdate(TimeInterval dt)
     if (playerJumpSpeed > 0) // moving down
     {
         Tile tile;
-        uint8_t midIndex = GET_TILE(player.x, bottomY, tile);
+        uint8_t midIndex = getTile(player.x, bottomY, &tile);
         if (midIndex == TILE_SLOPE_LEFT)
         {
             playerSlideSlope(tile, DIR_LEFT);
@@ -241,12 +238,12 @@ void playerUpdate(TimeInterval dt)
         else
         {
             if (playerSlopeDir == DIR_LEFT &&
-                GET_TILE(player.x, bottomY + TILE_HEIGHT, tile) == TILE_SLOPE_LEFT)
+                getTile(player.x, bottomY + TILE_HEIGHT, &tile) == TILE_SLOPE_LEFT)
             {
                 playerSlideSlope(tile, DIR_LEFT);
             }
             else if (playerSlopeDir == DIR_RIGHT &&
-                GET_TILE(player.x, bottomY + TILE_HEIGHT, tile) == TILE_SLOPE_RIGHT)
+                getTile(player.x, bottomY + TILE_HEIGHT, &tile) == TILE_SLOPE_RIGHT)
             {
                 playerSlideSlope(tile, DIR_RIGHT);
             }
@@ -261,8 +258,8 @@ void playerUpdate(TimeInterval dt)
     {
         Tile tile;
 
-        if (GET_TILE(leftX, player.y, tile) ||
-            GET_TILE(rightX, player.y, tile))
+        if (getTile(leftX, player.y, &tile) ||
+            getTile(rightX, player.y, &tile))
         {
             playerHandleTileHorCollision(tile);
             leftX = PLAYER_LEFT;
@@ -271,8 +268,8 @@ void playerUpdate(TimeInterval dt)
         
         if (playerJumpSpeed > 0) // moving down
         {
-            if (GET_TILE_SOLID(leftX, bottomY, tile) ||
-                GET_TILE_SOLID(rightX, bottomY, tile))
+            if (getSolidTile(leftX, bottomY, &tile) ||
+                getSolidTile(rightX, bottomY, &tile))
             {
                 int16_t tileTop = TILE_GET_TOP(tile);
                 int16_t oldBottom = oldY + PLAYER_COLLIDER_HALF_HEIGHT;
@@ -287,7 +284,7 @@ void playerUpdate(TimeInterval dt)
         else
         {
             int16_t minY = PLAYER_TOP;
-            if (GET_TILE(player.x, minY, tile))
+            if (getTile(player.x, minY, &tile))
             {
                 int16_t tileBottom = TILE_GET_BOTTOM(tile);
                 int16_t oldTop = oldY - PLAYER_COLLIDER_HALF_HEIGHT;
