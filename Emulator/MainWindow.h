@@ -75,6 +75,7 @@ private:
     void setupToolBar(QToolBar* toolBar);
     void setupActions();
     void setupCharacterList();
+    void setupParamUI();
     
     void setPauseMode(bool pauseMode);
     void setEditMode(bool editMode);

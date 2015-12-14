@@ -36,7 +36,8 @@ SOURCES += main.cpp\
     EditorCharTool.cpp \
     CharacterButton.cpp \
     CharacterListView.cpp \
-    CharacterInfo.cpp
+    CharacterInfo.cpp \
+    ParamCheckBox.cpp
 
 HEADERS  += \
     DisplayWidget.h \
@@ -59,7 +60,9 @@ HEADERS  += \
     CharacterButton.h \
     CharacterListView.h \
     Version.h \
-    CharacterInfo.h
+    CharacterInfo.h \
+    ParamCheckBox.h \
+    Params.h
 
 FORMS    += mainwindow.ui \
     input2dialog.ui

@@ -20,6 +20,7 @@
 #include "Input2Dialog.h"
 
 #include "Version.h"
+#include "Params.h"
 
 static const int kTimerDelay = 1000 / 60;
 
@@ -44,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupToolBar(_ui->toolBar);
     setupActions();
     setupCharacterList();
+    setupParamUI();
     
     emulator.start();
     
@@ -638,4 +640,12 @@ void MainWindow::updateDirectionalRadioButtons()
         _ui->rightRadioButton->setChecked(direction == DIR_RIGHT);
         _ui->leftRadioButton->setChecked(direction == DIR_LEFT);
     }
+}
+
+#pragma mark -
+#pragma mark Param UI
+
+void MainWindow::setupParamUI()
+{
+    _ui->showBoundingBoxesCheckBox->setParamPtr(&PARAM_SHOW_BOUNDING_BOXES);
 }

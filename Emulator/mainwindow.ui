@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>785</width>
-    <height>482</height>
+    <height>514</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -221,6 +221,19 @@
     </property>
     <property name="text">
      <string>Right</string>
+    </property>
+   </widget>
+   <widget class="ParamCheckBox" name="showBoundingBoxesCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>410</y>
+      <width>161</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Show colliders</string>
     </property>
    </widget>
   </widget>
@@ -459,6 +472,11 @@
    <class>CharacterListView</class>
    <extends>QListView</extends>
    <header>CharacterListView.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ParamCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>ParamCheckBox.h</header>
   </customwidget>
  </customwidgets>
  <resources>

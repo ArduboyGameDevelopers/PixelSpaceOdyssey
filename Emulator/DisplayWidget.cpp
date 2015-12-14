@@ -6,6 +6,7 @@
 #include "EditorTools.h"
 #include "Constants.h"
 #include "Level.h"
+#include "Params.h"
 
 #include <Arduino.h>
 
@@ -17,6 +18,8 @@
 
 static const int GRID_ROWS = DISPLAY_WIDTH / GRID_CELL_WIDTH + 2;
 static const int GRID_COLS = DISPLAY_HEIGHT / GRID_CELL_HEIGHT + 2;
+
+bool PARAM_SHOW_BOUNDING_BOXES = false;
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
     QWidget(parent),
@@ -166,6 +169,21 @@ void DisplayWidget::paintEvent(QPaintEvent *)
     if (emulator.editMode())
     {
         drawCharaters(&painter);
+    }
+
+    // draw bounding boxes
+    if (PARAM_SHOW_BOUNDING_BOXES)
+    {
+        for (int i = 0; i < enemiesCount; ++i)
+        {
+            const Character &enemy = enemies[i];
+            int w = W2S(enemy.colliderWidth) * PIXEL_WIDTH;
+            int h = W2S(enemy.colliderHeight) * PIXEL_HEIGHT;
+            int cx = (W2S(enemy.x) - drawTransX) * PIXEL_WIDTH - DIV2(w);
+            int cy = (W2S(enemy.y) - drawTransY) * PIXEL_HEIGHT - DIV2(h);
+            painter.setPen(Qt::red);
+            painter.drawRect(QRect(cx, cy, w, h));
+        }
     }
     
     if (_currentTool)
