@@ -1,0 +1,398 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		842292C91C260F4B00E9349C /* DispatchTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 842292C81C260F4B00E9349C /* DispatchTest.mm */; };
+		842292D71C260F8800E9349C /* Arduboy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292CE1C260F8800E9349C /* Arduboy.cpp */; };
+		842292D81C260F8800E9349C /* Arduino.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292D01C260F8800E9349C /* Arduino.cpp */; };
+		842292D91C260F8800E9349C /* audio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292D11C260F8800E9349C /* audio.cpp */; };
+		842292DA1C260F8800E9349C /* core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292D31C260F8800E9349C /* core.cpp */; };
+		842292DB1C260F8800E9349C /* glcdfont.c in Sources */ = {isa = PBXBuildFile; fileRef = 842292D51C260F8800E9349C /* glcdfont.c */; };
+		842292FB1C260FAE00E9349C /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292DE1C260FAE00E9349C /* character.cpp */; };
+		842292FC1C260FAE00E9349C /* dispatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292E11C260FAE00E9349C /* dispatch.cpp */; };
+		842292FD1C260FAE00E9349C /* dog_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292E31C260FAE00E9349C /* dog_animations.cpp */; };
+		842292FE1C260FAE00E9349C /* dog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292E51C260FAE00E9349C /* dog.cpp */; };
+		842292FF1C260FAE00E9349C /* drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292E71C260FAE00E9349C /* drawing.cpp */; };
+		842293001C260FAE00E9349C /* enemy_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292EA1C260FAE00E9349C /* enemy_base.cpp */; };
+		842293011C260FAE00E9349C /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292EC1C260FAE00E9349C /* game.cpp */; };
+		842293021C260FAE00E9349C /* PixelSpaceOdyssey.ino in Resources */ = {isa = PBXBuildFile; fileRef = 842292EE1C260FAE00E9349C /* PixelSpaceOdyssey.ino */; };
+		842293031C260FAE00E9349C /* player_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292EF1C260FAE00E9349C /* player_animations.cpp */; };
+		842293041C260FAE00E9349C /* spider_large_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292F11C260FAE00E9349C /* spider_large_animations.cpp */; };
+		842293051C260FAE00E9349C /* spider_large.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292F31C260FAE00E9349C /* spider_large.cpp */; };
+		842293061C260FAE00E9349C /* tilemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292F51C260FAE00E9349C /* tilemap.cpp */; };
+		842293071C260FAE00E9349C /* tiles_lair_01.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292F71C260FAE00E9349C /* tiles_lair_01.cpp */; };
+		842293081C260FAE00E9349C /* tiles_tb_caverns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842292F91C260FAE00E9349C /* tiles_tb_caverns.cpp */; };
+		8422930A1C260FCD00E9349C /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842293091C260FCD00E9349C /* platform.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		842292C61C260F4B00E9349C /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		842292C81C260F4B00E9349C /* DispatchTest.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DispatchTest.mm; sourceTree = "<group>"; };
+		842292CA1C260F4B00E9349C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		842292CE1C260F8800E9349C /* Arduboy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Arduboy.cpp; path = ../Emulator/Arduboy/Arduboy.cpp; sourceTree = "<group>"; };
+		842292CF1C260F8800E9349C /* Arduboy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Arduboy.h; path = ../Emulator/Arduboy/Arduboy.h; sourceTree = "<group>"; };
+		842292D01C260F8800E9349C /* Arduino.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Arduino.cpp; path = ../Emulator/Arduboy/Arduino.cpp; sourceTree = "<group>"; };
+		842292D11C260F8800E9349C /* audio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = audio.cpp; path = ../Emulator/Arduboy/audio.cpp; sourceTree = "<group>"; };
+		842292D21C260F8800E9349C /* audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = audio.h; path = ../Emulator/Arduboy/audio.h; sourceTree = "<group>"; };
+		842292D31C260F8800E9349C /* core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = core.cpp; path = ../Emulator/Arduboy/core.cpp; sourceTree = "<group>"; };
+		842292D41C260F8800E9349C /* core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core.h; path = ../Emulator/Arduboy/core.h; sourceTree = "<group>"; };
+		842292D51C260F8800E9349C /* glcdfont.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = glcdfont.c; path = ../Emulator/Arduboy/glcdfont.c; sourceTree = "<group>"; };
+		842292D61C260F8800E9349C /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform.h; path = ../Emulator/Arduboy/platform.h; sourceTree = "<group>"; };
+		842292DC1C260FAE00E9349C /* animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animation.h; path = ../PixelSpaceOdyssey/animation.h; sourceTree = "<group>"; };
+		842292DD1C260FAE00E9349C /* bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bridge.h; path = ../PixelSpaceOdyssey/bridge.h; sourceTree = "<group>"; };
+		842292DE1C260FAE00E9349C /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = ../PixelSpaceOdyssey/character.cpp; sourceTree = "<group>"; };
+		842292DF1C260FAE00E9349C /* character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = character.h; path = ../PixelSpaceOdyssey/character.h; sourceTree = "<group>"; };
+		842292E01C260FAE00E9349C /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = ../PixelSpaceOdyssey/common.h; sourceTree = "<group>"; };
+		842292E11C260FAE00E9349C /* dispatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dispatch.cpp; path = ../PixelSpaceOdyssey/dispatch.cpp; sourceTree = "<group>"; };
+		842292E21C260FAE00E9349C /* dispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dispatch.h; path = ../PixelSpaceOdyssey/dispatch.h; sourceTree = "<group>"; };
+		842292E31C260FAE00E9349C /* dog_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dog_animations.cpp; path = ../PixelSpaceOdyssey/dog_animations.cpp; sourceTree = "<group>"; };
+		842292E41C260FAE00E9349C /* dog_animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dog_animations.h; path = ../PixelSpaceOdyssey/dog_animations.h; sourceTree = "<group>"; };
+		842292E51C260FAE00E9349C /* dog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dog.cpp; path = ../PixelSpaceOdyssey/dog.cpp; sourceTree = "<group>"; };
+		842292E61C260FAE00E9349C /* dog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dog.h; path = ../PixelSpaceOdyssey/dog.h; sourceTree = "<group>"; };
+		842292E71C260FAE00E9349C /* drawing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawing.cpp; path = ../PixelSpaceOdyssey/drawing.cpp; sourceTree = "<group>"; };
+		842292E81C260FAE00E9349C /* drawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = drawing.h; path = ../PixelSpaceOdyssey/drawing.h; sourceTree = "<group>"; };
+		842292E91C260FAE00E9349C /* enemies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enemies.h; path = ../PixelSpaceOdyssey/enemies.h; sourceTree = "<group>"; };
+		842292EA1C260FAE00E9349C /* enemy_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = enemy_base.cpp; path = ../PixelSpaceOdyssey/enemy_base.cpp; sourceTree = "<group>"; };
+		842292EB1C260FAE00E9349C /* enemy_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = enemy_base.h; path = ../PixelSpaceOdyssey/enemy_base.h; sourceTree = "<group>"; };
+		842292EC1C260FAE00E9349C /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = ../PixelSpaceOdyssey/game.cpp; sourceTree = "<group>"; };
+		842292ED1C260FAE00E9349C /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../PixelSpaceOdyssey/game.h; sourceTree = "<group>"; };
+		842292EE1C260FAE00E9349C /* PixelSpaceOdyssey.ino */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PixelSpaceOdyssey.ino; path = ../PixelSpaceOdyssey/PixelSpaceOdyssey.ino; sourceTree = "<group>"; };
+		842292EF1C260FAE00E9349C /* player_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = player_animations.cpp; path = ../PixelSpaceOdyssey/player_animations.cpp; sourceTree = "<group>"; };
+		842292F01C260FAE00E9349C /* player_animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player_animations.h; path = ../PixelSpaceOdyssey/player_animations.h; sourceTree = "<group>"; };
+		842292F11C260FAE00E9349C /* spider_large_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = spider_large_animations.cpp; path = ../PixelSpaceOdyssey/spider_large_animations.cpp; sourceTree = "<group>"; };
+		842292F21C260FAE00E9349C /* spider_large_animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spider_large_animations.h; path = ../PixelSpaceOdyssey/spider_large_animations.h; sourceTree = "<group>"; };
+		842292F31C260FAE00E9349C /* spider_large.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = spider_large.cpp; path = ../PixelSpaceOdyssey/spider_large.cpp; sourceTree = "<group>"; };
+		842292F41C260FAE00E9349C /* spider_large.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spider_large.h; path = ../PixelSpaceOdyssey/spider_large.h; sourceTree = "<group>"; };
+		842292F51C260FAE00E9349C /* tilemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tilemap.cpp; path = ../PixelSpaceOdyssey/tilemap.cpp; sourceTree = "<group>"; };
+		842292F61C260FAE00E9349C /* tilemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tilemap.h; path = ../PixelSpaceOdyssey/tilemap.h; sourceTree = "<group>"; };
+		842292F71C260FAE00E9349C /* tiles_lair_01.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles_lair_01.cpp; path = ../PixelSpaceOdyssey/tiles_lair_01.cpp; sourceTree = "<group>"; };
+		842292F81C260FAE00E9349C /* tiles_lair_01.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles_lair_01.h; path = ../PixelSpaceOdyssey/tiles_lair_01.h; sourceTree = "<group>"; };
+		842292F91C260FAE00E9349C /* tiles_tb_caverns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tiles_tb_caverns.cpp; path = ../PixelSpaceOdyssey/tiles_tb_caverns.cpp; sourceTree = "<group>"; };
+		842292FA1C260FAE00E9349C /* tiles_tb_caverns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tiles_tb_caverns.h; path = ../PixelSpaceOdyssey/tiles_tb_caverns.h; sourceTree = "<group>"; };
+		842293091C260FCD00E9349C /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		842292C31C260F4B00E9349C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8422926F1C260CD700E9349C = {
+			isa = PBXGroup;
+			children = (
+				842292B01C260E3800E9349C /* Arduboy */,
+				842292831C260D7400E9349C /* PixelSpaceOdyssey */,
+				842292C71C260F4B00E9349C /* Tests */,
+				842292791C260CD700E9349C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		842292791C260CD700E9349C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				842292C61C260F4B00E9349C /* Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		842292831C260D7400E9349C /* PixelSpaceOdyssey */ = {
+			isa = PBXGroup;
+			children = (
+				842292DC1C260FAE00E9349C /* animation.h */,
+				842292DD1C260FAE00E9349C /* bridge.h */,
+				842292DE1C260FAE00E9349C /* character.cpp */,
+				842292DF1C260FAE00E9349C /* character.h */,
+				842292E01C260FAE00E9349C /* common.h */,
+				842292E11C260FAE00E9349C /* dispatch.cpp */,
+				842292E21C260FAE00E9349C /* dispatch.h */,
+				842292E31C260FAE00E9349C /* dog_animations.cpp */,
+				842292E41C260FAE00E9349C /* dog_animations.h */,
+				842292E51C260FAE00E9349C /* dog.cpp */,
+				842292E61C260FAE00E9349C /* dog.h */,
+				842292E71C260FAE00E9349C /* drawing.cpp */,
+				842292E81C260FAE00E9349C /* drawing.h */,
+				842292E91C260FAE00E9349C /* enemies.h */,
+				842292EA1C260FAE00E9349C /* enemy_base.cpp */,
+				842292EB1C260FAE00E9349C /* enemy_base.h */,
+				842292EC1C260FAE00E9349C /* game.cpp */,
+				842292ED1C260FAE00E9349C /* game.h */,
+				842292EE1C260FAE00E9349C /* PixelSpaceOdyssey.ino */,
+				842292EF1C260FAE00E9349C /* player_animations.cpp */,
+				842292F01C260FAE00E9349C /* player_animations.h */,
+				842292F11C260FAE00E9349C /* spider_large_animations.cpp */,
+				842292F21C260FAE00E9349C /* spider_large_animations.h */,
+				842292F31C260FAE00E9349C /* spider_large.cpp */,
+				842292F41C260FAE00E9349C /* spider_large.h */,
+				842292F51C260FAE00E9349C /* tilemap.cpp */,
+				842292F61C260FAE00E9349C /* tilemap.h */,
+				842292F71C260FAE00E9349C /* tiles_lair_01.cpp */,
+				842292F81C260FAE00E9349C /* tiles_lair_01.h */,
+				842292F91C260FAE00E9349C /* tiles_tb_caverns.cpp */,
+				842292FA1C260FAE00E9349C /* tiles_tb_caverns.h */,
+			);
+			name = PixelSpaceOdyssey;
+			sourceTree = "<group>";
+		};
+		842292B01C260E3800E9349C /* Arduboy */ = {
+			isa = PBXGroup;
+			children = (
+				842292CE1C260F8800E9349C /* Arduboy.cpp */,
+				842292CF1C260F8800E9349C /* Arduboy.h */,
+				842292D01C260F8800E9349C /* Arduino.cpp */,
+				842292D11C260F8800E9349C /* audio.cpp */,
+				842292D21C260F8800E9349C /* audio.h */,
+				842292D31C260F8800E9349C /* core.cpp */,
+				842292D41C260F8800E9349C /* core.h */,
+				842292D51C260F8800E9349C /* glcdfont.c */,
+				842292D61C260F8800E9349C /* platform.h */,
+			);
+			name = Arduboy;
+			sourceTree = "<group>";
+		};
+		842292C71C260F4B00E9349C /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				842292C81C260F4B00E9349C /* DispatchTest.mm */,
+				842292CA1C260F4B00E9349C /* Info.plist */,
+				842293091C260FCD00E9349C /* platform.cpp */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		842292C51C260F4B00E9349C /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 842292CB1C260F4B00E9349C /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				842292C21C260F4B00E9349C /* Sources */,
+				842292C31C260F4B00E9349C /* Frameworks */,
+				842292C41C260F4B00E9349C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 842292C61C260F4B00E9349C /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		842292701C260CD700E9349C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Space Madness";
+				TargetAttributes = {
+					842292C51C260F4B00E9349C = {
+						CreatedOnToolsVersion = 7.1;
+					};
+				};
+			};
+			buildConfigurationList = 842292731C260CD700E9349C /* Build configuration list for PBXProject "Test" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 8422926F1C260CD700E9349C;
+			productRefGroup = 842292791C260CD700E9349C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				842292C51C260F4B00E9349C /* Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		842292C41C260F4B00E9349C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				842293021C260FAE00E9349C /* PixelSpaceOdyssey.ino in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		842292C21C260F4B00E9349C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				842293011C260FAE00E9349C /* game.cpp in Sources */,
+				842292FE1C260FAE00E9349C /* dog.cpp in Sources */,
+				842293051C260FAE00E9349C /* spider_large.cpp in Sources */,
+				842292D91C260F8800E9349C /* audio.cpp in Sources */,
+				842292D81C260F8800E9349C /* Arduino.cpp in Sources */,
+				842293001C260FAE00E9349C /* enemy_base.cpp in Sources */,
+				842292FF1C260FAE00E9349C /* drawing.cpp in Sources */,
+				842292DB1C260F8800E9349C /* glcdfont.c in Sources */,
+				842292FB1C260FAE00E9349C /* character.cpp in Sources */,
+				842292FD1C260FAE00E9349C /* dog_animations.cpp in Sources */,
+				842293031C260FAE00E9349C /* player_animations.cpp in Sources */,
+				842292D71C260F8800E9349C /* Arduboy.cpp in Sources */,
+				842293041C260FAE00E9349C /* spider_large_animations.cpp in Sources */,
+				842293081C260FAE00E9349C /* tiles_tb_caverns.cpp in Sources */,
+				842292FC1C260FAE00E9349C /* dispatch.cpp in Sources */,
+				842292DA1C260F8800E9349C /* core.cpp in Sources */,
+				8422930A1C260FCD00E9349C /* platform.cpp in Sources */,
+				842292C91C260F4B00E9349C /* DispatchTest.mm in Sources */,
+				842293071C260FAE00E9349C /* tiles_lair_01.cpp in Sources */,
+				842293061C260FAE00E9349C /* tilemap.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8422927D1C260CD700E9349C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					EMULATOR,
+					TESTING,
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../Emulator/Platform\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8422927E1C260CD700E9349C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/../Emulator/Platform\"";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		842292CC1C260F4B00E9349C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacemadness.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		842292CD1C260F4B00E9349C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacemadness.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		842292731C260CD700E9349C /* Build configuration list for PBXProject "Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8422927D1C260CD700E9349C /* Debug */,
+				8422927E1C260CD700E9349C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		842292CB1C260F4B00E9349C /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				842292CC1C260F4B00E9349C /* Debug */,
+				842292CD1C260F4B00E9349C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 842292701C260CD700E9349C /* Project object */;
+}
