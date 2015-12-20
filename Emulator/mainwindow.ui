@@ -295,6 +295,8 @@
     <addaction name="separator"/>
     <addaction name="actionImportImage"/>
     <addaction name="actionExportImage"/>
+    <addaction name="separator"/>
+    <addaction name="actionSnapshot"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuLevel"/>
@@ -446,6 +448,11 @@
   <action name="actionImportTileset">
    <property name="text">
     <string>Import tileset...</string>
+   </property>
+  </action>
+  <action name="actionSnapshot">
+   <property name="text">
+    <string>Snapshot</string>
    </property>
   </action>
  </widget>

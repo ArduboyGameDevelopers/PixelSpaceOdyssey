@@ -292,6 +292,7 @@ void MainWindow::setupActions()
     QAction *actionGrid   = _ui->actionGrid;
     QAction *actionEdit   = _ui->actionEdit;
     QAction *actionImportTileset = _ui->actionImportTileset;
+    QAction *actionSnapshot = _ui->actionSnapshot;
     
     // set state
     setPauseMode(emulator.paused());
@@ -306,6 +307,7 @@ void MainWindow::setupActions()
     connect(actionImportTileset, SIGNAL(triggered()),     this, SLOT(onActionImportTileSet()));
     connect(actionImport,        SIGNAL(triggered()),     this, SLOT(onActionImport()));
     connect(actionExport,        SIGNAL(triggered()),     this, SLOT(onActionExport()));
+    connect(actionSnapshot,      SIGNAL(triggered()),     this, SLOT(onActionSnapshot()));
     connect(actionStep,          SIGNAL(triggered()),     this, SLOT(onActionStep()));
     connect(actionPlay,          SIGNAL(triggered()),     this, SLOT(onActionPlay()));
     connect(actionPause,         SIGNAL(triggered()),     this, SLOT(onActionPause()));
@@ -491,6 +493,18 @@ void MainWindow::onActionExport()
     }
     
     image.save(filename, "PNG");
+}
+
+void MainWindow::onActionSnapshot()
+{
+    DisplayWidget *widget = displayWidget();
+    QPixmap pixmap(widget->size());
+    widget->render(&pixmap);
+    
+    QDir dir;
+    QFileInfoList list = dir.entryInfoList(QStringList("screenshot-*.png"));
+    
+    pixmap.save(QString("screenshot-%1.png").arg(list.size()));
 }
 
 void MainWindow::onActionPlay()

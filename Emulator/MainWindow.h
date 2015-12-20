@@ -39,6 +39,7 @@ public slots:
     void onActionImportTileSet();
     void onActionImport();
     void onActionExport();
+    void onActionSnapshot();
 
     void onActionPlay();
     void onActionPause();
