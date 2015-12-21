@@ -12,13 +12,13 @@
 #include <string.h>
 
 #include "animation.h"
+#include "tilemap.h"
 
 #define DIR_LEFT -1
 #define DIR_RIGHT 1
 
 #define CHARACTER_CALLBACK_ANIMATION_FINISHED 1
-#define CHARACTER_CALLBACK_OBSTACLE_WALL 2
-#define CHARACTER_CALLBACK_OBSTACLE_TRENCH 3
+#define CHARACTER_CALLBACK_OBSTACLE 2
 
 typedef int8_t Direction;
 typedef uint8_t CharacterCallbackType;
@@ -45,12 +45,28 @@ typedef struct _Character
     uint16_t colliderHeight;
     int16_t x;
     int16_t y;
+    int16_t moveMinX;
+    int16_t moveMaxX;
+    int16_t sightMinX;
+    int16_t sightMaxX;
     uint16_t frameTime;
     Direction dir;
     int8_t move;
     uint8_t frame;
     boolean animationEnded;
 } Character;
+
+inline int16_t CharacterGetTop(const Character *character)   { return character->y - DIV2(character->colliderHeight); }
+inline int16_t CharacterGetBottom(const Character *character){ return character->y + DIV2(character->colliderHeight); }
+inline int16_t CharacterGetLeft(const Character *character)  { return character->x - DIV2(character->colliderWidth); }
+inline int16_t CharacterGetRight(const Character *character) { return character->x + DIV2(character->colliderWidth); }
+inline int16_t CharacterGetRow(const Character *character)   { return TILE_GET_ROW(character->y); }
+inline int16_t CharacterGetCol(const Character *character)   { return TILE_GET_COL(character->x); }
+
+inline void CharacterSetTop(Character *character, int16_t y)    { character->y = y + DIV2(character->colliderHeight); }
+inline void CharacterSetBottom(Character *character, int16_t y) { character->y = y - DIV2(character->colliderHeight); }
+inline void CharacterSetLeft(Character *character, int16_t x)   { character->x = x + DIV2(character->colliderWidth); }
+inline void CharacterSetRight(Character *character, int16_t x)  { character->x = x - DIV2(character->colliderWidth); }
 
 inline Character CharacterMake(uint16_t width, uint16_t height)
 {

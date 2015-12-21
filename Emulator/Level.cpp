@@ -234,7 +234,6 @@ void Level::setCurrent(Level *level)
                 enemy.dir = enemyInfo.direction();
                 ::addEnemy(enemy, S2W(enemyInfo.x()), S2W(enemyInfo.y()));
                 break;
-                break;
             }
             case CharacterTypeSpiderSmall:
             {

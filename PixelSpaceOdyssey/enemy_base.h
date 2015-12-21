@@ -3,7 +3,8 @@
 
 #include "character.h"
 
-void EnemyUpdate(Character* character, TimeInterval dt);
+void EnemyUpdate(Character *character, TimeInterval dt);
+void UpdateConstraints(Character *character);
 
 #endif // ENEMY_BASE
 

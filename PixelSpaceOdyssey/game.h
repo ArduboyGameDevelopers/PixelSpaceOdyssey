@@ -13,6 +13,7 @@
 #include "character.h"
 #include "tilemap.h"
 #include "enemies.h"
+#include "dispatch.h"
 
 extern TileMap tileMap;
 extern int16_t camX;

@@ -36,6 +36,7 @@ inline void DispatchDestroy(Dispatch *dispatch)
 
 extern void DispatchSchedule(DispatchCallback callback, int16_t delay, void *user = NULL, int16_t data1 = 0, int16_t data2 = 0);
 extern void DispatchUpdate(uint16_t dt);
+extern void DispatchCancel(DispatchCallback callback, void *user = NULL);
 
 #if TESTING
 extern void DispatchShutdown();

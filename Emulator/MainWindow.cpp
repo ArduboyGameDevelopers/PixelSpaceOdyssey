@@ -169,6 +169,13 @@ void MainWindow::setEditMode(bool editMode)
     {
         setPauseMode(true);
     }
+    else
+    {
+        for (int i = 0; i < enemiesCount; ++i)
+        {
+            UpdateConstraints(&enemies[i]);
+        }
+    }
     
     _ui->actionEdit->setChecked(editMode);
     
@@ -662,4 +669,6 @@ void MainWindow::updateDirectionalRadioButtons()
 void MainWindow::setupParamUI()
 {
     _ui->showBoundingBoxesCheckBox->setParamPtr(&PARAM_SHOW_BOUNDING_BOXES);
+    _ui->showMoveBoxesCheckBox->setParamPtr(&PARAM_SHOW_MOVE_BOXES);
+    _ui->showSightBoxesCheckBox->setParamPtr(&PARAM_SHOW_SIGHT_BOXES);
 }

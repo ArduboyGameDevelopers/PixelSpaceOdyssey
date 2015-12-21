@@ -228,12 +228,38 @@
      <rect>
       <x>10</x>
       <y>410</y>
-      <width>161</width>
+      <width>121</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>Show colliders</string>
+    </property>
+   </widget>
+   <widget class="ParamCheckBox" name="showMoveBoxesCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>410</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Show move boxes</string>
+    </property>
+   </widget>
+   <widget class="ParamCheckBox" name="showSightBoxesCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>410</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Show sight boxes</string>
     </property>
    </widget>
   </widget>

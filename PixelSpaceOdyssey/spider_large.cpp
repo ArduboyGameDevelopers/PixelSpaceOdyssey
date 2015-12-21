@@ -93,8 +93,7 @@ void EnemyCallbackSpiderLarge(Character *self, CharacterCallbackType type, int16
             break;
         }
             
-        case CHARACTER_CALLBACK_OBSTACLE_TRENCH:
-        case CHARACTER_CALLBACK_OBSTACLE_WALL:
+        case CHARACTER_CALLBACK_OBSTACLE:
         {
             if (state == SpiderLargeStateWalk)
             {

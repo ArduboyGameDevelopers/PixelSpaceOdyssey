@@ -20,6 +20,8 @@ static const int GRID_ROWS = DISPLAY_WIDTH / GRID_CELL_WIDTH + 2;
 static const int GRID_COLS = DISPLAY_HEIGHT / GRID_CELL_HEIGHT + 2;
 
 bool PARAM_SHOW_BOUNDING_BOXES = false;
+bool PARAM_SHOW_SIGHT_BOXES = false;
+bool PARAM_SHOW_MOVE_BOXES = false;
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
     QWidget(parent),
@@ -184,6 +186,42 @@ void DisplayWidget::paintEvent(QPaintEvent *)
             painter.setPen(Qt::red);
             painter.drawRect(QRect(cx, cy, w, h));
         }
+    }
+    
+    // draw sight areas
+    if (PARAM_SHOW_SIGHT_BOXES)
+    {
+        QRgb color = qRgb(247, 148, 29);
+        painter.setOpacity(0.25);
+        for (int i = 0; i < enemiesCount; ++i)
+        {
+            const Character &enemy = enemies[i];
+            int cx = (W2S(enemy.sightMinX) - drawTransX) * PIXEL_WIDTH;
+            int cy = (TILE_GET_ROW(enemy.y) * TILE_HEIGHT_PX - drawTransY) * PIXEL_HEIGHT;
+            int sw = W2S(enemy.sightMaxX - enemy.sightMinX) * PIXEL_WIDTH;
+            int sh = TILE_HEIGHT_PX * PIXEL_HEIGHT;
+            
+            painter.fillRect(cx, cy, sw, sh, color);
+        }
+        painter.setOpacity(1.0);
+    }
+    
+    // draw sight areas
+    if (PARAM_SHOW_MOVE_BOXES)
+    {
+        QRgb color = qRgb(0, 166, 81);
+        painter.setOpacity(0.25);
+        for (int i = 0; i < enemiesCount; ++i)
+        {
+            const Character &enemy = enemies[i];
+            int cx = (W2S(enemy.moveMinX) - drawTransX) * PIXEL_WIDTH;
+            int cy = (W2S(CharacterGetTop(&enemy)) - drawTransY) * PIXEL_HEIGHT;
+            int sw = W2S(enemy.moveMaxX - enemy.moveMinX) * PIXEL_WIDTH;
+            int sh = W2S(enemy.colliderHeight) * PIXEL_HEIGHT;
+            
+            painter.fillRect(cx, cy, sw, sh, color);
+        }
+        painter.setOpacity(1.0);
     }
     
     if (_currentTool)

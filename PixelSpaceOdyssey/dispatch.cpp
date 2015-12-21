@@ -37,6 +37,22 @@ void DispatchUpdate(uint16_t dt)
     }
 }
 
+void DispatchCancel(DispatchCallback callback, void *user)
+{
+    Dispatch *prev = NULL;
+    for (Dispatch *current = scheduledRoot; current != NULL; current = current->next)
+    {
+        if (current->callback == callback && current->user == user)
+        {
+            if (prev) prev->next = current->next;
+            else scheduledRoot = current->next;
+            DispatchDestroy(current);
+        }
+        
+        prev = current;
+    }
+}
+
 #if TESTING
 void DispatchShutdown()
 {

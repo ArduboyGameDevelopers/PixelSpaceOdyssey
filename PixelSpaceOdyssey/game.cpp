@@ -385,6 +385,7 @@ void addEnemy(const Character &enemy, int16_t x, int16_t y)
     enemies[enemiesCount] = enemy;
     enemies[enemiesCount].x = x;
     enemies[enemiesCount].y = y;
+    UpdateConstraints(&enemies[enemiesCount]);
     ++enemiesCount;
 }
 
