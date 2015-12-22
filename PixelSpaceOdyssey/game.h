@@ -12,6 +12,7 @@
 #include "common.h"
 #include "character.h"
 #include "tilemap.h"
+#include "player.h"
 #include "enemies.h"
 #include "dispatch.h"
 
@@ -29,8 +30,6 @@ extern const int16_t CAM_RANGE_X;
 extern const int16_t CAM_RANGE_Y;
 extern const int8_t  WALK_SPEED;
 
-extern Character player;
-
 /* Enemy AI will target this position to create some delay */
 extern int16_t playerLastSeenX;
 extern int16_t playerLastSeenY;
@@ -40,6 +39,8 @@ extern uint8_t enemiesCount;
 
 extern void initEnemies(uint8_t enemiesCount);
 extern void addEnemy(const Character &enemy, int16_t x, int16_t y);
+
+bool buttonPressed(int button);
 
 inline bool EnemyCanSeeCharacter(const Character *enemy)
 {
