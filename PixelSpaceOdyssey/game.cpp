@@ -57,6 +57,7 @@ static bool playerJumping = false;
 static bool jumpPressed = false;
 static int16_t playerJumpSpeed = 0;
 static Direction playerSlopeDir = 0;
+static int16_t playerDamageTime;
 
 TileMap tileMap = TileMapMake(TILES_TB_CAVERNS, INDICES_LAIR_01, TILEMAP_LAIR_01_HEIGHT, TILEMAP_LAIR_01_WIDTH);
 
@@ -138,15 +139,35 @@ inline void PLAYER_SET_BOTTOM(int16_t y) { player.y = y - PLAYER_COLLIDER_HALF_H
 inline void PLAYER_SET_LEFT(int16_t x)   { player.x = x + PLAYER_COLLIDER_HALF_WIDTH; }
 inline void PLAYER_SET_RIGHT(int16_t x)  { player.x = x - PLAYER_COLLIDER_HALF_WIDTH; }
 
+inline static bool isPlayerDamaged()
+{
+    return playerDamageTime > 0;
+}
+
+inline static void playerDamage()
+{
+    if (playerDamageTime <= 0)
+    {
+        playerDamageTime = 1000;
+    }
+}
+
 inline static void playerHandleTileHorCollision(const Tile& tile)
 {
-    if (player.x > tile.x) // tile on the left
+    if (TILE_IS_HAZARD(tile.index))
     {
-        PLAYER_SET_LEFT(TILE_GET_RIGHT(tile));
+        playerDamage();
     }
     else
     {
-        PLAYER_SET_RIGHT(TILE_GET_LEFT(tile));
+        if (player.x > tile.x) // tile on the left
+        {
+            PLAYER_SET_LEFT(TILE_GET_RIGHT(tile));
+        }
+        else
+        {
+            PLAYER_SET_RIGHT(TILE_GET_LEFT(tile));
+        }
     }
 }
 
@@ -272,13 +293,19 @@ void playerUpdate(TimeInterval dt)
             if (getSolidTile(leftX, bottomY, &tile) ||
                 getSolidTile(rightX, bottomY, &tile))
             {
-                int16_t tileTop = TILE_GET_TOP(tile);
-                int16_t oldBottom = oldY + PLAYER_COLLIDER_HALF_HEIGHT;
-                if (oldBottom <= tileTop) // player jumped on the tile
+                if (TILE_IS_HAZARD(tile.index))
                 {
-                    PLAYER_SET_BOTTOM(tileTop);
-                    playerJumpSpeed = 0;
-                    playerJumping = false;
+                }
+                else
+                {
+                    int16_t tileTop = TILE_GET_TOP(tile);
+                    int16_t oldBottom = oldY + PLAYER_COLLIDER_HALF_HEIGHT;
+                    if (oldBottom <= tileTop) // player jumped on the tile
+                    {
+                        PLAYER_SET_BOTTOM(tileTop);
+                        playerJumpSpeed = 0;
+                        playerJumping = false;
+                    }
                 }
             }
         }
@@ -324,8 +351,18 @@ void playerUpdate(TimeInterval dt)
     camX = constrain(camX, CAM_WIDTH_HALF, maxCamX);
     camY = constrain(camY, CAM_HEIGHT_HALF, maxCamY);
     
+    // damage
+    if (playerDamageTime > 0)
+    {
+        playerDamageTime -= dt;
+    }
+    
     // update animation
-    if (playerJumping)
+    if (isPlayerDamaged())
+    {
+        playerSetAnimation(PLAYER_ANIMATION_IMPACT_BOTTOM);
+    }
+    else if (playerJumping)
     {
         playerSetAnimation(PLAYER_ANIMATION_JUMP);
     }
