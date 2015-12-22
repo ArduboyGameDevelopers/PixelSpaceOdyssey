@@ -2,7 +2,7 @@
 
 #include "game.h"
 
-inline static void handleTileHorCollision(Character *character)
+inline static void handleObstacle(Character *character)
 {
     CharacterCallbackInvoke(character, CHARACTER_CALLBACK_OBSTACLE);
 }
@@ -26,12 +26,12 @@ void EnemyUpdate(Character* character, TimeInterval dt)
         if (dir == DIR_LEFT && CharacterGetLeft(character) < character->moveMinX)
         {
             CharacterSetLeft(character, character->moveMinX);
-            handleTileHorCollision(character);
+            handleObstacle(character);
         }
         else if (dir == DIR_RIGHT && CharacterGetRight(character) > character->moveMaxX)
         {
             CharacterSetRight(character, character->moveMaxX);
-            handleTileHorCollision(character);
+            handleObstacle(character);
         }
     }
     

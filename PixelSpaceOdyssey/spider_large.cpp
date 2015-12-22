@@ -11,6 +11,7 @@
 #define SpiderLargeStateWalk    3
 #define SpiderLargeStateAttack  4
 #define SpiderLargeStateStat    5
+#define SpiderLargeStatePatrol  6
 
 #define SPIDER_LARGE_USER_MASK_ATTACK 0x01
 
@@ -21,6 +22,7 @@ static const uint8_t ANIMATION_LOOKUP[] = {
     SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStateWalk */
     SPIDER_LARGE_ANIMATION_ATTACK,  /* SpiderLargeStateAttack */
     SPIDER_LARGE_ANIMATION_STAT,    /* SpiderLargeStateStat */
+    SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStatePatrol */
 };
 
 typedef uint16_t SpiderLargeState;
@@ -73,6 +75,12 @@ static inline void walk(Character *self)
     self->move = 1;
 }
 
+static inline void patrol(Character *self)
+{
+    setState(self, SpiderLargeStatePatrol);
+    self->move = 1;
+}
+
 static inline void stat(Character *self)
 {
     setState(self, SpiderLargeStateStat);
@@ -112,11 +120,15 @@ void EnemyCallbackSpiderLarge(Character *self, CharacterCallbackType type, int16
             
         case CHARACTER_CALLBACK_OBSTACLE:
         {
-            if (state == SpiderLargeStateWalk)
+            switch (state)
             {
-                stat(self);
+                case SpiderLargeStateWalk:
+                    stat(self);
+                    break;
+                case SpiderLargeStatePatrol:
+                    self->dir = -self->dir;
+                    break;
             }
-            
             break;
         }
     }
@@ -169,17 +181,35 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
                     stat(self);
                 }
             }
+            else if (self->canSeePlayer)
+            {
+                self->stateTime = 0;
+                if (self->move == 0)
+                {
+                    walk(self);
+                }
+            }
             else if (self->move == 0)
+            {
+                self->stateTime += dt;
+                if (self->stateTime > 5000)
+                {
+                    patrol(self);
+                }
+            }
+            break;
+        }
+            
+        case SpiderLargeStatePatrol:
+        {
+            EnemyUpdatePlayerPos(self);
+            if (self->canSeePlayer)
             {
                 walk(self);
             }
             break;
         }
-        
-        case SpiderLargeStateAttack:
-        {
-            break;
-        }
+            
     }
 }
 
