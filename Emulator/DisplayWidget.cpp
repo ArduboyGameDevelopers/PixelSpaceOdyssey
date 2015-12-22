@@ -22,6 +22,7 @@ static const int GRID_COLS = DISPLAY_HEIGHT / GRID_CELL_HEIGHT + 2;
 bool PARAM_SHOW_BOUNDING_BOXES = false;
 bool PARAM_SHOW_SIGHT_BOXES = false;
 bool PARAM_SHOW_MOVE_BOXES = false;
+bool PARAM_SHOW_PLAYER_POS = true;
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
     QWidget(parent),
@@ -196,9 +197,12 @@ void DisplayWidget::paintEvent(QPaintEvent *)
         for (int i = 0; i < enemiesCount; ++i)
         {
             const Character &enemy = enemies[i];
-            int cx = (W2S(enemy.sightMinX) - drawTransX) * PIXEL_WIDTH;
+            int16_t minX = W2S(EnemyGetMinSightX(&enemy));
+            int16_t maxX = W2S(EnemyGetMaxSightX(&enemy));
+            
+            int cx = (minX - drawTransX) * PIXEL_WIDTH;
             int cy = (TILE_GET_ROW(enemy.y) * TILE_HEIGHT_PX - drawTransY) * PIXEL_HEIGHT;
-            int sw = W2S(enemy.sightMaxX - enemy.sightMinX) * PIXEL_WIDTH;
+            int sw = (maxX - minX) * PIXEL_WIDTH;
             int sh = TILE_HEIGHT_PX * PIXEL_HEIGHT;
             
             painter.fillRect(cx, cy, sw, sh, color);
@@ -220,6 +224,25 @@ void DisplayWidget::paintEvent(QPaintEvent *)
             int sh = W2S(enemy.colliderHeight) * PIXEL_HEIGHT;
             
             painter.fillRect(cx, cy, sw, sh, color);
+        }
+        painter.setOpacity(1.0);
+    }
+    
+    // draw last seen player pos
+    if (PARAM_SHOW_PLAYER_POS)
+    {
+        QRgb visible = qRgb(237, 28, 36);
+        QRgb notvisible = qRgb(246, 142, 86);
+        painter.setOpacity(0.25);
+        for (int i = 0; i < enemiesCount; ++i)
+        {
+            const Character &enemy = enemies[i];
+            int cx = (W2S(enemy.lastPlayerX - DIV2(player.width)) - drawTransX) * PIXEL_WIDTH;
+            int cy = (W2S(enemy.y) - drawTransY) * PIXEL_HEIGHT;
+            int sw = TILE_WIDTH_PX * PIXEL_WIDTH;
+            int sh = TILE_HEIGHT_PX * PIXEL_HEIGHT;
+            
+            painter.fillRect(cx, cy, sw, sh, enemy.canSeePlayer ? visible : notvisible);
         }
         painter.setOpacity(1.0);
     }

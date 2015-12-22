@@ -21,6 +21,8 @@ inline Character EnemyMakeSpiderLargeCharacter()
     character.colliderHeight = S2W(ENEMY_TYPE_SPIDER_LARGE_COLLIDER_HEIGHT);
     character.behaviour = EnemyBehaviourSpiderLarge;
     character.callback = EnemyCallbackSpiderLarge;
+    character.sightDistanceForward  = 4 * TILE_WIDTH;
+    character.sightDistanceBackward = 2 * TILE_WIDTH;
     EnemyInitSpiderLarge(&character);
     return character;
 }

@@ -103,6 +103,7 @@ void updateGame()
     TimeInterval dt = millis() - lastFrameTime;
     lastFrameTime = millis();
     
+    DispatchUpdate(dt);
     playerUpdate(dt);
     enemiesUpdate(dt);
 }

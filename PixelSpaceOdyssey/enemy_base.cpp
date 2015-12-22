@@ -2,8 +2,6 @@
 
 #include "game.h"
 
-static const int kSightTiles = 4;
-
 inline static void handleTileHorCollision(Character *character)
 {
     CharacterCallbackInvoke(character, CHARACTER_CALLBACK_OBSTACLE);

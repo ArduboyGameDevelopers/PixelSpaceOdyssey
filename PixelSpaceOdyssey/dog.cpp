@@ -19,12 +19,12 @@ static inline void setAnimation(Character *character, int index)
 
 static inline DogState getState(Character *character)
 {
-    return (DogState) character->user1;
+    return (DogState) character->state;
 }
 
 static inline void setState(Character *character, DogState state)
 {
-    character->user1 = (uint16_t) state;
+    character->state = (uint16_t) state;
     setAnimation(character, state);
 }
 

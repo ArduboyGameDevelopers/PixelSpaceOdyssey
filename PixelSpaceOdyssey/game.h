@@ -41,6 +41,22 @@ extern uint8_t enemiesCount;
 extern void initEnemies(uint8_t enemiesCount);
 extern void addEnemy(const Character &enemy, int16_t x, int16_t y);
 
+inline bool EnemyCanSeeCharacter(const Character *enemy)
+{
+    int16_t dy = abs(enemy->y - player.y);
+    return dy <= TILE_HEIGHT && player.x >= EnemyGetMinSightX(enemy) && player.x <= EnemyGetMaxSightX(enemy);
+}
+
+inline void EnemyUpdatePlayerPos(Character *self)
+{
+    bool canSeePlayer = EnemyCanSeeCharacter(self);
+    self->canSeePlayer = canSeePlayer;
+    if (canSeePlayer)
+    {
+        self->lastPlayerX = player.x;
+    }
+}
+
 inline uint16_t playerDistanceHor(const Character *character)
 {
     return W2S(playerLastSeenX - character->x);

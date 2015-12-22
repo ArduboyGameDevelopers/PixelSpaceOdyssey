@@ -11,6 +11,7 @@
 
 #include <string.h>
 
+#include "common.h"
 #include "animation.h"
 #include "tilemap.h"
 
@@ -36,15 +37,19 @@ typedef struct _Character
     CharacterCallback callback;
     const Animation* animation;
 
-    uint16_t user1;
-    uint16_t user2;
+    uint16_t state;
+    uint16_t stateTime;
+    uint16_t flags;
 
     uint16_t width;
     uint16_t height;
     uint16_t colliderWidth;
     uint16_t colliderHeight;
+    uint16_t sightDistanceForward;
+    uint16_t sightDistanceBackward;
     int16_t x;
     int16_t y;
+    int16_t lastPlayerX;
     int16_t moveMinX;
     int16_t moveMaxX;
     int16_t sightMinX;
@@ -54,6 +59,7 @@ typedef struct _Character
     int8_t move;
     uint8_t frame;
     boolean animationEnded;
+    boolean canSeePlayer;
 } Character;
 
 inline int16_t CharacterGetTop(const Character *character)   { return character->y - DIV2(character->colliderHeight); }
@@ -67,6 +73,29 @@ inline void CharacterSetTop(Character *character, int16_t y)    { character->y =
 inline void CharacterSetBottom(Character *character, int16_t y) { character->y = y - DIV2(character->colliderHeight); }
 inline void CharacterSetLeft(Character *character, int16_t x)   { character->x = x + DIV2(character->colliderWidth); }
 inline void CharacterSetRight(Character *character, int16_t x)  { character->x = x - DIV2(character->colliderWidth); }
+
+inline void CharacterSetUserFlag(Character *character, uint8_t mask, bool flag)
+{
+    if (flag)
+    {
+        character->flags |= mask;
+    }
+    else
+    {
+        character->flags &= ~mask;
+    }
+}
+
+inline bool CharacterHasUserFlag(const Character *character, uint8_t mask)
+{
+    return character->flags & mask;
+}
+
+inline void CharacterToggleUserFlag(Character *character, uint8_t mask)
+{
+    bool flag = CharacterHasUserFlag(character, mask);
+    CharacterSetUserFlag(character, mask, !flag);
+}
 
 inline Character CharacterMake(uint16_t width, uint16_t height)
 {
