@@ -91,6 +91,8 @@ static inline void attack(Character *self)
     setState(self, SpiderLargeStateAttack);
     setCanAttack(self, false);
     DispatchSchedule(attackEnableCallback, 500, self);
+    
+    playerDamage(self);
 }
 
 void EnemyInitSpiderLarge(Character *character)

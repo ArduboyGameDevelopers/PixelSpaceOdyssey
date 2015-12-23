@@ -50,12 +50,16 @@ inline static bool isPlayerShocked()
     return playerDamageTime >= PLAYER_SHOCK_TIME;
 }
 
-inline static void playerDamage()
+inline static void takeDamage(Direction dir)
 {
     if (playerDamageTime <= 0)
     {
         playerDamageTime = PLAYER_DAMAGE_TIME;
-        player.dir = -player.dir;
+        if (dir != DIR_NONE)
+        {
+            player.dir = dir;
+            player.move = 1;
+        }
         playerJumpSpeed = DIV2(JUMP_SPEED);
     }
 }
@@ -64,7 +68,7 @@ inline static void playerHandleTileHorCollision(const Tile& tile)
 {
     if (TILE_IS_HAZARD(tile.index))
     {
-        playerDamage();
+        takeDamage(-player.dir);
     }
     else
     {
@@ -212,7 +216,7 @@ void playerUpdate(TimeInterval dt)
             {
                 if (TILE_IS_HAZARD(tile.index))
                 {
-                    playerDamage();
+                    takeDamage(-player.dir);
                 }
                 else
                 {
@@ -328,6 +332,11 @@ void playerDraw()
         return;
     }
     CharacterDraw(&player);
+}
+
+void playerDamage(Character *enemy)
+{
+    takeDamage(enemy->x > player.x ? DIR_LEFT : DIR_RIGHT);
 }
 
 void playerSetAnimation(int index)

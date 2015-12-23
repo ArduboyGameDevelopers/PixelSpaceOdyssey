@@ -16,6 +16,7 @@
 #include "tilemap.h"
 
 #define DIR_LEFT -1
+#define DIR_NONE  0
 #define DIR_RIGHT 1
 
 #define CHARACTER_CALLBACK_ANIMATION_FINISHED 1
