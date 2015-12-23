@@ -20,6 +20,9 @@ static const uint8_t PLAYER_HEIGHT               = S2W(8);
 static const uint8_t PLAYER_COLLIDER_HALF_WIDTH  = S2W(3);
 static const uint8_t PLAYER_COLLIDER_HALF_HEIGHT = S2W(4);
 
+static const uint16_t PLAYER_DAMAGE_TIME = 3000;
+static const uint16_t PLAYER_SHOCK_TIME = PLAYER_DAMAGE_TIME - 250;
+
 inline void PLAYER_SET_TOP(int16_t y)    { player.y = y + PLAYER_COLLIDER_HALF_HEIGHT; }
 inline void PLAYER_SET_BOTTOM(int16_t y) { player.y = y - PLAYER_COLLIDER_HALF_HEIGHT; }
 inline void PLAYER_SET_LEFT(int16_t x)   { player.x = x + PLAYER_COLLIDER_HALF_WIDTH; }
@@ -33,6 +36,7 @@ static bool jumpPressed = false;
 static int16_t playerJumpSpeed = 0;
 static Direction playerSlopeDir = 0;
 static int16_t playerDamageTime;
+static bool playerDamageBlink;
 
 static void playerSetAnimation(int index);
 
@@ -41,11 +45,18 @@ inline static bool isPlayerDamaged()
     return playerDamageTime > 0;
 }
 
+inline static bool isPlayerShocked()
+{
+    return playerDamageTime >= PLAYER_SHOCK_TIME;
+}
+
 inline static void playerDamage()
 {
     if (playerDamageTime <= 0)
     {
-        playerDamageTime = 1000;
+        playerDamageTime = PLAYER_DAMAGE_TIME;
+        player.dir = -player.dir;
+        playerJumpSpeed = DIV2(JUMP_SPEED);
     }
 }
 
@@ -79,11 +90,11 @@ inline static void playerSlideSlope(const Tile& slopeTile, Direction dir)
     PLAYER_SET_BOTTOM(slopeTile.y + offset);
 }
 
-void playerUpdate(TimeInterval dt)
+static inline void updateInput()
 {
     // input
     playerCrouching = !playerJumping && buttonPressed(DOWN_BUTTON);
-
+    
     bool jumpWasPressed = jumpPressed;
     jumpPressed = buttonPressed(JUMP_BUTTON);
     if (!playerJumping && jumpPressed && !jumpWasPressed)
@@ -92,10 +103,10 @@ void playerUpdate(TimeInterval dt)
         playerJumpSpeed = JUMP_SPEED;
         playerSetAnimation(PLAYER_ANIMATION_JUMP);
     }
-
+    
     // update movement
     player.move = 0;
-
+    
     if (!playerCrouching)
     {
         if (buttonPressed(LEFT_BUTTON))
@@ -108,11 +119,20 @@ void playerUpdate(TimeInterval dt)
             player.dir = DIR_RIGHT;
             player.move = 1;
         }
-
+        
         if (player.move != 0 && buttonPressed(RUN_BUTTON))
         {
             player.move = 2;
         }
+    }
+}
+
+void playerUpdate(TimeInterval dt)
+{
+    // input
+    if (!isPlayerShocked())
+    {
+        updateInput();
     }
 
     int16_t oldY = player.y;
@@ -192,6 +212,7 @@ void playerUpdate(TimeInterval dt)
             {
                 if (TILE_IS_HAZARD(tile.index))
                 {
+                    playerDamage();
                 }
                 else
                 {
@@ -202,6 +223,11 @@ void playerUpdate(TimeInterval dt)
                         PLAYER_SET_BOTTOM(tileTop);
                         playerJumpSpeed = 0;
                         playerJumping = false;
+                        
+                        if (isPlayerShocked())
+                        {
+                            player.move = 0;
+                        }
                     }
                 }
             }
@@ -252,10 +278,11 @@ void playerUpdate(TimeInterval dt)
     if (playerDamageTime > 0)
     {
         playerDamageTime -= dt;
+        playerDamageBlink = !playerDamageBlink;
     }
 
     // update animation
-    if (isPlayerDamaged())
+    if (isPlayerShocked())
     {
         playerSetAnimation(PLAYER_ANIMATION_IMPACT_BOTTOM);
     }
@@ -296,6 +323,10 @@ void playerUpdate(TimeInterval dt)
 
 void playerDraw()
 {
+    if (isPlayerDamaged() && playerDamageBlink)
+    {
+        return;
+    }
     CharacterDraw(&player);
 }
 
