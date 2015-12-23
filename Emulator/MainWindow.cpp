@@ -671,4 +671,5 @@ void MainWindow::setupParamUI()
     _ui->showBoundingBoxesCheckBox->setParamPtr(&PARAM_SHOW_BOUNDING_BOXES);
     _ui->showMoveBoxesCheckBox->setParamPtr(&PARAM_SHOW_MOVE_BOXES);
     _ui->showSightBoxesCheckBox->setParamPtr(&PARAM_SHOW_SIGHT_BOXES);
+    _ui->showPlayerPosCheckBox->setParamPtr(&PARAM_SHOW_PLAYER_POS);
 }

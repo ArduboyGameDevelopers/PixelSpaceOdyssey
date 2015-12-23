@@ -22,7 +22,7 @@ static const int GRID_COLS = DISPLAY_HEIGHT / GRID_CELL_HEIGHT + 2;
 bool PARAM_SHOW_BOUNDING_BOXES = false;
 bool PARAM_SHOW_SIGHT_BOXES = false;
 bool PARAM_SHOW_MOVE_BOXES = false;
-bool PARAM_SHOW_PLAYER_POS = true;
+bool PARAM_SHOW_PLAYER_POS = false;
 
 DisplayWidget::DisplayWidget(QWidget *parent) :
     QWidget(parent),
