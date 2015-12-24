@@ -65,7 +65,7 @@ inline TileMap TileMapMake(WEAK_CONST PgmPtr *tiles, WEAK_CONST uint8_t *indices
     return tileMap;
 }
 
-void TileMapDraw(const TileMap *tileMap, int16_t x, int16_t y);
+void TileMapDraw(const TileMap *tileMap);
 uint8_t TileMapGetTile(const TileMap *tileMap, int16_t x, int16_t y, Tile* tile);
 
 #endif /* tilemap_h */

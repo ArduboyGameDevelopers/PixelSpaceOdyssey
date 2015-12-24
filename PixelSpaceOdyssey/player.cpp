@@ -11,9 +11,9 @@
 #define RUN_BUTTON  A_BUTTON
 #define JUMP_BUTTON B_BUTTON
 
-static const int8_t JUMP_SPEED  = -65;
-static const int8_t SLIDE_SPEED = 12;
-static const int8_t GRAVITY = 5;
+static const int8_t JUMP_SPEED  = -83;
+static const int8_t SLIDE_SPEED = 15;
+static const int8_t GRAVITY = 8;
 
 static const uint8_t PLAYER_WIDTH                = S2W(8);
 static const uint8_t PLAYER_HEIGHT               = S2W(8);

@@ -20,10 +20,12 @@
 #include "tiles_lair_01.h"
 #include "enemies.h"
 
-const int8_t WALK_SPEED         = 9;
+const int8_t WALK_SPEED         = 15;
 
-const int16_t CAM_WIDTH         = S2W(128);
-const int16_t CAM_HEIGHT        = S2W(64);
+const int16_t CAM_WIDTH_PX      = 128;
+const int16_t CAM_HEIGHT_PX     = 64;
+const int16_t CAM_WIDTH         = S2W(CAM_WIDTH_PX);
+const int16_t CAM_HEIGHT        = S2W(CAM_HEIGHT_PX);
 const int16_t CAM_WIDTH_HALF    = CAM_WIDTH / 2;
 const int16_t CAM_HEIGHT_HALF   = CAM_HEIGHT / 2;
 const int16_t CAM_RANGE_X       = S2W(30);
@@ -52,7 +54,10 @@ static TimeInterval lastFrameTime;
 static void enemiesUpdate(TimeInterval dt);
 static void enemiesDraw();
 
-static void tilemapDraw();
+static inline void tilemapDraw()
+{
+    TileMapDraw(&tileMap);
+}
 
 void startGame()
 {
@@ -133,14 +138,6 @@ void enemiesDraw()
     {
         CharacterDraw(&enemies[i]);
     }
-}
-
-#pragma mark -
-#pragma mark Tilemap
-
-void tilemapDraw()
-{
-    TileMapDraw(&tileMap, 0, 0);
 }
 
 #pragma mark -

@@ -8,10 +8,14 @@ Emulator emulator;
 static uint8_t _inputMask = 0;
 static unsigned long _gameTime = 0;
 
+static const int kFrameRate = 20;
+static const int kFrameTime = 1000 / kFrameRate;
+
 Emulator::Emulator() :
     _editMode(false),
     _paused(false),
-    _step(false)
+    _step(false),
+    _frameTime(0)
 {
 }
 
@@ -23,11 +27,17 @@ void Emulator::start()
 void Emulator::update(uint32_t dt)
 {
     _gameTime += dt;
+    _frameTime += dt;
 
-    if (!_paused || _step)
+    if (_frameTime >= kFrameTime)
     {
-        updateGame();
-        _step = false;
+        _frameTime = 0;
+        
+        if (!_paused || _step)
+        {
+            updateGame();
+            _step = false;
+        }
     }
     drawGame();
 }

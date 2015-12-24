@@ -22,6 +22,9 @@ extern int16_t camY;
 extern uint16_t tileMapWidth;
 extern uint16_t tileMapHeight;
 
+extern const int16_t CAM_WIDTH_PX;
+extern const int16_t CAM_HEIGHT_PX;
+
 extern const int16_t CAM_WIDTH;
 extern const int16_t CAM_HEIGHT;
 extern const int16_t CAM_WIDTH_HALF;

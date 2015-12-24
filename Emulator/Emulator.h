@@ -28,6 +28,7 @@ private:
     bool _editMode;
     bool _paused;
     bool _step;
+    uint32_t _frameTime;
 };
 
 extern Emulator emulator;
