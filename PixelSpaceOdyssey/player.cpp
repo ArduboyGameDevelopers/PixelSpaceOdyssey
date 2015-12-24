@@ -9,7 +9,7 @@
 #define PLAYER_RIGHT         (player.x + (PLAYER_COLLIDER_HALF_WIDTH - 1))
 
 #define RUN_BUTTON  A_BUTTON
-#define JUMP_BUTTON B_BUTTON
+#define SHOT_BUTTON B_BUTTON
 
 static const int8_t JUMP_SPEED  = -83;
 static const int8_t SLIDE_SPEED = 15;
@@ -100,7 +100,7 @@ static inline void updateInput()
     playerCrouching = !playerJumping && buttonPressed(DOWN_BUTTON);
     
     bool jumpWasPressed = jumpPressed;
-    jumpPressed = buttonPressed(JUMP_BUTTON);
+    jumpPressed = buttonPressed(UP_BUTTON);
     if (!playerJumping && jumpPressed && !jumpWasPressed)
     {
         playerJumping = true;
