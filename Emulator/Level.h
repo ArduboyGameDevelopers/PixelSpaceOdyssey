@@ -29,6 +29,7 @@ public:
 public:
     static Level *current() { return _currentLevel; }
     static void setCurrent(Level *level);
+    static void restart();
 
 public:
     void addEnemy(CharacterType type, int x, int y, Direction dir);

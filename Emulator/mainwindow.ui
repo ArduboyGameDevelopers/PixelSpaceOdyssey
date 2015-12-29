@@ -330,6 +330,8 @@
     <property name="title">
      <string>Level</string>
     </property>
+    <addaction name="actionRestart"/>
+    <addaction name="separator"/>
     <addaction name="actionImportTileset"/>
     <addaction name="separator"/>
     <addaction name="actionImportImage"/>
@@ -492,6 +494,14 @@
   <action name="actionSnapshot">
    <property name="text">
     <string>Snapshot</string>
+   </property>
+  </action>
+  <action name="actionRestart">
+   <property name="text">
+    <string>Restart</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+R</string>
    </property>
   </action>
  </widget>

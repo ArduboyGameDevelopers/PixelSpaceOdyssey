@@ -289,6 +289,7 @@ void MainWindow::setupActions()
     QAction *actionOpen   = _ui->actionOpen;
     QAction *actionSave   = _ui->actionSave;
     QAction *actionSaveAs = _ui->actionSaveAs;
+    QAction *actionRestart= _ui->actionRestart;
     QAction *actionSize   = _ui->actionSize;
     QAction *actionOffset = _ui->actionOffset;
     QAction *actionImport = _ui->actionImportImage;
@@ -309,6 +310,7 @@ void MainWindow::setupActions()
     connect(actionOpen,          SIGNAL(triggered()),     this, SLOT(onActionOpen()));
     connect(actionSave,          SIGNAL(triggered()),     this, SLOT(onActionSave()));
     connect(actionSaveAs,        SIGNAL(triggered()),     this, SLOT(onActionSaveAs()));
+    connect(actionRestart,       SIGNAL(triggered()),     this, SLOT(onActionRestart()));
     connect(actionSize,          SIGNAL(triggered()),     this, SLOT(onActionSize()));
     connect(actionOffset,        SIGNAL(triggered()),     this, SLOT(onActionOffset()));
     connect(actionImportTileset, SIGNAL(triggered()),     this, SLOT(onActionImportTileSet()));
@@ -439,6 +441,11 @@ void MainWindow::onActionSize()
 void MainWindow::onActionOffset()
 {
     
+}
+
+void MainWindow::onActionRestart()
+{
+    Level::restart();
 }
 
 void MainWindow::onActionImportTileSet()

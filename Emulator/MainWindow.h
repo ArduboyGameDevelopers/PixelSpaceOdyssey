@@ -36,6 +36,7 @@ public slots:
     void onActionSize();
     void onActionOffset();
 
+    void onActionRestart();
     void onActionImportTileSet();
     void onActionImport();
     void onActionExport();

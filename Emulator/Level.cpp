@@ -252,6 +252,11 @@ void Level::setCurrent(Level *level)
     MainWindow::instance()->updateLevelUi(level);
 }
 
+void Level::restart()
+{
+    setCurrent(Level::current());
+}
+
 void Level::addEnemy(CharacterType type, int x, int y, Direction dir)
 {
     CharacterInfo enemy(type, x, y, DIR_LEFT);
