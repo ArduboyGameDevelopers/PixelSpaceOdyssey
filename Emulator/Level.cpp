@@ -18,6 +18,8 @@
 
 static const uint8_t kVersion = 1;
 
+static void deleteEnemyCharacter(int id);
+
 Level* Level::_currentLevel(NULL);
 
 Level::Level() :
@@ -219,9 +221,12 @@ void Level::setCurrent(Level *level)
     
     // setup enemies
     ::initEnemies(level->enemiesCount());
+    
     for (int i = 0; i < level->enemiesCount(); ++i)
     {
         const CharacterInfo &enemyInfo = level->enemies().at(i);
+        
+        Character enemy;
         switch (enemyInfo.type())
         {
             case CharacterTypeBear:
@@ -230,9 +235,7 @@ void Level::setCurrent(Level *level)
             }
             case CharacterTypeDog:
             {
-                Character enemy = EnemyMakeDog();
-                enemy.dir = enemyInfo.direction();
-                ::addEnemy(enemy, S2W(enemyInfo.x()), S2W(enemyInfo.y()));
+                enemy = EnemyMakeDog();
                 break;
             }
             case CharacterTypeSpiderSmall:
@@ -241,12 +244,14 @@ void Level::setCurrent(Level *level)
             }
             case CharacterTypeSpiderLarge:
             {
-                Character enemy = EnemyMakeSpiderLargeCharacter();
-                enemy.dir = enemyInfo.direction();
-                ::addEnemy(enemy, S2W(enemyInfo.x()), S2W(enemyInfo.y()));
+                enemy = EnemyMakeSpiderLargeCharacter();
                 break;
             }
         }
+        
+        enemy.dir = enemyInfo.direction();
+        enemy.id = enemyInfo.id();
+        ::addEnemy(enemy, S2W(enemyInfo.x()), S2W(enemyInfo.y()));
     }
     
     MainWindow::instance()->updateLevelUi(level);
@@ -268,6 +273,9 @@ void Level::addEnemy(CharacterType type, int x, int y, Direction dir)
 
 void Level::deleteEnemy(int index)
 {
+    const CharacterInfo &enemy = _enemies.at(index);
+    deleteEnemyCharacter(enemy.id());
+    
     Q_ASSERT(index >= 0 && index < _enemies.length());
     _enemies.removeAt(index);
     
@@ -302,4 +310,33 @@ void Level::resize(uint8_t rows, uint8_t cols)
     _indices = newIndices;
 
     setCurrent(this);
+}
+
+#pragma mark -
+#pragma mark Helpers
+
+static int findEnemyCharacter(int id)
+{
+    for (int i = 0; i < enemiesCount; ++i)
+    {
+        if (enemies[i].id == id)
+        {
+            return i;
+        }
+    }
+    
+    return -1;
+}
+
+static void deleteEnemyCharacter(int id)
+{
+    int index = findEnemyCharacter(id);
+    if (index != -1)
+    {
+        for (int i = index + 1; i < enemiesCount; ++i)
+        {
+            enemies[i - 1] = enemies[i];
+        }
+        --enemiesCount;
+    }
 }

@@ -19,6 +19,7 @@ class CharacterInfo
 {
 public:
     CharacterInfo() :
+        _id(0),
         _type(CharacterTypeCount),
         _x(0),
         _y(0),
@@ -27,6 +28,7 @@ public:
     }
     
     CharacterInfo(CharacterType type, int x, int y, Direction direction) :
+        _id(++_nextId),
         _type(type),
         _x(x),
         _y(y),
@@ -35,6 +37,7 @@ public:
     }
     
     CharacterInfo(const CharacterInfo &other) :
+        _id(other.id()),
         _type(other.type()),
         _x(other.x()),
         _y(other.y()),
@@ -65,12 +68,15 @@ public:
     inline Direction direction() const { return _direction; }
     inline void setDirection(Direction direction) { _direction = direction; }
     
+    inline int id() const { return _id; }
     inline bool isValid() const { return _type != CharacterTypeCount; }
     
     const QImage image() const;
     const QString name() const;
 
 private:
+    static int _nextId;
+    int _id;
     CharacterType _type;
     int _x;
     int _y;

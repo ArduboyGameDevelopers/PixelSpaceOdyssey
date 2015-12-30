@@ -20,6 +20,8 @@ static CharacterTypeParams lookup[] = {
 };
 static const int lookupCount = sizeof(lookup) / sizeof(CharacterTypeParams);
 
+int CharacterInfo::_nextId = 0;
+
 const QImage CharacterInfo::getImage(CharacterType type, bool flipped)
 {
     Q_ASSERT(type >= 0 && type < lookupCount);

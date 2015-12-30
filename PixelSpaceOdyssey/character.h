@@ -61,6 +61,11 @@ typedef struct _Character
     uint8_t frame;
     boolean animationEnded;
     boolean canSeePlayer;
+    
+    #if EMULATOR
+    uint16_t id;
+    #endif
+    
 } Character;
 
 inline int16_t CharacterGetTop(const Character *character)   { return character->y - DIV2(character->colliderHeight); }
