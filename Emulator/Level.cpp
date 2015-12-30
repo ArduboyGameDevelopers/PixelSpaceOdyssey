@@ -204,6 +204,8 @@ void Level::setCurrent(Level *level)
     int rows = level->rows();
 
     const CharacterInfo &player = level->player();
+
+    initGame();
     
     ::player.x = S2W(player.x());
     ::player.y = S2W(player.y());

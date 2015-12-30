@@ -40,6 +40,8 @@ extern int16_t playerLastSeenY;
 extern Character *enemies;
 extern uint8_t enemiesCount;
 
+extern void initGame();
+
 extern void initEnemies(uint8_t enemiesCount);
 extern void addEnemy(const Character &enemy, int16_t x, int16_t y);
 

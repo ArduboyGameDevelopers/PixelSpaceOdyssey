@@ -28,7 +28,7 @@ inline void PLAYER_SET_BOTTOM(int16_t y) { player.y = y - PLAYER_COLLIDER_HALF_H
 inline void PLAYER_SET_LEFT(int16_t x)   { player.x = x + PLAYER_COLLIDER_HALF_WIDTH; }
 inline void PLAYER_SET_RIGHT(int16_t x)  { player.x = x - PLAYER_COLLIDER_HALF_WIDTH; }
 
-Character player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
+Character player;
 
 static bool playerCrouching = false;
 static bool playerJumping = false;
@@ -129,6 +129,19 @@ static inline void updateInput()
             player.move = 2;
         }
     }
+}
+
+void createPlayer()
+{
+    player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
+    
+    playerCrouching = false;
+    playerJumping = false;
+    jumpPressed = false;
+    playerJumpSpeed = 0;
+    playerSlopeDir = 0;
+    playerDamageTime = 0;
+    playerDamageBlink = false;
 }
 
 void playerUpdate(TimeInterval dt)

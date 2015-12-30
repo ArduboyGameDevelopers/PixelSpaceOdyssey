@@ -64,6 +64,12 @@ void startGame()
     display.start();
     drawInit(display.getBuffer());
     
+    initGame();
+}
+
+void initGame()
+{
+    createPlayer();
     player.x = S2W(62);
     player.y = S2W(28);
     
@@ -108,10 +114,10 @@ void drawGame()
 #pragma mark -
 #pragma mark Enemies
 
-void initEnemies(uint8_t enemiesCount)
+void initEnemies(uint8_t count)
 {
     free(enemies);
-    enemies = (Character *) malloc(enemiesCount * sizeof(Character));
+    enemies = (Character *) malloc(count * sizeof(Character));
     enemiesCount = 0;
 }
 
