@@ -6,22 +6,20 @@
 //  Copyright © 2015 Space Madness. All rights reserved.
 //
 
-#include <avr/pgmspace.h>
-
+#include "Arduboy.h"
 #include "drawing.h"
 #include "Arduino.h"
 
-#define BUFFER_WIDTH 128
-#define BUFFER_HEIGHT 64
-
 static uint8_t* sBuffer;
+static Arduboy *sArduboy;
 
 int16_t drawTransX = 0;
 int16_t drawTransY = 0;
 
-void drawInit(unsigned char *buffer)
+void drawInit(Arduboy *arduboy)
 {
-    sBuffer = buffer;
+    sArduboy = arduboy;
+    sBuffer = arduboy->getBuffer();
 }
 
 void drawImage(PgmPtr image, int16_t x, int16_t y, uint8_t w, uint8_t h, DrawMode mode)
@@ -78,4 +76,14 @@ void drawImage(PgmPtr image, int16_t x, int16_t y, uint8_t w, uint8_t h, DrawMod
             }
         }
     }
+}
+
+void fillRect(int16_t x, int16_t y, uint8_t w, uint8_t h, uint8_t color)
+{
+    sArduboy->fillRect(x + drawTransX, y + drawTransY, w, h, color);
+}
+
+void setPixel(int16_t x, int16_t y, uint8_t color)
+{
+    sArduboy->drawPixel(x + drawTransX, y + drawTransY, color);
 }

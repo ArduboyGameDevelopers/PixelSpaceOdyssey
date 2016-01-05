@@ -89,6 +89,32 @@ module ImageUtils
 
   end
 
+  def self.read_image file_png
+
+    png = ChunkyPNG::Image.from_file file_png
+
+    name = File.basename file_png, '.png'
+    pixels = png.pixels
+    width = png.width
+    height = png.height
+
+    frame_bits  = Array.new # only store 0 or 1
+    (0..height-1).each { |y|
+      (0..width-1).each { |x|
+        pixel = pixels[y * width + x]
+        r = ChunkyPNG::Color.r(pixel)
+        g = ChunkyPNG::Color.g(pixel)
+        b = ChunkyPNG::Color.b(pixel)
+        frame_bits <<  ((r < 250) && (g < 250) && (b < 250) ? 0 : 1)
+      }
+    }
+
+    data = convert_to_display_format frame_bits, width, height
+    rect = Rect.new 0, 0, width, height
+    return Frame.new name, data, rect
+
+  end
+
   def self.convert_to_display_format(frame_bits, frame_width, frame_height)
     bits_last_page = frame_height % 8
     bytes_high = frame_height / 8

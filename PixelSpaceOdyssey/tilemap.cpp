@@ -10,10 +10,6 @@
 
 #include "tilemap.h"
 #include "drawing.h"
-#include "game.h"
-
-static const int VISIBLE_ROWS = CAM_HEIGHT_PX / TILE_HEIGHT_PX;
-static const int VISIBLE_COLS = CAM_WIDTH_PX / TILE_WIDTH_PX;
 
 void TileMapDraw(const TileMap* tileMap)
 {
@@ -22,15 +18,11 @@ void TileMapDraw(const TileMap* tileMap)
     uint8_t rows = tileMap->rows;
     uint8_t cols = tileMap->cols;
     
-    uint16_t startRow = -drawTransY / TILE_HEIGHT_PX;
-    uint16_t startCol = -drawTransX / TILE_WIDTH_PX;
-    int16_t x0 = startCol * TILE_WIDTH_PX;
-    int16_t y0 = startRow * TILE_HEIGHT_PX;
-    
-    int x = x0, y = y0;
+    uint16_t index = 0;
+    int16_t x = 0;
+    int16_t y = 0;
     for (int i = 0; i < rows; ++i)
     {
-        int index = (startRow + i) * cols + startCol;
         for (int j = 0; j < cols; ++j)
         {
             uint8_t tileIndex = pgm_read_byte(indices + index);
@@ -41,7 +33,7 @@ void TileMapDraw(const TileMap* tileMap)
             x += TILE_WIDTH_PX;
             ++index;
         }
-        x = x0;
+        x = 0;
         y += TILE_HEIGHT_PX;
     }
 }

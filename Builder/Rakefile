@@ -5,6 +5,7 @@ require_relative 'common'
 require_relative 'animation_builder'
 require_relative 'tile_builder'
 require_relative 'tile_map_builder'
+require_relative 'image_builder'
 
 include Common
 
@@ -24,6 +25,7 @@ task :init do
 
   $dir_art          = resolve_path "#{$dir_repo}/Art"
   $dir_animations   = resolve_path "#{$dir_art}/animations"
+  $dir_images       = resolve_path "#{$dir_art}/images"
   $dir_tiles        = resolve_path "#{$dir_art}/tiles"
   $dir_tilemaps     = resolve_path "#{$dir_art}/tilemaps"
 end
@@ -60,6 +62,11 @@ task :generate_tilemaps => [:generate_tiles] do
     TileMapBuilder.generate psd_file, tile_set, $dir_project
   }
 
+end
+
+desc 'Generate images'
+task :generate_images => [:init] do
+  ImageBuilder.generate $dir_images, $dir_project
 end
 
 desc 'Generates xcode proj'

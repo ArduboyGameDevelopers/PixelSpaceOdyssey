@@ -11,6 +11,9 @@
 #define RUN_BUTTON  A_BUTTON
 #define SHOT_BUTTON B_BUTTON
 
+const int16_t kPlayerAmmoMax = 7;
+const int16_t kPlayerHealthMax = 10;
+
 static const int8_t JUMP_SPEED  = -83;
 static const int8_t SLIDE_SPEED = 15;
 static const int8_t GRAVITY = 8;
@@ -29,6 +32,7 @@ inline void PLAYER_SET_LEFT(int16_t x)   { player.x = x + PLAYER_COLLIDER_HALF_W
 inline void PLAYER_SET_RIGHT(int16_t x)  { player.x = x - PLAYER_COLLIDER_HALF_WIDTH; }
 
 Character player;
+uint8_t playerHealth;
 
 static bool playerCrouching = false;
 static bool playerJumping = false;
@@ -61,6 +65,12 @@ inline static void takeDamage(Direction dir)
             player.move = 1;
         }
         playerJumpSpeed = DIV2(JUMP_SPEED);
+        
+        if (playerHealth > 0)
+        {
+            --playerHealth;
+            // TODO: die
+        }
     }
 }
 
@@ -134,6 +144,7 @@ static inline void updateInput()
 void createPlayer()
 {
     player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
+    playerHealth = kPlayerHealthMax;
     
     playerCrouching = false;
     playerJumping = false;

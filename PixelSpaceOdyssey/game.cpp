@@ -19,11 +19,12 @@
 #include "tiles_tb_caverns.h"
 #include "tiles_lair_01.h"
 #include "enemies.h"
+#include "hud.h"
 
 const int8_t WALK_SPEED         = 15;
 
 const int16_t CAM_WIDTH_PX      = 128;
-const int16_t CAM_HEIGHT_PX     = 64;
+const int16_t CAM_HEIGHT_PX     = 64-8; // subtract hud
 const int16_t CAM_WIDTH         = S2W(CAM_WIDTH_PX);
 const int16_t CAM_HEIGHT        = S2W(CAM_HEIGHT_PX);
 const int16_t CAM_WIDTH_HALF    = CAM_WIDTH / 2;
@@ -62,7 +63,7 @@ static inline void tilemapDraw()
 void startGame()
 {
     display.start();
-    drawInit(display.getBuffer());
+    drawInit(&display);
     
     initGame();
 }
@@ -107,6 +108,8 @@ void drawGame()
     tilemapDraw();
     playerDraw();
     enemiesDraw();
+    
+    drawHud();
     
     display.display();
 }
