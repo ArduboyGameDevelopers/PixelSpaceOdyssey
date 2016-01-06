@@ -24,6 +24,13 @@ void Emulator::start()
     startGame();
 }
 
+void Emulator::reset()
+{
+    _frameTime = 0;
+    _gameTime = 0;
+    _inputMask = 0;
+}
+
 void Emulator::update(uint32_t dt)
 {
     _gameTime += dt;

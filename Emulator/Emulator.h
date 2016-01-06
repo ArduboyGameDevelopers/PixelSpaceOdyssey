@@ -10,6 +10,7 @@ public:
 
 public:
     void start();
+    void reset();
     void update(uint32_t dt);
     void stop();
 

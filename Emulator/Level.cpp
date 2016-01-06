@@ -202,6 +202,8 @@ void Level::setCurrent(Level *level)
     
     int cols = level->cols();
     int rows = level->rows();
+    
+    emulator.reset();
 
     const CharacterInfo &player = level->player();
 
