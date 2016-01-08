@@ -2,7 +2,7 @@
 
 #include <core.h>
 
-#include "player.h"
+#include "game.h"
 #include "drawing.h"
 #include "images.h"
 
