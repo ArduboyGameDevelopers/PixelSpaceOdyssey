@@ -217,7 +217,7 @@ void createPlayer()
     playerDamageBlink = false;
 }
 
-void playerUpdate(TimeInterval dt)
+inline static void playerUpdate(TimeInterval dt)
 {
     // input
     if (!isPlayerShocked())
