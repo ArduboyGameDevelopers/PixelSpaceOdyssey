@@ -22,6 +22,8 @@
 #include "Version.h"
 #include "Params.h"
 
+#include "debug.h"
+
 static const int kTimerDelay = 1000 / 60;
 
 MainWindow *MainWindow::_instance(NULL);
@@ -234,6 +236,8 @@ void MainWindow::updateLevelUi(Level *level)
     characterListView->updateItem(level);
     
     updateWindowTitle(level);
+    
+    _ui->playerHealthEdit->setText(QString::number(playerHealth));
 }
 
 void MainWindow::updateWindowTitle(Level *level)
@@ -355,6 +359,9 @@ void MainWindow::setupActions()
     bool gridVisible = Settings::getBool(kSettingsGridVisible);
     displayWidget()->setGridVisible(gridVisible);
     actionGrid->setChecked(gridVisible);
+    
+    // player health
+    connect(_ui->playerHealthEdit, SIGNAL(returnPressed()), this, SLOT(playerHealthEditReturnPressed()));
 }
 
 void MainWindow::onActionNew()
@@ -593,6 +600,22 @@ void MainWindow::onCharacterListItemClicked(const QModelIndex & index)
     updateDirectionalRadioButtons();
 }
 
+void MainWindow::playerHealthEditReturnPressed()
+{
+    bool succeed;
+    int health = _ui->playerHealthEdit->text().toInt(&succeed);
+    if (succeed)
+    {
+        ::playerHealth = health > kPlayerHealthMax ? kPlayerHealthMax : health;
+        if (health == 0)
+        {
+            playerDie();
+        }
+        
+        setFocus();
+    }
+}
+
 #pragma mark -
 #pragma mark Characters
 
@@ -679,4 +702,15 @@ void MainWindow::setupParamUI()
     _ui->showMoveBoxesCheckBox->setParamPtr(&PARAM_SHOW_MOVE_BOXES);
     _ui->showSightBoxesCheckBox->setParamPtr(&PARAM_SHOW_SIGHT_BOXES);
     _ui->showPlayerPosCheckBox->setParamPtr(&PARAM_SHOW_PLAYER_POS);
+}
+
+#pragma mark -
+#pragma mark Debug
+
+void dispatchDebugEvent(const char *name)
+{
+    if (strcmp(name, DEBUG_EVENT_PLAYER_DAMAGE) == 0)
+    {
+        MainWindow::instance()->ui()->playerHealthEdit->setText(QString::number(::playerHealth));
+    }
 }

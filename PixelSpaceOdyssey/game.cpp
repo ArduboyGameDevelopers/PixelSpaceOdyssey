@@ -116,8 +116,29 @@ inline static bool isPlayerShocked()
     return playerDamageTime >= PLAYER_SHOCK_TIME;
 }
 
+inline static bool isPlayerDead()
+{
+    return playerHealth == 0;
+}
+
+void playerDie()
+{
+    assert(playerHealth == 0);
+    playerCrouching = false;
+    playerJumping = false;
+    jumpPressed = false;
+    playerSlopeDir = 0;
+    playerDamageTime = 0;
+    playerDamageBlink = false;
+}
+
 inline static void takeDamage(Direction dir)
 {
+    if (isPlayerDead())
+    {
+        return;
+    }
+    
     if (playerDamageTime <= 0)
     {
         playerDamageTime = PLAYER_DAMAGE_TIME;
@@ -131,7 +152,12 @@ inline static void takeDamage(Direction dir)
         if (playerHealth > 0)
         {
             --playerHealth;
-            // TODO: die
+            DISPATCH_DEBUG_EVENT(DEBUG_EVENT_PLAYER_DAMAGE);
+            
+            if (playerHealth == 0)
+            {
+                playerDie();
+            }
         }
     }
 }
@@ -220,7 +246,7 @@ void createPlayer()
 inline static void playerUpdate(TimeInterval dt)
 {
     // input
-    if (!isPlayerShocked())
+    if (!isPlayerShocked() && !isPlayerDead())
     {
         updateInput();
     }
@@ -314,7 +340,7 @@ inline static void playerUpdate(TimeInterval dt)
                         playerJumpSpeed = 0;
                         playerJumping = false;
                         
-                        if (isPlayerShocked())
+                        if (isPlayerShocked() || isPlayerDead())
                         {
                             player.move = 0;
                         }
@@ -375,6 +401,10 @@ inline static void playerUpdate(TimeInterval dt)
     if (isPlayerShocked())
     {
         playerSetAnimation(PLAYER_ANIMATION_IMPACT_BOTTOM);
+    }
+    else if (isPlayerDead())
+    {
+        playerSetAnimation(PLAYER_ANIMATION_DEATH);
     }
     else if (playerJumping)
     {

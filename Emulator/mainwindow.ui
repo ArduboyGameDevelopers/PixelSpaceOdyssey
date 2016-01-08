@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>785</width>
-    <height>514</height>
+    <height>576</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,7 +57,7 @@
      <string>...</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="Images/images.qrc">
       <normaloff>:/characters/ch_bear_32x24.png</normaloff>:/characters/ch_bear_32x24.png</iconset>
     </property>
     <property name="iconSize">
@@ -83,7 +83,7 @@
      <string>...</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="Images/images.qrc">
       <normaloff>:/characters/ch_dog_16x10.png</normaloff>:/characters/ch_dog_16x10.png</iconset>
     </property>
     <property name="iconSize">
@@ -109,7 +109,7 @@
      <string>...</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="Images/images.qrc">
       <normaloff>:/characters/ch_spider_16x8.png</normaloff>:/characters/ch_spider_16x8.png</iconset>
     </property>
     <property name="iconSize">
@@ -135,7 +135,7 @@
      <string>...</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="Images/images.qrc">
       <normaloff>:/characters/ch_spider_24x16.png</normaloff>:/characters/ch_spider_24x16.png</iconset>
     </property>
     <property name="iconSize">
@@ -161,7 +161,7 @@
      <string>...</string>
     </property>
     <property name="icon">
-     <iconset>
+     <iconset resource="Images/images.qrc">
       <normaloff>:/characters/ch_player_8x8.png</normaloff>:/characters/ch_player_8x8.png</iconset>
     </property>
     <property name="iconSize">
@@ -275,6 +275,29 @@
      <string>Show player's last visible position</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="playerHealthEdit">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>440</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>440</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Health:</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
@@ -369,7 +392,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="Images/images.qrc">
      <normaloff>:/icon_play.png</normaloff>:/icon_play.png</iconset>
    </property>
    <property name="text">
@@ -387,7 +410,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="Images/images.qrc">
      <normaloff>:/icon_pause.png</normaloff>:/icon_pause.png</iconset>
    </property>
    <property name="text">
@@ -399,7 +422,7 @@
   </action>
   <action name="actionStep">
    <property name="icon">
-    <iconset>
+    <iconset resource="Images/images.qrc">
      <normaloff>:/icon_step.png</normaloff>:/icon_step.png</iconset>
    </property>
    <property name="text">
@@ -414,7 +437,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="Images/images.qrc">
      <normaloff>:/icon_grid.png</normaloff>:/icon_grid.png</iconset>
    </property>
    <property name="text">
@@ -432,7 +455,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset>
+    <iconset resource="Images/images.qrc">
      <normaloff>:/icon_edit.png</normaloff>:/icon_edit.png</iconset>
    </property>
    <property name="text">
@@ -535,6 +558,8 @@
    <header>ParamCheckBox.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="Images/images.qrc"/>
+ </resources>
  <connections/>
 </ui>

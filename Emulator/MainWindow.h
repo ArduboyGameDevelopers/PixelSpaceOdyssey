@@ -54,6 +54,8 @@ public slots:
     void onTileSetSelected(int index);
     void onDirectionButtonChecked(bool checked);
     void onCharacterListItemClicked(const QModelIndex & index);
+    
+    void playerHealthEditReturnPressed();
 
 public:
     void copyScreenBuffer(unsigned const char* screenBuffer, int bufferWidth, int bufferHeight);
@@ -61,6 +63,7 @@ public:
 public:
     inline static MainWindow* instance() { return _instance; }
     inline DisplayWidget *displayWidget() const { return _displayWidget; }
+    inline Ui::MainWindow* ui() const { return _ui; }
     
 public:
     void updateLevelUi(Level *level);

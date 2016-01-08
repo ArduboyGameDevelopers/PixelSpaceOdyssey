@@ -41,4 +41,5 @@ HEADERS  += $${PROJ_PATH}/animation.h \
     $${PROJ_PATH}/enemy_base.h \
     $${PROJ_PATH}/dispatch.h \
     $${PROJ_PATH}/hud.h \
-    $${PROJ_PATH}/images.h
+    $${PROJ_PATH}/images.h \
+    $${PROJ_PATH}/debug.h

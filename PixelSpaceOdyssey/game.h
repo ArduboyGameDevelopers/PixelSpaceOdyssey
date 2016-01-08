@@ -14,6 +14,7 @@
 #include "tilemap.h"
 #include "enemies.h"
 #include "dispatch.h"
+#include "debug.h"
 
 extern TileMap tileMap;
 extern int16_t camX;
@@ -46,6 +47,7 @@ extern int16_t playerLastSeenX;
 extern int16_t playerLastSeenY;
 
 void playerDamage(Character *enemy);
+void playerDie();
 
 extern Character *enemies;
 extern uint8_t enemiesCount;
