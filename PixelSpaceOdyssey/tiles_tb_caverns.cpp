@@ -158,6 +158,21 @@ PROGMEM static WEAK_CONST unsigned char TILES_TB_CAVERNS_HAZARD_6[] =
   0xff, 0xfe, 0x80, 0xf8, 0xfc, 0xe0, 0xfc, 0xff
 };
 
+PROGMEM static WEAK_CONST unsigned char TILES_TB_CAVERNS_ITEMS_1[] = 
+{
+  0x00, 0x7c, 0x6c, 0x44, 0x6c, 0x7c, 0x00, 0x00
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_TB_CAVERNS_ITEMS_2[] = 
+{
+  0x00, 0x18, 0x00, 0x18, 0x00, 0x18, 0x00, 0x00
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_TB_CAVERNS_ITEMS_3[] = 
+{
+  0x00, 0x00, 0x00, 0x18, 0x18, 0x00, 0x00, 0x00
+};
+
 PgmPtr WEAK_CONST TILES_TB_CAVERNS[] =
 {
   TILES_TB_CAVERNS_THIN_1 /* 1 */,
@@ -190,6 +205,9 @@ PgmPtr WEAK_CONST TILES_TB_CAVERNS[] =
   TILES_TB_CAVERNS_HAZARD_3 /* 28 */,
   TILES_TB_CAVERNS_HAZARD_4 /* 29 */,
   TILES_TB_CAVERNS_HAZARD_5 /* 30 */,
-  TILES_TB_CAVERNS_HAZARD_6 /* 31 */
+  TILES_TB_CAVERNS_HAZARD_6 /* 31 */,
+  TILES_TB_CAVERNS_ITEMS_1 /* 32 */,
+  TILES_TB_CAVERNS_ITEMS_2 /* 33 */,
+  TILES_TB_CAVERNS_ITEMS_3 /* 34 */
 };
 

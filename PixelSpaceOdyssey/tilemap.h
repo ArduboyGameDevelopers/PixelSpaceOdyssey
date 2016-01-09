@@ -11,13 +11,17 @@
 
 #include "common.h"
 
-#define TILE_THIN_MAX    13
-#define TILE_SLOPE_RIGHT 14
-#define TILE_SLOPE_LEFT  15
-#define TILE_EXIT_MIN    23
-#define TILE_EXIT_MAX    24
-#define TILE_HAZARD_MIN  25
-#define TILE_HAZARD_MAX  31
+#define TILE_THIN_MAX           13
+#define TILE_SLOPE_RIGHT_MIN    14
+#define TILE_SLOPE_RIGHT_MAX    14
+#define TILE_SLOPE_LEFT_MIN     15
+#define TILE_SLOPE_LEFT_MAX     15
+#define TILE_EXIT_MIN           23
+#define TILE_EXIT_MAX           24
+#define TILE_HAZARD_MIN         25
+#define TILE_HAZARD_MAX         31
+#define TILE_ITEM_MIN           32
+#define TILE_ITEM_MAX           34
 
 const uint8_t TILE_WIDTH_PX     = 8;
 const uint8_t TILE_HEIGHT_PX    = 8;
@@ -34,12 +38,14 @@ const uint8_t TILE_HEIGHT_HALF  = TILE_HEIGHT / 2;
 #define TILE_GET_ROW(Y) ((Y) / TILE_HEIGHT)
 #define TILE_GET_COL(X) ((X) / TILE_WIDTH)
 
-#define TILE_IS_HAZARD(INDEX) (((INDEX) >= TILE_HAZARD_MIN) && ((INDEX) <= TILE_HAZARD_MAX))
-#define TILE_IS_EXIT(INDEX)   (((INDEX) >= TILE_EXIT_MIN) && ((INDEX) <= TILE_EXIT_MAX))
-#define TILE_IS_HAZARD(INDEX) (((INDEX) >= TILE_HAZARD_MIN) && ((INDEX) <= TILE_HAZARD_MAX))
-#define TILE_IS_THIN(INDEX)   (((INDEX) <= TILE_THIN_MAX))
+inline bool TILE_IS_EXIT(int16_t index)         { return index >= TILE_EXIT_MIN && index <= TILE_EXIT_MAX; }
+inline bool TILE_IS_HAZARD(int16_t index)       { return index >= TILE_HAZARD_MIN && index <= TILE_HAZARD_MAX; }
+inline bool TILE_IS_ITEM(int16_t index)         { return index >= TILE_ITEM_MIN && index <= TILE_ITEM_MAX; }
+inline bool TILE_IS_THIN(int16_t index)         { return index <= TILE_THIN_MAX; }
+inline bool TILE_IS_SLOPE_LEFT(int16_t index)   { return index >= TILE_SLOPE_LEFT_MIN && index <= TILE_SLOPE_LEFT_MAX; }
+inline bool TILE_IS_SLOPE_RIGHT(int16_t index)  { return index >= TILE_SLOPE_RIGHT_MIN && index <= TILE_SLOPE_RIGHT_MAX; }
 
-#define TILEMAP_GET_WIDTH(TILEMAP) ((TILEMAP).cols * TILE_WIDTH)
+#define TILEMAP_GET_WIDTH(TILEMAP)  ((TILEMAP).cols * TILE_WIDTH)
 #define TILEMAP_GET_HEIGHT(TILEMAP) ((TILEMAP).rows * TILE_HEIGHT)
 
 typedef struct _Tile {

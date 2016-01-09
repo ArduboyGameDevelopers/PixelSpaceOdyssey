@@ -12,17 +12,17 @@ static const int16_t kHudHeight = 8;
 static const int16_t kHudX = 0;
 static const int16_t kHudY = 64 - kHudHeight;
 
-static const int16_t kHudGunX = 1;
+static const int16_t kHudGunX = 15;
 static const int16_t kHudGunY = 3;
 
-static const int16_t kHudAmmoX = 9;
-static const int16_t kHudAmmoY = 3;
+static const int16_t kHudAmmoX = kHudGunX + 8;
+static const int16_t kHudAmmoY = kHudGunY;
 
-static const int16_t kHudHeartX = 26;
+static const int16_t kHudHeartX = 88;
 static const int16_t kHudHeartY = 3;
 
-static const int16_t kHudHealthX = 32;
-static const int16_t kHudHealthY = 3;
+static const int16_t kHudHealthX = kHudHeartX + 6;
+static const int16_t kHudHealthY = kHudHeartY;
 
 static const int16_t kHudLogoX = 57;
 static const int16_t kHudLogoY = 0;

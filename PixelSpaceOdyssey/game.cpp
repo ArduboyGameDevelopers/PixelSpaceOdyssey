@@ -162,6 +162,10 @@ inline static void takeDamage(Direction dir)
     }
 }
 
+inline static void pickupItem(int tileIndex)
+{
+}
+
 inline static void playerHandleTileHorCollision(const Tile& tile)
 {
     if (TILE_IS_HAZARD(tile.index))
@@ -183,7 +187,7 @@ inline static void playerHandleTileHorCollision(const Tile& tile)
 
 inline static void playerSlideSlope(const Tile& slopeTile, Direction dir)
 {
-    assert(slopeTile.index == TILE_SLOPE_RIGHT || slopeTile.index == TILE_SLOPE_LEFT);
+    assert(TILE_IS_SLOPE_LEFT(slopeTile.index) || TILE_IS_SLOPE_RIGHT(slopeTile.index));
     playerSlopeDir = dir;
     playerJumpSpeed = 0;
     playerJumping = false;
@@ -284,23 +288,23 @@ inline static void playerUpdate(TimeInterval dt)
     {
         Tile tile;
         uint8_t midIndex = getTile(player.x, bottomY, &tile);
-        if (midIndex == TILE_SLOPE_LEFT)
+        if (TILE_IS_SLOPE_LEFT(midIndex))
         {
             playerSlideSlope(tile, DIR_LEFT);
         }
-        else if (midIndex == TILE_SLOPE_RIGHT)
+        else if (TILE_IS_SLOPE_RIGHT(midIndex))
         {
             playerSlideSlope(tile, DIR_RIGHT);
         }
         else
         {
             if (playerSlopeDir == DIR_LEFT &&
-                getTile(player.x, bottomY + TILE_HEIGHT, &tile) == TILE_SLOPE_LEFT)
+                TILE_IS_SLOPE_LEFT(getTile(player.x, bottomY + TILE_HEIGHT, &tile)))
             {
                 playerSlideSlope(tile, DIR_LEFT);
             }
             else if (playerSlopeDir == DIR_RIGHT &&
-                     getTile(player.x, bottomY + TILE_HEIGHT, &tile) == TILE_SLOPE_RIGHT)
+                     TILE_IS_SLOPE_RIGHT(getTile(player.x, bottomY + TILE_HEIGHT, &tile)))
             {
                 playerSlideSlope(tile, DIR_RIGHT);
             }
