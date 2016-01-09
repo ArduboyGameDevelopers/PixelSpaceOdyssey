@@ -15,7 +15,7 @@ Emulator::Emulator() :
     _editMode(false),
     _paused(false),
     _step(false),
-    _frameTime(0)
+    _frameTime(kFrameTime) // run the first update immediately
 {
 }
 
@@ -26,7 +26,7 @@ void Emulator::start()
 
 void Emulator::reset()
 {
-    _frameTime = 0;
+    _frameTime = kFrameRate;  // run the first update immediately
     _gameTime = 0;
     _inputMask = 0;
 }

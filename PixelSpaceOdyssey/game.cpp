@@ -241,6 +241,8 @@ void createPlayer()
     playerSlopeDir = 0;
     playerDamageTime = 0;
     playerDamageBlink = false;
+    
+    playerSetAnimation(PLAYER_ANIMATION_STAT);
 }
 
 inline static void playerUpdate(TimeInterval dt)
