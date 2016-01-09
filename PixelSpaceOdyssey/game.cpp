@@ -172,6 +172,10 @@ inline static void playerHandleTileHorCollision(const Tile& tile)
     {
         takeDamage(-player.dir);
     }
+    else if (TILE_IS_ITEM(tile.index))
+    {
+        pickupItem(tile.index);
+    }
     else
     {
         if (player.x > tile.x) // tile on the left
@@ -336,6 +340,10 @@ inline static void playerUpdate(TimeInterval dt)
                 {
                     takeDamage(-player.dir);
                 }
+                else if (TILE_IS_ITEM(tile.index))
+                {
+                    pickupItem(tile.index);
+                }
                 else
                 {
                     int16_t tileTop = TILE_GET_TOP(tile);
@@ -359,12 +367,19 @@ inline static void playerUpdate(TimeInterval dt)
             int16_t minY = PLAYER_TOP;
             if (getTile(player.x, minY, &tile))
             {
-                int16_t tileBottom = TILE_GET_BOTTOM(tile);
-                int16_t oldTop = oldY - PLAYER_COLLIDER_HALF_HEIGHT;
-                if (oldTop >= tileBottom)
+                if (TILE_IS_ITEM(tile.index))
                 {
-                    PLAYER_SET_TOP(tileBottom);
-                    playerJumpSpeed = 0;
+                    pickupItem(tile.index);
+                }
+                else
+                {
+                    int16_t tileBottom = TILE_GET_BOTTOM(tile);
+                    int16_t oldTop = oldY - PLAYER_COLLIDER_HALF_HEIGHT;
+                    if (oldTop >= tileBottom)
+                    {
+                        PLAYER_SET_TOP(tileBottom);
+                        playerJumpSpeed = 0;
+                    }
                 }
             }
         }
