@@ -11,17 +11,19 @@
 
 #include "common.h"
 
-#define TILE_THIN_MAX           13
-#define TILE_SLOPE_RIGHT_MIN    14
-#define TILE_SLOPE_RIGHT_MAX    14
-#define TILE_SLOPE_LEFT_MIN     15
-#define TILE_SLOPE_LEFT_MAX     15
 #define TILE_EXIT_MIN           23
 #define TILE_EXIT_MAX           24
-#define TILE_HAZARD_MIN         25
-#define TILE_HAZARD_MAX         31
-#define TILE_ITEM_MIN           32
-#define TILE_ITEM_MAX           34
+#define TILE_THIN_MAX           26
+#define TILE_SLOPE_RIGHT_MIN    27
+#define TILE_SLOPE_RIGHT_MAX    28
+#define TILE_SLOPE_LEFT_MIN     29
+#define TILE_SLOPE_LEFT_MAX     30
+#define TILE_SOLID_MIN          31
+#define TILE_SOLID_MAX          45
+#define TILE_HAZARD_MIN         50
+#define TILE_HAZARD_MAX         61
+#define TILE_ITEM_MIN           62
+#define TILE_ITEM_MAX           64
 
 const uint8_t TILE_WIDTH_PX     = 8;
 const uint8_t TILE_HEIGHT_PX    = 8;
@@ -40,7 +42,7 @@ const uint8_t TILE_HEIGHT_HALF  = TILE_HEIGHT / 2;
 
 inline bool TILE_IS_EXIT(int16_t index)         { return index >= TILE_EXIT_MIN && index <= TILE_EXIT_MAX; }
 inline bool TILE_IS_HAZARD(int16_t index)       { return index >= TILE_HAZARD_MIN && index <= TILE_HAZARD_MAX; }
-inline bool TILE_IS_ITEM(int16_t index)         { return index >= TILE_ITEM_MIN && index <= TILE_ITEM_MAX; }
+inline bool TILE_IS_ITEM(int16_t index)         { return index & 0x80; }
 inline bool TILE_IS_THIN(int16_t index)         { return index <= TILE_THIN_MAX; }
 inline bool TILE_IS_SLOPE_LEFT(int16_t index)   { return index >= TILE_SLOPE_LEFT_MIN && index <= TILE_SLOPE_LEFT_MAX; }
 inline bool TILE_IS_SLOPE_RIGHT(int16_t index)  { return index >= TILE_SLOPE_RIGHT_MIN && index <= TILE_SLOPE_RIGHT_MAX; }
@@ -57,6 +59,7 @@ typedef struct _Tile {
 typedef struct _TileMap {
     WEAK_CONST PgmPtr *tiles;
     WEAK_CONST uint8_t *indices;
+    uint32_t collectibles;
     uint8_t rows;
     uint8_t cols;
 } TileMap;
@@ -66,6 +69,7 @@ inline TileMap TileMapMake(WEAK_CONST PgmPtr *tiles, WEAK_CONST uint8_t *indices
     TileMap tileMap;
     tileMap.tiles   = tiles;
     tileMap.indices = indices;
+    tileMap.collectibles = 0;
     tileMap.cols    = cols;
     tileMap.rows    = rows;
     return tileMap;

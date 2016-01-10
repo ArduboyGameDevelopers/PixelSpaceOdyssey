@@ -16,7 +16,7 @@
 #include "character.h"
 #include "tilemap.h"
 
-#include "tiles_tb_caverns.h"
+#include "tiles_merged.h"
 #include "tiles_lair_01.h"
 #include "enemies.h"
 #include "hud.h"
@@ -42,7 +42,7 @@ int16_t playerLastSeenY;
 Character *enemies = NULL;
 uint8_t enemiesCount = 0;
 
-TileMap tileMap = TileMapMake(TILES_TB_CAVERNS, INDICES_LAIR_01, TILEMAP_LAIR_01_HEIGHT, TILEMAP_LAIR_01_WIDTH);
+TileMap tileMap = TileMapMake(TILES_MERGED, INDICES_LAIR_01, TILEMAP_LAIR_01_HEIGHT, TILEMAP_LAIR_01_WIDTH);
 
 /* Tile map size in world space */
 uint16_t tileMapWidth;

@@ -1,0 +1,393 @@
+#include <avr/pgmspace.h>
+
+#include "tiles_merged.h"
+#include "common.h"
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_1[] = 
+{
+  0x00, 0x00, 0x80, 0x80, 0x00, 0x80, 0x00, 0x00
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_2[] = 
+{
+  0x7f, 0x0f, 0x17, 0x07, 0x4b, 0x3f, 0x1f, 0x03
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_3[] = 
+{
+  0x0f, 0x03, 0x0f, 0x1b, 0x7f, 0x1f, 0x3f, 0x7f
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_4[] = 
+{
+  0x6f, 0xcb, 0x9f, 0x36, 0xee, 0xdd, 0xbb, 0x36
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_5[] = 
+{
+  0xed, 0x79, 0x77, 0x25, 0x3f, 0x7b, 0x0b, 0x0f
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_6[] = 
+{
+  0x05, 0x05, 0x02, 0x03, 0x02, 0x03, 0x01, 0x01
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_7[] = 
+{
+  0x7f, 0x34, 0x09, 0x0d, 0x06, 0x3e, 0x03, 0x01
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_8[] = 
+{
+  0x01, 0x01, 0x01, 0x03, 0x03, 0x05, 0x05, 0x0b
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_9[] = 
+{
+  0x0f, 0x1f, 0x17, 0x27, 0x33, 0x3b, 0x7b, 0xfd
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_10[] = 
+{
+  0xed, 0xaf, 0x33, 0x33, 0xbf, 0xcd, 0xef, 0x7b
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_11[] = 
+{
+  0x03, 0x0f, 0x7f, 0x07, 0x07, 0x0d, 0x18, 0xfe
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_12[] = 
+{
+  0x01, 0x03, 0xfd, 0xdf, 0x27, 0x1f, 0x0f, 0x0b
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_13[] = 
+{
+  0x00, 0x00, 0x80, 0x47, 0x3c, 0x00, 0x00, 0x00
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_14[] = 
+{
+  0x00, 0x80, 0x00, 0x80, 0x00, 0x80, 0x00, 0x80
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_15[] = 
+{
+  0xff, 0x7f, 0x3f, 0x1f, 0x0f, 0x07, 0x03, 0x01
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_16[] = 
+{
+  0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_17[] = 
+{
+  0xff, 0x7f, 0xff, 0xbf, 0xff, 0xdf, 0xff, 0xef
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_18[] = 
+{
+  0xf7, 0xf7, 0x5b, 0x7b, 0x3d, 0x3d, 0x17, 0x1f
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_19[] = 
+{
+  0x0f, 0x0f, 0x07, 0x07, 0x03, 0x03, 0x01, 0x01
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_20[] = 
+{
+  0xfe, 0x7f, 0x2f, 0x1f, 0x0b, 0x07, 0x03, 0x01
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_21[] = 
+{
+  0x01, 0x01, 0x03, 0x03, 0x07, 0x07, 0x0f, 0x0f
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_22[] = 
+{
+  0x1f, 0x17, 0x3d, 0x3d, 0x7b, 0x5b, 0xf7, 0xf7
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_23[] = 
+{
+  0xef, 0xff, 0xdf, 0xff, 0xbf, 0xff, 0x7f, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_24[] = 
+{
+  0x01, 0x03, 0x07, 0x0b, 0x1f, 0x2f, 0x7f, 0xfe
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_25[] = 
+{
+  0x01, 0x03, 0x67, 0x9f, 0x0f, 0x07, 0x03, 0x01
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_THIN_26[] = 
+{
+  0x00, 0x00, 0x00, 0x21, 0x12, 0x0c, 0x00, 0x00
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SLOPES_RIGHT_1[] = 
+{
+  0xff, 0xfe, 0xf4, 0xe4, 0xfc, 0xb0, 0xe0, 0xc0
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SLOPES_RIGHT_2[] = 
+{
+  0xff, 0xfe, 0xf4, 0xf8, 0x90, 0xa0, 0xc0, 0x80
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SLOPES_LEFT_1[] = 
+{
+  0x80, 0xa0, 0xe0, 0xf4, 0xdc, 0x6e, 0xbe, 0xf7
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SLOPES_LEFT_2[] = 
+{
+  0x80, 0xc0, 0xe0, 0xf0, 0xd8, 0xec, 0xf6, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_1[] = 
+{
+  0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_2[] = 
+{
+  0x0f, 0x63, 0xff, 0xcf, 0xff, 0x7f, 0xff, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_3[] = 
+{
+  0xff, 0xbf, 0xff, 0xfb, 0xe7, 0xef, 0xfb, 0x21
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_4[] = 
+{
+  0xff, 0xff, 0xfe, 0xff, 0xff, 0xfe, 0xfe, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_5[] = 
+{
+  0x01, 0x03, 0x03, 0x06, 0x0f, 0x1e, 0x3f, 0x3f
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_6[] = 
+{
+  0x1f, 0x07, 0x7f, 0x1d, 0x3f, 0x2d, 0x6d, 0x2f
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_7[] = 
+{
+  0x3b, 0x1b, 0x1f, 0x7f, 0x07, 0x1f, 0x3f, 0x1f
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_8[] = 
+{
+  0x0f, 0x07, 0x07, 0x05, 0x03, 0x01, 0x01, 0x01
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_9[] = 
+{
+  0xff, 0x43, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_10[] = 
+{
+  0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xd1, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_11[] = 
+{
+  0xff, 0xfd, 0xfd, 0xfc, 0xfd, 0xfc, 0xfd, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_12[] = 
+{
+  0x01, 0x01, 0x03, 0x03, 0x0f, 0x0d, 0x1b, 0x3b
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_13[] = 
+{
+  0x3b, 0x2b, 0x29, 0x2b, 0x2b, 0x2b, 0x2b, 0x2b
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_14[] = 
+{
+  0x2b, 0x2b, 0x2b, 0x29, 0x2b, 0x2b, 0x2b, 0x2b
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SOLID_15[] = 
+{
+  0x2b, 0x1b, 0x19, 0x0b, 0x07, 0x03, 0x03, 0x01
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SPAWN_1[] = 
+{
+  0xc3, 0x81, 0x81, 0x81, 0x81, 0xff, 0xff, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SPAWN_2[] = 
+{
+  0xff, 0xff, 0xff, 0x81, 0x81, 0x81, 0x81, 0xc3
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SPAWN_3[] = 
+{
+  0xc1, 0x9f, 0x83, 0x8f, 0xc7, 0xff, 0xcf, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_SPAWN_4[] = 
+{
+  0xff, 0x8f, 0xff, 0xc7, 0xe3, 0x83, 0x81, 0x83
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_1[] = 
+{
+  0xd0, 0xf0, 0xf8, 0xff, 0xe0, 0xe0, 0xfe, 0xf8
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_2[] = 
+{
+  0xf8, 0x9c, 0x84, 0xc2, 0xe0, 0xf0, 0x98, 0xcc
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_3[] = 
+{
+  0xff, 0xff, 0xdc, 0xe0, 0xf0, 0xf6, 0xef, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_4[] = 
+{
+  0xff, 0xcf, 0xe2, 0xf8, 0xe0, 0xfc, 0xf0, 0x80
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_5[] = 
+{
+  0xf8, 0xc0, 0xf0, 0xc0, 0xf0, 0xff, 0xfc, 0xf0
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_6[] = 
+{
+  0xff, 0xfe, 0x80, 0xf8, 0xfc, 0xe0, 0xfc, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_7[] = 
+{
+  0x00, 0x0c, 0xb0, 0xc0, 0x8e, 0xf0, 0x80, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_8[] = 
+{
+  0xc0, 0xfe, 0x80, 0xe0, 0x9c, 0xc0, 0x38, 0x00
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_9[] = 
+{
+  0xff, 0xff, 0xf7, 0xfd, 0xf4, 0xfd, 0xf7, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_10[] = 
+{
+  0xff, 0xe0, 0xff, 0xc0, 0xfe, 0xc0, 0xff, 0xc0
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_11[] = 
+{
+  0xfe, 0xc0, 0xff, 0xc0, 0xfe, 0xc0, 0xff, 0xc0
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_HAZARD_12[] = 
+{
+  0xfe, 0xc0, 0xff, 0xc0, 0xff, 0xe0, 0xff, 0xff
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_ITEMS_1[] = 
+{
+  0x00, 0x7c, 0x6c, 0x44, 0x6c, 0x7c, 0x00, 0x00
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_ITEMS_2[] = 
+{
+  0x00, 0x18, 0x00, 0x18, 0x00, 0x18, 0x00, 0x00
+};
+
+PROGMEM static WEAK_CONST unsigned char TILES_MERGED_ITEMS_3[] = 
+{
+  0x00, 0x00, 0x00, 0x18, 0x18, 0x00, 0x00, 0x00
+};
+
+PgmPtr WEAK_CONST TILES_MERGED[] =
+{
+  TILES_MERGED_THIN_1 /* 1 */,
+  TILES_MERGED_THIN_2 /* 2 */,
+  TILES_MERGED_THIN_3 /* 3 */,
+  TILES_MERGED_THIN_4 /* 4 */,
+  TILES_MERGED_THIN_5 /* 5 */,
+  TILES_MERGED_THIN_6 /* 6 */,
+  TILES_MERGED_THIN_7 /* 7 */,
+  TILES_MERGED_THIN_8 /* 8 */,
+  TILES_MERGED_THIN_9 /* 9 */,
+  TILES_MERGED_THIN_10 /* 10 */,
+  TILES_MERGED_THIN_11 /* 11 */,
+  TILES_MERGED_THIN_12 /* 12 */,
+  TILES_MERGED_THIN_13 /* 13 */,
+  TILES_MERGED_THIN_14 /* 14 */,
+  TILES_MERGED_THIN_15 /* 15 */,
+  TILES_MERGED_THIN_16 /* 16 */,
+  TILES_MERGED_THIN_17 /* 17 */,
+  TILES_MERGED_THIN_18 /* 18 */,
+  TILES_MERGED_THIN_19 /* 19 */,
+  TILES_MERGED_THIN_20 /* 20 */,
+  TILES_MERGED_THIN_21 /* 21 */,
+  TILES_MERGED_THIN_22 /* 22 */,
+  TILES_MERGED_THIN_23 /* 23 */,
+  TILES_MERGED_THIN_24 /* 24 */,
+  TILES_MERGED_THIN_25 /* 25 */,
+  TILES_MERGED_THIN_26 /* 26 */,
+  TILES_MERGED_SLOPES_RIGHT_1 /* 27 */,
+  TILES_MERGED_SLOPES_RIGHT_2 /* 28 */,
+  TILES_MERGED_SLOPES_LEFT_1 /* 29 */,
+  TILES_MERGED_SLOPES_LEFT_2 /* 30 */,
+  TILES_MERGED_SOLID_1 /* 31 */,
+  TILES_MERGED_SOLID_2 /* 32 */,
+  TILES_MERGED_SOLID_3 /* 33 */,
+  TILES_MERGED_SOLID_4 /* 34 */,
+  TILES_MERGED_SOLID_5 /* 35 */,
+  TILES_MERGED_SOLID_6 /* 36 */,
+  TILES_MERGED_SOLID_7 /* 37 */,
+  TILES_MERGED_SOLID_8 /* 38 */,
+  TILES_MERGED_SOLID_9 /* 39 */,
+  TILES_MERGED_SOLID_10 /* 40 */,
+  TILES_MERGED_SOLID_11 /* 41 */,
+  TILES_MERGED_SOLID_12 /* 42 */,
+  TILES_MERGED_SOLID_13 /* 43 */,
+  TILES_MERGED_SOLID_14 /* 44 */,
+  TILES_MERGED_SOLID_15 /* 45 */,
+  TILES_MERGED_SPAWN_1 /* 46 */,
+  TILES_MERGED_SPAWN_2 /* 47 */,
+  TILES_MERGED_SPAWN_3 /* 48 */,
+  TILES_MERGED_SPAWN_4 /* 49 */,
+  TILES_MERGED_HAZARD_1 /* 50 */,
+  TILES_MERGED_HAZARD_2 /* 51 */,
+  TILES_MERGED_HAZARD_3 /* 52 */,
+  TILES_MERGED_HAZARD_4 /* 53 */,
+  TILES_MERGED_HAZARD_5 /* 54 */,
+  TILES_MERGED_HAZARD_6 /* 55 */,
+  TILES_MERGED_HAZARD_7 /* 56 */,
+  TILES_MERGED_HAZARD_8 /* 57 */,
+  TILES_MERGED_HAZARD_9 /* 58 */,
+  TILES_MERGED_HAZARD_10 /* 59 */,
+  TILES_MERGED_HAZARD_11 /* 60 */,
+  TILES_MERGED_HAZARD_12 /* 61 */,
+  TILES_MERGED_ITEMS_1 /* 62 */,
+  TILES_MERGED_ITEMS_2 /* 63 */,
+  TILES_MERGED_ITEMS_3 /* 64 */
+};
+
