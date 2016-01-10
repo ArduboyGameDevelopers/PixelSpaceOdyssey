@@ -16,7 +16,7 @@ class Tile
   end
 
   def to_png
-    ChunkyPNG::Image.new @pixels, @width, @height
+    ChunkyPNG::Image.new @width, @height, @pixels
   end
 
 end
