@@ -59,7 +59,7 @@ static void enemiesDraw();
 
 static inline void tilemapDraw()
 {
-    TileMapDraw(&tileMap);
+    TileMapDraw(tileMap);
 }
 
 #pragma mark -

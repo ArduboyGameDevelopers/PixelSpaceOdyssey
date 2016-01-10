@@ -87,7 +87,7 @@ inline uint16_t playerDistanceSqr(const Character *character)
     return dx * dx + dy * dy;
 }
 
-inline uint8_t getTile(int16_t x, int16_t y, Tile *tilePtr) { return TileMapGetTile(&tileMap, x, y, tilePtr); }
-inline bool getSolidTile(int16_t x, int16_t y, Tile *tilePtr) { return TileMapGetTile(&tileMap, x, y, tilePtr) > 15; }
+inline uint8_t getTile(int16_t x, int16_t y, Tile *tilePtr) { return TileMapGetTile(tileMap, x, y, tilePtr); }
+inline bool getSolidTile(int16_t x, int16_t y, Tile *tilePtr) { return TileMapGetTile(tileMap, x, y, tilePtr) >= TILE_SOLID_MIN; }
 
 #endif /* game_h */
