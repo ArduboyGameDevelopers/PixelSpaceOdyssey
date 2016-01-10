@@ -369,9 +369,9 @@ static Level* readLevelV1(QJsonObject levelObj, const QString &filename)
         10, /* 10 */
         11, /* 11 */
         12, /* 12 */
-        26, /* 13 */
-        28, /* 14 */
-        30, /* 15 */
+        13, /* 13 */
+        27, /* 14 */
+        29, /* 15 */
         31, /* 16 */
         32, /* 17 */
         33, /* 18 */
@@ -379,7 +379,7 @@ static Level* readLevelV1(QJsonObject levelObj, const QString &filename)
         35, /* 20 */
         36, /* 21 */
         37, /* 22 */
-        47, /* 23 */
+        38, /* 23 */
         48, /* 24 */
         49, /* 25 */
         50, /* 26 */
@@ -387,9 +387,10 @@ static Level* readLevelV1(QJsonObject levelObj, const QString &filename)
         52, /* 28 */
         53, /* 29 */
         54, /* 30 */
-        61, /* 31 */
+        55, /* 31 */
         62, /* 32 */
         63, /* 33 */
+        64, /* 34 */
     };
     
     for (int i = 0; i < indexCount; ++i)
