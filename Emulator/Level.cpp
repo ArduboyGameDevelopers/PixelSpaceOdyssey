@@ -16,9 +16,12 @@
 
 #include "enemies.h"
 
-static const uint8_t kVersion = 1;
+static const uint8_t kVersion = 2;
 
 static void deleteEnemyCharacter(int id);
+
+static Level* readLevelV1(QJsonObject levelObj, const QString &filename);
+static Level* readLevelV2(QJsonObject levelObj, const QString &filename);
 
 Level* Level::_currentLevel(NULL);
 
@@ -65,48 +68,14 @@ Level* Level::readFromFile(const QString &filename)
         QJsonDocument levelDoc = QJsonDocument::fromJson(levelData);
         QJsonObject levelObj = levelDoc.object();
         
-        QJsonObject playerObj = levelObj["player"].toObject();
-        int playerX = playerObj["x"].toInt();
-        int playerY = playerObj["y"].toInt();
-        Direction characterDir = (Direction) playerObj["direction"].toInt();
-        
-        QJsonObject mapObj = levelObj["map"].toObject();
-        int cols = mapObj["cols"].toInt();
-        int rows = mapObj["rows"].toInt();
-        int indexCount = rows * cols;
-        uint8_t indices[indexCount];
-        
-        QString indicesString = mapObj["indices"].toString();
-        QStringList tokens = indicesString.split(",");
-        for (int i = 0; i < indexCount; ++i)
+        int version = levelObj["version"].toInt();
+        switch (version)
         {
-            indices[i] = tokens.at(i).toInt();
+            case 1:
+                return readLevelV1(levelObj, filename);
+            case 2:
+                return readLevelV2(levelObj, filename);
         }
-        
-        Level *level = new Level(indices, rows, cols, filename);
-        level->setPlayerPos(playerX, playerY);
-        level->setPlayerDir(characterDir);
-        
-        QJsonArray enemies = levelObj["enemies"].toArray();
-        for (int i = 0; i < enemies.size(); ++i)
-        {
-            QJsonObject enemyObj = enemies.at(i).toObject();
-            QString name = enemyObj["name"].toString();
-            CharacterType characterType = CharacterInfo::typeFromName(name);
-            if (characterType == CharacterTypeCount)
-            {
-                qDebug() << "Unknown enemy type: " << name;
-                continue;
-            }
-            
-            int x = enemyObj["x"].toInt();
-            int y = enemyObj["y"].toInt();
-            Direction enemyDir = (Direction) enemyObj["direction"].toInt();
-            
-            level->addEnemy(characterType, x, y, enemyDir);
-        }
-        
-        return level;
     }
     
     return NULL;
@@ -175,9 +144,26 @@ void Level::writeToFile(const QString &filename)
     // indices
     QStringList indicesList;
     int indexCount = _rows * _cols;
+    int itemsCount = 0;
     for (int i = 0; i < indexCount; ++i)
     {
-        indicesList << QString::number(_indices[i]);
+        int16_t index = _indices[i];
+        if (index >= TILE_ITEM_MIN && index <= TILE_ITEM_MAX)
+        {
+            if (itemsCount > ITEM_INDEX_MAX)
+            {
+                QMessageBox msgBox;
+                msgBox.setText("Can't save level: too many collectible items");
+                msgBox.exec();
+                return;
+            }
+            
+            int itemIndex = index - TILE_ITEM_MIN;
+            index = 0x80 | (itemsCount << ITEM_INDEX_BITS_COUNT) | itemIndex;
+            ++itemsCount;
+        }
+        
+        indicesList << QString::number(index);
     }
     map["indices"] = indicesList.join(",");
     
@@ -343,4 +329,147 @@ static void deleteEnemyCharacter(int id)
         }
         --enemiesCount;
     }
+}
+
+#pragma mark -
+#pragma mark Level reader
+
+static Level* readLevelV1(QJsonObject levelObj, const QString &filename)
+{
+    QJsonObject playerObj = levelObj["player"].toObject();
+    int playerX = playerObj["x"].toInt();
+    int playerY = playerObj["y"].toInt();
+    Direction characterDir = (Direction) playerObj["direction"].toInt();
+    
+    QJsonObject mapObj = levelObj["map"].toObject();
+    int cols = mapObj["cols"].toInt();
+    int rows = mapObj["rows"].toInt();
+    int indexCount = rows * cols;
+    uint8_t indices[indexCount];
+    
+    QString indicesString = mapObj["indices"].toString();
+    QStringList tokens = indicesString.split(",");
+    for (int i = 0; i < indexCount; ++i)
+    {
+        indices[i] = tokens.at(i).toInt();
+    }
+    
+    // transform indices
+    int kV1IndexLookup[] = {
+        0, /* 0 */
+        1, /* 1 */
+        2, /* 2 */
+        3, /* 3 */
+        4, /* 4 */
+        5, /* 5 */
+        6, /* 6 */
+        7, /* 7 */
+        8, /* 8 */
+        9, /* 9 */
+        10, /* 10 */
+        11, /* 11 */
+        12, /* 12 */
+        26, /* 13 */
+        28, /* 14 */
+        30, /* 15 */
+        31, /* 16 */
+        32, /* 17 */
+        33, /* 18 */
+        34, /* 19 */
+        35, /* 20 */
+        36, /* 21 */
+        37, /* 22 */
+        47, /* 23 */
+        48, /* 24 */
+        49, /* 25 */
+        50, /* 26 */
+        51, /* 27 */
+        52, /* 28 */
+        53, /* 29 */
+        54, /* 30 */
+        61, /* 31 */
+        62, /* 32 */
+        63, /* 33 */
+    };
+    
+    for (int i = 0; i < indexCount; ++i)
+    {
+        indices[i] = kV1IndexLookup[indices[i]];
+    }
+    
+    Level *level = new Level(indices, rows, cols, filename);
+    level->setPlayerPos(playerX, playerY);
+    level->setPlayerDir(characterDir);
+    
+    QJsonArray enemies = levelObj["enemies"].toArray();
+    for (int i = 0; i < enemies.size(); ++i)
+    {
+        QJsonObject enemyObj = enemies.at(i).toObject();
+        QString name = enemyObj["name"].toString();
+        CharacterType characterType = CharacterInfo::typeFromName(name);
+        if (characterType == CharacterTypeCount)
+        {
+            qDebug() << "Unknown enemy type: " << name;
+            continue;
+        }
+        
+        int x = enemyObj["x"].toInt();
+        int y = enemyObj["y"].toInt();
+        Direction enemyDir = (Direction) enemyObj["direction"].toInt();
+        
+        level->addEnemy(characterType, x, y, enemyDir);
+    }
+    
+    return level;
+}
+
+static Level* readLevelV2(QJsonObject levelObj, const QString &filename)
+{
+    QJsonObject playerObj = levelObj["player"].toObject();
+    int playerX = playerObj["x"].toInt();
+    int playerY = playerObj["y"].toInt();
+    Direction characterDir = (Direction) playerObj["direction"].toInt();
+    
+    QJsonObject mapObj = levelObj["map"].toObject();
+    int cols = mapObj["cols"].toInt();
+    int rows = mapObj["rows"].toInt();
+    int indexCount = rows * cols;
+    uint8_t indices[indexCount];
+    
+    QString indicesString = mapObj["indices"].toString();
+    QStringList tokens = indicesString.split(",");
+    for (int i = 0; i < indexCount; ++i)
+    {
+        int16_t index = tokens.at(i).toInt();
+        if (index & 0x80)
+        {
+            index = TILE_ITEM_MIN + (index & ITEM_TYPE_MASK);
+        }
+        indices[i] = index;
+    }
+    
+    Level *level = new Level(indices, rows, cols, filename);
+    level->setPlayerPos(playerX, playerY);
+    level->setPlayerDir(characterDir);
+    
+    QJsonArray enemies = levelObj["enemies"].toArray();
+    for (int i = 0; i < enemies.size(); ++i)
+    {
+        QJsonObject enemyObj = enemies.at(i).toObject();
+        QString name = enemyObj["name"].toString();
+        CharacterType characterType = CharacterInfo::typeFromName(name);
+        if (characterType == CharacterTypeCount)
+        {
+            qDebug() << "Unknown enemy type: " << name;
+            continue;
+        }
+        
+        int x = enemyObj["x"].toInt();
+        int y = enemyObj["y"].toInt();
+        Direction enemyDir = (Direction) enemyObj["direction"].toInt();
+        
+        level->addEnemy(characterType, x, y, enemyDir);
+    }
+    
+    return level;
 }

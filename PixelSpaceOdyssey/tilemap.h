@@ -25,6 +25,13 @@
 #define TILE_ITEM_MIN           62
 #define TILE_ITEM_MAX           64
 
+#define ITEM_TYPE_BITS_COUNT  2
+#define ITEM_TYPE_MASK 0x3
+#define ITEM_TYPE_MAX  3
+
+#define ITEM_INDEX_BITS_COUNT 5
+#define ITEM_INDEX_MAX 31
+
 const uint8_t TILE_WIDTH_PX     = 8;
 const uint8_t TILE_HEIGHT_PX    = 8;
 const uint8_t TILE_WIDTH        = S2W(TILE_WIDTH_PX);
