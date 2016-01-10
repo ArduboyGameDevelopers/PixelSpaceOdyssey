@@ -27,7 +27,11 @@
 
 #define ITEM_TYPE_BITS_COUNT  2
 #define ITEM_TYPE_MASK 0x3 // 00000011
-#define ITEM_TYPE_MAX  3
+
+#define ITEM_TYPE_HEALTH    0
+#define ITEM_TYPE_AMMO      1
+#define ITEM_TYPE_ROCK      2
+#define ITEM_TYPE_MAX       3
 
 #define ITEM_INDEX_BITS_COUNT 5
 #define ITEM_INDEX_MASK 0x1f // 00011111

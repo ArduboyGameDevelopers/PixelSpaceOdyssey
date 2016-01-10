@@ -82,7 +82,7 @@ void drawHud()
     drawImagePtr(IMG_HUD_GUN, kHudGunX, kHudGunY, DM_LIT);
     
     // ammo
-    drawAmmo(7);
+    drawAmmo(playerAmmo);
     
     // heart
     drawImagePtr(IMG_HUD_HEART, kHudHeartX, kHudHeartY, DM_LIT);

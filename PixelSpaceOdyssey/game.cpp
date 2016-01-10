@@ -95,6 +95,7 @@ inline void PLAYER_SET_RIGHT(int16_t x)  { player.x = x - PLAYER_COLLIDER_HALF_W
 
 Character player;
 uint8_t playerHealth;
+uint8_t playerAmmo;
 
 static bool playerCrouching = false;
 static bool playerJumping = false;
@@ -165,6 +166,37 @@ inline static void takeDamage(Direction dir)
 inline static void pickupItem(int tileIndex)
 {
     assert(!TileItemIsPicked(tileMap, tileIndex));
+    
+    int type = TileItemGetType(tileIndex);
+    switch (type)
+    {
+        case ITEM_TYPE_HEALTH:
+        {
+            if (playerHealth < kPlayerHealthMax)
+            {
+                ++playerHealth;
+                DISPATCH_DEBUG_EVENT(DEBUG_EVENT_PLAYER_DAMAGE); // TODO: fix event name
+            }
+            break;
+        }
+            
+        case ITEM_TYPE_AMMO:
+        {
+            if (playerAmmo < kPlayerAmmoMax)
+            {
+                ++playerAmmo;
+            }
+            break;
+        }
+            
+        case ITEM_TYPE_ROCK:
+            break;
+            
+        default:
+            assert(false); // TODO: output item type
+            break;
+    }
+    
     TileItemSetPicked(tileMap, tileIndex, true);
 }
 
@@ -243,6 +275,7 @@ void createPlayer()
 {
     player = CharacterMake(PLAYER_WIDTH, PLAYER_HEIGHT);
     playerHealth = kPlayerHealthMax;
+    playerAmmo = kPlayerAmmoMax;
     
     playerCrouching = false;
     playerJumping = false;
