@@ -11,6 +11,16 @@
 #include "tilemap.h"
 #include "drawing.h"
 
+static inline int16_t ToTileMapIndex(const TileMap &tileMap, uint8_t tileIndex)
+{
+    if (TILE_IS_ITEM(tileIndex))
+    {
+        return TileItemIsPicked(tileMap, tileIndex) ? 0 : (TILE_ITEM_MIN + TileItemGetType(tileIndex) - 1);
+    }
+    
+    return tileIndex - 1;
+}
+
 void TileMapDraw(const TileMap &tileMap)
 {
     const PgmPtr* tiles = tileMap.tiles;
@@ -25,10 +35,11 @@ void TileMapDraw(const TileMap &tileMap)
     {
         for (int j = 0; j < cols; ++j)
         {
-            uint8_t tileIndex = pgm_read_byte(indices + index);
+            uint8_t indexData = pgm_read_byte(indices + index);
+            int tileIndex = ToTileMapIndex(tileMap, indexData);
             if (tileIndex > 0)
             {
-                drawImage(tiles[tileIndex - 1], x, y, TILE_WIDTH_PX, TILE_HEIGHT_PX, DM_UNLIT);
+                drawImage(tiles[tileIndex], x, y, TILE_WIDTH_PX, TILE_HEIGHT_PX, DM_UNLIT);
             }
             x += TILE_WIDTH_PX;
             ++index;
@@ -49,7 +60,7 @@ uint8_t TileMapGetTile(const TileMap &tileMap, int16_t x, int16_t y, Tile* tile)
     if (j >= 0 && j < cols && i >= 0 && i < rows)
     {
         uint8_t index = pgm_read_byte(tileMap.indices + i * cols + j);
-        if (TILE_IS_THIN(index))
+        if (TILE_IS_THIN(index) || (TILE_IS_ITEM(index) && TileItemIsPicked(tileMap, index)))
         {
             return 0;
         }

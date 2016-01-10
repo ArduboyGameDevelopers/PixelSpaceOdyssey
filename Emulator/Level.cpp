@@ -144,26 +144,9 @@ void Level::writeToFile(const QString &filename)
     // indices
     QStringList indicesList;
     int indexCount = _rows * _cols;
-    int itemsCount = 0;
     for (int i = 0; i < indexCount; ++i)
     {
-        int16_t index = _indices[i];
-        if (index >= TILE_ITEM_MIN && index <= TILE_ITEM_MAX)
-        {
-            if (itemsCount > ITEM_INDEX_MAX)
-            {
-                QMessageBox msgBox;
-                msgBox.setText("Can't save level: too many collectible items");
-                msgBox.exec();
-                return;
-            }
-            
-            int itemIndex = index - TILE_ITEM_MIN;
-            index = 0x80 | (itemsCount << ITEM_INDEX_BITS_COUNT) | itemIndex;
-            ++itemsCount;
-        }
-        
-        indicesList << QString::number(index);
+        indicesList << QString::number(_indices[i]);
     }
     map["indices"] = indicesList.join(",");
     
@@ -202,6 +185,7 @@ void Level::setCurrent(Level *level)
     tileMap.indices = level->indices();
     tileMap.rows = rows;
     tileMap.cols = cols;
+    tileMap.items = 0;
     
     tileMapWidth = S2W(cols * GRID_CELL_WIDTH);
     tileMapHeight = S2W(rows * GRID_CELL_HEIGHT);
@@ -300,6 +284,45 @@ void Level::resize(uint8_t rows, uint8_t cols)
     _indices = newIndices;
 
     setCurrent(this);
+}
+
+#pragma mark -
+#pragma mark Indices
+
+void Level::setTileMapIndex(int gridIndex, uint8_t tileIndex)
+{
+    if (tileIndex >= TILE_ITEM_MIN && tileIndex <= TILE_ITEM_MAX)
+    {
+        tileIndex = TileItemSetType(0x80, tileIndex - TILE_ITEM_MIN);
+    }
+    
+    int oldTileIndex = tileMap.indices[gridIndex];
+    tileMap.indices[gridIndex] = tileIndex;
+    
+    if (TILE_IS_ITEM(oldTileIndex) || TILE_IS_ITEM(tileIndex))
+    {
+        updateItemIndices();
+    }
+}
+
+#pragma mark -
+#pragma mark Items
+
+void Level::updateItemIndices()
+{
+    tileMap.items = 0;
+    
+    uint8_t *indices = tileMap.indices;
+    int indexCount = TileMapGetIndexCount(tileMap);
+    int itemCount = 0;
+    for (int i = 0; i < indexCount; ++i)
+    {
+        if (TILE_IS_ITEM(indices[i]))
+        {
+            indices[i] = TileItemSetIndex(indices[i], itemCount);
+            ++itemCount;
+        }
+    }
 }
 
 #pragma mark -
@@ -441,12 +464,7 @@ static Level* readLevelV2(QJsonObject levelObj, const QString &filename)
     QStringList tokens = indicesString.split(",");
     for (int i = 0; i < indexCount; ++i)
     {
-        int16_t index = tokens.at(i).toInt();
-        if (index & 0x80)
-        {
-            index = TILE_ITEM_MIN + (index & ITEM_TYPE_MASK);
-        }
-        indices[i] = index;
+        indices[i] = tokens.at(i).toInt();
     }
     
     Level *level = new Level(indices, rows, cols, filename);

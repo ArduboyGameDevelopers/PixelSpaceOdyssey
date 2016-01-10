@@ -25,7 +25,7 @@ void EditorDrawTool::onMousePressed(int x, int y)
     if (editorState.tileIndex() != -1)
     {
         int gridIndex = gridIndexFromCords(x, y);
-        tileMap.indices[gridIndex] = editorState.tileIndex();
+        Level::current()->setTileMapIndex(gridIndex, editorState.tileIndex());
     }
 }
 
@@ -44,7 +44,7 @@ void EditorDrawTool::onMouseMoved(int x, int y)
     if (mouseDown() && editorState.tileIndex() != -1)
     {
         int gridIndex = gridIndexFromCords(x, y);
-        tileMap.indices[gridIndex] = editorState.tileIndex();
+        Level::current()->setTileMapIndex(gridIndex, editorState.tileIndex());
     }
 }
 

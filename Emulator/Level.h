@@ -35,6 +35,9 @@ public:
     void addEnemy(CharacterType type, int x, int y, Direction dir);
     void deleteEnemy(int index);
     void resize(uint8_t rows, uint8_t cols);
+    
+private:
+    void updateItemIndices();
 
 public:
     inline const QString &filename() const { return _filename; }
@@ -53,6 +56,7 @@ public:
     }
     
     inline uint8_t* indices() const { return _indices; }
+    void setTileMapIndex(int gridIndex, uint8_t tileIndex);
 
     inline uint8_t tileSetId() const { return _tileSetId; }
     inline void setTileSetId(uint8_t tileSetId) { _tileSetId = tileSetId; }

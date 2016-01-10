@@ -26,10 +26,12 @@
 #define TILE_ITEM_MAX           64
 
 #define ITEM_TYPE_BITS_COUNT  2
-#define ITEM_TYPE_MASK 0x3
+#define ITEM_TYPE_MASK 0x3 // 00000011
 #define ITEM_TYPE_MAX  3
 
 #define ITEM_INDEX_BITS_COUNT 5
+#define ITEM_INDEX_MASK 0x1f // 00011111
+#define ITEM_INDEX_BITS_OFFSET ITEM_TYPE_BITS_COUNT
 #define ITEM_INDEX_MAX 31
 
 const uint8_t TILE_WIDTH_PX     = 8;
@@ -66,7 +68,7 @@ typedef struct _Tile {
 typedef struct _TileMap {
     WEAK_CONST PgmPtr *tiles;
     WEAK_CONST uint8_t *indices;
-    uint32_t collectibles;
+    uint32_t items;
     uint8_t rows;
     uint8_t cols;
 } TileMap;
@@ -81,7 +83,7 @@ inline TileMap TileMapMake(WEAK_CONST PgmPtr *tiles, WEAK_CONST uint8_t *indices
     TileMap tileMap;
     tileMap.tiles   = tiles;
     tileMap.indices = indices;
-    tileMap.collectibles = 0;
+    tileMap.items = 0;
     tileMap.cols    = cols;
     tileMap.rows    = rows;
     return tileMap;
@@ -89,5 +91,48 @@ inline TileMap TileMapMake(WEAK_CONST PgmPtr *tiles, WEAK_CONST uint8_t *indices
 
 void TileMapDraw(const TileMap &tileMap);
 uint8_t TileMapGetTile(const TileMap &tileMap, int16_t x, int16_t y, Tile* tile);
+
+inline uint8_t TileItemGetIndex(uint8_t item)
+{
+    return (item >> ITEM_INDEX_BITS_OFFSET) & ITEM_INDEX_MASK;
+}
+
+inline uint8_t TileItemGetType(uint8_t item)
+{
+    return item & ITEM_TYPE_MASK;
+}
+
+inline bool TileItemIsPicked(const TileMap &tileMap, uint8_t item)
+{
+    int index = TileItemGetIndex(item);
+    return tileMap.items & (1 << index);
+}
+
+inline void TileItemSetPicked(TileMap &tileMap, uint8_t item, bool picked)
+{
+    int index = TileItemGetIndex(item);
+    if (picked)
+    {
+        tileMap.items |= 1 << index;
+    }
+    else
+    {
+        tileMap.items &= ~(1 << index);
+    }
+}
+
+#if EMULATOR
+inline uint8_t TileItemSetIndex(uint8_t item, int index)
+{
+    assert(index >= 0 && index <= ITEM_INDEX_MAX);
+    return (item & 0x83 /* 10000011 */) | (index << ITEM_INDEX_BITS_OFFSET);
+}
+
+inline uint8_t TileItemSetType(uint8_t item, int type)
+{
+    assert(type >= 0 && type <= ITEM_TYPE_MAX);
+    return (item & 0xfc /* 11111100 */) | type;
+}
+#endif /* EMULATOR */
 
 #endif /* tilemap_h */

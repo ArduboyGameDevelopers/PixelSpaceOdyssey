@@ -164,6 +164,8 @@ inline static void takeDamage(Direction dir)
 
 inline static void pickupItem(int tileIndex)
 {
+    assert(!TileItemIsPicked(tileMap, tileIndex));
+    TileItemSetPicked(tileMap, tileIndex, true);
 }
 
 inline static void playerHandleTileHorCollision(const Tile& tile)
