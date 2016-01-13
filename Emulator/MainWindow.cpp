@@ -370,19 +370,21 @@ void MainWindow::onActionNew()
     int cols = DISPLAY_WIDTH / GRID_CELL_WIDTH;
     int indexCount = rows * cols;
     
+    const int kSolidTile = 31;
+    
     uint8_t indices[indexCount];
     memset(indices, 0, sizeof(indices));
     
     for (int i = 0, j1 = 0, j2 = cols - 1; i < rows; ++i)
     {
-        indices[i * cols + j1] = 16;
-        indices[i * cols + j2] = 16;
+        indices[i * cols + j1] = kSolidTile;
+        indices[i * cols + j2] = kSolidTile;
     }
     
     for (int i1 = 0, i2 = rows - 1, j = 0; j < cols; ++j)
     {
-        indices[i1 * cols + j] = 16;
-        indices[i2 * cols + j] = 16;
+        indices[i1 * cols + j] = kSolidTile;
+        indices[i2 * cols + j] = kSolidTile;
     }
     
     Level *level = new Level(indices, rows, cols);

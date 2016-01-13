@@ -11,6 +11,7 @@
 
 #include "common.h"
 #include "character.h"
+#include "player.h"
 #include "tilemap.h"
 #include "enemies.h"
 #include "dispatch.h"
@@ -32,23 +33,6 @@ extern const int16_t CAM_HEIGHT_HALF;
 extern const int16_t CAM_RANGE_X;
 extern const int16_t CAM_RANGE_Y;
 extern const int8_t  WALK_SPEED;
-
-#pragma mark -
-#pragma mark Player
-
-extern const int16_t kPlayerAmmoMax;
-extern const int16_t kPlayerHealthMax;
-
-extern Character player;
-extern uint8_t playerHealth;
-extern uint8_t playerAmmo;
-
-/* Enemy AI will target this position to create some delay */
-extern int16_t playerLastSeenX;
-extern int16_t playerLastSeenY;
-
-void playerDamage(Character *enemy);
-void playerDie();
 
 extern Character *enemies;
 extern uint8_t enemiesCount;

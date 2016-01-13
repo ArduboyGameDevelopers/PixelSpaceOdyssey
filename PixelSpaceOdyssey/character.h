@@ -38,6 +38,8 @@ typedef struct _Character
     CharacterCallback callback;
     const Animation* animation;
 
+    TimeInterval lastAttackTimestamp;
+    
     uint16_t state;
     uint16_t stateTime;
     uint16_t flags;

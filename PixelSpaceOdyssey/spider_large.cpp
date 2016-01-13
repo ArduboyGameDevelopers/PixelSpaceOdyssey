@@ -13,8 +13,6 @@
 #define SpiderLargeStateStat    5
 #define SpiderLargeStatePatrol  6
 
-#define SPIDER_LARGE_USER_MASK_ATTACK 0x01
-
 static const uint8_t ANIMATION_LOOKUP[] = {
     SPIDER_LARGE_ANIMATION_SLEEP,   /* SpiderLargeStateSleep */
     SPIDER_LARGE_ANIMATION_AWAKEN,  /* SpiderLargeStateAwaken */
@@ -26,8 +24,6 @@ static const uint8_t ANIMATION_LOOKUP[] = {
 };
 
 typedef uint16_t SpiderLargeState;
-
-static void attackEnableCallback(void *user, int16_t data1, int16_t data2);
 
 static inline void setAnimation(Character *self, int index)
 {
@@ -48,16 +44,6 @@ static inline void setState(Character *self, SpiderLargeState state)
     setAnimation(self, ANIMATION_LOOKUP[state]);
 }
 
-static inline bool canAttack(const Character *self)
-{
-    return CharacterHasUserFlag(self, SPIDER_LARGE_USER_MASK_ATTACK);
-}
-
-static inline void setCanAttack(Character *self, bool flag)
-{
-    CharacterSetUserFlag(self, SPIDER_LARGE_USER_MASK_ATTACK, flag);
-}
-
 static inline void awake(Character *self)
 {
     setState(self, SpiderLargeStateAwaken);
@@ -66,7 +52,6 @@ static inline void awake(Character *self)
 static inline void rise(Character *self)
 {
     setState(self, SpiderLargeStateRise);
-    setCanAttack(self, true);
 }
 
 static inline void walk(Character *self)
@@ -89,10 +74,7 @@ static inline void stat(Character *self)
 static inline void attack(Character *self)
 {
     setState(self, SpiderLargeStateAttack);
-    setCanAttack(self, false);
-    DispatchSchedule(attackEnableCallback, 500, self);
-    
-    playerDamage(self);
+    EnemyAttack(self);
 }
 
 void EnemyInitSpiderLarge(Character *character)
@@ -174,7 +156,7 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
             
             if (abs(distance) < (self->canSeePlayer ? DIV2(self->colliderWidth + player.width) : 10))
             {
-                if (self->canSeePlayer && canAttack(self))
+                if (self->canSeePlayer && EnemyCanAttack(self))
                 {
                     attack(self);
                 }
@@ -214,13 +196,3 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
             
     }
 }
-
-#pragma mark -
-#pragma mark Dispatcher callbacks
-
-static void attackEnableCallback(void *user, int16_t, int16_t)
-{
-    Character *self = (Character *)user;
-    setCanAttack(self, true);
-}
-
