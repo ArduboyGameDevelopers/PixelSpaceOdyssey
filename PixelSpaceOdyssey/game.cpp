@@ -462,7 +462,7 @@ inline static void playerUpdate(TimeInterval dt)
     {
         playerSetAnimation(PLAYER_ANIMATION_DEATH);
     }
-    else if (playerJumping)
+    else if (playerJumping && playerJumpSpeed < 0)
     {
         playerSetAnimation(PLAYER_ANIMATION_JUMP);
     }

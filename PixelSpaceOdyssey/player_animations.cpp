@@ -291,7 +291,7 @@ const Animation PLAYER_ANIMATIONS[] =
   AnimationMake(FRAMES_CROUNCH, 2),
   AnimationMake(FRAMES_RECEP, 1),
   AnimationMake(FRAMES_FALL, 2, true),
-  AnimationMake(FRAMES_JUMP, 2, true),
+  AnimationMake(FRAMES_JUMP, 2),
   AnimationMake(FRAMES_RUNSTOP, 1),
   AnimationMake(FRAMES_RUN, 4, true),
   AnimationMake(FRAMES_WALK, 4, true),
