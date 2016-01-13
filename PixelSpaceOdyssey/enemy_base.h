@@ -4,9 +4,10 @@
 #include "character.h"
 #include "player.h"
 
-#include "Arduboy.h"
-
 #define ENEMY_ATTACK_DELAY 500
+
+// #include "Arduboy.h" - fails to compile on windows
+extern unsigned long millis(void);
 
 void EnemyUpdate(Character *character, TimeInterval dt);
 void UpdateConstraints(Character *character);
