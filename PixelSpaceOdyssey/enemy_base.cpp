@@ -7,36 +7,36 @@ inline static void handleObstacle(Character *character)
     CharacterCallbackInvoke(character, CHARACTER_CALLBACK_OBSTACLE);
 }
 
-void EnemyUpdate(Character* character, TimeInterval dt)
+void EnemyUpdate(Character* self, TimeInterval dt)
 {
     // update AI
-    CharacterBehaviour behaviour = character->behaviour;
+    CharacterBehaviour behaviour = self->behaviour;
     if (behaviour)
     {
-        behaviour(character, dt);
+        behaviour(self, dt);
     }
     
     // update movement
-    int8_t move = character->move;
+    int8_t move = self->move;
     if (move != 0)
     {
-        character->x += character->dir * character->move * WALK_SPEED;
+        self->x += self->dir * self->move * WALK_SPEED;
         
-        Direction dir = character->dir;
-        if (dir == DIR_LEFT && CharacterGetLeft(character) < character->moveMinX)
+        Direction dir = self->dir;
+        if (dir == DIR_LEFT && !EnemyCanMoveLeft(self))
         {
-            CharacterSetLeft(character, character->moveMinX);
-            handleObstacle(character);
+            CharacterSetLeft(self, self->moveMinX);
+            handleObstacle(self);
         }
-        else if (dir == DIR_RIGHT && CharacterGetRight(character) > character->moveMaxX)
+        else if (dir == DIR_RIGHT && !EnemyCanMoveRight(self))
         {
-            CharacterSetRight(character, character->moveMaxX);
-            handleObstacle(character);
+            CharacterSetRight(self, self->moveMaxX);
+            handleObstacle(self);
         }
     }
     
     // update character
-    CharacterUpdate(character, dt);
+    CharacterUpdate(self, dt);
 }
 
 #pragma mark -

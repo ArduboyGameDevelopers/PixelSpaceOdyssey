@@ -5,38 +5,53 @@
 
 #include "game.h"
 
-#define DogStateAttack  DOG_ANIMATION_ATTACK
-#define DogStateRun     DOG_ANIMATION_RUN
-#define DogStateStat    DOG_ANIMATION_STAT
+#define DogStateStat    0
+#define DogStateRun     1
+#define DogStateAttack  2
+
+static const uint8_t ANIMATION_LOOKUP[] = {
+    DOG_ANIMATION_STAT,     /* DogStateStat */
+    DOG_ANIMATION_RUN,      /* DogStateRun */
+    DOG_ANIMATION_ATTACK    /* DogStateAttack */
+};
 
 typedef uint16_t DogState;
 
-static inline void setAnimation(Character *character, int index)
+static inline void setAnimation(Character *self, int index)
 {
     assert(index >= 0 && index < DOG_ANIMATIONS_COUNT);
-    CharacterSetAnimation(character, &DOG_ANIMATIONS[index]);
+    CharacterSetAnimation(self, &DOG_ANIMATIONS[index]);
 }
 
-static inline DogState getState(Character *character)
+static inline DogState getState(Character *self)
 {
-    return (DogState) character->state;
+    return (DogState) self->state;
 }
 
-static inline void setState(Character *character, DogState state)
+static inline void setState(Character *self, DogState state)
 {
-    character->state = (uint16_t) state;
-    setAnimation(character, state);
+    self->state = (uint16_t) state;
+    self->stateTime = 0;
+    self->move = 0;
+    
+    setAnimation(self, ANIMATION_LOOKUP[state]);
 }
 
-static inline void run(Character *character)
+static inline void run(Character *self)
 {
-    setState(character, DogStateRun);
-    character->move = 3;
+    setState(self, DogStateRun);
+    self->move = 3;
 }
 
-static inline void attack(Character *character)
+static inline void stat(Character *self)
 {
-    setState(character, DogStateAttack);
+    setState(self, DogStateStat);
+}
+
+static inline void attack(Character *self)
+{
+    EnemyAttack(self);
+    setState(self, DogStateAttack);
 }
 
 void EnemyInitDog(Character *character)
@@ -44,17 +59,29 @@ void EnemyInitDog(Character *character)
     setState(character, DogStateStat);
 }
 
-void EnemyCallbackDog(Character *character, CharacterCallbackType type, int16_t user1, int16_t user2)
+void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int16_t)
 {
     switch (type)
     {
         case CHARACTER_CALLBACK_ANIMATION_FINISHED:
         {
-            DogState state = getState(character);
+            DogState state = getState(self);
             switch (state)
             {
                 case DogStateAttack:
-                    run(character);
+                    run(self);
+                    break;
+            }
+            break;
+        }
+            
+        case CHARACTER_CALLBACK_OBSTACLE:
+        {
+            DogState state = getState(self);
+            switch (state)
+            {
+                case DogStateRun:
+                    stat(self);
                     break;
             }
             break;
@@ -62,35 +89,36 @@ void EnemyCallbackDog(Character *character, CharacterCallbackType type, int16_t 
     }
 }
 
-void EnemyBehaviourDog(Character *character, TimeInterval dt)
+void EnemyBehaviourDog(Character *self, TimeInterval)
 {
-    DogState state = getState(character);
+    DogState state = getState(self);
     switch (state)
     {
         case DogStateStat:
-        {
-            uint16_t distanceSqr = playerDistanceSqr(character);
-            if (distanceSqr < 2500)
-            {
-                run(character);
-            }
-            break;
-        }
-            
         case DogStateRun:
         {
-            uint16_t distanceSqr = playerDistanceSqr(character);
+            EnemyUpdatePlayerPos(self);
             
-            int16_t distance = player.x - character->x;
-            character->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT;
+            int16_t distance = self->lastPlayerX - self->x;
+            self->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT;
             
-            if (distanceSqr < 50)
+            if (abs(distance) < (self->canSeePlayer ? DIV2(self->colliderWidth + player.width) : 10))
             {
-                attack(character);
+                if (self->canSeePlayer && EnemyCanAttack(self))
+                {
+                    attack(self);
+                }
+                else
+                {
+                    stat(self);
+                }
             }
-            else
+            else if (self->canSeePlayer)
             {
-                character->x += character->dir * character->move * WALK_SPEED;
+                if (self->move == 0 && EnemyCanMove(self))
+                {
+                    run(self);
+                }
             }
             break;
         }
