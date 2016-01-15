@@ -170,6 +170,12 @@ void DisplayWidget::paintEvent(QPaintEvent *)
 
     // debug info
     drawDebug(painter);
+    
+    // draw tool
+    if (_currentTool)
+    {
+        _currentTool->paint(&painter);
+    }
 
     painter.end();
 }
@@ -257,11 +263,6 @@ void DisplayWidget::drawDebug(QPainter &painter)
             painter.fillRect(cx, cy, sw, sh, enemy.canSeePlayer ? visible : notvisible);
         }
         painter.setOpacity(1.0);
-    }
-    
-    if (_currentTool)
-    {
-        _currentTool->paint(&painter);
     }
     
     painter.translate(-drawOffsetX, -drawOffsetY);
