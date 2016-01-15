@@ -205,6 +205,7 @@ void Level::setCurrent(Level *level)
         {
             case CharacterTypeBear:
             {
+                enemy = EnemyMakeBearCharacter();
                 break;
             }
             case CharacterTypeDog:
@@ -218,7 +219,7 @@ void Level::setCurrent(Level *level)
             }
             case CharacterTypeSpiderLarge:
             {
-                enemy = EnemyMakeSpiderLargeCharacter();
+                enemy = EnemyMakeSpiderLarge();
                 break;
             }
         }
@@ -256,23 +257,45 @@ void Level::deleteEnemy(int index)
     MainWindow::instance()->updateLevelUi(this);
 }
 
-void Level::resize(uint8_t rows, uint8_t cols)
+void Level::resize(int top, int bottom, int left, int right)
 {
-    if (rows == _rows && cols == _cols) return;
-
-    int size = rows * cols * sizeof(uint8_t);
+    uint8_t cols = left + right + _cols;
+    uint8_t rows = top + bottom + _rows;
+    int size = cols * rows * sizeof(uint8_t);
     uint8_t *newIndices = (uint8_t *)malloc(size);
     memset(newIndices, 0, size);
 
-    uint8_t r = qMin(rows, _rows);
-    uint8_t c = qMin(cols, _cols);
+    int fromRow = 0, fromCol = 0, toRow = 0, toCol = 0;
+    if (top > 0)
+    {
+        fromRow = 0;
+        toRow = top;
+    }
+    else if (top < 0)
+    {
+        fromRow = -top;
+        toRow = 0;
+    }
 
+    if (left > 0)
+    {
+        fromCol = 0;
+        toCol = left;
+    }
+    else
+    {
+        fromCol = -left;
+        toCol = 0;
+    }
+
+    int r = qMin(rows, _rows);
+    int c = qMin(cols, _cols);
     for (int i = 0; i < r; ++i)
     {
         for (int j = 0; j < c; ++j)
         {
-            int from = i * _cols + j;
-            int to = i * c + j;
+            int from = (fromRow + i) * _cols + (fromCol + j);
+            int to = (toRow + i) * cols + (toCol + j);
             newIndices[to] = _indices[from];
         }
     }
@@ -282,6 +305,17 @@ void Level::resize(uint8_t rows, uint8_t cols)
 
     free(_indices);
     _indices = newIndices;
+    
+    // move characters
+    _player.setX(_player.x() + left * TILE_WIDTH_PX);
+    _player.setY(_player.y() + top * TILE_HEIGHT_PX);
+    
+    for (int i = 0; i < enemiesCount(); ++i)
+    {
+        CharacterInfo &enemy = _enemies[i];
+        enemy.setX(enemy.x() + left * TILE_WIDTH_PX);
+        enemy.setY(enemy.y() + top * TILE_HEIGHT_PX);
+    }
 
     setCurrent(this);
 }

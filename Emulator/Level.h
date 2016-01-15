@@ -34,7 +34,7 @@ public:
 public:
     void addEnemy(CharacterType type, int x, int y, Direction dir);
     void deleteEnemy(int index);
-    void resize(uint8_t rows, uint8_t cols);
+    void resize(int top, int bottom, int left, int right);
     
 private:
     void updateItemIndices();

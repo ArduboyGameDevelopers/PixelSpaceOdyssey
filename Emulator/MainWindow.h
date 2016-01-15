@@ -33,7 +33,7 @@ public slots:
     void onActionSave();
     void onActionSaveAs();
     
-    void onActionSize();
+    void onActionResize();
     void onActionOffset();
 
     void onActionRestart();

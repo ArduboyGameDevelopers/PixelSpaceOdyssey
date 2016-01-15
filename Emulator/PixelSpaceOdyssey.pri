@@ -11,6 +11,8 @@ SOURCES += $${PROJ_PATH}/character.cpp \
     $${PROJ_PATH}/drawing.cpp \
     $${PROJ_PATH}/game.cpp \
     $${PROJ_PATH}/player_animations.cpp \
+    $${PROJ_PATH}/bear_animations.cpp \
+    $${PROJ_PATH}/spider_animations.cpp \
     $${PROJ_PATH}/tilemap.cpp \
     $${PROJ_PATH}/tiles_lair_01.cpp \
     $${PROJ_PATH}/tiles_merged.cpp \
@@ -21,7 +23,8 @@ SOURCES += $${PROJ_PATH}/character.cpp \
     $${PROJ_PATH}/enemy_base.cpp \
     $${PROJ_PATH}/dispatch.cpp \
     $${PROJ_PATH}/hud.cpp \
-    $${PROJ_PATH}/images.cpp
+    $${PROJ_PATH}/images.cpp \
+    $${PROJ_PATH}/bear.cpp
 
 HEADERS  += $${PROJ_PATH}/animation.h \
     $${PROJ_PATH}/bridge.h \
@@ -30,6 +33,8 @@ HEADERS  += $${PROJ_PATH}/animation.h \
     $${PROJ_PATH}/drawing.h \
     $${PROJ_PATH}/game.h \
     $${PROJ_PATH}/player_animations.h \
+    $${PROJ_PATH}/bear_animations.h \
+    $${PROJ_PATH}/spider_animations.h \
     $${PROJ_PATH}/tilemap.h \
     $${PROJ_PATH}/tiles_lair_01.h \
     $${PROJ_PATH}/tiles_merged.h \
@@ -43,4 +48,5 @@ HEADERS  += $${PROJ_PATH}/animation.h \
     $${PROJ_PATH}/hud.h \
     $${PROJ_PATH}/images.h \
     $${PROJ_PATH}/debug.h \
-    $${PROJ_PATH}/player.h
+    $${PROJ_PATH}/player.h \
+    $${PROJ_PATH}/bear.h

@@ -37,7 +37,8 @@ SOURCES += main.cpp\
     CharacterButton.cpp \
     CharacterListView.cpp \
     CharacterInfo.cpp \
-    ParamCheckBox.cpp
+    ParamCheckBox.cpp \
+    ResizeDialog.cpp
 
 HEADERS  += \
     DisplayWidget.h \
@@ -62,10 +63,13 @@ HEADERS  += \
     Version.h \
     CharacterInfo.h \
     ParamCheckBox.h \
-    Params.h
+    Params.h \
+    ResizeDialog.h
 
-FORMS    += mainwindow.ui \
-    input2dialog.ui
+FORMS    += \
+    input2dialog.ui \
+    ResizeDialog.ui \
+    MainWindow.ui
 
 RESOURCES += \
     Images/images.qrc

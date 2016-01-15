@@ -356,6 +356,7 @@
     <addaction name="actionRestart"/>
     <addaction name="separator"/>
     <addaction name="actionImportTileset"/>
+    <addaction name="actionResize"/>
     <addaction name="separator"/>
     <addaction name="actionImportImage"/>
     <addaction name="actionExportImage"/>
@@ -525,6 +526,11 @@
    </property>
    <property name="shortcut">
     <string>Meta+R</string>
+   </property>
+  </action>
+  <action name="actionResize">
+   <property name="text">
+    <string>Resize...</string>
    </property>
   </action>
  </widget>

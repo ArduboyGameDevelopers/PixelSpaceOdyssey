@@ -12,7 +12,7 @@ extern void EnemyInitSpiderLarge(Character *character);
 extern void EnemyCallbackSpiderLarge(Character *character, CharacterCallbackType type, int16_t user1, int16_t user2);
 extern void EnemyBehaviourSpiderLarge(Character *character, TimeInterval dt);
 
-inline Character EnemyMakeSpiderLargeCharacter()
+inline Character EnemyMakeSpiderLarge()
 {
     int width = S2W(ENEMY_TYPE_SPIDER_LARGE_WIDTH);
     int height = S2W(ENEMY_TYPE_SPIDER_LARGE_HEIGHT);

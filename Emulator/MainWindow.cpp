@@ -18,6 +18,7 @@
 #include "CharacterButton.h"
 #include "CharacterListView.h"
 #include "Input2Dialog.h"
+#include "ResizeDialog.h"
 
 #include "Version.h"
 #include "Params.h"
@@ -294,7 +295,7 @@ void MainWindow::setupActions()
     QAction *actionSave   = _ui->actionSave;
     QAction *actionSaveAs = _ui->actionSaveAs;
     QAction *actionRestart= _ui->actionRestart;
-    QAction *actionSize   = _ui->actionSize;
+    QAction *actionResize = _ui->actionResize;
     QAction *actionOffset = _ui->actionOffset;
     QAction *actionImport = _ui->actionImportImage;
     QAction *actionExport = _ui->actionExportImage;
@@ -315,7 +316,7 @@ void MainWindow::setupActions()
     connect(actionSave,          SIGNAL(triggered()),     this, SLOT(onActionSave()));
     connect(actionSaveAs,        SIGNAL(triggered()),     this, SLOT(onActionSaveAs()));
     connect(actionRestart,       SIGNAL(triggered()),     this, SLOT(onActionRestart()));
-    connect(actionSize,          SIGNAL(triggered()),     this, SLOT(onActionSize()));
+    connect(actionResize,        SIGNAL(triggered()),     this, SLOT(onActionResize()));
     connect(actionOffset,        SIGNAL(triggered()),     this, SLOT(onActionOffset()));
     connect(actionImportTileset, SIGNAL(triggered()),     this, SLOT(onActionImportTileSet()));
     connect(actionImport,        SIGNAL(triggered()),     this, SLOT(onActionImport()));
@@ -433,17 +434,12 @@ void MainWindow::onActionSaveAs()
     }
 }
 
-void MainWindow::onActionSize()
+void MainWindow::onActionResize()
 {
-    Input2Dialog dialog(this, "Width:", "Height:");
-    dialog.setFirst(QString::number(Level::current()->cols()));
-    dialog.setSecond(QString::number(Level::current()->rows()));
+    ResizeDialog dialog(this);
     int result = dialog.exec();
     if (result == QDialog::Accepted)
     {
-        int cols = dialog.first().toInt();
-        int rows = dialog.second().toInt();
-        Level::current()->resize(rows, cols);
     }
 }
 
