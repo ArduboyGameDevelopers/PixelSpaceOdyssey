@@ -72,6 +72,9 @@ protected:
 public:
     inline bool gridVisible() const { return _gridVisible; }
     inline void setGridVisible(bool gridVisible) { _gridVisible = gridVisible; }
+    
+private:
+    void drawDebug(QPainter &painter);
 
 private:
     RectList _pixelRects;

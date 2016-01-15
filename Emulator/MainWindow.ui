@@ -532,6 +532,9 @@
    <property name="text">
     <string>Resize...</string>
    </property>
+   <property name="shortcut">
+    <string>Meta+Alt+C</string>
+   </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

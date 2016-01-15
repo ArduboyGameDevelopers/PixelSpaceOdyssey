@@ -96,8 +96,8 @@ void DisplayWidget::drawCharaters(QPainter *painter)
 void DisplayWidget::drawCharater(QPainter *painter, const CharacterInfo &character)
 {
     const QImage &image = character.image();
-    int drawX = (character.x() - character.width() / 2 + drawTransX) * PIXEL_WIDTH;
-    int drawY = (character.y() - character.height() / 2 + drawTransY) * PIXEL_HEIGHT;
+    int drawX = (character.x() - character.width() / 2) * PIXEL_WIDTH;
+    int drawY = (character.y() - character.height() / 2) * PIXEL_HEIGHT;
     
     painter->drawImage(drawX, drawY, image);
 }
@@ -168,12 +168,24 @@ void DisplayWidget::paintEvent(QPaintEvent *)
     // draw pixels
     _pixelRects.paint(&painter);
 
+    // debug info
+    drawDebug(painter);
+
+    painter.end();
+}
+
+void DisplayWidget::drawDebug(QPainter &painter)
+{
+    int drawOffsetX = drawTransX * PIXEL_WIDTH;
+    int drawOffsetY = drawTransY * PIXEL_HEIGHT;
+    painter.translate(drawOffsetX, drawOffsetY);
+    
     // draw enemies
     if (emulator.editMode())
     {
         drawCharaters(&painter);
     }
-
+    
     // draw bounding boxes
     if (PARAM_SHOW_BOUNDING_BOXES)
     {
@@ -182,8 +194,8 @@ void DisplayWidget::paintEvent(QPaintEvent *)
             const Character &enemy = enemies[i];
             int w = W2S(enemy.colliderWidth) * PIXEL_WIDTH;
             int h = W2S(enemy.colliderHeight) * PIXEL_HEIGHT;
-            int cx = (W2S(enemy.x) - drawTransX) * PIXEL_WIDTH - DIV2(w);
-            int cy = (W2S(enemy.y) - drawTransY) * PIXEL_HEIGHT - DIV2(h);
+            int cx = W2S(enemy.x) * PIXEL_WIDTH - DIV2(w);
+            int cy = W2S(enemy.y) * PIXEL_HEIGHT - DIV2(h);
             painter.setPen(Qt::red);
             painter.drawRect(QRect(cx, cy, w, h));
         }
@@ -200,8 +212,8 @@ void DisplayWidget::paintEvent(QPaintEvent *)
             int16_t minX = W2S(EnemyGetMinSightX(&enemy));
             int16_t maxX = W2S(EnemyGetMaxSightX(&enemy));
             
-            int cx = (minX - drawTransX) * PIXEL_WIDTH;
-            int cy = (TILE_GET_ROW(enemy.y) * TILE_HEIGHT_PX - drawTransY) * PIXEL_HEIGHT;
+            int cx = minX * PIXEL_WIDTH;
+            int cy = TILE_GET_ROW(enemy.y) * TILE_HEIGHT_PX * PIXEL_HEIGHT;
             int sw = (maxX - minX) * PIXEL_WIDTH;
             int sh = TILE_HEIGHT_PX * PIXEL_HEIGHT;
             
@@ -218,8 +230,8 @@ void DisplayWidget::paintEvent(QPaintEvent *)
         for (int i = 0; i < enemiesCount; ++i)
         {
             const Character &enemy = enemies[i];
-            int cx = (W2S(enemy.moveMinX) - drawTransX) * PIXEL_WIDTH;
-            int cy = (W2S(CharacterGetTop(&enemy)) - drawTransY) * PIXEL_HEIGHT;
+            int cx = W2S(enemy.moveMinX) * PIXEL_WIDTH;
+            int cy = W2S(CharacterGetTop(&enemy)) * PIXEL_HEIGHT;
             int sw = W2S(enemy.moveMaxX - enemy.moveMinX) * PIXEL_WIDTH;
             int sh = W2S(enemy.colliderHeight) * PIXEL_HEIGHT;
             
@@ -237,8 +249,8 @@ void DisplayWidget::paintEvent(QPaintEvent *)
         for (int i = 0; i < enemiesCount; ++i)
         {
             const Character &enemy = enemies[i];
-            int cx = (W2S(enemy.lastPlayerX - DIV2(player.width)) - drawTransX) * PIXEL_WIDTH;
-            int cy = (W2S(enemy.y) - drawTransY) * PIXEL_HEIGHT;
+            int cx = W2S(enemy.lastPlayerX - DIV2(player.width)) * PIXEL_WIDTH;
+            int cy = W2S(enemy.y) * PIXEL_HEIGHT;
             int sw = TILE_WIDTH_PX * PIXEL_WIDTH;
             int sh = TILE_HEIGHT_PX * PIXEL_HEIGHT;
             
@@ -251,8 +263,8 @@ void DisplayWidget::paintEvent(QPaintEvent *)
     {
         _currentTool->paint(&painter);
     }
-
-    painter.end();
+    
+    painter.translate(-drawOffsetX, -drawOffsetY);
 }
 
 void DisplayWidget::keyPressEvent(QKeyEvent *event)
