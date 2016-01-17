@@ -24,6 +24,8 @@ bool PARAM_SHOW_SIGHT_BOXES = false;
 bool PARAM_SHOW_MOVE_BOXES = false;
 bool PARAM_SHOW_PLAYER_POS = false;
 
+static void drawBoundingBox(QPainter &painter, const Character &character);
+
 DisplayWidget::DisplayWidget(QWidget *parent) :
     QWidget(parent),
     _pixelRects(DISPLAY_WIDTH * DISPLAY_HEIGHT, RECT_COLOR_PIXEL),
@@ -197,19 +199,10 @@ void DisplayWidget::drawDebug(QPainter &painter)
     {
         for (int i = 0; i < enemiesCount; ++i)
         {
-            const Character &enemy = enemies[i];
-            int x = W2S(enemy.x) * PIXEL_WIDTH;
-            int y = W2S(enemy.y) * PIXEL_HEIGHT;
-
-            int w = W2S(enemy.colliderWidth) * PIXEL_WIDTH;
-            int h = W2S(enemy.colliderHeight) * PIXEL_HEIGHT;
-            int cx = x - DIV2(w);
-            int cy = y - DIV2(h);
-            painter.setPen(Qt::red);
-            painter.drawLine(x - 1, y, x + 1, y);
-            painter.drawLine(x, y - 1, x, y + 1);
-            painter.drawRect(QRect(cx, cy, w, h));
+            drawBoundingBox(painter, enemies[i]);
         }
+        
+        drawBoundingBox(painter, player);
     }
     
     // draw sight areas
@@ -244,7 +237,7 @@ void DisplayWidget::drawDebug(QPainter &painter)
             int cx = W2S(enemy.moveMinX) * PIXEL_WIDTH;
             int cy = W2S(CharacterGetTop(&enemy)) * PIXEL_HEIGHT;
             int sw = W2S(enemy.moveMaxX - enemy.moveMinX) * PIXEL_WIDTH;
-            int sh = W2S(enemy.colliderHeight) * PIXEL_HEIGHT;
+            int sh = W2S(enemy.height) * PIXEL_HEIGHT;
             
             painter.fillRect(cx, cy, sw, sh, color);
         }
@@ -365,4 +358,20 @@ void RectList::add(int x, int y, int w, int h)
 {
     Q_ASSERT(_count < _capacity);
     _rects[_count++] = Rect(x, y, w, h);
+}
+
+static void drawBoundingBox(QPainter &painter, const Character &character)
+{
+    int x = W2S(character.x) * PIXEL_WIDTH;
+    int y = W2S(character.y) * PIXEL_HEIGHT;
+    
+    int w = W2S(character.width) * PIXEL_WIDTH;
+    int h = W2S(character.height) * PIXEL_HEIGHT;
+    int cx = x - DIV2(w);
+    int cy = y - DIV2(h);
+    painter.setPen(Qt::red);
+    painter.drawLine(x - 1, y, x + 1, y);
+    painter.drawLine(x, y - 1, x, y + 1);
+    painter.drawRect(QRect(cx, cy, w, h));
+
 }

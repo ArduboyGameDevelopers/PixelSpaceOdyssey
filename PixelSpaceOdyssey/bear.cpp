@@ -1,5 +1,4 @@
 #include "bear.h"
-#include "ch_bear_animations.h"
 #include "enemy_base.h"
 #include "game.h"
 
@@ -10,19 +9,19 @@
 #define BearStatePatrol 4
 
 static const uint8_t ANIMATION_LOOKUP[] = {
-    BEAR_ANIMATION_STATICBASE, /* BearStateStat */
-    BEAR_ANIMATION_STATPONC,   /* BearStatePonc */
-    BEAR_ANIMATION_WALK,       /* BearStateWalk */
-    BEAR_ANIMATION_ATTACK,     /* BearStateAttack */
-    BEAR_ANIMATION_WALK,       /* BearStatePatrol */
+    CH_BEAR_ANIMATION_STATICBASE, /* BearStateStat */
+    CH_BEAR_ANIMATION_STATPONC,   /* BearStatePonc */
+    CH_BEAR_ANIMATION_WALK,       /* BearStateWalk */
+    CH_BEAR_ANIMATION_ATTACK,     /* BearStateAttack */
+    CH_BEAR_ANIMATION_WALK,       /* BearStatePatrol */
 };
 
 typedef uint16_t BearState;
 
 static inline void setAnimation(Character *self, int index)
 {
-    assert(index >= 0 && index < BEAR_ANIMATIONS_COUNT);
-    CharacterSetAnimation(self, &BEAR_ANIMATIONS[index]);
+    assert(index >= 0 && index < CH_BEAR_ANIMATIONS_COUNT);
+    CharacterSetAnimation(self, &CH_BEAR_ANIMATIONS[index]);
 }
 
 static inline BearState getState(Character *self)
@@ -118,7 +117,7 @@ void EnemyBehaviourBear(Character *self, TimeInterval dt)
             int16_t distance = self->lastPlayerX - self->x;
             self->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT;
             
-            if (abs(distance) < (self->canSeePlayer ? DIV2(self->colliderWidth + player.width) : 10))
+            if (abs(distance) < (self->canSeePlayer ? DIV2(self->width + player.width) : 10))
             {
                 if (self->canSeePlayer && EnemyCanAttack(self))
                 {

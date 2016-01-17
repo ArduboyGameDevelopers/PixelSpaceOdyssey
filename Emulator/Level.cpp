@@ -239,9 +239,7 @@ void Level::restart()
 
 void Level::addEnemy(CharacterType type, int x, int y, Direction dir)
 {
-    CharacterInfo enemy(type, x, y, DIR_LEFT);
-    enemy.setDirection(dir);
-    _enemies.append(enemy);
+    _enemies.append(CharacterInfo(type, x, y, dir));
 
     MainWindow::instance()->updateLevelUi(this);
 }

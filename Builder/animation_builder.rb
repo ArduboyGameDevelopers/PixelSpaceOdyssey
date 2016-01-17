@@ -141,20 +141,28 @@ class AnimationBuilder
 
       (0..frames.count-1).each { |index|
 
-        frame = frames[index]
+        f = frames[index]
 
         data = []
-        frame.data.each { |byte|
+        f.data.each { |byte|
           data << "0x#{byte.to_s 16}"
         }
 
         var_name = "FRAME_#{Utils.to_identifier("#{animation_name}_#{index}").upcase}"
         frames_names << var_name
 
+        c = animation_set.center
+        b = animation_set.bounds
+
+        offset = Point.new(f.x - c.x, f.y - c.y)
+        offset_flipped = Point.new(-offset.x - f.width, -offset.y - f.height)
+
         source_cpp.println
         source_cpp.println "static PROGMEM WEAK_CONST unsigned char #{var_name}[] ="
         source_cpp.block_open
-        source_cpp.println "#{frame.x}, #{frame.y}, #{frame.width}, #{frame.height},"
+        source_cpp.print "#{f.width}, #{f.height}, "
+        source_cpp.print "#{offset.x}, #{offset.y}, "
+        source_cpp.println "#{offset_flipped.x}, #{offset_flipped.y}, "
         source_cpp.println "#{data.join ', '}"
         source_cpp.block_close ';'
       }

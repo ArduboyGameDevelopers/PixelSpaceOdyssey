@@ -1,7 +1,7 @@
 #include "spider_large.h"
 
 #include "animation.h"
-#include "spider_large_animations.h"
+#include "ch_spider_large_animations.h"
 
 #include "game.h"
 
@@ -14,21 +14,21 @@
 #define SpiderLargeStatePatrol  6
 
 static const uint8_t ANIMATION_LOOKUP[] = {
-    SPIDER_LARGE_ANIMATION_SLEEP,   /* SpiderLargeStateSleep */
-    SPIDER_LARGE_ANIMATION_AWAKEN,  /* SpiderLargeStateAwaken */
-    SPIDER_LARGE_ANIMATION_RISE,    /* SpiderLargeStateRise */
-    SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStateWalk */
-    SPIDER_LARGE_ANIMATION_ATTACK,  /* SpiderLargeStateAttack */
-    SPIDER_LARGE_ANIMATION_STAT,    /* SpiderLargeStateStat */
-    SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStatePatrol */
+    CH_SPIDER_LARGE_ANIMATION_SLEEP,   /* SpiderLargeStateSleep */
+    CH_SPIDER_LARGE_ANIMATION_AWAKEN,  /* SpiderLargeStateAwaken */
+    CH_SPIDER_LARGE_ANIMATION_RISE,    /* SpiderLargeStateRise */
+    CH_SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStateWalk */
+    CH_SPIDER_LARGE_ANIMATION_ATTACK,  /* SpiderLargeStateAttack */
+    CH_SPIDER_LARGE_ANIMATION_STAT,    /* SpiderLargeStateStat */
+    CH_SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStatePatrol */
 };
 
 typedef uint16_t SpiderLargeState;
 
 static inline void setAnimation(Character *self, int index)
 {
-    assert(index >= 0 && index < SPIDER_LARGE_ANIMATIONS_COUNT);
-    CharacterSetAnimation(self, &SPIDER_LARGE_ANIMATIONS[index]);
+    assert(index >= 0 && index < CH_SPIDER_LARGE_ANIMATIONS_COUNT);
+    CharacterSetAnimation(self, &CH_SPIDER_LARGE_ANIMATIONS[index]);
 }
 
 static inline SpiderLargeState getState(Character *self)
@@ -154,7 +154,7 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
             int16_t distance = self->lastPlayerX - self->x;
             self->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT;
             
-            if (abs(distance) < (self->canSeePlayer ? DIV2(self->colliderWidth + player.width) : 10))
+            if (abs(distance) < (self->canSeePlayer ? DIV2(self->width + player.width) : 10))
             {
                 if (self->canSeePlayer && EnemyCanAttack(self))
                 {

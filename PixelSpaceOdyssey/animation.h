@@ -19,7 +19,7 @@ typedef struct _Animation {
     bool looped;
 } Animation;
 
-Animation AnimationMake(const PgmPtr* frames, uint8_t frameCount, uint8_t width, uint8_t height, bool looped = false)
+inline Animation AnimationMake(const PgmPtr* frames, uint8_t frameCount, uint8_t width, uint8_t height, bool looped = false)
 {
     Animation animation;
     animation.frames = frames;

@@ -65,29 +65,24 @@ void CharacterDraw(Character* character)
         mode |= DM_FLIP_X;
     }
     
-    uint16_t frameWidth  = pgm_read_byte(framePtr + 2);
-    uint16_t frameHeight = pgm_read_byte(framePtr + 3);
-    int16_t drawX = W2S(character->x - DIV2(character->width));
-    int16_t drawY = W2S(character->y - DIV2(character->height));
+    uint16_t frameWidth  = pgm_read_byte(framePtr);
+    uint16_t frameHeight = pgm_read_byte(framePtr + 1);
+    
+    int16_t drawX = W2S(character->x);
+    int16_t drawY = W2S(character->y);
     
     if ((mode & DM_FLIP_X) == 0)
     {
-        drawX += pgm_read_byte(framePtr);
+        drawX += (int8_t)pgm_read_byte(framePtr + 2);
     }
     else
     {
-        int16_t extra = frameWidth & 7;
-        if (extra != 0)
-        {
-            drawX += 8 - extra;
-        }
-    }
-    if ((mode & DM_FLIP_Y) == 0)
-    {
-        drawY += pgm_read_byte(framePtr + 1);
+        drawX += (int8_t)pgm_read_byte(framePtr + 4);
     }
     
-    PgmPtr imagePtr = framePtr + 4;
+    drawY += (int8_t)pgm_read_byte(framePtr + 3);
+    
+    PgmPtr imagePtr = framePtr + 6;
     drawImage(imagePtr, drawX, drawY, frameWidth, frameHeight, mode);
 }
 

@@ -1,7 +1,7 @@
 #include "dog.h"
 
 #include "animation.h"
-#include "dog_animations.h"
+#include "ch_dog_animations.h"
 
 #include "game.h"
 
@@ -10,17 +10,17 @@
 #define DogStateAttack  2
 
 static const uint8_t ANIMATION_LOOKUP[] = {
-    DOG_ANIMATION_STAT,     /* DogStateStat */
-    DOG_ANIMATION_RUN,      /* DogStateRun */
-    DOG_ANIMATION_ATTACK    /* DogStateAttack */
+    CH_DOG_ANIMATION_STAT,     /* DogStateStat */
+    CH_DOG_ANIMATION_RUN,      /* DogStateRun */
+    CH_DOG_ANIMATION_ATTACK    /* DogStateAttack */
 };
 
 typedef uint16_t DogState;
 
 static inline void setAnimation(Character *self, int index)
 {
-    assert(index >= 0 && index < DOG_ANIMATIONS_COUNT);
-    CharacterSetAnimation(self, &DOG_ANIMATIONS[index]);
+    assert(index >= 0 && index < CH_DOG_ANIMATIONS_COUNT);
+    CharacterSetAnimation(self, &CH_DOG_ANIMATIONS[index]);
 }
 
 static inline DogState getState(Character *self)
@@ -102,7 +102,7 @@ void EnemyBehaviourDog(Character *self, TimeInterval)
             int16_t distance = self->lastPlayerX - self->x;
             self->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT;
             
-            if (abs(distance) < (self->canSeePlayer ? DIV2(self->colliderWidth + player.width) : 10))
+            if (abs(distance) < (self->canSeePlayer ? DIV2(self->width + player.width) : 10))
             {
                 if (self->canSeePlayer && EnemyCanAttack(self))
                 {

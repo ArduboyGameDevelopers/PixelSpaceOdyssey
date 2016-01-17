@@ -13,7 +13,7 @@
 
 extern const Animation CH_DOG_ANIMATIONS[];
 
-#define CH_DOG_WIDTH 13
+#define CH_DOG_WIDTH 14
 #define CH_DOG_HEIGHT 10
 
 #endif /* ch_dog_animations_h */

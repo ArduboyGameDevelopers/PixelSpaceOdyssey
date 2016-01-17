@@ -46,8 +46,6 @@ typedef struct _Character
 
     uint16_t width;
     uint16_t height;
-    uint16_t colliderWidth;
-    uint16_t colliderHeight;
     uint16_t sightDistanceForward;
     uint16_t sightDistanceBackward;
     int16_t x;
@@ -70,17 +68,17 @@ typedef struct _Character
     
 } Character;
 
-inline int16_t CharacterGetTop(const Character *character)   { return character->y - DIV2(character->colliderHeight); }
-inline int16_t CharacterGetBottom(const Character *character){ return character->y + DIV2(character->colliderHeight); }
-inline int16_t CharacterGetLeft(const Character *character)  { return character->x - DIV2(character->colliderWidth); }
-inline int16_t CharacterGetRight(const Character *character) { return character->x + DIV2(character->colliderWidth); }
+inline int16_t CharacterGetTop(const Character *character)   { return character->y - DIV2(character->height); }
+inline int16_t CharacterGetBottom(const Character *character){ return character->y + DIV2(character->height); }
+inline int16_t CharacterGetLeft(const Character *character)  { return character->x - DIV2(character->width); }
+inline int16_t CharacterGetRight(const Character *character) { return character->x + DIV2(character->width); }
 inline int16_t CharacterGetRow(const Character *character)   { return TILE_GET_ROW(character->y); }
 inline int16_t CharacterGetCol(const Character *character)   { return TILE_GET_COL(character->x); }
 
-inline void CharacterSetTop(Character *character, int16_t y)    { character->y = y + DIV2(character->colliderHeight); }
-inline void CharacterSetBottom(Character *character, int16_t y) { character->y = y - DIV2(character->colliderHeight); }
-inline void CharacterSetLeft(Character *character, int16_t x)   { character->x = x + DIV2(character->colliderWidth); }
-inline void CharacterSetRight(Character *character, int16_t x)  { character->x = x - DIV2(character->colliderWidth); }
+inline void CharacterSetTop(Character *character, int16_t y)    { character->y = y + DIV2(character->height); }
+inline void CharacterSetBottom(Character *character, int16_t y) { character->y = y - DIV2(character->height); }
+inline void CharacterSetLeft(Character *character, int16_t x)   { character->x = x + DIV2(character->width); }
+inline void CharacterSetRight(Character *character, int16_t x)  { character->x = x - DIV2(character->width); }
 
 inline void CharacterSetUserFlag(Character *character, uint8_t mask, bool flag)
 {

@@ -12,8 +12,7 @@ typedef struct _CharacterTypeParams {
     QString name;
     QString filename;
     QSize size;
-    QPoint center;
-    QRect bounds;
+    QSize bounds;
     QImage image;
     QImage imageFlipped;
     
@@ -24,8 +23,7 @@ static CharacterTypeParams lookup[] = {
         "Player",
         ":/characters_full/ch_player_8x8_full.png",
         QSize(8, 8),
-        QPoint(CH_HERO_ANIMATION_CENTER_X, CH_HERO_ANIMATION_CENTER_Y),
-        QRect(CH_HERO_ANIMATION_BOUNDS_X, CH_HERO_ANIMATION_BOUNDS_Y, CH_HERO_ANIMATION_BOUNDS_WIDTH, CH_HERO_ANIMATION_BOUNDS_HEIGHT),
+        QSize(CH_HERO_WIDTH, CH_HERO_HEIGHT),
         QImage(),
         QImage()
     },
@@ -33,8 +31,7 @@ static CharacterTypeParams lookup[] = {
         "Bear",
         ":/characters_full/ch_bear_32x24_full.png",
         QSize(32, 24),
-        QPoint(CH_BEAR_ANIMATION_CENTER_X, CH_BEAR_ANIMATION_CENTER_Y),
-        QRect(CH_BEAR_ANIMATION_BOUNDS_X, CH_BEAR_ANIMATION_BOUNDS_Y, CH_BEAR_ANIMATION_BOUNDS_WIDTH, CH_BEAR_ANIMATION_BOUNDS_HEIGHT),
+        QSize(CH_BEAR_WIDTH, CH_BEAR_HEIGHT),
         QImage(),
         QImage()
     },
@@ -42,8 +39,7 @@ static CharacterTypeParams lookup[] = {
         "Dog",
         ":/characters_full/ch_dog_16x10_full.png",
         QSize(16, 10),
-        QPoint(CH_DOG_ANIMATION_CENTER_X, CH_DOG_ANIMATION_CENTER_Y),
-        QRect(CH_DOG_ANIMATION_BOUNDS_X, CH_DOG_ANIMATION_BOUNDS_Y, CH_DOG_ANIMATION_BOUNDS_WIDTH, CH_DOG_ANIMATION_BOUNDS_HEIGHT),
+        QSize(CH_DOG_WIDTH, CH_DOG_HEIGHT),
         QImage(),
         QImage()
     },
@@ -51,8 +47,7 @@ static CharacterTypeParams lookup[] = {
         "Spider Small",
         ":/characters_full/ch_spider_16x8_full.png",
         QSize(16, 8),
-        QPoint(CH_SPIDER_SMALL_ANIMATION_CENTER_X, CH_SPIDER_SMALL_ANIMATION_CENTER_Y),
-        QRect(CH_SPIDER_SMALL_ANIMATION_BOUNDS_X, CH_SPIDER_SMALL_ANIMATION_BOUNDS_Y, CH_SPIDER_SMALL_ANIMATION_BOUNDS_WIDTH, CH_SPIDER_SMALL_ANIMATION_BOUNDS_HEIGHT),
+        QSize(CH_SPIDER_SMALL_WIDTH, CH_SPIDER_SMALL_HEIGHT),
         QImage(),
         QImage()
     },
@@ -60,8 +55,7 @@ static CharacterTypeParams lookup[] = {
         "Spider Large",
         ":/characters_full/ch_spider_24x16_full.png",
         QSize(24, 16),
-        QPoint(CH_SPIDER_LARGE_ANIMATION_CENTER_X, CH_SPIDER_LARGE_ANIMATION_CENTER_Y),
-        QRect(CH_SPIDER_LARGE_ANIMATION_BOUNDS_X, CH_SPIDER_LARGE_ANIMATION_BOUNDS_Y, CH_SPIDER_LARGE_ANIMATION_BOUNDS_WIDTH, CH_SPIDER_LARGE_ANIMATION_BOUNDS_HEIGHT),
+        QSize(CH_SPIDER_LARGE_WIDTH, CH_SPIDER_LARGE_HEIGHT),
         QImage(),
         QImage()
     },
