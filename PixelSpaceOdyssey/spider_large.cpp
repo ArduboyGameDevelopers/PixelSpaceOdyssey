@@ -8,7 +8,7 @@
 #define SpiderLargeStateSleep   0
 #define SpiderLargeStateAwaken  1
 #define SpiderLargeStateRise    2
-#define SpiderLargeStateWalk    3
+#define SpiderLargeStateChase    3
 #define SpiderLargeStateAttack  4
 #define SpiderLargeStateStat    5
 #define SpiderLargeStatePatrol  6
@@ -17,7 +17,7 @@ static const uint8_t ANIMATION_LOOKUP[] = {
     CH_SPIDER_LARGE_ANIMATION_SLEEP,   /* SpiderLargeStateSleep */
     CH_SPIDER_LARGE_ANIMATION_AWAKEN,  /* SpiderLargeStateAwaken */
     CH_SPIDER_LARGE_ANIMATION_RISE,    /* SpiderLargeStateRise */
-    CH_SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStateWalk */
+    CH_SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStateChase */
     CH_SPIDER_LARGE_ANIMATION_ATTACK,  /* SpiderLargeStateAttack */
     CH_SPIDER_LARGE_ANIMATION_STAT,    /* SpiderLargeStateStat */
     CH_SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStatePatrol */
@@ -54,9 +54,9 @@ static inline void rise(Character *self)
     setState(self, SpiderLargeStateRise);
 }
 
-static inline void walk(Character *self)
+static inline void chase(Character *self)
 {
-    setState(self, SpiderLargeStateWalk);
+    setState(self, SpiderLargeStateChase);
     self->move = 1;
 }
 
@@ -92,11 +92,11 @@ void EnemyCallbackSpiderLarge(Character *self, CharacterCallbackType type, int16
             switch (state)
             {
                 case SpiderLargeStateRise:
-                    walk(self);
+                    chase(self);
                     break;
                     
                 case SpiderLargeStateAttack:
-                    walk(self);
+                    chase(self);
                     break;
             }
             break;
@@ -106,7 +106,7 @@ void EnemyCallbackSpiderLarge(Character *self, CharacterCallbackType type, int16
         {
             switch (state)
             {
-                case SpiderLargeStateWalk:
+                case SpiderLargeStateChase:
                     stat(self);
                     break;
                 case SpiderLargeStatePatrol:
@@ -146,7 +146,7 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
         {
             break;
         }
-        case SpiderLargeStateWalk:
+        case SpiderLargeStateChase:
         case SpiderLargeStateStat:
         {
             EnemyUpdatePlayerPos(self);
@@ -170,7 +170,7 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
                 self->stateTime = 0;
                 if (self->move == 0)
                 {
-                    walk(self);
+                    chase(self);
                 }
             }
             else if (self->move == 0)
@@ -189,7 +189,7 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
             EnemyUpdatePlayerPos(self);
             if (self->canSeePlayer)
             {
-                walk(self);
+                chase(self);
             }
             break;
         }
