@@ -131,7 +131,7 @@ void EnemyBehaviourBear(Character *self, TimeInterval dt)
             else if (self->canSeePlayer)
             {
                 self->stateTime = 0;
-                if (self->move == 0)
+                if (self->move == 0 && EnemyCanMove(self))
                 {
                     walk(self);
                 }
