@@ -21,7 +21,7 @@
 #include "enemies.h"
 #include "hud.h"
 
-#include "player_animations.h"
+#include "ch_hero_animations.h"
 
 const int8_t WALK_SPEED         = 15;
 
@@ -245,7 +245,7 @@ static inline void updateInput()
     {
         playerJumping = true;
         playerJumpSpeed = JUMP_SPEED;
-        playerSetAnimation(PLAYER_ANIMATION_JUMP);
+        playerSetAnimation(CH_HERO_ANIMATION_JUMP);
     }
     
     // update movement
@@ -285,7 +285,7 @@ void createPlayer()
     playerDamageTime = 0;
     playerDamageBlink = false;
     
-    playerSetAnimation(PLAYER_ANIMATION_STAT);
+    playerSetAnimation(CH_HERO_ANIMATION_STAT);
 }
 
 inline static void playerUpdate(TimeInterval dt)
@@ -456,35 +456,35 @@ inline static void playerUpdate(TimeInterval dt)
     // update animation
     if (isPlayerShocked())
     {
-        playerSetAnimation(PLAYER_ANIMATION_IMPACT_BOTTOM);
+        playerSetAnimation(CH_HERO_ANIMATION_IMPACT_BOTTOM);
     }
     else if (isPlayerDead())
     {
-        playerSetAnimation(PLAYER_ANIMATION_DEATH);
+        playerSetAnimation(CH_HERO_ANIMATION_DEATH);
     }
     else if (playerJumping && playerJumpSpeed < 0)
     {
-        playerSetAnimation(PLAYER_ANIMATION_JUMP);
+        playerSetAnimation(CH_HERO_ANIMATION_JUMP);
     }
     else if (playerJumpSpeed != 0 || playerSlopeDir != 0)
     {
-        playerSetAnimation(PLAYER_ANIMATION_FALL);
+        playerSetAnimation(CH_HERO_ANIMATION_FALL);
     }
     else if (playerCrouching)
     {
-        playerSetAnimation(PLAYER_ANIMATION_CROUNCH);
+        playerSetAnimation(CH_HERO_ANIMATION_CROUNCH);
     }
     else if (player.move == 0)
     {
-        playerSetAnimation(PLAYER_ANIMATION_STAT);
+        playerSetAnimation(CH_HERO_ANIMATION_STAT);
     }
     else if (player.move == 1)
     {
-        playerSetAnimation(PLAYER_ANIMATION_WALK);
+        playerSetAnimation(CH_HERO_ANIMATION_WALK);
     }
     else
     {
-        playerSetAnimation(PLAYER_ANIMATION_RUN);
+        playerSetAnimation(CH_HERO_ANIMATION_RUN);
     }
     
     // update last seen position
@@ -513,8 +513,8 @@ void playerDamage(Character *enemy)
 
 void playerSetAnimation(int index)
 {
-    assert(index >= 0 && index < PLAYER_ANIMATIONS_COUNT);
-    CharacterSetAnimation(&player, &PLAYER_ANIMATIONS[index]);
+    assert(index >= 0 && index < CH_HERO_ANIMATIONS_COUNT);
+    CharacterSetAnimation(&player, &CH_HERO_ANIMATIONS[index]);
 }
 
 #pragma mark -
