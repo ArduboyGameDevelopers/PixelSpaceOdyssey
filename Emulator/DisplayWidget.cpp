@@ -198,11 +198,16 @@ void DisplayWidget::drawDebug(QPainter &painter)
         for (int i = 0; i < enemiesCount; ++i)
         {
             const Character &enemy = enemies[i];
+            int x = W2S(enemy.x) * PIXEL_WIDTH;
+            int y = W2S(enemy.y) * PIXEL_HEIGHT;
+
             int w = W2S(enemy.colliderWidth) * PIXEL_WIDTH;
             int h = W2S(enemy.colliderHeight) * PIXEL_HEIGHT;
-            int cx = W2S(enemy.x) * PIXEL_WIDTH - DIV2(w);
-            int cy = W2S(enemy.y) * PIXEL_HEIGHT - DIV2(h);
+            int cx = x - DIV2(w);
+            int cy = y - DIV2(h);
             painter.setPen(Qt::red);
+            painter.drawLine(x - 1, y, x + 1, y);
+            painter.drawLine(x, y - 1, x, y + 1);
             painter.drawRect(QRect(cx, cy, w, h));
         }
     }

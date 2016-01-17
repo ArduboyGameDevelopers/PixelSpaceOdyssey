@@ -8,17 +8,80 @@ class AnimationBuilder
   TRANSPARENT_COLOR = 0xffffffff
 
   def self.generate(psd_file, output_dir)
-
-    animations = []
-
     PSD.open(psd_file) do |psd|
+      animation_name = get_animation_name psd_file
+      animation_set = AnimationSet.new animation_name, psd.image.width, psd.image.height
+
+      process_guides animation_set, psd
+
       children = psd.tree.children
       children.each { |child|
-        animations.push process_group(child) if child.is_a? PSD::Node::Group
+        animation_set.add_animation process_group(child) if child.is_a? PSD::Node::Group
       }
+
+      write_animation_set animation_set, output_dir
+    end
+  end
+
+  private
+  def self.process_guides(animation_set, psd)
+
+    resources = psd.resources
+    guides_resource = resources[1032]
+    return if guides_resource.nil?
+
+    vertical = []
+    horizontal = []
+    guides_resource.data.to_a.each do |guide|
+      location = guide[:location]
+      if guide[:direction] == 'vertical'
+        vertical.push location
+      else
+        horizontal.push location
+      end
     end
 
-    write_animations psd_file, animations, output_dir
+    raise "Wrong number of horizontal guides: #{horizontal.length}" if horizontal.length > 3
+    raise "Wrong number of vertical guides: #{vertical.length}" if vertical.length > 3
+
+    vertical.sort!
+    horizontal.sort!
+
+    center = animation_set.center
+    bounds = animation_set.bounds
+
+    if vertical.length != 0
+      if vertical.length == 1
+        center.x = vertical[0]
+      elsif vertical.length == 2
+        min = vertical[0]
+        max = vertical[1]
+        bounds.width = max - min
+        bounds.x = min
+        center.x = min + bounds.width / 2
+      elsif vertical.length == 3
+        min = vertical[0]
+        max = vertical[2]
+        bounds.width = max - min
+        bounds.x = min
+        center.x = vertical[1]
+      end
+    end
+
+    if horizontal.length != 0
+      if horizontal.length == 1
+        min = horizontal[0]
+        max = animation_set.height
+        bounds.height = max - min
+        bounds.y = min
+        center.y = min + bounds.height / 2
+      else
+        raise "Not supported number of horizontal guides: #{horizontal.length}"
+      end
+    end
+
+    animation_set.center = center
+    animation_set.bounds = bounds
   end
 
   private
@@ -40,8 +103,8 @@ class AnimationBuilder
   end
 
   private
-  def self.write_animations(psd_file, animations, output_dir)
-    basename = File.basename(psd_file, '.psd').downcase
+  def self.write_animation_set(animation_set, output_dir)
+    basename = animation_set.name
     filename = "#{basename}_animations"
 
     file_h = "#{output_dir}/#{filename}.h"
@@ -64,8 +127,9 @@ class AnimationBuilder
     animation_defines = []
     animation_initializers = []
 
-    total_frames = 0;
+    total_frames = 0
 
+    animations = animation_set.animations
     (0..animations.length-1).each { |animation_index|
 
       animation = animations[animation_index]
@@ -127,6 +191,16 @@ class AnimationBuilder
     source_h.println
     source_h.println "extern const Animation #{basename.upcase}_ANIMATIONS[];"
 
+    source_h.println
+    source_h.println "#define #{basename.upcase}_ANIMATION_WIDTH #{animation_set.width}"
+    source_h.println "#define #{basename.upcase}_ANIMATION_HEIGHT #{animation_set.height}"
+    source_h.println "#define #{basename.upcase}_ANIMATION_CENTER_X #{animation_set.center.x}"
+    source_h.println "#define #{basename.upcase}_ANIMATION_CENTER_Y #{animation_set.center.y}"
+    source_h.println "#define #{basename.upcase}_ANIMATION_BOUNDS_X #{animation_set.bounds.x}"
+    source_h.println "#define #{basename.upcase}_ANIMATION_BOUNDS_Y #{animation_set.bounds.y}"
+    source_h.println "#define #{basename.upcase}_ANIMATION_BOUNDS_WIDTH #{animation_set.bounds.width}"
+    source_h.println "#define #{basename.upcase}_ANIMATION_BOUNDS_HEIGHT #{animation_set.bounds.height}"
+
     source_cpp.println
     source_cpp.println "const Animation #{basename.upcase}_ANIMATIONS[] = "
     source_cpp.block_open
@@ -138,6 +212,14 @@ class AnimationBuilder
 
     source_h.write_to_file file_h
     source_cpp.write_to_file file_cpp
+  end
+
+  private
+  def self.get_animation_name(file)
+    basename = File.basename(file, '.psd')
+    at_index = basename.index '@'
+    basename = basename[0..at_index-1] if at_index != nil
+    Utils.to_identifier basename
   end
 
 end

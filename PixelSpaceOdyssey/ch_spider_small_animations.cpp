@@ -1,6 +1,6 @@
 #include <avr/pgmspace.h>
 
-#include "spider_animations.h"
+#include "ch_spider_small_animations.h"
 
 static PROGMEM WEAK_CONST unsigned char FRAME_SHOOTWEB_0[] =
 {
@@ -106,7 +106,7 @@ static PgmPtr FRAMES_STAT[] =
   FRAME_STAT_0,
 };
 
-const Animation SPIDER_ANIMATIONS[] = 
+const Animation CH_SPIDER_SMALL_ANIMATIONS[] = 
 {
   AnimationMake(FRAMES_SHOOTWEB, 1),
   AnimationMake(FRAMES_DEATH, 2),

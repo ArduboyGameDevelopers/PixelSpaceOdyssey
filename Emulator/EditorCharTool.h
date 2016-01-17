@@ -15,6 +15,7 @@ protected:
     void onPaint(QPainter *painter);
     void onMousePressed(int x, int y);
     void onMouseMoved(int x, int y);
+    void onKeyPressed(int key);
 
 public:
     inline CharacterType characterType() const { return _characterType; }

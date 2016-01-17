@@ -56,6 +56,15 @@ void EditorCharTool::onMouseMoved(int x, int y)
     }
 }
 
+void EditorCharTool::onKeyPressed(int key)
+{
+    if (key == Qt::Key_Escape)
+    {
+        CharacterButton::deselectAll();
+        displayWidget()->setDefaultTool();
+    }
+}
+
 int EditorCharTool::cx() const
 {
     return (tileX() + DIV2(GRID_CELL_WIDTH_PX)) / PIXEL_WIDTH - drawTransX;

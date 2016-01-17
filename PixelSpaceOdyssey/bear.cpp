@@ -1,5 +1,5 @@
 #include "bear.h"
-#include "bear_animations.h"
+#include "ch_bear_animations.h"
 #include "enemy_base.h"
 #include "game.h"
 

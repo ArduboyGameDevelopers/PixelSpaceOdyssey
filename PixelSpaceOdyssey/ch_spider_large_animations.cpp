@@ -1,6 +1,6 @@
 #include <avr/pgmspace.h>
 
-#include "spider_large_animations.h"
+#include "ch_spider_large_animations.h"
 
 static PROGMEM WEAK_CONST unsigned char FRAME_ATTACK_0[] =
 {
@@ -117,7 +117,7 @@ static PgmPtr FRAMES_SLEEP[] =
   FRAME_SLEEP_0,
 };
 
-const Animation SPIDER_LARGE_ANIMATIONS[] = 
+const Animation CH_SPIDER_LARGE_ANIMATIONS[] = 
 {
   AnimationMake(FRAMES_ATTACK, 2),
   AnimationMake(FRAMES_WALK, 5, true),

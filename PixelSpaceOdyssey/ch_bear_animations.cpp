@@ -1,6 +1,6 @@
 #include <avr/pgmspace.h>
 
-#include "bear_animations.h"
+#include "ch_bear_animations.h"
 
 static PROGMEM WEAK_CONST unsigned char FRAME_DEATH_0[] =
 {
@@ -120,7 +120,7 @@ static PgmPtr FRAMES_STATICBASE[] =
   FRAME_STATICBASE_1,
 };
 
-const Animation BEAR_ANIMATIONS[] = 
+const Animation CH_BEAR_ANIMATIONS[] = 
 {
   AnimationMake(FRAMES_DEATH, 3),
   AnimationMake(FRAMES_WALK, 4, true),

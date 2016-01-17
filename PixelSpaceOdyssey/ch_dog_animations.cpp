@@ -1,6 +1,6 @@
 #include <avr/pgmspace.h>
 
-#include "dog_animations.h"
+#include "ch_dog_animations.h"
 
 static PROGMEM WEAK_CONST unsigned char FRAME_ATTACK_0[] =
 {
@@ -70,7 +70,7 @@ static PgmPtr FRAMES_STAT[] =
   FRAME_STAT_2,
 };
 
-const Animation DOG_ANIMATIONS[] = 
+const Animation CH_DOG_ANIMATIONS[] = 
 {
   AnimationMake(FRAMES_ATTACK, 3),
   AnimationMake(FRAMES_RUN, 2, true),
