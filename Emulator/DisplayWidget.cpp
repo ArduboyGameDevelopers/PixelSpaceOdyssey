@@ -217,7 +217,7 @@ void DisplayWidget::drawDebug(QPainter &painter)
             int16_t maxX = W2S(EnemyGetMaxSightX(&enemy));
             
             int cx = minX * PIXEL_WIDTH;
-            int cy = TILE_GET_ROW(enemy.y) * TILE_HEIGHT_PX * PIXEL_HEIGHT;
+            int cy = (W2S(enemy.y) - DIV2(TILE_HEIGHT_PX)) * PIXEL_HEIGHT;
             int sw = (maxX - minX) * PIXEL_WIDTH;
             int sh = TILE_HEIGHT_PX * PIXEL_HEIGHT;
             
