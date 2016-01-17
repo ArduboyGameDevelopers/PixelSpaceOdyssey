@@ -108,9 +108,9 @@ static PgmPtr FRAMES_STAT[] =
 
 const Animation CH_SPIDER_SMALL_ANIMATIONS[] = 
 {
-  AnimationMake(FRAMES_SHOOTWEB, 1),
-  AnimationMake(FRAMES_DEATH, 2),
-  AnimationMake(FRAMES_JUMP, 4),
-  AnimationMake(FRAMES_WALK, 4, true),
-  AnimationMake(FRAMES_STAT, 1),
+  AnimationMake(FRAMES_SHOOTWEB, 1, 16, 8),
+  AnimationMake(FRAMES_DEATH, 2, 16, 8),
+  AnimationMake(FRAMES_JUMP, 4, 16, 8),
+  AnimationMake(FRAMES_WALK, 4, 16, 8, true),
+  AnimationMake(FRAMES_STAT, 1, 16, 8),
 };

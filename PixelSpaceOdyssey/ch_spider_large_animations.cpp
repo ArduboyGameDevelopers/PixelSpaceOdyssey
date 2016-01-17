@@ -119,10 +119,10 @@ static PgmPtr FRAMES_SLEEP[] =
 
 const Animation CH_SPIDER_LARGE_ANIMATIONS[] = 
 {
-  AnimationMake(FRAMES_ATTACK, 2),
-  AnimationMake(FRAMES_WALK, 5, true),
-  AnimationMake(FRAMES_STAT, 1),
-  AnimationMake(FRAMES_RISE, 3),
-  AnimationMake(FRAMES_AWAKEN, 1),
-  AnimationMake(FRAMES_SLEEP, 1),
+  AnimationMake(FRAMES_ATTACK, 2, 24, 16),
+  AnimationMake(FRAMES_WALK, 5, 24, 16, true),
+  AnimationMake(FRAMES_STAT, 1, 24, 16),
+  AnimationMake(FRAMES_RISE, 3, 24, 16),
+  AnimationMake(FRAMES_AWAKEN, 1, 24, 16),
+  AnimationMake(FRAMES_SLEEP, 1, 24, 16),
 };

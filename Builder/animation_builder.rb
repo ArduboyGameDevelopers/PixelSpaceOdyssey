@@ -177,7 +177,7 @@ class AnimationBuilder
       source_h.println
       source_h.println "#define #{animation_define} #{animation_index}"
 
-      animation_initializer = "AnimationMake(#{frames_name}, #{frames.length}"
+      animation_initializer = "AnimationMake(#{frames_name}, #{frames.length}, #{animation_set.width}, #{animation_set.height}"
       animation_initializer << ", #{animation.looped}" if animation.looped
       animation_initializer << ')'
       animation_initializers << animation_initializer
@@ -192,14 +192,8 @@ class AnimationBuilder
     source_h.println "extern const Animation #{basename.upcase}_ANIMATIONS[];"
 
     source_h.println
-    source_h.println "#define #{basename.upcase}_ANIMATION_WIDTH #{animation_set.width}"
-    source_h.println "#define #{basename.upcase}_ANIMATION_HEIGHT #{animation_set.height}"
-    source_h.println "#define #{basename.upcase}_ANIMATION_CENTER_X #{animation_set.center.x}"
-    source_h.println "#define #{basename.upcase}_ANIMATION_CENTER_Y #{animation_set.center.y}"
-    source_h.println "#define #{basename.upcase}_ANIMATION_BOUNDS_X #{animation_set.bounds.x}"
-    source_h.println "#define #{basename.upcase}_ANIMATION_BOUNDS_Y #{animation_set.bounds.y}"
-    source_h.println "#define #{basename.upcase}_ANIMATION_BOUNDS_WIDTH #{animation_set.bounds.width}"
-    source_h.println "#define #{basename.upcase}_ANIMATION_BOUNDS_HEIGHT #{animation_set.bounds.height}"
+    source_h.println "#define #{basename.upcase}_WIDTH #{animation_set.bounds.width}"
+    source_h.println "#define #{basename.upcase}_HEIGHT #{animation_set.bounds.height}"
 
     source_cpp.println
     source_cpp.println "const Animation #{basename.upcase}_ANIMATIONS[] = "

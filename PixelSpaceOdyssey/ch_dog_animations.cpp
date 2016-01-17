@@ -72,7 +72,7 @@ static PgmPtr FRAMES_STAT[] =
 
 const Animation CH_DOG_ANIMATIONS[] = 
 {
-  AnimationMake(FRAMES_ATTACK, 3),
-  AnimationMake(FRAMES_RUN, 2, true),
-  AnimationMake(FRAMES_STAT, 3, true),
+  AnimationMake(FRAMES_ATTACK, 3, 16, 10),
+  AnimationMake(FRAMES_RUN, 2, 16, 10, true),
+  AnimationMake(FRAMES_STAT, 3, 16, 10, true),
 };

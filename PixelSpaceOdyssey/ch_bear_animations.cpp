@@ -122,9 +122,9 @@ static PgmPtr FRAMES_STATICBASE[] =
 
 const Animation CH_BEAR_ANIMATIONS[] = 
 {
-  AnimationMake(FRAMES_DEATH, 3),
-  AnimationMake(FRAMES_WALK, 4, true),
-  AnimationMake(FRAMES_ATTACK, 3),
-  AnimationMake(FRAMES_STATPONC, 2),
-  AnimationMake(FRAMES_STATICBASE, 2, true),
+  AnimationMake(FRAMES_DEATH, 3, 32, 24),
+  AnimationMake(FRAMES_WALK, 4, 32, 24, true),
+  AnimationMake(FRAMES_ATTACK, 3, 32, 24),
+  AnimationMake(FRAMES_STATPONC, 2, 32, 24),
+  AnimationMake(FRAMES_STATICBASE, 2, 32, 24, true),
 };
