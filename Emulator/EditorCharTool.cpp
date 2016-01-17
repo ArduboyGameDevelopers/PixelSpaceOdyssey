@@ -30,14 +30,18 @@ void EditorCharTool::onMousePressed(int, int)
     
     Level *level = Level::current();
     
+    QSize bounds = CharacterInfo::getBounds(_characterType);
+    int cx = (tileX() + DIV2(GRID_CELL_WIDTH_PX)) / PIXEL_WIDTH - drawTransX;
+    int cy = (tileY() + GRID_CELL_HEIGHT_PX) / PIXEL_HEIGHT - DIV2(bounds.height()) - drawTransY;
+    
     if (_characterType == CharacterTypePlayer)
     {
-        level->setPlayerPos(cx(), cy());
+        level->setPlayerPos(cx, cy);
         level->setPlayerDir(DIR_RIGHT);
     }
     else
     {
-        level->addEnemy(_characterType, cx(), cy(), DIR_LEFT);
+        level->addEnemy(_characterType, cx, cy, DIR_LEFT);
     }
     
     displayWidget()->setDefaultTool();
@@ -63,15 +67,4 @@ void EditorCharTool::onKeyPressed(int key)
         CharacterButton::deselectAll();
         displayWidget()->setDefaultTool();
     }
-}
-
-int EditorCharTool::cx() const
-{
-    return (tileX() + DIV2(GRID_CELL_WIDTH_PX)) / PIXEL_WIDTH - drawTransX;
-}
-
-int EditorCharTool::cy() const
-{
-    QSize characterSize = CharacterInfo::getSize(_characterType);
-    return (tileY() + GRID_CELL_HEIGHT_PX - DIV2(characterSize.height() * PIXEL_HEIGHT)) / PIXEL_HEIGHT - drawTransY;
 }

@@ -18,7 +18,8 @@ typedef struct _CharacterTypeParams {
     
 } CharacterTypeParams;
 
-static CharacterTypeParams lookup[] = {
+static CharacterTypeParams lookup[] =
+{
     {
         "Player",
         ":/characters_full/ch_player_8x8_full.png",
@@ -82,6 +83,12 @@ QSize CharacterInfo::getSize(CharacterType type)
 {
     Q_ASSERT(type >= 0 && type < lookupCount);
     return lookup[type].size;
+}
+
+QSize CharacterInfo::getBounds(CharacterType type)
+{
+    Q_ASSERT(type >= 0 && type < lookupCount);
+    return lookup[type].bounds;
 }
 
 const QString CharacterInfo::getName(CharacterType type)

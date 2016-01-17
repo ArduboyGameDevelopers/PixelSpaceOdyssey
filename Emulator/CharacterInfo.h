@@ -48,6 +48,7 @@ public:
 public:
     static const QImage getImage(CharacterType type, bool flipped = false);
     static QSize getSize(CharacterType type);
+    static QSize getBounds(CharacterType type);
     
     static const QString getName(CharacterType type);
     static CharacterType typeFromName(const QString &name);
