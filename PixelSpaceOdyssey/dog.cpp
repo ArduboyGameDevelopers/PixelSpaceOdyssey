@@ -6,7 +6,7 @@
 #include "game.h"
 
 #define DogStateStat    0
-#define DogStateRun     1
+#define DogStateChase   1
 #define DogStateAttack  2
 
 static const uint8_t ANIMATION_LOOKUP[] = {
@@ -37,9 +37,9 @@ static inline void setState(Character *self, DogState state)
     setAnimation(self, ANIMATION_LOOKUP[state]);
 }
 
-static inline void run(Character *self)
+static inline void chase(Character *self)
 {
-    setState(self, DogStateRun);
+    setState(self, DogStateChase);
     self->move = 3;
 }
 
@@ -69,7 +69,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
             switch (state)
             {
                 case DogStateAttack:
-                    run(self);
+                    chase(self);
                     break;
             }
             break;
@@ -80,7 +80,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
             DogState state = getState(self);
             switch (state)
             {
-                case DogStateRun:
+                case DogStateChase:
                     stat(self);
                     break;
             }
@@ -95,7 +95,7 @@ void EnemyBehaviourDog(Character *self, TimeInterval)
     switch (state)
     {
         case DogStateStat:
-        case DogStateRun:
+        case DogStateChase:
         {
             EnemyUpdatePlayerPos(self);
             
@@ -117,7 +117,7 @@ void EnemyBehaviourDog(Character *self, TimeInterval)
             {
                 if (self->move == 0 && EnemyCanMove(self))
                 {
-                    run(self);
+                    chase(self);
                 }
             }
             break;

@@ -11,8 +11,8 @@ extern void EnemyBehaviourDog(Character *character, TimeInterval dt);
 inline Character EnemyMakeDog()
 {
     Character character = CharacterMake(S2W(CH_DOG_WIDTH), S2W(CH_DOG_HEIGHT));
-    character.sightDistanceForward  = 10 * TILE_WIDTH;
-    character.sightDistanceBackward = 4 * TILE_WIDTH;
+    character.sightDistanceForward  = 16 * TILE_WIDTH;
+    character.sightDistanceBackward = 16 * TILE_WIDTH;
     character.behaviour = EnemyBehaviourDog;
     character.callback = EnemyCallbackDog;
     EnemyInitDog(&character);
