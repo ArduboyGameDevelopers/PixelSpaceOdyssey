@@ -21,6 +21,7 @@
 
 #define CHARACTER_CALLBACK_ANIMATION_FINISHED 1
 #define CHARACTER_CALLBACK_OBSTACLE 2
+#define CHARACTER_CALLBACK_REACHED_TARGET 3
 
 typedef int8_t Direction;
 typedef uint8_t CharacterCallbackType;
@@ -51,6 +52,7 @@ typedef struct _Character
     int16_t x;
     int16_t y;
     int16_t lastPlayerX;
+    int16_t targetPos; // a target pos for a non-player character
     int16_t moveMinX;
     int16_t moveMaxX;
     int16_t sightMinX;
@@ -67,6 +69,8 @@ typedef struct _Character
     #endif
     
 } Character;
+
+inline bool CharacterIsMoving(const Character *character)    { return character->move != 0; }
 
 inline int16_t CharacterGetTop(const Character *character)   { return character->y - DIV2(character->height); }
 inline int16_t CharacterGetBottom(const Character *character){ return character->y + DIV2(character->height); }

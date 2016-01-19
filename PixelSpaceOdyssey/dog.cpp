@@ -69,14 +69,37 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
             switch (state)
             {
                 case DogStateAttack:
-                    chase(self);
+                    stat(self);
                     break;
             }
             break;
         }
             
+        case CHARACTER_CALLBACK_REACHED_TARGET:
+        {
+            DogState state = getState(self);
+            switch (state)
+            {
+                case DogStateChase:
+                {
+                    if (!self->canSeePlayer)
+                    {
+                        stat(self);
+                    }
+                    else if (EnemyCanAttack(self))
+                    {
+                        attack(self);
+                    }
+                    break;
+                }
+            }
+            break;
+        }
+        
         case CHARACTER_CALLBACK_OBSTACLE:
         {
+            self->targetPos = self->x;
+            
             DogState state = getState(self);
             switch (state)
             {
@@ -100,24 +123,29 @@ void EnemyBehaviourDog(Character *self, TimeInterval)
             EnemyUpdatePlayerPos(self);
             
             int16_t distance = self->lastPlayerX - self->x;
-            self->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT;
+            self->dir = distance < 0 ? DIR_LEFT : DIR_RIGHT; // always face the player
             
-            if (abs(distance) < (self->canSeePlayer ? DIV2(self->width + player.width) : 10))
+            if (self->canSeePlayer)
             {
-                if (self->canSeePlayer && EnemyCanAttack(self))
+                int minDistance = DIV2(self->width + player.width);
+                if (ABS(distance) <= minDistance)
                 {
-                    attack(self);
+                    if (EnemyCanAttack(self))
+                    {
+                        attack(self);
+                    }
+                    else if (CharacterIsMoving(self))
+                    {
+                        stat(self);
+                    }
                 }
                 else
                 {
-                    stat(self);
-                }
-            }
-            else if (self->canSeePlayer)
-            {
-                if (self->move == 0 && EnemyCanMove(self))
-                {
-                    chase(self);
+                    self->targetPos = distance > 0 ? self->lastPlayerX - minDistance : self->lastPlayerX + minDistance;
+                    if (!CharacterIsMoving(self) && EnemyCanMove(self))
+                    {
+                        chase(self);
+                    }
                 }
             }
             break;

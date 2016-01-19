@@ -696,10 +696,10 @@ void MainWindow::updateDirectionalRadioButtons()
 
 void MainWindow::setupParamUI()
 {
-    _ui->showBoundingBoxesCheckBox->setParamPtr(&PARAM_SHOW_BOUNDING_BOXES);
-    _ui->showMoveBoxesCheckBox->setParamPtr(&PARAM_SHOW_MOVE_BOXES);
-    _ui->showSightBoxesCheckBox->setParamPtr(&PARAM_SHOW_SIGHT_BOXES);
-    _ui->showPlayerPosCheckBox->setParamPtr(&PARAM_SHOW_PLAYER_POS);
+    _ui->showCollidersCheckBox->setParamPtr(&PARAM_COLLIDERS);
+    _ui->showWalkZonesCheckBox->setParamPtr(&PARAM_SHOW_WALK_ZONES);
+    _ui->showAIVisionCheckBox->setParamPtr(&PARAM_SHOW_AI_VISION);
+    _ui->showAITargetCheckBox->setParamPtr(&PARAM_SHOW_AI_TARGET);
 }
 
 #pragma mark -

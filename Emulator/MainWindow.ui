@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>785</width>
-    <height>604</height>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -223,11 +223,11 @@
      <string>Right</string>
     </property>
    </widget>
-   <widget class="ParamCheckBox" name="showBoundingBoxesCheckBox">
+   <widget class="ParamCheckBox" name="showCollidersCheckBox">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>470</y>
+      <x>520</x>
+      <y>370</y>
       <width>121</width>
       <height>20</height>
      </rect>
@@ -236,50 +236,50 @@
      <string>Show colliders</string>
     </property>
    </widget>
-   <widget class="ParamCheckBox" name="showMoveBoxesCheckBox">
+   <widget class="ParamCheckBox" name="showWalkZonesCheckBox">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>470</y>
-      <width>141</width>
+      <x>520</x>
+      <y>400</y>
+      <width>131</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show move boxes</string>
+     <string>Show walk zones</string>
     </property>
    </widget>
-   <widget class="ParamCheckBox" name="showSightBoxesCheckBox">
+   <widget class="ParamCheckBox" name="showAIVisionCheckBox">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>470</y>
-      <width>141</width>
+      <x>660</x>
+      <y>370</y>
+      <width>121</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show sight boxes</string>
+     <string>Show AI vision</string>
     </property>
    </widget>
-   <widget class="ParamCheckBox" name="showPlayerPosCheckBox">
+   <widget class="ParamCheckBox" name="showAITargetCheckBox">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>470</y>
-      <width>231</width>
+      <x>660</x>
+      <y>400</y>
+      <width>121</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Show player's last visible position</string>
+     <string>Show AI target</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="playerHealthEdit">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>500</y>
+      <x>570</x>
+      <y>430</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -288,8 +288,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>500</y>
+      <x>520</x>
+      <y>430</y>
       <width>51</width>
       <height>21</height>
      </rect>

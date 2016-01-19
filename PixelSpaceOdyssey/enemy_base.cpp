@@ -2,9 +2,14 @@
 
 #include "game.h"
 
-inline static void handleObstacle(Character *character)
+inline static void EnemyReachedObstacle(Character *character)
 {
     CharacterCallbackInvoke(character, CHARACTER_CALLBACK_OBSTACLE);
+}
+
+inline static void EnemyReachedTarget(Character *self)
+{
+    CharacterCallbackInvoke(self, CHARACTER_CALLBACK_REACHED_TARGET);
 }
 
 void EnemyUpdate(Character* self, TimeInterval dt)
@@ -16,24 +21,56 @@ void EnemyUpdate(Character* self, TimeInterval dt)
         behaviour(self, dt);
     }
     
-    // update movement
-    int8_t move = self->move;
-    if (move != 0)
+    // move to target
+    int16_t distance = self->targetPos - self->x;
+    if (distance != 0 && CharacterIsMoving(self))
     {
-        self->x += self->dir * self->move * WALK_SPEED;
+        int16_t offset = self->move * WALK_SPEED; // TODO: use time interval
+        self->dir = distance > 0 ? DIR_RIGHT : DIR_LEFT;
         
-        Direction dir = self->dir;
-        if (dir == DIR_LEFT && !EnemyCanMoveLeft(self))
+        if (offset < abs(distance))
         {
-            CharacterSetLeft(self, self->moveMinX);
-            handleObstacle(self);
+            self->x += self->dir * offset;
         }
-        else if (dir == DIR_RIGHT && !EnemyCanMoveRight(self))
+        else
         {
-            CharacterSetRight(self, self->moveMaxX);
-            handleObstacle(self);
+            self->x += distance;
+        }
+        
+        if (self->dir == DIR_LEFT && self->x < self->moveMinX)
+        {
+            self->x = self->moveMinX;
+            EnemyReachedObstacle(self);
+        }
+        else if (self->dir == DIR_RIGHT && self->x > self->moveMaxX)
+        {
+            self->x = self->moveMaxX;
+            EnemyReachedObstacle(self);
+        }
+        else if (self->x == self->targetPos)
+        {
+            EnemyReachedTarget(self);
         }
     }
+    
+//    // update movement
+//    int8_t move = self->move;
+//    if (move != 0)
+//    {
+//        self->x += self->dir * self->move * WALK_SPEED;
+//        
+//        Direction dir = self->dir;
+//        if (dir == DIR_LEFT && !EnemyCanMoveLeft(self))
+//        {
+//            CharacterSetLeft(self, self->moveMinX);
+//            handleObstacle(self);
+//        }
+//        else if (dir == DIR_RIGHT && !EnemyCanMoveRight(self))
+//        {
+//            CharacterSetRight(self, self->moveMaxX);
+//            handleObstacle(self);
+//        }
+//    }
     
     // update character
     CharacterUpdate(self, dt);
@@ -121,8 +158,8 @@ void UpdateConstraints(Character *character)
         }
     }
     
-    character->moveMinX = moveMinX;
-    character->moveMaxX = moveMaxX;
+    character->moveMinX = moveMinX + DIV2(character->width);
+    character->moveMaxX = moveMaxX - DIV2(character->width);
     character->sightMinX = sightMinX;
     character->sightMaxX = sightMaxX;
 }
