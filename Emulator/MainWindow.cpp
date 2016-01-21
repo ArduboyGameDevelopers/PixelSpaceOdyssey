@@ -366,7 +366,7 @@ void MainWindow::setupActions()
 
     // behavior
     connect(_ui->comboBoxInitialBehavior, SIGNAL(currentIndexChanged(int)), this, SLOT(onInitialBehaviorSelected(int)));
-    connect(_ui->comboBoxPatrolingBehavior, SIGNAL(currentIndexChanged(int)), this, SLOT(onPatrolingBehaviorSelected(int)));
+    connect(_ui->comboBoxPatrollingBehavior, SIGNAL(currentIndexChanged(int)), this, SLOT(onPatrollingBehaviorSelected(int)));
 }
 
 void MainWindow::onActionNew()
@@ -613,7 +613,7 @@ void MainWindow::onInitialBehaviorSelected(int index)
     }
 }
 
-void MainWindow::onPatrolingBehaviorSelected(int index)
+void MainWindow::onPatrollingBehaviorSelected(int index)
 {
     int enemyIndex = editorState.characterIndex() - 1;
     if (enemyIndex >= 0)
@@ -718,18 +718,18 @@ void MainWindow::updateCharacterParamsView()
 
         // behaviour
         _ui->comboBoxInitialBehavior->setEnabled(!isPlayerSelected);
-        _ui->comboBoxPatrolingBehavior->setEnabled(!isPlayerSelected);
+        _ui->comboBoxPatrollingBehavior->setEnabled(!isPlayerSelected);
         
         if (isPlayerSelected)
         {
             _ui->comboBoxInitialBehavior->setCurrentIndex(CharacterInitialBehaviorUndefined);
-            _ui->comboBoxPatrolingBehavior->setCurrentIndex(CharacterPatrolBehaviorUndefined);
+            _ui->comboBoxPatrollingBehavior->setCurrentIndex(CharacterPatrolBehaviorUndefined);
         }
         else
         {
             const CharacterInfo *character = Level::current()->enemyAt(characterIndex - 1);
             _ui->comboBoxInitialBehavior->setCurrentIndex(character->initialBehavior());
-            _ui->comboBoxPatrolingBehavior->setCurrentIndex(character->patrolBehavior());
+            _ui->comboBoxPatrollingBehavior->setCurrentIndex(character->patrolBehavior());
         }
     }
 }
@@ -744,10 +744,10 @@ void MainWindow::setupParamUI()
     _ui->comboBoxInitialBehavior->addItem("Sleep");
     _ui->comboBoxInitialBehavior->addItem("Patrol");
     
-    _ui->comboBoxPatrolingBehavior->addItem("Undefined");
-    _ui->comboBoxPatrolingBehavior->addItem("None");
-    _ui->comboBoxPatrolingBehavior->addItem("Forever");
-    _ui->comboBoxPatrolingBehavior->addItem("Return to base");
+    _ui->comboBoxPatrollingBehavior->addItem("Undefined");
+    _ui->comboBoxPatrollingBehavior->addItem("None");
+    _ui->comboBoxPatrollingBehavior->addItem("Forever");
+    _ui->comboBoxPatrollingBehavior->addItem("Return to base");
      
     _ui->showCollidersCheckBox->setParamPtr(&PARAM_COLLIDERS);
     _ui->showWalkZonesCheckBox->setParamPtr(&PARAM_SHOW_WALK_ZONES);

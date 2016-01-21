@@ -343,10 +343,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>Patroling behavior:</string>
+     <string>Patrolling behavior:</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBoxPatrolingBehavior">
+   <widget class="QComboBox" name="comboBoxPatrollingBehavior">
     <property name="enabled">
      <bool>false</bool>
     </property>
