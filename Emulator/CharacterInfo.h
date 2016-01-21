@@ -15,6 +15,20 @@ enum CharacterType {
     CharacterTypeCount
 };
 
+enum CharacterInitialBehavior {
+    CharacterInitialBehaviorUndefined,
+    CharacterInitialBehaviorStat,   // stay still until it see the player
+    CharacterInitialBehaviorSleep,  // sleep until player wake is up
+    CharacterInitialBehaviorPatrol, // patroling the area
+};
+
+enum CharacterPatrolBehavior {
+    CharacterPatrolBehaviorUndefined,
+    CharacterPatrolBehaviorNone,        // stay in the last position
+    CharacterPatrolBehaviorForever,     // once started partoling - never stops
+    CharacterPatrolBehaviorReturnToBase // returns to initial position after time out
+};
+
 class CharacterInfo
 {
 public:
@@ -23,7 +37,9 @@ public:
         _type(CharacterTypeCount),
         _x(0),
         _y(0),
-        _direction(DIR_LEFT)
+        _direction(DIR_LEFT),
+        _initialBehavior(CharacterInitialBehaviorUndefined),
+        _patrolBehavior(CharacterPatrolBehaviorUndefined)
     {
     }
     
@@ -32,7 +48,9 @@ public:
         _type(type),
         _x(x),
         _y(y),
-        _direction(direction)
+        _direction(direction),
+        _initialBehavior(CharacterInitialBehaviorUndefined),
+        _patrolBehavior(CharacterPatrolBehaviorUndefined)
     {
     }
     
@@ -41,7 +59,9 @@ public:
         _type(other.type()),
         _x(other.x()),
         _y(other.y()),
-        _direction(other.direction())
+        _direction(other.direction()),
+        _initialBehavior(other._initialBehavior),
+        _patrolBehavior(other._patrolBehavior)
     {
     }
     
@@ -72,6 +92,12 @@ public:
     inline int id() const { return _id; }
     inline bool isValid() const { return _type != CharacterTypeCount; }
     
+    inline CharacterInitialBehavior initialBehavior() const { return _initialBehavior; }
+    inline void setInitialBehavior(CharacterInitialBehavior behavior) { _initialBehavior = behavior; }
+    
+    inline CharacterPatrolBehavior patrolBehavior() const { return _patrolBehavior; }
+    inline void setPatrolBehavior(CharacterPatrolBehavior behavior) { _patrolBehavior = behavior; }
+    
     const QImage image() const;
     const QString name() const;
 
@@ -82,6 +108,8 @@ private:
     int _x;
     int _y;
     Direction _direction;
+    CharacterInitialBehavior _initialBehavior;
+    CharacterPatrolBehavior _patrolBehavior;
 };
 
 #endif // LEVELCHARACTER_H

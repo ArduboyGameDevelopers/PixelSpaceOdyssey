@@ -595,7 +595,7 @@ void MainWindow::onCharacterListItemClicked(const QModelIndex & index)
     
     editorState.setCharacterIndex(characterIndex);
     displayWidget()->focusCharacter(characterIndex);
-    updateDirectionalRadioButtons();
+    updateCharacterParamsView();
 }
 
 void MainWindow::playerHealthEditReturnPressed()
@@ -658,7 +658,7 @@ void MainWindow::onDirectionButtonChecked(bool checked)
     }
 }
 
-void MainWindow::updateDirectionalRadioButtons()
+void MainWindow::updateCharacterParamsView()
 {
     int characterIndex = editorState.characterIndex();
     if (characterIndex == -1)
@@ -671,12 +671,15 @@ void MainWindow::updateDirectionalRadioButtons()
     }
     else
     {
+        const Level *level = Level::current();
+        bool isPlayerSelected = characterIndex == 0;
+
+        // direction
         _ui->rightRadioButton->setEnabled(true);
         _ui->leftRadioButton->setEnabled(true);
-        
-        const Level *level = Level::current();
+
         Direction direction;
-        if (characterIndex == 0)
+        if (isPlayerSelected)
         {
             direction = level->player().direction();
         }
@@ -685,9 +688,17 @@ void MainWindow::updateDirectionalRadioButtons()
             int enemyIndex = characterIndex - 1;
             direction = level->enemies().at(enemyIndex).direction();
         }
-        
         _ui->rightRadioButton->setChecked(direction == DIR_RIGHT);
         _ui->leftRadioButton->setChecked(direction == DIR_LEFT);
+
+        // behaviour
+        _ui->comboBoxInitialBehavior->setEnabled(!isPlayerSelected);
+        _ui->comboBoxPatrolingBehavior->setEnabled(!isPlayerSelected);
+        
+        if (!isPlayerSelected)
+        {
+            
+        }
     }
 }
 
@@ -696,6 +707,16 @@ void MainWindow::updateDirectionalRadioButtons()
 
 void MainWindow::setupParamUI()
 {
+    _ui->comboBoxInitialBehavior->addItem("Undefined");
+    _ui->comboBoxInitialBehavior->addItem("Stat");
+    _ui->comboBoxInitialBehavior->addItem("Sleep");
+    _ui->comboBoxInitialBehavior->addItem("Patrol");
+    
+    _ui->comboBoxPatrolingBehavior->addItem("Undefined");
+    _ui->comboBoxPatrolingBehavior->addItem("None");
+    _ui->comboBoxPatrolingBehavior->addItem("Forever");
+    _ui->comboBoxPatrolingBehavior->addItem("Return to base");
+     
     _ui->showCollidersCheckBox->setParamPtr(&PARAM_COLLIDERS);
     _ui->showWalkZonesCheckBox->setParamPtr(&PARAM_SHOW_WALK_ZONES);
     _ui->showAIVisionCheckBox->setParamPtr(&PARAM_SHOW_AI_VISION);

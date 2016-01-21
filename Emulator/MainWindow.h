@@ -89,7 +89,7 @@ private:
     void pushEditorTool(EditorTool *tool);
     void popEditorTool();
     
-    void updateDirectionalRadioButtons();
+    void updateCharacterParamsView();
 
 private:
     static MainWindow *_instance;
