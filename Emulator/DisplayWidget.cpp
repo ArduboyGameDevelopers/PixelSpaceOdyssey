@@ -87,7 +87,7 @@ void DisplayWidget::drawCharaters(QPainter *painter)
     drawCharater(painter, level->player());
 
     // draw enemies
-    const QList<CharacterInfo> enemies = level->enemies();
+    const QList<CharacterInfo *> enemies = level->enemies();
     for (int i = 0; i < enemies.size(); ++i)
     {
         drawCharater(painter, enemies.at(i));
@@ -96,11 +96,11 @@ void DisplayWidget::drawCharaters(QPainter *painter)
     painter->setOpacity(1.0);
 }
 
-void DisplayWidget::drawCharater(QPainter *painter, const CharacterInfo &character)
+void DisplayWidget::drawCharater(QPainter *painter, const CharacterInfo *character)
 {
-    const QImage &image = character.image();
-    int drawX = character.x() * PIXEL_WIDTH - image.width() / 2;
-    int drawY = character.y() * PIXEL_HEIGHT - image.height() / 2;
+    const QImage &image = character->image();
+    int drawX = character->x() * PIXEL_WIDTH - image.width() / 2;
+    int drawY = character->y() * PIXEL_HEIGHT - image.height() / 2;
     
     painter->drawImage(drawX, drawY, image);
 }
@@ -129,14 +129,14 @@ void DisplayWidget::focusCharacter(int index) const
     {
         if (index == 0)
         {
-            camX = S2W(level->player().x());
-            camY = S2W(level->player().y());
+            camX = S2W(level->player()->x());
+            camY = S2W(level->player()->y());
         }
         else if (index > 0 && index <= level->enemiesCount())
         {
-            const CharacterInfo &enemy = level->enemies().at(index - 1);
-            camX = S2W(enemy.x());
-            camY = S2W(enemy.y());
+            const CharacterInfo *enemy = level->enemies().at(index - 1);
+            camX = S2W(enemy->x());
+            camY = S2W(enemy->y());
         }
         
         int16_t maxCamX = tileMapWidth - CAM_WIDTH_HALF;

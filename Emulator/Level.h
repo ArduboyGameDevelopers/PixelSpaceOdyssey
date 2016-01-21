@@ -32,7 +32,7 @@ public:
     static void restart();
 
 public:
-    void addEnemy(CharacterType type, int x, int y, Direction dir);
+    CharacterInfo *addEnemy(CharacterType type, int x, int y, Direction dir);
     void deleteEnemy(int index);
     void resize(int top, int bottom, int left, int right);
     
@@ -43,17 +43,20 @@ public:
     inline const QString &filename() const { return _filename; }
     inline bool hasFilename() const { return _filename.length() > 0; }
     
-    inline CharacterInfo player() const { return _player; }
-    inline void setPlayerPos(int x, int y) { _player.setPos(x, y); }
-    inline void setPlayerDir(Direction dir) { _player.setDirection(dir); }
+    inline CharacterInfo *player() const { return _player; }
     
-    inline const QList<CharacterInfo> enemies() const { return _enemies; }
-    inline int enemiesCount() const { return _enemies.size(); }
-    inline void setEnemyDir(int enemyIndex, Direction dir)
+    inline const QList<CharacterInfo *> enemies() const { return _enemies; }
+    inline CharacterInfo *enemyAt(int index)
     {
-        assert(enemyIndex >= 0 && enemyIndex < enemiesCount());
-        _enemies[enemyIndex].setDirection(dir);
+        assert(index >= 0 && index < _enemies.size());
+        return _enemies[index];
     }
+    inline const CharacterInfo *enemyAt(int index) const
+    {
+        assert(index >= 0 && index < _enemies.size());
+        return _enemies[index];
+    }
+    inline int enemiesCount() const { return _enemies.size(); }
     
     inline uint8_t* indices() const { return _indices; }
     void setTileMapIndex(int gridIndex, uint8_t tileIndex);
@@ -73,8 +76,8 @@ protected:
 private:
     static Level * _currentLevel;
     QString _filename;
-    CharacterInfo _player;
-    QList<CharacterInfo> _enemies;
+    CharacterInfo *_player;
+    QList<CharacterInfo *> _enemies;
     uint8_t  _tileSetId;
     uint8_t* _indices;
     uint8_t  _rows;

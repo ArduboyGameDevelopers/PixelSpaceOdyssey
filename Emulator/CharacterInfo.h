@@ -29,6 +29,12 @@ enum CharacterPatrolBehavior {
     CharacterPatrolBehaviorReturnToBase // returns to initial position after time out
 };
 
+const QString CharacterInitialBehaviorGetName(CharacterInitialBehavior behavior);
+const QString CharacterPatrolBehaviorGetName(CharacterPatrolBehavior behavior);
+
+CharacterInitialBehavior CharacterInitialBehaviorFromName(const QString &behavior);
+CharacterPatrolBehavior CharacterPatrolBehaviorFromName(const QString &behavior);
+
 class CharacterInfo
 {
 public:

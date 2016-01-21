@@ -8,6 +8,60 @@
 #include "ch_spider_large_animations.h"
 #include "ch_spider_small_animations.h"
 
+static const QString kCharacterInitialBehaviorNameLookup[] = {
+    "Undefined",
+    "Stat",
+    "Sleep",
+    "Patrol"
+};
+
+static const QString kCharacterPatrolBehaviorNameLookup[] = {
+    "Undefined",
+    "None",
+    "Forever",
+    "ReturnToBase"
+};
+
+const QString CharacterInitialBehaviorGetName(CharacterInitialBehavior behavior)
+{
+    int index = (int)behavior;
+    assert(index >= 0 && index < 4);
+    return kCharacterInitialBehaviorNameLookup[index];
+}
+
+const QString CharacterPatrolBehaviorGetName(CharacterPatrolBehavior behavior)
+{
+    int index = (int)behavior;
+    assert(index >= 0 && index < 4);
+    return kCharacterPatrolBehaviorNameLookup[index];
+}
+
+CharacterInitialBehavior CharacterInitialBehaviorFromName(const QString &behavior)
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        if (kCharacterInitialBehaviorNameLookup[i] == behavior)
+        {
+            return (CharacterInitialBehavior) i;
+        }
+    }
+    
+    return CharacterInitialBehaviorUndefined;
+}
+
+CharacterPatrolBehavior CharacterPatrolBehaviorFromName(const QString &behavior)
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        if (kCharacterPatrolBehaviorNameLookup[i] == behavior)
+        {
+            return (CharacterPatrolBehavior) i;
+        }
+    }
+    
+    return CharacterPatrolBehaviorUndefined;
+}
+
 typedef struct _CharacterTypeParams {
     QString name;
     QString filename;

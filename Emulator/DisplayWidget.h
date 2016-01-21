@@ -46,7 +46,7 @@ public:
     
 public:
     void drawCharaters(QPainter *painter);
-    void drawCharater(QPainter *painter, const CharacterInfo&character);
+    void drawCharater(QPainter *painter, const CharacterInfo *character);
 
 public:
     EditorTool* currentTool() const { return _currentTool; }

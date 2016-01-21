@@ -16,18 +16,19 @@
 
 #include "enemies.h"
 
-static const uint8_t kVersion = 2;
+static const uint8_t kVersion = 3;
 
 static void deleteEnemyCharacter(int id);
 
 static Level* readLevelV1(QJsonObject levelObj, const QString &filename);
 static Level* readLevelV2(QJsonObject levelObj, const QString &filename);
+static Level* readLevelV3(QJsonObject levelObj, const QString &filename);
 
 Level* Level::_currentLevel(NULL);
 
 Level::Level() :
     _filename(),
-    _player(CharacterTypePlayer, 0, 0, DIR_RIGHT),
+    _player(new CharacterInfo(CharacterTypePlayer, 0, 0, DIR_RIGHT)),
     _enemies(),
     _tileSetId(0),
     _indices(NULL),
@@ -38,7 +39,7 @@ Level::Level() :
 
 Level::Level(uint8_t* indices, uint8_t rows, uint8_t cols, const QString &filename) :
     _filename(filename),
-    _player(CharacterTypePlayer, 0, 0, DIR_RIGHT),
+    _player(new CharacterInfo(CharacterTypePlayer, 0, 0, DIR_RIGHT)),
     _enemies(),
     _tileSetId(0),
     _rows(rows),
@@ -55,6 +56,14 @@ Level::~Level()
     {
         free(_indices);
     }
+    
+    for (int i = 0; i < _enemies.size(); ++i)
+    {
+        delete _enemies[i];
+    }
+    _enemies.clear();
+    
+    delete _player;
 }
 
 Level* Level::readFromFile(const QString &filename)
@@ -75,6 +84,8 @@ Level* Level::readFromFile(const QString &filename)
                 return readLevelV1(levelObj, filename);
             case 2:
                 return readLevelV2(levelObj, filename);
+            case 3:
+                return readLevelV3(levelObj, filename);
         }
     }
     
@@ -115,22 +126,24 @@ void Level::writeToFile(const QString &filename)
     
     // player
     QJsonObject playerObj;
-    playerObj["x"] = _player.x();
-    playerObj["y"] = _player.y();
-    playerObj["direction"] = (int) _player.direction();
+    playerObj["x"] = _player->x();
+    playerObj["y"] = _player->y();
+    playerObj["direction"] = (int) _player->direction();
     json["player"] = playerObj;
     
     // enemies
     QJsonArray enemiesObj;
     for (int i = 0; i < _enemies.size(); ++i)
     {
-        const CharacterInfo &enemy = _enemies.at(i);
+        const CharacterInfo *enemy = _enemies.at(i);
         
         QJsonObject enemyObj;
-        enemyObj["name"] = enemy.name();
-        enemyObj["x"] = enemy.x();
-        enemyObj["y"] = enemy.y();
-        enemyObj["direction"] = (int) enemy.direction();
+        enemyObj["name"] = enemy->name();
+        enemyObj["x"] = enemy->x();
+        enemyObj["y"] = enemy->y();
+        enemyObj["initialBehavior"] = CharacterInitialBehaviorGetName(enemy->initialBehavior());
+        enemyObj["patrolBehavior"] = CharacterPatrolBehaviorGetName(enemy->patrolBehavior());
+        enemyObj["direction"] = (int) enemy->direction();
         
         enemiesObj << enemyObj;
     }
@@ -174,13 +187,13 @@ void Level::setCurrent(Level *level)
     
     emulator.reset();
 
-    const CharacterInfo &player = level->player();
+    const CharacterInfo *player = level->player();
 
     initGame();
     
-    ::player.x = S2W(player.x());
-    ::player.y = S2W(player.y());
-    ::player.dir = (int) player.direction();
+    ::player.x = S2W(player->x());
+    ::player.y = S2W(player->y());
+    ::player.dir = (int) player->direction();
     
     tileMap.indices = level->indices();
     tileMap.rows = rows;
@@ -198,10 +211,10 @@ void Level::setCurrent(Level *level)
     
     for (int i = 0; i < level->enemiesCount(); ++i)
     {
-        const CharacterInfo &enemyInfo = level->enemies().at(i);
+        const CharacterInfo *enemyInfo = level->enemies().at(i);
         
         Character enemy;
-        switch (enemyInfo.type())
+        switch (enemyInfo->type())
         {
             case CharacterTypeBear:
             {
@@ -224,9 +237,9 @@ void Level::setCurrent(Level *level)
             }
         }
         
-        enemy.dir = enemyInfo.direction();
-        enemy.id = enemyInfo.id();
-        ::addEnemy(enemy, S2W(enemyInfo.x()), S2W(enemyInfo.y()));
+        enemy.dir = enemyInfo->direction();
+        enemy.id = enemyInfo->id();
+        ::addEnemy(enemy, S2W(enemyInfo->x()), S2W(enemyInfo->y()));
     }
     
     MainWindow::instance()->updateLevelUi(level);
@@ -237,17 +250,20 @@ void Level::restart()
     setCurrent(Level::current());
 }
 
-void Level::addEnemy(CharacterType type, int x, int y, Direction dir)
+CharacterInfo *Level::addEnemy(CharacterType type, int x, int y, Direction dir)
 {
-    _enemies.append(CharacterInfo(type, x, y, dir));
+    CharacterInfo *enemy = new CharacterInfo(type, x, y, dir);
+    _enemies.append(enemy);
 
     MainWindow::instance()->updateLevelUi(this);
+    
+    return enemy;
 }
 
 void Level::deleteEnemy(int index)
 {
-    const CharacterInfo &enemy = _enemies.at(index);
-    deleteEnemyCharacter(enemy.id());
+    const CharacterInfo *enemy = _enemies.at(index);
+    deleteEnemyCharacter(enemy->id());
     
     Q_ASSERT(index >= 0 && index < _enemies.length());
     _enemies.removeAt(index);
@@ -305,14 +321,14 @@ void Level::resize(int top, int bottom, int left, int right)
     _indices = newIndices;
     
     // move characters
-    _player.setX(_player.x() + left * TILE_WIDTH_PX);
-    _player.setY(_player.y() + top * TILE_HEIGHT_PX);
+    _player->setX(_player->x() + left * TILE_WIDTH_PX);
+    _player->setY(_player->y() + top * TILE_HEIGHT_PX);
     
     for (int i = 0; i < enemiesCount(); ++i)
     {
-        CharacterInfo &enemy = _enemies[i];
-        enemy.setX(enemy.x() + left * TILE_WIDTH_PX);
-        enemy.setY(enemy.y() + top * TILE_HEIGHT_PX);
+        CharacterInfo *enemy = _enemies[i];
+        enemy->setX(enemy->x() + left * TILE_WIDTH_PX);
+        enemy->setY(enemy->y() + top * TILE_HEIGHT_PX);
     }
 
     setCurrent(this);
@@ -454,8 +470,8 @@ static Level* readLevelV1(QJsonObject levelObj, const QString &filename)
     }
     
     Level *level = new Level(indices, rows, cols, filename);
-    level->setPlayerPos(playerX, playerY);
-    level->setPlayerDir(characterDir);
+    level->player()->setPos(playerX, playerY);
+    level->player()->setDirection(characterDir);
     
     QJsonArray enemies = levelObj["enemies"].toArray();
     for (int i = 0; i < enemies.size(); ++i)
@@ -500,8 +516,8 @@ static Level* readLevelV2(QJsonObject levelObj, const QString &filename)
     }
     
     Level *level = new Level(indices, rows, cols, filename);
-    level->setPlayerPos(playerX, playerY);
-    level->setPlayerDir(characterDir);
+    level->player()->setPos(playerX, playerY);
+    level->player()->setDirection(characterDir);
     
     QJsonArray enemies = levelObj["enemies"].toArray();
     for (int i = 0; i < enemies.size(); ++i)
@@ -520,6 +536,54 @@ static Level* readLevelV2(QJsonObject levelObj, const QString &filename)
         Direction enemyDir = (Direction) enemyObj["direction"].toInt();
         
         level->addEnemy(characterType, x, y, enemyDir);
+    }
+    
+    return level;
+}
+
+static Level* readLevelV3(QJsonObject levelObj, const QString &filename)
+{
+    QJsonObject playerObj = levelObj["player"].toObject();
+    int playerX = playerObj["x"].toInt();
+    int playerY = playerObj["y"].toInt();
+    Direction characterDir = (Direction) playerObj["direction"].toInt();
+    
+    QJsonObject mapObj = levelObj["map"].toObject();
+    int cols = mapObj["cols"].toInt();
+    int rows = mapObj["rows"].toInt();
+    int indexCount = rows * cols;
+    uint8_t indices[indexCount];
+    
+    QString indicesString = mapObj["indices"].toString();
+    QStringList tokens = indicesString.split(",");
+    for (int i = 0; i < indexCount; ++i)
+    {
+        indices[i] = tokens.at(i).toInt();
+    }
+    
+    Level *level = new Level(indices, rows, cols, filename);
+    level->player()->setPos(playerX, playerY);
+    level->player()->setDirection(characterDir);
+    
+    QJsonArray enemies = levelObj["enemies"].toArray();
+    for (int i = 0; i < enemies.size(); ++i)
+    {
+        QJsonObject enemyObj = enemies.at(i).toObject();
+        QString name = enemyObj["name"].toString();
+        CharacterType characterType = CharacterInfo::typeFromName(name);
+        if (characterType == CharacterTypeCount)
+        {
+            qDebug() << "Unknown enemy type: " << name;
+            continue;
+        }
+        
+        int x = enemyObj["x"].toInt();
+        int y = enemyObj["y"].toInt();
+        Direction enemyDir = (Direction) enemyObj["direction"].toInt();
+        
+        CharacterInfo *enemy = level->addEnemy(characterType, x, y, enemyDir);
+        enemy->setInitialBehavior(CharacterInitialBehaviorFromName(enemyObj["initialBehavior"].toString()));
+        enemy->setPatrolBehavior(CharacterPatrolBehaviorFromName(enemyObj["patrolBehavior"].toString()));
     }
     
     return level;

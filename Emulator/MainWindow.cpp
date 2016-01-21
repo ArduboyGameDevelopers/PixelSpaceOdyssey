@@ -62,8 +62,8 @@ MainWindow::MainWindow(QWidget *parent) :
     if (level == NULL)
     {
         level = new Level(tileMap.indices, tileMap.rows, tileMap.cols);
-        level->setPlayerPos(W2S(player.x), W2S(player.y));
-        level->setPlayerDir((Direction) player.dir);
+        level->player()->setPos(W2S(player.x), W2S(player.y));
+        level->player()->setDirection((Direction) player.dir);
     }
     Level::setCurrent(level);
     level->release();
@@ -363,6 +363,10 @@ void MainWindow::setupActions()
     
     // player health
     connect(_ui->playerHealthEdit, SIGNAL(returnPressed()), this, SLOT(playerHealthEditReturnPressed()));
+
+    // behavior
+    connect(_ui->comboBoxInitialBehavior, SIGNAL(currentIndexChanged(int)), this, SLOT(onInitialBehaviorSelected(int)));
+    connect(_ui->comboBoxPatrolingBehavior, SIGNAL(currentIndexChanged(int)), this, SLOT(onPatrolingBehaviorSelected(int)));
 }
 
 void MainWindow::onActionNew()
@@ -389,8 +393,8 @@ void MainWindow::onActionNew()
     }
     
     Level *level = new Level(indices, rows, cols);
-    level->setPlayerPos(cols / 2 * GRID_CELL_WIDTH, cols / 2 * GRID_CELL_WIDTH);
-    level->setPlayerDir(DIR_RIGHT);
+    level->player()->setPos(cols / 2 * GRID_CELL_WIDTH, cols / 2 * GRID_CELL_WIDTH);
+    level->player()->setDirection(DIR_RIGHT);
     Level::setCurrent(level);
     level->release();
 }
@@ -587,6 +591,7 @@ void MainWindow::onDeleteEnemyButton()
     {
         level->deleteEnemy(enemyIndex);
     }
+    editorState.setCharacterIndex(-1);
 }
 
 void MainWindow::onCharacterListItemClicked(const QModelIndex & index)
@@ -596,6 +601,26 @@ void MainWindow::onCharacterListItemClicked(const QModelIndex & index)
     editorState.setCharacterIndex(characterIndex);
     displayWidget()->focusCharacter(characterIndex);
     updateCharacterParamsView();
+}
+
+void MainWindow::onInitialBehaviorSelected(int index)
+{
+    int enemyIndex = editorState.characterIndex() - 1;
+    if (enemyIndex >= 0)
+    {
+        CharacterInfo *enemy = Level::current()->enemyAt(enemyIndex);
+        enemy->setInitialBehavior((CharacterInitialBehavior) index);
+    }
+}
+
+void MainWindow::onPatrolingBehaviorSelected(int index)
+{
+    int enemyIndex = editorState.characterIndex() - 1;
+    if (enemyIndex >= 0)
+    {
+        CharacterInfo *enemy = Level::current()->enemyAt(enemyIndex);
+        enemy->setPatrolBehavior((CharacterPatrolBehavior) index);
+    }
 }
 
 void MainWindow::playerHealthEditReturnPressed()
@@ -648,12 +673,12 @@ void MainWindow::onDirectionButtonChecked(bool checked)
         Level *level = Level::current();
         if (characterIndex == 0)
         {
-            level->player().setDirection(dir);
+            level->player()->setDirection(dir);
         }
         else
         {
             int enemyIndex = characterIndex - 1;
-            level->setEnemyDir(enemyIndex, dir);
+            level->enemyAt(enemyIndex)->setDirection(dir);
         }
     }
 }
@@ -681,12 +706,12 @@ void MainWindow::updateCharacterParamsView()
         Direction direction;
         if (isPlayerSelected)
         {
-            direction = level->player().direction();
+            direction = level->player()->direction();
         }
         else
         {
             int enemyIndex = characterIndex - 1;
-            direction = level->enemies().at(enemyIndex).direction();
+            direction = level->enemyAt(enemyIndex)->direction();
         }
         _ui->rightRadioButton->setChecked(direction == DIR_RIGHT);
         _ui->leftRadioButton->setChecked(direction == DIR_LEFT);
@@ -695,9 +720,16 @@ void MainWindow::updateCharacterParamsView()
         _ui->comboBoxInitialBehavior->setEnabled(!isPlayerSelected);
         _ui->comboBoxPatrolingBehavior->setEnabled(!isPlayerSelected);
         
-        if (!isPlayerSelected)
+        if (isPlayerSelected)
         {
-            
+            _ui->comboBoxInitialBehavior->setCurrentIndex(CharacterInitialBehaviorUndefined);
+            _ui->comboBoxPatrolingBehavior->setCurrentIndex(CharacterPatrolBehaviorUndefined);
+        }
+        else
+        {
+            const CharacterInfo *character = Level::current()->enemyAt(characterIndex - 1);
+            _ui->comboBoxInitialBehavior->setCurrentIndex(character->initialBehavior());
+            _ui->comboBoxPatrolingBehavior->setCurrentIndex(character->patrolBehavior());
         }
     }
 }

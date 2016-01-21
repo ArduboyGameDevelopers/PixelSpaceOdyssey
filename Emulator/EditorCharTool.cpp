@@ -36,8 +36,8 @@ void EditorCharTool::onMousePressed(int, int)
     
     if (_characterType == CharacterTypePlayer)
     {
-        level->setPlayerPos(cx, cy);
-        level->setPlayerDir(DIR_RIGHT);
+        level->player()->setPos(cx, cy);
+        level->player()->setDirection(DIR_RIGHT);
     }
     else
     {

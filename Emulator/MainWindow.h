@@ -55,6 +55,8 @@ public slots:
     void onDirectionButtonChecked(bool checked);
     void onCharacterListItemClicked(const QModelIndex & index);
     
+    void onInitialBehaviorSelected(int index);
+    void onPatrolingBehaviorSelected(int index);
     void playerHealthEditReturnPressed();
 
 public:
