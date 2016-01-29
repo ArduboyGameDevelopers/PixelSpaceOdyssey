@@ -8,7 +8,7 @@
 #include "ch_spider_large_animations.h"
 #include "ch_spider_small_animations.h"
 
-static const QString kCharacterInitialBehaviorNameLookup[] = {
+static const QString kCharacterInitialStateNameLookup[] = {
     "Undefined",
     "Stat",
     "Sleep",
@@ -22,11 +22,11 @@ static const QString kCharacterPatrolBehaviorNameLookup[] = {
     "ReturnToBase"
 };
 
-const QString CharacterInitialBehaviorGetName(CharacterInitialBehavior behavior)
+const QString CharacterInitialStateGetName(CharacterInitialState behavior)
 {
     int index = (int)behavior;
     assert(index >= 0 && index < 4);
-    return kCharacterInitialBehaviorNameLookup[index];
+    return kCharacterInitialStateNameLookup[index];
 }
 
 const QString CharacterPatrolBehaviorGetName(CharacterPatrolBehavior behavior)
@@ -36,17 +36,17 @@ const QString CharacterPatrolBehaviorGetName(CharacterPatrolBehavior behavior)
     return kCharacterPatrolBehaviorNameLookup[index];
 }
 
-CharacterInitialBehavior CharacterInitialBehaviorFromName(const QString &behavior)
+CharacterInitialState CharacterInitialStateFromName(const QString &behavior)
 {
     for (int i = 0; i < 4; ++i)
     {
-        if (kCharacterInitialBehaviorNameLookup[i] == behavior)
+        if (kCharacterInitialStateNameLookup[i] == behavior)
         {
-            return (CharacterInitialBehavior) i;
+            return (CharacterInitialState) i;
         }
     }
     
-    return CharacterInitialBehaviorUndefined;
+    return CharacterInitialStateUndefined;
 }
 
 CharacterPatrolBehavior CharacterPatrolBehaviorFromName(const QString &behavior)

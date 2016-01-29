@@ -15,11 +15,11 @@ enum CharacterType {
     CharacterTypeCount
 };
 
-enum CharacterInitialBehavior {
-    CharacterInitialBehaviorUndefined,
-    CharacterInitialBehaviorStat,   // stay still until it see the player
-    CharacterInitialBehaviorSleep,  // sleep until player wake is up
-    CharacterInitialBehaviorPatrol, // patroling the area
+enum CharacterInitialState {
+    CharacterInitialStateUndefined,
+    CharacterInitialStateStat,   // stay still until it see the player
+    CharacterInitialStateSleep,  // sleep until player wake is up
+    CharacterInitialStatePatrol, // patroling the area
 };
 
 enum CharacterPatrolBehavior {
@@ -29,10 +29,10 @@ enum CharacterPatrolBehavior {
     CharacterPatrolBehaviorReturnToBase // returns to initial position after time out
 };
 
-const QString CharacterInitialBehaviorGetName(CharacterInitialBehavior behavior);
+const QString CharacterInitialStateGetName(CharacterInitialState behavior);
 const QString CharacterPatrolBehaviorGetName(CharacterPatrolBehavior behavior);
 
-CharacterInitialBehavior CharacterInitialBehaviorFromName(const QString &behavior);
+CharacterInitialState CharacterInitialStateFromName(const QString &behavior);
 CharacterPatrolBehavior CharacterPatrolBehaviorFromName(const QString &behavior);
 
 class CharacterInfo
@@ -44,7 +44,7 @@ public:
         _x(0),
         _y(0),
         _direction(DIR_LEFT),
-        _initialBehavior(CharacterInitialBehaviorUndefined),
+        _initialState(CharacterInitialStateUndefined),
         _patrolBehavior(CharacterPatrolBehaviorUndefined)
     {
     }
@@ -55,7 +55,7 @@ public:
         _x(x),
         _y(y),
         _direction(direction),
-        _initialBehavior(CharacterInitialBehaviorUndefined),
+        _initialState(CharacterInitialStateUndefined),
         _patrolBehavior(CharacterPatrolBehaviorUndefined)
     {
     }
@@ -66,7 +66,7 @@ public:
         _x(other.x()),
         _y(other.y()),
         _direction(other.direction()),
-        _initialBehavior(other._initialBehavior),
+        _initialState(other._initialState),
         _patrolBehavior(other._patrolBehavior)
     {
     }
@@ -98,8 +98,8 @@ public:
     inline int id() const { return _id; }
     inline bool isValid() const { return _type != CharacterTypeCount; }
     
-    inline CharacterInitialBehavior initialBehavior() const { return _initialBehavior; }
-    inline void setInitialBehavior(CharacterInitialBehavior behavior) { _initialBehavior = behavior; }
+    inline CharacterInitialState initialState() const { return _initialState; }
+    inline void setInitialBehavior(CharacterInitialState behavior) { _initialState = behavior; }
     
     inline CharacterPatrolBehavior patrolBehavior() const { return _patrolBehavior; }
     inline void setPatrolBehavior(CharacterPatrolBehavior behavior) { _patrolBehavior = behavior; }
@@ -114,7 +114,7 @@ private:
     int _x;
     int _y;
     Direction _direction;
-    CharacterInitialBehavior _initialBehavior;
+    CharacterInitialState _initialState;
     CharacterPatrolBehavior _patrolBehavior;
 };
 
