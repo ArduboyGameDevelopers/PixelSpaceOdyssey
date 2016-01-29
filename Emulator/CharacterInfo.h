@@ -15,25 +15,11 @@ enum CharacterType {
     CharacterTypeCount
 };
 
-enum CharacterInitialState {
-    CharacterInitialStateUndefined,
-    CharacterInitialStateStat,   // stay still until it see the player
-    CharacterInitialStateSleep,  // sleep until player wake is up
-    CharacterInitialStatePatrol, // patroling the area
-};
-
-enum CharacterPatrolBehavior {
-    CharacterPatrolBehaviorUndefined,
-    CharacterPatrolBehaviorNone,        // stay in the last position
-    CharacterPatrolBehaviorForever,     // once started partoling - never stops
-    CharacterPatrolBehaviorReturnToBase // returns to initial position after time out
-};
-
 const QString CharacterInitialStateGetName(CharacterInitialState behavior);
-const QString CharacterPatrolBehaviorGetName(CharacterPatrolBehavior behavior);
+const QString CharacterPatrollingTypeGetName(CharacterPatrollingType behavior);
 
 CharacterInitialState CharacterInitialStateFromName(const QString &behavior);
-CharacterPatrolBehavior CharacterPatrolBehaviorFromName(const QString &behavior);
+CharacterPatrollingType CharacterPatrollingTypeFromName(const QString &behavior);
 
 class CharacterInfo
 {
@@ -45,7 +31,7 @@ public:
         _y(0),
         _direction(DIR_LEFT),
         _initialState(CharacterInitialStateUndefined),
-        _patrolBehavior(CharacterPatrolBehaviorUndefined)
+        _patrollingType(CharacterPatrollingTypeUndefined)
     {
     }
     
@@ -56,7 +42,7 @@ public:
         _y(y),
         _direction(direction),
         _initialState(CharacterInitialStateUndefined),
-        _patrolBehavior(CharacterPatrolBehaviorUndefined)
+        _patrollingType(CharacterPatrollingTypeUndefined)
     {
     }
     
@@ -67,7 +53,7 @@ public:
         _y(other.y()),
         _direction(other.direction()),
         _initialState(other._initialState),
-        _patrolBehavior(other._patrolBehavior)
+        _patrollingType(other._patrollingType)
     {
     }
     
@@ -101,8 +87,8 @@ public:
     inline CharacterInitialState initialState() const { return _initialState; }
     inline void setInitialBehavior(CharacterInitialState behavior) { _initialState = behavior; }
     
-    inline CharacterPatrolBehavior patrolBehavior() const { return _patrolBehavior; }
-    inline void setPatrolBehavior(CharacterPatrolBehavior behavior) { _patrolBehavior = behavior; }
+    inline CharacterPatrollingType patrollingType() const { return _patrollingType; }
+    inline void setPatrolBehavior(CharacterPatrollingType behavior) { _patrollingType = behavior; }
     
     const QImage image() const;
     const QString name() const;
@@ -115,7 +101,7 @@ private:
     int _y;
     Direction _direction;
     CharacterInitialState _initialState;
-    CharacterPatrolBehavior _patrolBehavior;
+    CharacterPatrollingType _patrollingType;
 };
 
 #endif // LEVELCHARACTER_H

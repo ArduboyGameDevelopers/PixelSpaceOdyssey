@@ -15,7 +15,7 @@ static const QString kCharacterInitialStateNameLookup[] = {
     "Patrol"
 };
 
-static const QString kCharacterPatrolBehaviorNameLookup[] = {
+static const QString kCharacterPatrollingTypeNameLookup[] = {
     "Undefined",
     "None",
     "Forever",
@@ -29,11 +29,11 @@ const QString CharacterInitialStateGetName(CharacterInitialState behavior)
     return kCharacterInitialStateNameLookup[index];
 }
 
-const QString CharacterPatrolBehaviorGetName(CharacterPatrolBehavior behavior)
+const QString CharacterPatrollingTypeGetName(CharacterPatrollingType behavior)
 {
     int index = (int)behavior;
     assert(index >= 0 && index < 4);
-    return kCharacterPatrolBehaviorNameLookup[index];
+    return kCharacterPatrollingTypeNameLookup[index];
 }
 
 CharacterInitialState CharacterInitialStateFromName(const QString &behavior)
@@ -49,17 +49,17 @@ CharacterInitialState CharacterInitialStateFromName(const QString &behavior)
     return CharacterInitialStateUndefined;
 }
 
-CharacterPatrolBehavior CharacterPatrolBehaviorFromName(const QString &behavior)
+CharacterPatrollingType CharacterPatrollingTypeFromName(const QString &behavior)
 {
     for (int i = 0; i < 4; ++i)
     {
-        if (kCharacterPatrolBehaviorNameLookup[i] == behavior)
+        if (kCharacterPatrollingTypeNameLookup[i] == behavior)
         {
-            return (CharacterPatrolBehavior) i;
+            return (CharacterPatrollingType) i;
         }
     }
     
-    return CharacterPatrolBehaviorUndefined;
+    return CharacterPatrollingTypeUndefined;
 }
 
 typedef struct _CharacterTypeParams {

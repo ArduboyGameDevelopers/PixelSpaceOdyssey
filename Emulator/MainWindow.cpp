@@ -619,7 +619,7 @@ void MainWindow::onPatrollingBehaviorSelected(int index)
     if (enemyIndex >= 0)
     {
         CharacterInfo *enemy = Level::current()->enemyAt(enemyIndex);
-        enemy->setPatrolBehavior((CharacterPatrolBehavior) index);
+        enemy->setPatrolBehavior((CharacterPatrollingType) index);
     }
 }
 
@@ -723,13 +723,13 @@ void MainWindow::updateCharacterParamsView()
         if (isPlayerSelected)
         {
             _ui->comboBoxInitialBehavior->setCurrentIndex(CharacterInitialStateUndefined);
-            _ui->comboBoxPatrollingBehavior->setCurrentIndex(CharacterPatrolBehaviorUndefined);
+            _ui->comboBoxPatrollingBehavior->setCurrentIndex(CharacterPatrollingTypeUndefined);
         }
         else
         {
             const CharacterInfo *character = Level::current()->enemyAt(characterIndex - 1);
             _ui->comboBoxInitialBehavior->setCurrentIndex(character->initialState());
-            _ui->comboBoxPatrollingBehavior->setCurrentIndex(character->patrolBehavior());
+            _ui->comboBoxPatrollingBehavior->setCurrentIndex(character->patrollingType());
         }
     }
 }

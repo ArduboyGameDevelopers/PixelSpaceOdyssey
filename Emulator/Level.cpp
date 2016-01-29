@@ -142,7 +142,7 @@ void Level::writeToFile(const QString &filename)
         enemyObj["x"] = enemy->x();
         enemyObj["y"] = enemy->y();
         enemyObj["initialState"] = CharacterInitialStateGetName(enemy->initialState());
-        enemyObj["patrolBehavior"] = CharacterPatrolBehaviorGetName(enemy->patrolBehavior());
+        enemyObj["patrollingType"] = CharacterPatrollingTypeGetName(enemy->patrollingType());
         enemyObj["direction"] = (int) enemy->direction();
         
         enemiesObj << enemyObj;
@@ -583,7 +583,7 @@ static Level* readLevelV3(QJsonObject levelObj, const QString &filename)
         
         CharacterInfo *enemy = level->addEnemy(characterType, x, y, enemyDir);
         enemy->setInitialBehavior(CharacterInitialStateFromName(enemyObj["initialState"].toString()));
-        enemy->setPatrolBehavior(CharacterPatrolBehaviorFromName(enemyObj["patrolBehavior"].toString()));
+        enemy->setPatrolBehavior(CharacterPatrollingTypeFromName(enemyObj["patrollingType"].toString()));
     }
     
     return level;

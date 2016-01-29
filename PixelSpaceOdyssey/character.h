@@ -33,6 +33,20 @@ typedef void (*CharacterInit)(Character *character);
 typedef void (*CharacterCallback)(Character *character, CharacterCallbackType type, int16_t user1, int16_t user2);
 typedef void (*CharacterBehaviour)(Character *character, TimeInterval dt);
 
+enum CharacterInitialState {
+    CharacterInitialStateUndefined,
+    CharacterInitialStateStat,   // stay still until it see the player
+    CharacterInitialStateSleep,  // sleep until player wake is up
+    CharacterInitialStatePatrol, // patroling the area
+};
+
+enum CharacterPatrollingType {
+    CharacterPatrollingTypeUndefined,
+    CharacterPatrollingTypeNone,        // stay in the last position
+    CharacterPatrollingTypeForever,     // once started partoling - never stops
+    CharacterPatrollingTypeReturnToBase // returns to initial position after time out
+};
+
 typedef struct _Character
 {
     CharacterBehaviour behaviour;
