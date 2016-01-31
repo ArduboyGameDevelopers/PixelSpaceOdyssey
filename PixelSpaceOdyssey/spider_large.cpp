@@ -5,25 +5,9 @@
 
 #include "game.h"
 
-#define SpiderLargeStateSleep   0
-#define SpiderLargeStateAwaken  1
-#define SpiderLargeStateRise    2
-#define SpiderLargeStateChase    3
-#define SpiderLargeStateAttack  4
-#define SpiderLargeStateStat    5
-#define SpiderLargeStatePatrol  6
-
-static const uint8_t ANIMATION_LOOKUP[] = {
-    CH_SPIDER_LARGE_ANIMATION_SLEEP,   /* SpiderLargeStateSleep */
-    CH_SPIDER_LARGE_ANIMATION_AWAKEN,  /* SpiderLargeStateAwaken */
-    CH_SPIDER_LARGE_ANIMATION_RISE,    /* SpiderLargeStateRise */
-    CH_SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStateChase */
-    CH_SPIDER_LARGE_ANIMATION_ATTACK,  /* SpiderLargeStateAttack */
-    CH_SPIDER_LARGE_ANIMATION_STAT,    /* SpiderLargeStateStat */
-    CH_SPIDER_LARGE_ANIMATION_WALK,    /* SpiderLargeStatePatrol */
-};
-
-typedef uint16_t SpiderLargeState;
+static const EnemyState EnemyStateSleep   = EnemyStateUser;
+static const EnemyState EnemyStateAwaken  = EnemyStateUser + 1;
+static const EnemyState EnemyStateRise    = EnemyStateUser + 2;
 
 static inline void setAnimation(Character *self, int index)
 {
@@ -31,71 +15,71 @@ static inline void setAnimation(Character *self, int index)
     CharacterSetAnimation(self, &CH_SPIDER_LARGE_ANIMATIONS[index]);
 }
 
-static inline SpiderLargeState getState(Character *self)
+static inline EnemyState getState(Character *self)
 {
-    return (SpiderLargeState) self->state;
+    return (EnemyState) self->state;
 }
 
-static inline void setState(Character *self, SpiderLargeState state)
+static inline void setState(Character *self, EnemyState state)
 {
     self->state = (uint16_t) state;
     self->stateTime = 0;
     self->move = 0;
-    setAnimation(self, ANIMATION_LOOKUP[state]);
+    setAnimation(self, CH_SPIDER_LARGE_ANIMATION_LOOKUP[state]);
 }
 
 static inline void awake(Character *self)
 {
-    setState(self, SpiderLargeStateAwaken);
+    setState(self, EnemyStateAwaken);
 }
 
 static inline void rise(Character *self)
 {
-    setState(self, SpiderLargeStateRise);
+    setState(self, EnemyStateRise);
 }
 
 static inline void chase(Character *self)
 {
-    setState(self, SpiderLargeStateChase);
+    setState(self, EnemyStateChase);
     self->move = 1;
 }
 
 static inline void patrol(Character *self)
 {
-    setState(self, SpiderLargeStatePatrol);
+    setState(self, EnemyStatePatrol);
     self->move = 1;
 }
 
 static inline void stat(Character *self)
 {
-    setState(self, SpiderLargeStateStat);
+    setState(self, EnemyStateStat);
 }
 
 static inline void attack(Character *self)
 {
-    setState(self, SpiderLargeStateAttack);
+    setState(self, EnemyStateAttack);
     EnemyAttackBase(self);
 }
 
 void EnemyInitSpiderLarge(Character *character)
 {
-    setState(character, SpiderLargeStateSleep);
+    setState(character, EnemyStateSleep);
 }
 
 void EnemyCallbackSpiderLarge(Character *self, CharacterCallbackType type, int16_t, int16_t)
 {
-    SpiderLargeState state = getState(self);
+    EnemyState state = getState(self);
     switch (type)
     {
         case CHARACTER_CALLBACK_ANIMATION_FINISHED:
         {
             switch (state)
             {
-                case SpiderLargeStateRise:
+                case EnemyStateRise:
                     chase(self);
                     break;
                     
-                case SpiderLargeStateAttack:
+                case EnemyStateAttack:
                     chase(self);
                     break;
             }
@@ -106,10 +90,10 @@ void EnemyCallbackSpiderLarge(Character *self, CharacterCallbackType type, int16
         {
             switch (state)
             {
-                case SpiderLargeStateChase:
+                case EnemyStateChase:
                     stat(self);
                     break;
-                case SpiderLargeStatePatrol:
+                case EnemyStatePatrol:
                     self->dir = -self->dir;
                     break;
             }
@@ -120,11 +104,11 @@ void EnemyCallbackSpiderLarge(Character *self, CharacterCallbackType type, int16
 
 void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
 {
-    SpiderLargeState state = getState(self);
+    EnemyState state = getState(self);
     
     switch (state)
     {
-        case SpiderLargeStateSleep:
+        case EnemyStateSleep:
         {
             EnemyUpdatePlayerPos(self);
             if (self->canSeePlayer)
@@ -133,7 +117,7 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
             }
             break;
         }
-        case SpiderLargeStateAwaken:
+        case EnemyStateAwaken:
         {
             self->stateTime += dt;
             if (self->stateTime > 500)
@@ -142,12 +126,12 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
             }
             break;
         }
-        case SpiderLargeStateRise:
+        case EnemyStateRise:
         {
             break;
         }
-        case SpiderLargeStateChase:
-        case SpiderLargeStateStat:
+        case EnemyStateChase:
+        case EnemyStateStat:
         {
             EnemyUpdatePlayerPos(self);
             
@@ -184,7 +168,7 @@ void EnemyBehaviourSpiderLarge(Character *self, TimeInterval dt)
             break;
         }
             
-        case SpiderLargeStatePatrol:
+        case EnemyStatePatrol:
         {
             EnemyUpdatePlayerPos(self);
             if (self->canSeePlayer)

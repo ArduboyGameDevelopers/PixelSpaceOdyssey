@@ -11,13 +11,14 @@ extern unsigned long millis(void);
 extern long random(long);
 extern long random(long, long);
 
-#define EnemyStateStat    0
-#define EnemyStateChase   1
-#define EnemyStateAttack  2
-#define EnemyStatePatrol  3
+typedef uint8_t EnemyState;
+typedef uint8_t EnemyType;
 
-typedef uint16_t EnemyState;
-typedef uint8_t  EnemyType;
+const EnemyState EnemyStateStat     = 0;
+const EnemyState EnemyStateChase    = 1;
+const EnemyState EnemyStateAttack   = 2;
+const EnemyState EnemyStatePatrol   = 3;
+const EnemyState EnemyStateUser     = 4; // start value for custom states
 
 /** Returns enemy state */
 inline EnemyState EnemyGetState(Character *self)
