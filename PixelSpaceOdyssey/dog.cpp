@@ -10,7 +10,7 @@ static inline void setAnimation(Character *self, int index)
     CharacterSetAnimation(self, &self->animations[index]);
 }
 
-static inline void setState(Character *self, EnemyState state)
+static inline void EnemySetState(Character *self, EnemyState state)
 {
     self->state = (uint16_t) state;
     self->stateTime = 0;
@@ -19,19 +19,19 @@ static inline void setState(Character *self, EnemyState state)
     setAnimation(self, self->animationLookup[state]);
 }
 
-static inline void chase(Character *self)
+static inline void EnemyChase(Character *self)
 {
     DEBUG_LOG("Dog: chase");
 
-    setState(self, EnemyStateChase);
+    EnemySetState(self, EnemyStateChase);
     self->move = self->moveMax;
 }
 
-static inline void stat(Character *self, bool canPatrol = true)
+static inline void EnemyStat(Character *self, bool canPatrol = true)
 {
     DEBUG_LOG("Dog: stat");
 
-    setState(self, EnemyStateStat);
+    EnemySetState(self, EnemyStateStat);
     self->stateTime = canPatrol ? random(1500, 3000) : 0;
 }
 
@@ -39,11 +39,13 @@ static inline void attack(Character *self)
 {
     DEBUG_LOG("Dog: attack");
 
-    EnemyAttack(self);
-    setState(self, EnemyStateAttack);
+    self->lastAttackTimestamp = millis();
+    playerDamage(self);
+
+    EnemySetState(self, EnemyStateAttack);
 }
 
-static inline void patrol(Character *self)
+static inline void EnemyPatrol(Character *self)
 {
     switch (self->patrollingType)
     {
@@ -51,7 +53,7 @@ static inline void patrol(Character *self)
         {
             DEBUG_LOG("Dog: don't patrol. Stay your ground");
 
-            stat(self);
+            EnemyStat(self);
             break;
         }
             
@@ -61,7 +63,7 @@ static inline void patrol(Character *self)
             {
                 DEBUG_LOG("Dog: return to base");
 
-                setState(self, EnemyStatePatrol);
+                EnemySetState(self, EnemyStatePatrol);
                 EnemySetTargetPos(self, self->basePos); // return to the spawn point
                 self->move = 3;
             }
@@ -105,7 +107,7 @@ static inline void patrol(Character *self)
             {
                 DEBUG_LOG("Dog: patrol");
 
-                setState(self, EnemyStatePatrol);
+                EnemySetState(self, EnemyStatePatrol);
                 self->move = self->moveMax;
                 EnemySetTargetPos(self, targetPos);
             }
@@ -122,11 +124,11 @@ void EnemyInitDog(Character *self)
 {
     if (self->initialState == CharacterInitialStatePatrol)
     {
-        patrol(self);
+        EnemyPatrol(self);
     }
     else
     {
-        stat(self, false);
+        EnemyStat(self, false);
     }
 }
 
@@ -140,7 +142,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
             switch (state)
             {
                 case EnemyStateAttack:
-                    stat(self);
+                    EnemyStat(self);
                     break;
             }
             break;
@@ -161,14 +163,14 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
                     }
                     else
                     {
-                        stat(self);
+                        EnemyStat(self);
                     }
                     break;
                 }
                     
                 case EnemyStatePatrol:
                 {
-                    stat(self);
+                    EnemyStat(self);
                     break;
                 }
             }
@@ -181,7 +183,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
             switch (state)
             {
                 case EnemyStateChase:
-                    stat(self);
+                    EnemyStat(self);
                     break;
             }
             break;
@@ -215,7 +217,7 @@ void EnemyBehaviourDog(Character *self, TimeInterval dt)
                     }
                     else if (CharacterIsMoving(self))
                     {
-                        stat(self);
+                        EnemyStat(self);
                     }
                 }
                 else if (distance < 0 && EnemyCanMoveLeft(self) || // to far away to attack
@@ -228,7 +230,7 @@ void EnemyBehaviourDog(Character *self, TimeInterval dt)
                     // if not chasing already - start chasing
                     if (state != EnemyStateChase)
                     {
-                        chase(self);
+                        EnemyChase(self);
                     }
                 }
             }
@@ -241,7 +243,7 @@ void EnemyBehaviourDog(Character *self, TimeInterval dt)
                 else if (self->stateTime > 0)
                 {
                     self->stateTime = 0;
-                    patrol(self);
+                    EnemyPatrol(self);
                 }
             }
             break;

@@ -77,7 +77,7 @@ inline bool EnemyIsCloseToAttack(const Character *self)
 }
 
 /** Initiates an attack to the player */
-inline void EnemyAttack(Character *self)
+inline void EnemyAttackBaseBase(Character *self)
 {
     self->lastAttackTimestamp = millis();
     playerDamage(self);

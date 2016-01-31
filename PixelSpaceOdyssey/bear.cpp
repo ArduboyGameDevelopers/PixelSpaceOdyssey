@@ -62,7 +62,7 @@ static inline void stat(Character *self)
 static inline void attack(Character *self)
 {
     setState(self, BearStateAttack);
-    EnemyAttack(self);
+    EnemyAttackBaseBase(self);
 }
 
 void EnemyInitBear(Character *character)
