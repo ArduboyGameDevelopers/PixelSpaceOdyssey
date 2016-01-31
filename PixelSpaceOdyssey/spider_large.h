@@ -27,7 +27,6 @@ inline Character EnemyMakeSpiderLarge()
     spider.callback = EnemyCallbackSpiderLarge;
     spider.sightDistanceForward = 10 * TILE_WIDTH;
     spider.sightDistanceBackward = 4 * TILE_WIDTH;
-    spider.moveMax = 1;
     EnemyInitSpiderLarge(&spider);
     return spider;
 }

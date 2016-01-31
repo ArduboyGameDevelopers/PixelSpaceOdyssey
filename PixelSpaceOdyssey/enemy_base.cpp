@@ -275,7 +275,7 @@ void EnemyPatrol(Character *self)
 
                 EnemySetState(self, EnemyStatePatrol);
                 EnemySetTargetPos(self, self->basePos); // return to the spawn point
-                self->move = 3;
+                self->move = self->moveMax;
             }
             else
             {

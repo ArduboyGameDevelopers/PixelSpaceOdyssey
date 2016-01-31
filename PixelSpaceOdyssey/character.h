@@ -136,6 +136,7 @@ inline Character CharacterMake(uint16_t width, uint16_t height)
     memset(&character, 0, sizeof(character));
     character.width = width;
     character.height = height;
+    character.moveMax = 1;
     return character;
 }
 
