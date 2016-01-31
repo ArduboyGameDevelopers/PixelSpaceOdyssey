@@ -11,7 +11,17 @@ extern unsigned long millis(void);
 extern long random(long);
 extern long random(long, long);
 
+#define EnemyStateStat    0
+#define EnemyStateChase   1
+#define EnemyStateAttack  2
+#define EnemyStatePatrol  3
+
+typedef uint16_t EnemyState;
+
+/** Update function for enemy */
 void EnemyUpdate(Character *character, TimeInterval dt);
+
+/** Update enemy move and sight constraints */
 void UpdateConstraints(Character *character);
 
 /** The farthest point enemy can see on the left */

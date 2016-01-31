@@ -5,19 +5,12 @@
 
 #include "game.h"
 
-#define EnemyStateStat    0
-#define EnemyStateChase   1
-#define EnemyStateAttack  2
-#define EnemyStatePatrol  3
-
 static const uint8_t ANIMATION_LOOKUP[] = {
     CH_DOG_ANIMATION_STAT,     /* EnemyStateStat */
     CH_DOG_ANIMATION_RUN,      /* EnemyStateRun */
     CH_DOG_ANIMATION_ATTACK,   /* EnemyStateAttack */
     CH_DOG_ANIMATION_RUN       /* EnemyStatePatrol */
 };
-
-typedef uint16_t EnemyState;
 
 static inline void setAnimation(Character *self, int index)
 {
