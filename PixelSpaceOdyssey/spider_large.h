@@ -10,8 +10,8 @@ const uint8_t CH_SPIDER_LARGE_ANIMATION_LOOKUP[] = {
     CH_SPIDER_LARGE_ANIMATION_ATTACK,  /* EnemyStateAttack */
     CH_SPIDER_LARGE_ANIMATION_WALK,    /* EnemyStatePatrol */
     CH_SPIDER_LARGE_ANIMATION_SLEEP,   /* EnemyStateSleep */
-    CH_SPIDER_LARGE_ANIMATION_AWAKEN,  /* EnemyState */
-    CH_SPIDER_LARGE_ANIMATION_RISE,    /* EnemyState */
+    CH_SPIDER_LARGE_ANIMATION_AWAKEN,  /* EnemyStateAwaken */
+    CH_SPIDER_LARGE_ANIMATION_RISE,    /* EnemyStateRise */
 };
 
 extern void EnemyInitSpiderLarge(Character *character);
@@ -20,13 +20,16 @@ extern void EnemyBehaviourSpiderLarge(Character *character, TimeInterval dt);
 
 inline Character EnemyMakeSpiderLarge()
 {
-    Character character = CharacterMake(S2W(CH_SPIDER_LARGE_WIDTH), S2W(CH_SPIDER_LARGE_HEIGHT));
-    character.behaviour = EnemyBehaviourSpiderLarge;
-    character.callback = EnemyCallbackSpiderLarge;
-    character.sightDistanceForward  = 10 * TILE_WIDTH;
-    character.sightDistanceBackward = 4 * TILE_WIDTH;
-    EnemyInitSpiderLarge(&character);
-    return character;
+    Character spider = CharacterMake(S2W(CH_SPIDER_LARGE_WIDTH), S2W(CH_SPIDER_LARGE_HEIGHT));
+    spider.animations = CH_SPIDER_LARGE_ANIMATIONS;
+    spider.animationLookup = CH_SPIDER_LARGE_ANIMATION_LOOKUP;
+    spider.behaviour = EnemyBehaviourSpiderLarge;
+    spider.callback = EnemyCallbackSpiderLarge;
+    spider.sightDistanceForward = 10 * TILE_WIDTH;
+    spider.sightDistanceBackward = 4 * TILE_WIDTH;
+    spider.moveMax = 1;
+    EnemyInitSpiderLarge(&spider);
+    return spider;
 }
 
 #endif // SPIDER_LARGE
