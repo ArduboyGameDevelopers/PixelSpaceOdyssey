@@ -74,7 +74,7 @@ static inline void stat(Character *self)
 static inline void attack(Character *self)
 {
     setState(self, SpiderLargeStateAttack);
-    EnemyAttackBaseBase(self);
+    EnemyAttackBase(self);
 }
 
 void EnemyInitSpiderLarge(Character *character)

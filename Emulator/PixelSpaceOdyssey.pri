@@ -18,7 +18,6 @@ SOURCES += $${PROJ_PATH}/character.cpp \
     $${PROJ_PATH}/tiles_merged.cpp \
     $${PROJ_PATH}/spider_large.cpp \
     $${PROJ_PATH}/ch_spider_large_animations.cpp \
-    $${PROJ_PATH}/dog.cpp \
     $${PROJ_PATH}/ch_dog_animations.cpp \
     $${PROJ_PATH}/enemy_base.cpp \
     $${PROJ_PATH}/dispatch.cpp \

@@ -2,6 +2,7 @@
 #define DOG
 
 #include "character.h"
+#include "enemy_base.h"
 #include "ch_dog_animations.h"
 
 const uint8_t CH_DOG_ANIMATION_LOOKUP[] = {
@@ -22,10 +23,10 @@ inline Character EnemyMakeDog()
     dog.animationLookup = CH_DOG_ANIMATION_LOOKUP;
     dog.sightDistanceForward  = 16 * TILE_WIDTH;
     dog.sightDistanceBackward = 16 * TILE_WIDTH;
-    dog.behaviour = EnemyBehaviourDog;
-    dog.callback = EnemyCallbackDog;
+    dog.behaviour = EnemyDefaultBehaviour;
+    dog.callback = EnemyDefaultCallback;
     dog.moveMax = 3;
-    EnemyInitDog(&dog);
+    EnemyDefaultInit(&dog);
     return dog;
 }
 

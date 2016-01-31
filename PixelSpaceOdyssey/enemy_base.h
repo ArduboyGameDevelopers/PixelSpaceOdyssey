@@ -80,7 +80,16 @@ inline bool EnemyIsCloseToAttack(const Character *self)
 }
 
 /** Initiates an attack to the player */
-void EnemyAttackBaseBase(Character *self);
+void EnemyAttackBase(Character *self);
+
+/** Default init */
+void EnemyDefaultInit(Character *self);
+
+/** Default events callback */
+void EnemyDefaultCallback(Character *self, CharacterCallbackType type, int16_t, int16_t);
+
+/** Default AI behavior */
+void EnemyDefaultBehaviour(Character *self, TimeInterval dt);
 
 /** Set enemy's target position */
 void EnemySetTargetPos(Character *self, int16_t target);
