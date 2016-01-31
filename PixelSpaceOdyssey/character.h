@@ -51,7 +51,10 @@ typedef struct _Character
 {
     CharacterBehaviour behaviour;
     CharacterCallback callback;
-    const Animation* animation;
+
+    const Animation *animations;
+    const uint8_t *animationLookup;
+    const Animation *animation;
 
     TimeInterval lastAttackTimestamp;
     
@@ -74,7 +77,8 @@ typedef struct _Character
     int16_t sightMaxX;
     uint16_t frameTime;
     Direction dir;
-    int8_t move;
+    uint8_t move;
+    uint8_t moveMax;
     uint8_t frame;
     boolean animationEnded;
     boolean canSeePlayer;

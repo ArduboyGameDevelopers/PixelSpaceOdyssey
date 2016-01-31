@@ -5,23 +5,18 @@
 
 #include "game.h"
 
-static const uint8_t ANIMATION_LOOKUP[] = {
-    CH_DOG_ANIMATION_STAT,     /* EnemyStateStat */
-    CH_DOG_ANIMATION_RUN,      /* EnemyStateRun */
-    CH_DOG_ANIMATION_ATTACK,   /* EnemyStateAttack */
-    CH_DOG_ANIMATION_RUN       /* EnemyStatePatrol */
-};
-
 static inline void setAnimation(Character *self, int index)
 {
-    assert(index >= 0 && index < CH_DOG_ANIMATIONS_COUNT);
-    CharacterSetAnimation(self, &CH_DOG_ANIMATIONS[index]);
+    CharacterSetAnimation(self, &self->animations[index]);
 }
 
 static inline void setState(Character *self, EnemyState state)
 {
-    EnemySetState(self, state);
-    setAnimation(self, ANIMATION_LOOKUP[state]);
+    self->state = (uint16_t) state;
+    self->stateTime = 0;
+    self->move = 0;
+
+    setAnimation(self, self->animationLookup[state]);
 }
 
 static inline void chase(Character *self)
@@ -29,7 +24,7 @@ static inline void chase(Character *self)
     DEBUG_LOG("Dog: chase");
 
     setState(self, EnemyStateChase);
-    self->move = 3;
+    self->move = self->moveMax;
 }
 
 static inline void stat(Character *self, bool canPatrol = true)
@@ -111,7 +106,7 @@ static inline void patrol(Character *self)
                 DEBUG_LOG("Dog: patrol");
 
                 setState(self, EnemyStatePatrol);
-                self->move = 3;
+                self->move = self->moveMax;
                 EnemySetTargetPos(self, targetPos);
             }
             else
