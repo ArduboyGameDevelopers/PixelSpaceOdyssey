@@ -18,17 +18,9 @@ static inline void setAnimation(Character *self, int index)
     CharacterSetAnimation(self, &CH_DOG_ANIMATIONS[index]);
 }
 
-static inline EnemyState EnemyGetState(Character *self)
-{
-    return (EnemyState) self->state;
-}
-
 static inline void setState(Character *self, EnemyState state)
 {
-    self->state = (uint16_t) state;
-    self->stateTime = 0;
-    self->move = 0;
-    
+    EnemySetState(self, state);
     setAnimation(self, ANIMATION_LOOKUP[state]);
 }
 

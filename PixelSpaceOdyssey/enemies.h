@@ -9,8 +9,6 @@
 #define ENEMY_TYPE_DOG          3
 #define ENEMY_TYPE_COUNT        4
 
-typedef uint16_t EnemyType;
-
 #include "enemy_base.h"
 
 #include "spider_large.h"

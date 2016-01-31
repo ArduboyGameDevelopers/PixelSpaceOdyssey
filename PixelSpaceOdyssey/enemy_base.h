@@ -17,6 +17,21 @@ extern long random(long, long);
 #define EnemyStatePatrol  3
 
 typedef uint16_t EnemyState;
+typedef uint8_t  EnemyType;
+
+/** Returns enemy state */
+inline EnemyState EnemyGetState(Character *self)
+{
+    return (EnemyState) self->state;
+}
+
+/** Sets enemy state */
+inline void EnemySetState(Character *self, EnemyState state)
+{
+    self->state = (uint16_t) state;
+    self->stateTime = 0;
+    self->move = 0;
+}
 
 /** Update function for enemy */
 void EnemyUpdate(Character *character, TimeInterval dt);
