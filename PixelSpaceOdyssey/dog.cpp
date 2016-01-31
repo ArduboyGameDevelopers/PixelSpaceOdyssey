@@ -5,19 +5,19 @@
 
 #include "game.h"
 
-#define DogStateStat    0
-#define DogStateChase   1
-#define DogStateAttack  2
-#define DogStatePatrol  3
+#define EnemyStateStat    0
+#define EnemyStateChase   1
+#define EnemyStateAttack  2
+#define EnemyStatePatrol  3
 
 static const uint8_t ANIMATION_LOOKUP[] = {
-    CH_DOG_ANIMATION_STAT,     /* DogStateStat */
-    CH_DOG_ANIMATION_RUN,      /* DogStateRun */
-    CH_DOG_ANIMATION_ATTACK,   /* DogStateAttack */
-    CH_DOG_ANIMATION_RUN       /* DogStatePatrol */
+    CH_DOG_ANIMATION_STAT,     /* EnemyStateStat */
+    CH_DOG_ANIMATION_RUN,      /* EnemyStateRun */
+    CH_DOG_ANIMATION_ATTACK,   /* EnemyStateAttack */
+    CH_DOG_ANIMATION_RUN       /* EnemyStatePatrol */
 };
 
-typedef uint16_t DogState;
+typedef uint16_t EnemyState;
 
 static inline void setAnimation(Character *self, int index)
 {
@@ -25,12 +25,12 @@ static inline void setAnimation(Character *self, int index)
     CharacterSetAnimation(self, &CH_DOG_ANIMATIONS[index]);
 }
 
-static inline DogState getState(Character *self)
+static inline EnemyState getState(Character *self)
 {
-    return (DogState) self->state;
+    return (EnemyState) self->state;
 }
 
-static inline void setState(Character *self, DogState state)
+static inline void setState(Character *self, EnemyState state)
 {
     self->state = (uint16_t) state;
     self->stateTime = 0;
@@ -43,7 +43,7 @@ static inline void chase(Character *self)
 {
     DEBUG_LOG("Dog: chase");
 
-    setState(self, DogStateChase);
+    setState(self, EnemyStateChase);
     self->move = 3;
 }
 
@@ -51,7 +51,7 @@ static inline void stat(Character *self, bool canPatrol = true)
 {
     DEBUG_LOG("Dog: stat");
 
-    setState(self, DogStateStat);
+    setState(self, EnemyStateStat);
     self->stateTime = canPatrol ? random(1500, 3000) : 0;
 }
 
@@ -60,7 +60,7 @@ static inline void attack(Character *self)
     DEBUG_LOG("Dog: attack");
 
     EnemyAttack(self);
-    setState(self, DogStateAttack);
+    setState(self, EnemyStateAttack);
 }
 
 static inline void patrol(Character *self)
@@ -81,7 +81,7 @@ static inline void patrol(Character *self)
             {
                 DEBUG_LOG("Dog: return to base");
 
-                setState(self, DogStatePatrol);
+                setState(self, EnemyStatePatrol);
                 EnemySetTargetPos(self, self->basePos); // return to the spawn point
                 self->move = 3;
             }
@@ -125,7 +125,7 @@ static inline void patrol(Character *self)
             {
                 DEBUG_LOG("Dog: patrol");
 
-                setState(self, DogStatePatrol);
+                setState(self, EnemyStatePatrol);
                 self->move = 3;
                 EnemySetTargetPos(self, targetPos);
             }
@@ -156,10 +156,10 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
     {
         case CHARACTER_CALLBACK_ANIMATION_FINISHED:
         {
-            DogState state = getState(self);
+            EnemyState state = getState(self);
             switch (state)
             {
-                case DogStateAttack:
+                case EnemyStateAttack:
                     stat(self);
                     break;
             }
@@ -168,10 +168,10 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
             
         case CHARACTER_CALLBACK_REACHED_TARGET:
         {
-            DogState state = getState(self);
+            EnemyState state = getState(self);
             switch (state)
             {
-                case DogStateChase:
+                case EnemyStateChase:
                 {
                     if (self->canSeePlayer &&
                         EnemyIsCloseToAttack(self) &&
@@ -186,7 +186,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
                     break;
                 }
                     
-                case DogStatePatrol:
+                case EnemyStatePatrol:
                 {
                     stat(self);
                     break;
@@ -197,10 +197,10 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
         
         case CHARACTER_CALLBACK_OBSTACLE:
         {
-            DogState state = getState(self);
+            EnemyState state = getState(self);
             switch (state)
             {
-                case DogStateChase:
+                case EnemyStateChase:
                     stat(self);
                     break;
             }
@@ -211,12 +211,12 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
 
 void EnemyBehaviourDog(Character *self, TimeInterval dt)
 {
-    DogState state = getState(self);
+    EnemyState state = getState(self);
     switch (state)
     {
-        case DogStateStat:
-        case DogStatePatrol:
-        case DogStateChase:
+        case EnemyStateStat:
+        case EnemyStatePatrol:
+        case EnemyStateChase:
         {
             // update last seen pos
             EnemyUpdatePlayerPos(self);
@@ -246,13 +246,13 @@ void EnemyBehaviourDog(Character *self, TimeInterval dt)
                     EnemySetTargetPos(self, distance > 0 ? self->lastPlayerX - minDistance : self->lastPlayerX + minDistance);
 
                     // if not chasing already - start chasing
-                    if (state != DogStateChase)
+                    if (state != EnemyStateChase)
                     {
                         chase(self);
                     }
                 }
             }
-            else if (state == DogStateStat) // stay there and can't see the player - wait until enemy can patrol again
+            else if (state == EnemyStateStat) // stay there and can't see the player - wait until enemy can patrol again
             {
                 if (self->stateTime > dt)
                 {
