@@ -49,6 +49,7 @@ enum CharacterPatrollingType {
 
 typedef struct _Character
 {
+    CharacterInit init;
     CharacterBehaviour behaviour;
     CharacterCallback callback;
 

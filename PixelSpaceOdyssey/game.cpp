@@ -587,6 +587,7 @@ void addEnemy(const Character &enemy, int16_t x, int16_t y)
     enemies[enemiesCount].hasTarget = false;
     enemies[enemiesCount].basePos = x;
     UpdateConstraints(&enemies[enemiesCount]);
+    enemies[enemiesCount].init(&enemies[enemiesCount]);
     ++enemiesCount;
 }
 

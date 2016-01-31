@@ -22,11 +22,11 @@ inline Character EnemyMakeBearCharacter()
     Character bear = CharacterMake(S2W(CH_BEAR_WIDTH), S2W(CH_BEAR_HEIGHT));
     bear.animations = CH_BEAR_ANIMATIONS;
     bear.animationLookup = CH_BEAR_ANIMATION_LOOKUP;
+    bear.init = EnemyDefaultInit;
     bear.behaviour = EnemyBehaviourBear;
     bear.callback = EnemyCallbackBear;
     bear.sightDistanceForward  = 10 * TILE_WIDTH;
     bear.sightDistanceBackward = 4 * TILE_WIDTH;
-    EnemyDefaultInit(&bear);
     return bear;
 }
 

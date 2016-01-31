@@ -23,10 +23,10 @@ inline Character EnemyMakeDog()
     dog.animationLookup = CH_DOG_ANIMATION_LOOKUP;
     dog.sightDistanceForward  = 16 * TILE_WIDTH;
     dog.sightDistanceBackward = 16 * TILE_WIDTH;
+    dog.init = EnemyDefaultInit;
     dog.behaviour = EnemyDefaultBehaviour;
     dog.callback = EnemyDefaultCallback;
     dog.moveMax = 3;
-    EnemyDefaultInit(&dog);
     return dog;
 }
 

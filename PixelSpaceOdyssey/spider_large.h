@@ -23,11 +23,11 @@ inline Character EnemyMakeSpiderLarge()
     Character spider = CharacterMake(S2W(CH_SPIDER_LARGE_WIDTH), S2W(CH_SPIDER_LARGE_HEIGHT));
     spider.animations = CH_SPIDER_LARGE_ANIMATIONS;
     spider.animationLookup = CH_SPIDER_LARGE_ANIMATION_LOOKUP;
+    spider.init = EnemyInitSpiderLarge;
     spider.behaviour = EnemyBehaviourSpiderLarge;
     spider.callback = EnemyCallbackSpiderLarge;
     spider.sightDistanceForward = 10 * TILE_WIDTH;
     spider.sightDistanceBackward = 4 * TILE_WIDTH;
-    EnemyInitSpiderLarge(&spider);
     return spider;
 }
 
