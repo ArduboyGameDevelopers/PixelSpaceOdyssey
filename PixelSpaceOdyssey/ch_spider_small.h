@@ -1,0 +1,4 @@
+#ifndef CH_SPIDER_SMALL_H
+#define CH_SPIDER_SMALL_H
+
+#endif // CH_SPIDER_SMALL_H

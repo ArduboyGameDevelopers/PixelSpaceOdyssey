@@ -12,6 +12,7 @@
 #include "enemy_base.h"
 
 #include "ch_spider_large.h"
+#include "ch_spider_small.h"
 #include "ch_dog.h"
 #include "ch_bear.h"
 

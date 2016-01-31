@@ -13,6 +13,7 @@ SOURCES += $${PROJ_PATH}/ch_bear.cpp \
     $${PROJ_PATH}/ch_hero_animations.cpp \
     $${PROJ_PATH}/ch_spider_large.cpp \
     $${PROJ_PATH}/ch_spider_large_animations.cpp \
+    $${PROJ_PATH}/ch_spider_small.cpp \
     $${PROJ_PATH}/ch_spider_small_animations.cpp \
     $${PROJ_PATH}/character.cpp \
     $${PROJ_PATH}/dispatch.cpp \
@@ -34,6 +35,7 @@ HEADERS  += $${PROJ_PATH}/animation.h \
     $${PROJ_PATH}/ch_hero_animations.h \
     $${PROJ_PATH}/ch_spider_large.h \
     $${PROJ_PATH}/ch_spider_large_animations.h \
+    $${PROJ_PATH}/ch_spider_small.h \
     $${PROJ_PATH}/ch_spider_small_animations.h \
     $${PROJ_PATH}/character.h \
     $${PROJ_PATH}/common.h \
