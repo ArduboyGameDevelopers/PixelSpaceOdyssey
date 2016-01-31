@@ -121,6 +121,13 @@ void EnemyDefaultCallback(Character *self, CharacterCallbackType type, int16_t, 
                 case EnemyStatePatrol:
                 {
                     EnemyStat(self);
+
+                    if (self->targetPos == self->basePos &&
+                        self->patrollingType == CharacterPatrollingTypeReturnToBase)
+                    {
+                        self->dir = -self->dir; // look back at the last player's pos
+                    }
+
                     break;
                 }
             }
