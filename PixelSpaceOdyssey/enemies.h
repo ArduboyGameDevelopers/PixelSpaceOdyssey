@@ -11,9 +11,9 @@
 
 #include "enemy_base.h"
 
-#include "spider_large.h"
-#include "dog.h"
-#include "bear.h"
+#include "ch_spider_large.h"
+#include "ch_dog.h"
+#include "ch_bear.h"
 
 #endif // ENEMIES
 

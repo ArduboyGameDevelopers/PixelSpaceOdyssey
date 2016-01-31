@@ -1,4 +1,4 @@
-#include "bear.h"
+#include "ch_bear.h"
 #include "enemy_base.h"
 #include "game.h"
 

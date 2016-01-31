@@ -1,4 +1,4 @@
-#include "spider_large.h"
+#include "ch_spider_large.h"
 
 #include "animation.h"
 #include "ch_spider_large_animations.h"
