@@ -65,6 +65,132 @@ void EnemyUpdate(Character* self, TimeInterval dt)
 }
 
 #pragma mark -
+#pragma mark States
+
+void EnemyAttackBaseBase(Character *self)
+{
+    self->lastAttackTimestamp = millis();
+    playerDamage(self);
+}
+
+void EnemySetTargetPos(Character *self, int16_t target)
+{
+    self->targetPos = target;
+    self->hasTarget = true;
+}
+
+void EnemySetState(Character *self, EnemyState state)
+{
+    self->state = (uint16_t) state;
+    self->stateTime = 0;
+    self->move = 0;
+
+    int8_t index = self->animationLookup[state];
+    CharacterSetAnimation(self, &self->animations[index]);
+}
+
+void EnemyChase(Character *self)
+{
+    DEBUG_LOG("Enemy: chase");
+
+    EnemySetState(self, EnemyStateChase);
+    self->move = self->moveMax;
+}
+
+void EnemyStat(Character *self, bool canPatrol)
+{
+    DEBUG_LOG("Enemy: stat");
+
+    EnemySetState(self, EnemyStateStat);
+    self->stateTime = canPatrol ? random(1500, 3000) : 0;
+}
+
+void EnemyAttack(Character *self)
+{
+    DEBUG_LOG("Enemy: attack");
+
+    self->lastAttackTimestamp = millis();
+    playerDamage(self);
+
+    EnemySetState(self, EnemyStateAttack);
+}
+
+void EnemyPatrol(Character *self)
+{
+    switch (self->patrollingType)
+    {
+        case CharacterPatrollingTypeNone: // don't patrol: stay your ground
+        {
+            DEBUG_LOG("Enemy: don't patrol. Stay your ground");
+
+            EnemyStat(self);
+            break;
+        }
+
+        case CharacterPatrollingTypeReturnToBase:
+        {
+            if (self->targetPos != self->basePos)
+            {
+                DEBUG_LOG("Enemy: return to base");
+
+                EnemySetState(self, EnemyStatePatrol);
+                EnemySetTargetPos(self, self->basePos); // return to the spawn point
+                self->move = 3;
+            }
+            else
+            {
+                DEBUG_LOG("Enemy: already at the base");
+            }
+            break;
+        }
+
+        default:
+        {
+            int16_t targetPos = self->targetPos;
+
+            if (self->dir == DIR_LEFT)
+            {
+                if (EnemyCanMoveLeft(self))
+                {
+                    targetPos = self->moveMinX;
+                }
+                else if (EnemyCanMoveRight(self))
+                {
+                    self->dir = DIR_RIGHT;
+                    targetPos = self->moveMaxX;
+                }
+            }
+            else if (self->dir == DIR_RIGHT)
+            {
+                if (EnemyCanMoveRight(self))
+                {
+                    targetPos = self->moveMaxX;
+                }
+                else if (EnemyCanMoveLeft(self))
+                {
+                    self->dir = DIR_LEFT;
+                    targetPos = self->moveMinX;
+                }
+            }
+
+            if (self->targetPos != targetPos)
+            {
+                DEBUG_LOG("Enemy: patrol");
+
+                EnemySetState(self, EnemyStatePatrol);
+                self->move = self->moveMax;
+                EnemySetTargetPos(self, targetPos);
+            }
+            else
+            {
+                DEBUG_LOG("Enemy: can't patrol");
+            }
+            break;
+        }
+    }
+}
+
+#pragma mark -
 #pragma mark Constraints
 
 void UpdateConstraints(Character *character)

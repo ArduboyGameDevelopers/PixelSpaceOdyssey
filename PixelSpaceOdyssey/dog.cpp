@@ -5,120 +5,7 @@
 
 #include "game.h"
 
-static inline void setAnimation(Character *self, int index)
-{
-    CharacterSetAnimation(self, &self->animations[index]);
-}
 
-static inline void EnemySetState(Character *self, EnemyState state)
-{
-    self->state = (uint16_t) state;
-    self->stateTime = 0;
-    self->move = 0;
-
-    setAnimation(self, self->animationLookup[state]);
-}
-
-static inline void EnemyChase(Character *self)
-{
-    DEBUG_LOG("Dog: chase");
-
-    EnemySetState(self, EnemyStateChase);
-    self->move = self->moveMax;
-}
-
-static inline void EnemyStat(Character *self, bool canPatrol = true)
-{
-    DEBUG_LOG("Dog: stat");
-
-    EnemySetState(self, EnemyStateStat);
-    self->stateTime = canPatrol ? random(1500, 3000) : 0;
-}
-
-static inline void attack(Character *self)
-{
-    DEBUG_LOG("Dog: attack");
-
-    self->lastAttackTimestamp = millis();
-    playerDamage(self);
-
-    EnemySetState(self, EnemyStateAttack);
-}
-
-static inline void EnemyPatrol(Character *self)
-{
-    switch (self->patrollingType)
-    {
-        case CharacterPatrollingTypeNone: // don't patrol: stay your ground
-        {
-            DEBUG_LOG("Dog: don't patrol. Stay your ground");
-
-            EnemyStat(self);
-            break;
-        }
-            
-        case CharacterPatrollingTypeReturnToBase:
-        {
-            if (self->targetPos != self->basePos)
-            {
-                DEBUG_LOG("Dog: return to base");
-
-                EnemySetState(self, EnemyStatePatrol);
-                EnemySetTargetPos(self, self->basePos); // return to the spawn point
-                self->move = 3;
-            }
-            else
-            {
-                DEBUG_LOG("Dog: already at the base");
-            }
-            break;
-        }
-            
-        default:
-        {
-            int16_t targetPos = self->targetPos;
-
-            if (self->dir == DIR_LEFT)
-            {
-                if (EnemyCanMoveLeft(self))
-                {
-                    targetPos = self->moveMinX;
-                }
-                else if (EnemyCanMoveRight(self))
-                {
-                    self->dir = DIR_RIGHT;
-                    targetPos = self->moveMaxX;
-                }
-            }
-            else if (self->dir == DIR_RIGHT)
-            {
-                if (EnemyCanMoveRight(self))
-                {
-                    targetPos = self->moveMaxX;
-                }
-                else if (EnemyCanMoveLeft(self))
-                {
-                    self->dir = DIR_LEFT;
-                    targetPos = self->moveMinX;
-                }
-            }
-
-            if (self->targetPos != targetPos)
-            {
-                DEBUG_LOG("Dog: patrol");
-
-                EnemySetState(self, EnemyStatePatrol);
-                self->move = self->moveMax;
-                EnemySetTargetPos(self, targetPos);
-            }
-            else
-            {
-                DEBUG_LOG("Dog: can't patrol");
-            }
-            break;
-        }
-    }
-}
 
 void EnemyInitDog(Character *self)
 {
@@ -159,7 +46,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
                         EnemyIsCloseToAttack(self) &&
                         EnemyCanAttack(self))
                     {
-                        attack(self);
+                        EnemyAttack(self);
                     }
                     else
                     {
@@ -213,7 +100,7 @@ void EnemyBehaviourDog(Character *self, TimeInterval dt)
                 {
                     if (EnemyCanAttack(self))
                     {
-                        attack(self);
+                        EnemyAttack(self);
                     }
                     else if (CharacterIsMoving(self))
                     {

@@ -25,6 +25,9 @@ inline EnemyState EnemyGetState(Character *self)
     return (EnemyState) self->state;
 }
 
+/** Sets enemy state */
+void EnemySetState(Character *self, EnemyState state);
+
 /** Update function for enemy */
 void EnemyUpdate(Character *character, TimeInterval dt);
 
@@ -77,18 +80,22 @@ inline bool EnemyIsCloseToAttack(const Character *self)
 }
 
 /** Initiates an attack to the player */
-inline void EnemyAttackBaseBase(Character *self)
-{
-    self->lastAttackTimestamp = millis();
-    playerDamage(self);
-}
+void EnemyAttackBaseBase(Character *self);
 
 /** Set enemy's target position */
-inline void EnemySetTargetPos(Character *self, int16_t target)
-{
-    self->targetPos = target;
-    self->hasTarget = true;
-}
+void EnemySetTargetPos(Character *self, int16_t target);
+
+/** Start chasing player */
+void EnemyChase(Character *self);
+
+/** Start static position */
+void EnemyStat(Character *self, bool canPatrol = true);
+
+/** Attack player */
+void EnemyAttack(Character *self);
+
+/** Start patrolling */
+void EnemyPatrol(Character *self);
 
 #endif // ENEMY_BASE
 
