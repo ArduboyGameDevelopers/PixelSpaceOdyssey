@@ -8,6 +8,8 @@
 
 // #include "Arduboy.h" - fails to compile on windows
 extern unsigned long millis(void);
+extern long random(long);
+extern long random(long, long);
 
 void EnemyUpdate(Character *character, TimeInterval dt);
 void UpdateConstraints(Character *character);
@@ -40,15 +42,28 @@ inline bool EnemyCanMove(const Character *self)
            (self->dir == DIR_RIGHT && EnemyCanMoveRight(self));
 }
 
+/// Time elasped since last attack is enough for a new attack
 inline bool EnemyCanAttack(const Character *self)
 {
     return millis() - self->lastAttackTimestamp > ENEMY_ATTACK_DELAY;
+}
+
+/// Enemy is close enought to the last player's position to attack
+inline bool EnemyIsCloseToAttack(const Character *self)
+{
+    return ABS(self->lastPlayerX - self->x) <= DIV2(self->width + player.width);
 }
 
 inline void EnemyAttack(Character *self)
 {
     self->lastAttackTimestamp = millis();
     playerDamage(self);
+}
+
+inline void EnemySetTargetPos(Character *self, int16_t target)
+{
+    self->targetPos = target;
+    self->hasTarget = true;
 }
 
 #endif // ENEMY_BASE

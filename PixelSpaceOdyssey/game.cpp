@@ -117,11 +117,6 @@ inline static bool isPlayerShocked()
     return playerDamageTime >= PLAYER_SHOCK_TIME;
 }
 
-inline static bool isPlayerDead()
-{
-    return playerHealth == 0;
-}
-
 void playerDie()
 {
     assert(playerHealth == 0);
@@ -589,7 +584,8 @@ void addEnemy(const Character &enemy, int16_t x, int16_t y)
     enemies[enemiesCount] = enemy;
     enemies[enemiesCount].x = x;
     enemies[enemiesCount].y = y;
-    enemies[enemiesCount].targetPos = x;
+    enemies[enemiesCount].hasTarget = false;
+    enemies[enemiesCount].basePos = x;
     UpdateConstraints(&enemies[enemiesCount]);
     ++enemiesCount;
 }

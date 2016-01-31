@@ -2,13 +2,17 @@
 
 #include "game.h"
 
-inline static void EnemyReachedObstacle(Character *character)
+inline static void EnemyReachedObstacle(Character *self)
 {
-    CharacterCallbackInvoke(character, CHARACTER_CALLBACK_OBSTACLE);
+    self->move = 0;             // stop moving
+    self->hasTarget = false;    // reach the target
+    CharacterCallbackInvoke(self, CHARACTER_CALLBACK_OBSTACLE);
 }
 
 inline static void EnemyReachedTarget(Character *self)
 {
+    self->move = 0;             // stop moving
+    self->hasTarget = false;    // reach the target
     CharacterCallbackInvoke(self, CHARACTER_CALLBACK_REACHED_TARGET);
 }
 
@@ -22,34 +26,37 @@ void EnemyUpdate(Character* self, TimeInterval dt)
     }
     
     // move to target
-    int16_t distance = self->targetPos - self->x;
-    if (distance != 0 && CharacterIsMoving(self))
+    if (self->hasTarget)
     {
-        int16_t offset = self->move * WALK_SPEED; // TODO: use time interval
-        self->dir = distance > 0 ? DIR_RIGHT : DIR_LEFT;
-        
-        if (offset < abs(distance))
+        int16_t distance = self->targetPos - self->x;
+        if (CharacterIsMoving(self))
         {
-            self->x += self->dir * offset;
-        }
-        else
-        {
-            self->x += distance;
-        }
-        
-        if (self->dir == DIR_LEFT && self->x < self->moveMinX)
-        {
-            self->x = self->moveMinX;
-            EnemyReachedObstacle(self);
-        }
-        else if (self->dir == DIR_RIGHT && self->x > self->moveMaxX)
-        {
-            self->x = self->moveMaxX;
-            EnemyReachedObstacle(self);
-        }
-        else if (self->x == self->targetPos)
-        {
-            EnemyReachedTarget(self);
+            int16_t offset = self->move * WALK_SPEED;       // FIXME: use time interval
+            self->dir = distance > 0 ? DIR_RIGHT : DIR_LEFT;
+
+            if (offset < abs(distance))
+            {
+                self->x += self->dir * offset;
+            }
+            else
+            {
+                self->x += distance;
+            }
+
+            if (self->dir == DIR_LEFT && self->x < self->moveMinX)
+            {
+                self->x = self->moveMinX;   // fix the position
+                EnemyReachedObstacle(self);
+            }
+            else if (self->dir == DIR_RIGHT && self->x > self->moveMaxX)
+            {
+                self->x = self->moveMaxX;   // fix the position
+                EnemyReachedObstacle(self);
+            }
+            else if (self->x == self->targetPos)
+            {
+                EnemyReachedTarget(self);
+            }
         }
     }
     

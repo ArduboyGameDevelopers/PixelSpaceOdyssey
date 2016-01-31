@@ -235,10 +235,17 @@ void Level::setCurrent(Level *level)
                 enemy = EnemyMakeSpiderLarge();
                 break;
             }
+            default:
+            {
+                break;
+            }
         }
         
         enemy.dir = enemyInfo->direction();
         enemy.id = enemyInfo->id();
+        enemy.initialState = enemyInfo->initialState();
+        enemy.patrollingType = enemyInfo->patrollingType();
+        
         ::addEnemy(enemy, S2W(enemyInfo->x()), S2W(enemyInfo->y()));
     }
     

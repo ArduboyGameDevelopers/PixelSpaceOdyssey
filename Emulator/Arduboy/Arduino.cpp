@@ -6,6 +6,8 @@
 //  Copyright © 2015 Space Madness. All rights reserved.
 //
 
+#include <stdlib.h>
+
 #include "platform.h"
 #include "Arduino.h"
 
@@ -17,4 +19,26 @@ unsigned long millis(void)
 void delay(unsigned long millis)
 {
     platformDelay(millis);
+}
+
+long random(long howbig)
+{
+    if ( howbig == 0 )
+    {
+        return 0 ;
+    }
+    
+    return rand() % howbig;
+}
+
+long random(long howsmall, long howbig)
+{
+    if (howsmall >= howbig)
+    {
+        return howsmall;
+    }
+    
+    long diff = howbig - howsmall;
+    
+    return random(diff) + howsmall;
 }

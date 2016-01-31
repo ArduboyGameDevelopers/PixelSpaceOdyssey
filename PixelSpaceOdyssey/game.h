@@ -52,7 +52,7 @@ inline bool EnemyCanSeeCharacter(const Character *enemy)
 
 inline void EnemyUpdatePlayerPos(Character *self)
 {
-    bool canSeePlayer = EnemyCanSeeCharacter(self);
+    bool canSeePlayer = EnemyCanSeeCharacter(self) && !isPlayerDead();
     self->canSeePlayer = canSeePlayer;
     if (canSeePlayer)
     {

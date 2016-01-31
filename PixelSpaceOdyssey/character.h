@@ -35,9 +35,9 @@ typedef void (*CharacterBehaviour)(Character *character, TimeInterval dt);
 
 enum CharacterInitialState {
     CharacterInitialStateUndefined,
-    CharacterInitialStateStat,   // stay still until it see the player
-    CharacterInitialStateSleep,  // sleep until player wake is up
-    CharacterInitialStatePatrol, // patroling the area
+    CharacterInitialStateStat,          // stay still until it see the player
+    CharacterInitialStateSleep,         // sleep until player wake is up
+    CharacterInitialStatePatrol,        // patroling the area
 };
 
 enum CharacterPatrollingType {
@@ -67,6 +67,7 @@ typedef struct _Character
     int16_t y;
     int16_t lastPlayerX;
     int16_t targetPos; // a target pos for a non-player character
+    int16_t basePos;   // a 'base' pos for a non-player character (spawn point)
     int16_t moveMinX;
     int16_t moveMaxX;
     int16_t sightMinX;
@@ -77,6 +78,10 @@ typedef struct _Character
     uint8_t frame;
     boolean animationEnded;
     boolean canSeePlayer;
+    boolean hasTarget;
+
+    CharacterInitialState initialState;
+    CharacterPatrollingType patrollingType;
     
     #if EMULATOR
     uint16_t id;

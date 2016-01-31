@@ -17,5 +17,10 @@ extern int16_t playerLastSeenY;
 void playerDamage(Character *enemy);
 void playerDie();
 
+inline bool isPlayerDead()
+{
+    return playerHealth == 0;
+}
+
 #endif // PLAYER
 

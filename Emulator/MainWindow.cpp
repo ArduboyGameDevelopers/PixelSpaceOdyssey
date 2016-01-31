@@ -195,7 +195,10 @@ void MainWindow::loadTiles()
     QDir tilesDir("Tiles");
     if (!tilesDir.exists())
     {
-        QMessageBox::critical(NULL, "Error", "Can't find 'Tiles' directory");
+        const QString message = QString("Can't find 'Tiles' directory: %1").arg(tilesDir.absolutePath());
+        QMessageBox::critical(NULL, "Error", message);
+        QApplication::quit();
+        return;
     }
     
     QComboBox *tilesComboBox = _ui->tilesComboBox;
