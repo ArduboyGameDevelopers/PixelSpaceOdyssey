@@ -18,7 +18,7 @@ static inline void setAnimation(Character *self, int index)
     CharacterSetAnimation(self, &CH_DOG_ANIMATIONS[index]);
 }
 
-static inline EnemyState getState(Character *self)
+static inline EnemyState EnemyGetState(Character *self)
 {
     return (EnemyState) self->state;
 }
@@ -149,7 +149,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
     {
         case CHARACTER_CALLBACK_ANIMATION_FINISHED:
         {
-            EnemyState state = getState(self);
+            EnemyState state = EnemyGetState(self);
             switch (state)
             {
                 case EnemyStateAttack:
@@ -161,7 +161,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
             
         case CHARACTER_CALLBACK_REACHED_TARGET:
         {
-            EnemyState state = getState(self);
+            EnemyState state = EnemyGetState(self);
             switch (state)
             {
                 case EnemyStateChase:
@@ -190,7 +190,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
         
         case CHARACTER_CALLBACK_OBSTACLE:
         {
-            EnemyState state = getState(self);
+            EnemyState state = EnemyGetState(self);
             switch (state)
             {
                 case EnemyStateChase:
@@ -204,7 +204,7 @@ void EnemyCallbackDog(Character *self, CharacterCallbackType type, int16_t, int1
 
 void EnemyBehaviourDog(Character *self, TimeInterval dt)
 {
-    EnemyState state = getState(self);
+    EnemyState state = EnemyGetState(self);
     switch (state)
     {
         case EnemyStateStat:
