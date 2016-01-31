@@ -59,26 +59,7 @@ void EnemyUpdate(Character* self, TimeInterval dt)
             }
         }
     }
-    
-//    // update movement
-//    int8_t move = self->move;
-//    if (move != 0)
-//    {
-//        self->x += self->dir * self->move * WALK_SPEED;
-//        
-//        Direction dir = self->dir;
-//        if (dir == DIR_LEFT && !EnemyCanMoveLeft(self))
-//        {
-//            CharacterSetLeft(self, self->moveMinX);
-//            handleObstacle(self);
-//        }
-//        else if (dir == DIR_RIGHT && !EnemyCanMoveRight(self))
-//        {
-//            CharacterSetRight(self, self->moveMaxX);
-//            handleObstacle(self);
-//        }
-//    }
-    
+
     // update character
     CharacterUpdate(self, dt);
 }
