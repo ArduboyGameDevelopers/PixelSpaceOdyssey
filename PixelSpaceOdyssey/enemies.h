@@ -17,4 +17,3 @@
 #include "ch_bear.h"
 
 #endif // ENEMIES
-

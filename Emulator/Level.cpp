@@ -228,6 +228,7 @@ void Level::setCurrent(Level *level)
             }
             case CharacterTypeSpiderSmall:
             {
+                enemy = EnemyMakeSpiderSmall();
                 break;
             }
             case CharacterTypeSpiderLarge:

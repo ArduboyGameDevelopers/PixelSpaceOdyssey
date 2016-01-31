@@ -84,6 +84,10 @@ task :generate_xcode_proj => :init do
   FileUtils.mkpath dir_debug unless File.directory? dir_debug
 
   FileUtils.cp_r "#{$dir_emu}/Tiles", "#{dir_debug}/"
+
+  file_proj = resolve_path "#{dir_output}/Emulator.xcodeproj"
+  exec_shell %(open "#{file_proj}"), "Can't open Xcode project"
+
 end
 
 desc 'Build the app'
