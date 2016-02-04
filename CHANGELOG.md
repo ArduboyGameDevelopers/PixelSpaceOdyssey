@@ -1,5 +1,9 @@
 # Pixel Space Odyssey Changelog
 
+## v.1.6.8 - 02/3/2016
+
+* Player dies when falling off the map
+
 ## v.1.6.7 - 01/31/2016
 
 * Configurable enemy AI
