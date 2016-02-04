@@ -391,6 +391,15 @@ inline static void playerUpdate(TimeInterval dt)
                     }
                 }
             }
+            else if (PLAYER_TOP > TILEMAP_GET_HEIGHT(tileMap))
+            {
+                if (isPlayerDead())
+                {
+                    playerDie();
+                }
+                
+                return;
+            }
         }
         else
         {
