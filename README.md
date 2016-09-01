@@ -1,7 +1,10 @@
-# Pixel Space Odyssey for Arduboy
+# Pixel Space Odyssey
 
-A fun project for Arduboy. Level editor built with QT.
-
+A fun project for [Arduboy](https://www.arduboy.com/). Level editor built with [Qt](https://www.qt.io/).  
+  
+Art: Gregos Thomas  
+Code: Alex Lementuev  
+  
 [Youtube Playlist](https://www.youtube.com/playlist?list=PLaMN-JyH50OZ80KdFqzF2UmBESAi0MEBq):
 - [Spider Lair Test](https://www.youtube.com/watch?v=AOv3ryCd064&list=PLaMN-JyH50OZ80KdFqzF2UmBESAi0MEBq&index=1)
 - [Super Fun Slide](https://www.youtube.com/watch?v=w3wtcscAtE4&list=PLaMN-JyH50OZ80KdFqzF2UmBESAi0MEBq&index=2)
